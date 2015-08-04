@@ -200,7 +200,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 }
 
 /* tabs style begin*/
-.tab-title{ font-family:'свт╡' ; font-weight: normal; font-size: 0.875rem;}
+.tab-title{ font-family:'свт╡' ; font-weight: normal; font-size: 0.75rem;}
 .icon-menu-active{
 	background: url(../img/ionic/icon-menu-active.png) center center no-repeat;
 	background-size: 20.75px;
