@@ -2,16 +2,17 @@
 angular.module('starter.controllers', [])
 
 .constant('ApiEndpoint', {
-  url: 'http://www.parsec.com.cn/Cetus'
+  url: 'http://192.168.65.163:8080/Cetus',
+  pic_url:'http://192.168.65.163:8080/Cetus/pic'
 })
 
 .constant('HelpData', {
   arr: []
 })
 
-.controller('IndexCtrl', function($scope, $http, ApiEndpoint) {
+.controller('IndexCtrl', function($scope, $http, ApiEndpoint,Userinfo) {
   $scope.banner = [];
-  $http.post(ApiEndpoint.url + '/api_home_page?userId=').success(function(data) {
+  $http.post(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
     if (data.state == 'success') {
     	$scope.banner = data.activityList;
     }
@@ -33,10 +34,11 @@ angular.module('starter.controllers', [])
 })
 
 .controller('UserCtrl', function($scope, $state, $ionicModal, $timeout, $ionicPopup, $ionicPopover, $http, ApiEndpoint, Userinfo, $ionicLoading, $cordovaActionSheet, $cordovaImagePicker, $cordovaFileTransfer, $cordovaCamera, $cordovaAppVersion, $stateParams) {
+  //window.localStorage.clear();
   $scope.flag = Userinfo.l.flag;
   $scope.params = Userinfo.l;
   $scope.sign = Userinfo.l.today_signed;
-  $scope.avaImg = Userinfo.l.avatar_url ? Userinfo.l.avatar_url : 'img/default-ava.png';
+  $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
   $scope.searchData = {};
   $scope.goodsPage = 1;
   $scope.goods_load_over = true;
@@ -62,7 +64,7 @@ angular.module('starter.controllers', [])
         Userinfo.save(data.user_info);
         $scope.flag = 1;
         $scope.sign = Userinfo.l.today_signed;
-        $scope.avaImg = Userinfo.l.avatar_url ? Userinfo.l.avatar_url : 'img/default-ava.png';
+        $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
         $scope.unreadMsg = Userinfo.l.unread_msg_count == '0' ? '0' : Userinfo.l.unread_msg_count;
         $scope.$broadcast("scroll.refreshComplete");
       })
@@ -75,7 +77,7 @@ angular.module('starter.controllers', [])
 
   $scope.loadGoods = function() {//加载更多商品
     $timeout(function() {
-      $http.post(ApiEndpoint.url + '/api_home_page?userId=').success(function(data) {
+      $http.post(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
         if (data.state == 'success') {
         	$scope.products = data.productList;
         	$scope.InvitationName = data.InvitationName;
@@ -234,20 +236,22 @@ angular.module('starter.controllers', [])
     $ionicLoading.show({
       template: "正在登录..."
     });
-    $http.post(ApiEndpoint.url + '/User/Login?_ajax_=1', {
-      user: $scope.loginData.username,
-      password: $scope.loginData.password
-    }).success(function(data) {
+    $http.post(ApiEndpoint.url + '/api_user_login?json='+JSON.stringify({
+    	loginName: $scope.loginData.username,
+    	pwd: $scope.loginData.password
+    })).success(function(data) {
       $ionicLoading.hide();
-      if (data.error != 0) {
-        $scope.showMsg(data.info);
+      if (data.state!= 'success') {
+        $scope.showMsg(data.msg);
       } else {
-        Userinfo.save(data.user_info);
+        Userinfo.save(data.obj);
         Userinfo.add('flag', 1);
         $scope.sign = Userinfo.l.today_signed;
-        $scope.avaImg = Userinfo.l.avatar_url ? Userinfo.l.avatar_url : 'img/default-ava.png';
+        $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+        $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
         $scope.flag = 1;
         $scope.closeLogin();
+        $scope.loadGoods();
       }
     });
 
@@ -396,16 +400,16 @@ angular.module('starter.controllers', [])
   };
   $scope.doRegister = function() {
     var reg = /^1\d{10}$/;
-    if (!$scope.registerData.username) {
-      $scope.showMsg('用户名不能为空');
-      return false;
-    };
     if (!$scope.registerData.phone) {
       $scope.showMsg('手机号不能为空');
       return false;
     } else if (!reg.test($scope.registerData.phone)) {
       $scope.showMsg('手机号格式错误');
       return false;
+    };
+    if (!$scope.registerData.username) {
+    	$scope.showMsg('用户名不能为空');
+    	return false;
     };
     if (!$scope.registerData.password || !$scope.registerData.repassword) {
       $scope.showMsg('密码不能为空');
@@ -417,33 +421,30 @@ angular.module('starter.controllers', [])
     $ionicLoading.show({
       template: '注册中...'
     });
-    $http.post(ApiEndpoint.url + '/User/Register?_ajax_=1', {
-      user: $scope.registerData.username,
-      mobile: $scope.registerData.phone,
-      password: $scope.registerData.password
-    }).success(function(data) {
+    var u ={
+		userName:$scope.registerData.username,
+		cellPhone:$scope.registerData.phone,
+		pwd:$scope.registerData.password,
+		code:$scope.registerData.invitation,
+		alipay:$scope.registerData.alipayCode
+    }
+    $http.post(ApiEndpoint.url + '/api_user_register?json='+ JSON.stringify(u)).success(function(data) {
       $ionicLoading.hide();
-      $scope.showMsg(data.info);
-      if (data.error == 0) {
-        $http.post(ApiEndpoint.url + '/User/Login?_ajax_=1', {
-          user: $scope.registerData.username,
-          password: $scope.registerData.password
-        }).success(function(data) {
-          if (data.error != 0) {
-            $scope.showMsg(data.info);
-          } else {
-            Userinfo.save(data.user_info);
-            Userinfo.add('flag', 1);
-            $scope.flag = 1;
-            $scope.sign = Userinfo.l.today_signed;
-            $scope.avaImg = Userinfo.l.avatar_url ? Userinfo.l.avatar_url : 'img/default-ava.png';
-            $scope.closeRegister();
-            $scope.closeLogin();
-          }
-        });
+      $scope.showMsg(data.msg);
+      if (data.state== 'success') {
+    	  Userinfo.save(data.obj);
+          Userinfo.add('flag', 1);
+          $scope.flag = 1;
+          $scope.sign = Userinfo.l.today_signed;
+          $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+          $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+          $scope.closeRegister();
+          $scope.closeLogin();
+          $scope.loadGoods();
       }
-    });
+	});
   }
+  $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
 })
 
 
@@ -502,7 +503,7 @@ angular.module('starter.controllers', [])
         Userinfo.save(data.user_info);
         Userinfo.add('flag', 1);
         $scope.sign = Userinfo.l.today_signed;
-        $scope.avaImg = Userinfo.l.avatar_url ? Userinfo.l.avatar_url : 'img/default-ava.png';
+        $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
         $scope.flag = 1;
         $scope.closeLogin();
       }
@@ -567,7 +568,7 @@ angular.module('starter.controllers', [])
             Userinfo.add('flag', 1);
             $scope.flag = 1;
             $scope.sign = Userinfo.l.today_signed;
-            $scope.avaImg = Userinfo.l.avatar_url ? Userinfo.l.avatar_url : 'img/default-ava.png';
+            $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
             $scope.closeRegister();
             $scope.closeLogin();
           }
