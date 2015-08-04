@@ -1,0 +1,45 @@
+<ion-content style="padding-top: 45px">
+  <ion-refresher pulling-text="下拉刷新"	on-refresh="doRefresh()"></ion-refresher>
+  <div id="content">
+    <section>
+      <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true" slide-interval="6000">
+        <ion-slide ng-repeat="b in banner">
+          <div class="box" ng-click="bannerClick('{{b.url}}','{{b.title}}')" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
+        </ion-slide>
+      </ion-slide-box>
+    </section>
+    <section style=" background-color: #F6F3EE;">
+	    <div class="shop-name"><span>{{InvitationName}}</span>的店铺</div>
+	  </section>
+	  <section style=" background-color: #F6F3EE; padding-top: 5px; padding-bottom: 6px; ">
+	  <ul class="productlst">
+	    <li ng-repeat="p in products" ng-click="clickDetail('{{p.id}}','{{p.pcName}}')">
+	      <div class="productlst-img-box" style="background-image:url(http://www.parsec.com.cn/Cetus/pic/{{p.coverUrl}})"></div>
+	      <p class="productlst-p-title">{{p.pcName}}</p>
+	      <div class="productlst-p-price"><div class="col-6 text-left">欧歌价 <span>¥ {{(p.price*discount).toFixed(2)}}</span></div><div class="col-6 text-right">市场价<strike>¥ {{(p.price).toFixed(2)}}</strike></div></div>
+	    </li>
+	  </ul>
+	  </section>
+  </div>
+  <ion-infinite-scroll on-infinite="loadGoods()" ng-if="goods_load_over"></ion-infinite-scroll>
+</ion-content>
+<!-- tabs -->
+<ion-footer-bar align-title="left" class="bar-assertive" style="padding: 0">
+  <ion-tabs class="tabs-icon-top tabs-color-active-positive">
+  <ion-tab title="活动" icon-off="icon-menu-active" icon-on="icon-menu-active-off" href="#/app/index">
+    <ion-nav-view name="tab-index"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab title="产品" icon-off="icon-menu-product" icon-on="icon-menu-product-off" href="#/app/product">
+    <ion-nav-view name="tab-product"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab title="美O圈" icon-off="icon-menu-quan" icon-on="icon-menu-quan-off" href="#/app/quan">
+    <ion-nav-view name="tab-quan"></ion-nav-view>
+  </ion-tab>
+
+   <ion-tab title="订单" icon-off="icon-menu-order" icon-on="icon-menu-order-off" href="#/app/order">
+    <ion-nav-view name="tab-order"></ion-nav-view>
+  </ion-tab>
+</ion-tabs>
+</ion-footer-bar>

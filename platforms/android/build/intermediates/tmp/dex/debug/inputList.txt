@@ -1,0 +1,2 @@
+C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\classes\debug
+C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\classes-78fa8a0f128d0046d7e33298923234f4e2faf0db.jar
