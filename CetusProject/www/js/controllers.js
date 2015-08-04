@@ -583,7 +583,7 @@ angular.module('starter.controllers', [])
 .controller('Welcome', function($scope, $ionicModal, $state) {
   $scope.guideFlag = 'a';
   $scope.guideSure = function() {
-    $state.go('tab.index');
+    $state.go('app.index');
     window.localStorage['first'] = '1';
   };
 
