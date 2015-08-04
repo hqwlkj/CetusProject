@@ -1,0 +1,19 @@
+<ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="closeRegister()"></a>
+    <h1 class="title">用户注册</h1>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doRegister()">
+      <ul class="form">
+        <li><input type="tel" class="form-text" ng-model="registerData.phone" placeholder="手机号"/></li>
+        <li><input type="text" class="form-text" ng-model="registerData.username" placeholder="姓名"/></li>
+        <li><input type="password" class="form-text"  ng-model="registerData.password" placeholder="输入密码"/></li>
+        <li><input type="password" class="form-text" ng-model="registerData.repassword" placeholder="再次输入密码"/></li>
+        <li><input type="text" class="form-text" ng-model="registerData.invitation" placeholder="邀请码（可选）"/></li>
+        <li><input type="text" class="form-text" ng-model="registerData.alipayCode" placeholder="支付宝账号（可选）"/></li>
+        <li><button class="button button-block button-assertive" type="submit">立即注册</button></li>
+    </ul>
+    </form>
+  </ion-content>
+</ion-modal-view>

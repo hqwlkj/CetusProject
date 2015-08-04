@@ -1,0 +1,26 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button> </ion-nav-back-button>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"> </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+  <ion-side-menu side="left">
+    <ion-content>
+      <ion-list>
+        <ion-item menu-close > <div style=" width:52px; height:52px; float:left;" ng-click="upLoadImg()"><img ng-src="../img/default-ava.png" style=" height:50px; width:50px;"  /></div><div style="height:52px; float:right;line-height:52px;" ng-click="login()"><span class="username">登录</span></div> </ion-item>
+        <ion-item menu-close href="#/app/search"> <div class="menu-left margin-right-15"><i class="icon-user-01"></i></div><div class="menu-left">会员信息</div> </ion-item>
+        <ion-item menu-close href="#/app/browse"> <div class="menu-left margin-right-15"><i class="icon-active-01"></i></div><div class="menu-left">我的活动</div> </ion-item>
+        <ion-item menu-close href="#/app/playlists"> <div class="menu-left margin-right-15"><i class="icon-order-01"></i></div><div class="menu-left">我的订单</div> </ion-item>
+        <ion-item menu-close href="#/app/search"> <div class="menu-left margin-right-15"><i class="icon-score-01"></i></div><div class="menu-left">我的积分</div> </ion-item>
+        <ion-item menu-close href="#/app/browse"> <div class="menu-left margin-right-15"><i class="icon-team-01"></i></div><div class="menu-left">我的团队</div> </ion-item>
+        <ion-item menu-close href="#/app/playlists"> <div class="menu-left margin-right-15"><i class="icon-message-01"></i></div><div class="menu-left">消息中心</div> </ion-item>
+        <ion-item menu-close href="#/app/register"> <div class="menu-left margin-right-15"><i class="icon-service-01"></i></div><div class="menu-left">在线客服</div> </ion-item>
+        <ion-item menu-close ng-click="register()" > <div class="menu-left margin-right-15"><i class="icon-address-01"></i></div><div class="menu-left">收货地址</div> </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>
