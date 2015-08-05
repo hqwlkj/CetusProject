@@ -157,64 +157,6 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .text-center{
 	text-align: center;
 }
-.fanli{
-	width: 6.4rem;
-	height: 6.90rem;
-	background: url(../img/fanli.jpg) 0 center no-repeat;
-	background-size: 6rem;
-	border-right: 1px solid #cccccc;
-	margin-left: 0.15rem;
-}
-#b-i-g{
-	border-top: 5px solid #cccccc;
-	padding: 0.4rem 0;
-}
-#b-i-g:after{
-	content: " "; 
-    display: block;
-    height: 0; 
-    clear: both; 
-    visibility: hidden;
-}
-.clear:after{
-	content: " "; 
-    display: block;
-    height: 0; 
-    clear: both; 
-    visibility: hidden;
-}
-#g-add{
-	width: 100%;
-	text-align: center;
-	color: #333333;
-	position: relative;
-}
-#g-add span{
-	position: relative;
-	background: url(../img/arrow.png) 0 center no-repeat #fff;
-	background-size: 0.54rem;
-	padding-left: 20.25px;
-	font-size: 0.41rem;
-	z-index: 10;
-}
-#g-add span:before{
-	content: '';
-	border-top: 1px solid #000;
-	left: 0;
-	width: 100%;
-}
-#g-add .hr{
-	width: 100%;
-	height: 1px;
-	position: absolute;
-	top: 50%;
-	margin-top: -1px;
-	z-index: 9;
-	border-top: 1px dashed #ccc;
-}
-#g-add em{
-	color: #ed0206;
-}
 
 /* tabs style begin*/
 .tab-title{ font-family:'幼圆' ; font-weight: normal; font-size: 0.75rem;}
@@ -335,3 +277,25 @@ overflow:hidden;/*溢出隐藏*/
 .quanimg{ padding: 0 10px;}
 .quanfont{height:auto;margin:15px;background-size: cover;background-position: center center;font-size: 0.75rem;;color: #acacac;}
 .quan-p{padding: 22px 15px 0 15px;text-align: center; color:#696969; font-family: "幼圆"; font-size: 1.025em; font-weight: 700;}
+
+/*产品详情*/
+.product-title{margin-left: 15px; margin-right:15px; margin-top:6px; border-bottom:1px solid #cccccc; height:60px;line-height:30px; position: relative;}
+.product-name{font-size: 0.75rem;color:#585859;padding-right: 70px;white-space:nowrap;/*强制文本在一行内显示*/
+text-overflow:ellipsis; /*溢出省略号，支持ie、safari（webkit）*/
+-o-text-overflow:ellipsis; /*溢出省略号，支持opera*/
+overflow:hidden;/*溢出隐藏*/
+-moz-binding:url('ellipsis.xml#ellipsis');/*溢出省略号，支持firefox*/}
+.fenxiang{position: absolute;right:15px;top:2px;color: #585859;font-size:1rem }
+.product-price{color:#ED417C;font-size: 0.65rem}
+.product-content{padding:15px;color:#8b8b8b;font-size: 0.65rem}
+.num{background:#cccccc;width:90px;height:35px;margin-right:3px;margin-top: 5px; text-align:center;border-radius:3px;}
+.btn-lf,.btn-rt{ height:35px; width: 35px;display:inline-block;color:#ec3473; border:1px solid #ec3473; line-height: 35px; text-align: center; margin-top: 5px; }
+.btn-lf{border-right: none; border-radius:3px 0 0 3px;}
+.btn-rt{border-radius:0 3px 3px 0;}
+.footer{height: 45px; padding: 0 10px;}
+.fixed-bottom { position: fixed; left: 0; right: 0; bottom: 0;  z-index: 940; }
+.addcart{margin-top:5px;height:35px;line-height:35px;display:inline-block;background: #ec3473;color: #ffffff;font-size: 0.65rem;padding-left: 10px;padding-right: 10px; margin-left: 20px;}
+.kf{height:45px; line-height:45px; width: 35px;margin: 0 auto; padding: 0; text-align:center; margin-top:-3px; font-family: '幼圆'; color: #8B8B8B; cursor:pointer;  margin-right: 10px; }
+.kf i{ font-size: 1rem;}
+.kf p{ height: 10px; margin: 0 auto; padding: 0; margin-bottom: 3px; font-size: 0.65rem;}
+
