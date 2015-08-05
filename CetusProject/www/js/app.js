@@ -104,8 +104,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
-
-
+ .state('user.userinfo', {
+	  url: '/userinfo',
+	  views: {
+		  'menuContent': {
+			  templateUrl: 'templates/user/userinfo.html',
+			  controller: 'UserCtrl'
+		  }
+	  }
+  })
 
 
   .state('welcome', {
