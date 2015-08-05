@@ -35,7 +35,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('UserCtrl', function($scope, $state, $ionicModal, $timeout, $ionicPopup, $ionicPopover, $http, ApiEndpoint, Userinfo, $ionicLoading, $cordovaActionSheet, $cordovaImagePicker, $cordovaFileTransfer, $cordovaCamera, $cordovaAppVersion, $stateParams) {
-  //window.localStorage.clear();
+//  window.localStorage.clear();
   $scope.flag = Userinfo.l.flag;
   $scope.params = Userinfo.l;
   $scope.sign = Userinfo.l.today_signed;
@@ -512,6 +512,44 @@ angular.module('starter.controllers', [])
 	//显示用户积分页面
 	$scope.show_usercoin = function(){
 		$scope.modal_usercoin.show();
+	}
+	
+	//-----------------------------------------------------------------我的活动------------------------------------------------------------------------------
+	//打开活动列表页面
+	$ionicModal.fromTemplateUrl('templates/public/activitylist.html', {scope: $scope}).then(function(modal) {
+		$scope.modal_activity_list = modal;
+	    $scope.activityListData = {};
+	});
+  	//关闭活动列表页面
+	$scope.closeActivityList = function() {
+	    $scope.modal_activity_list.hide();
+	    $scope.activityListData = {};
+	}
+	//跳转到订单页面（免费领取活动的立即领取、满送活动的立即购买或领取赠品）
+	$scope.goOrder = function() {
+		$scope.showMsg('开发中。。。');
+	}
+	//签到
+	$scope.addSign = function() {
+		$scope.showMsg('开发中。。。');
+	}
+	//分享
+	$scope.toShare = function() {
+		$scope.showMsg('开发中。。。');
+	}
+	//加载活动列表内容
+	$scope.activityList = function() {
+		console.log(Userinfo);
+		if(!Userinfo.l.id){
+			$scope.modalLogin.show();
+		}else{
+			$scope.modal_activity_list.show();
+			$http.post(ApiEndpoint.url + '/api_activity_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&type=1').success(function(data) {
+				if (data.state == 'success') {
+					$scope.activitys = data.list;
+				}
+			});
+		}
 	}
 })
 
