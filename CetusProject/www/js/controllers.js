@@ -2,8 +2,8 @@
 angular.module('starter.controllers', [])
 
 .constant('ApiEndpoint', {
-  url: 'http://192.168.65.163:8080/Cetus',
-  pic_url:'http://192.168.65.163:8080/Cetus/pic'
+  url: 'http://www.parsec.com.cn/Cetus',
+  pic_url:'http://www.parsec.com.cn/Cetus/pic'
 })
 
 .constant('HelpData', {
@@ -506,6 +506,10 @@ angular.module('starter.controllers', [])
 	}
 })
 
+//美O圈Controller
+.controller('QuanCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state){
+	$scope.titleState=1;
+})
 
 .controller('Public', function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state) {
   $scope.showMsg = function(txt) {

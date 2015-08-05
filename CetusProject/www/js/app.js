@@ -103,6 +103,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+  
+  .state('app.quan', {
+    url: '/quan',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/tab-quan.html',
+        controller: 'QuanCtrl'
+      }
+    }
+  })
 
  .state('user.userinfo', {
 	  url: '/userinfo',
