@@ -4,101 +4,57 @@
     <h1 class="title">活动列表</h1>
   </ion-header-bar>
   <ion-content style="background-color:#F6F3EE;">
-  	 <!-- <h3 style='text-align: center;padding-top: 20px;' ng-if="activitys.length == 0">暂未参与任何活动</h3>
-     <ul class="ul-activity-block" ng-repeat="a in activitys" ng-if="activitys.length > 0">
-        <li>
-	      <div class="set-lst-title">{{a.activity.name}}</div>
-	    </li>
-	    <li>
-	      <div class="set-lst-title">{{a.activity.remark}}</div>
-	    </li>
-	    免费领取活动的显示
-	    <li ng-if="a.activity.activityType == 1">
-	      <div class="set-lst-state right">
-	      	<span>{{a.signNum}}/{{a.detail.signNum}}</span>
-	      	<i ng-if="a.signNum == a.detail.signNum" class="icon-select-01 right" ></i>
-	      </div>
-	      <div class="set-lst-title">1、每日签到</div>
-	    </li>
-	    <li class="clear" ng-if="a.activity.activityType == 1">
-	      <div class="set-lst-state right"><span></span>
-	      	<i ng-if="a.shareNum == 1" class="icon-select-01 right" ></i>
-	      </div>
-	      <div class="set-lst-title">2、分享朋友圈</div>
-	    </li>
-	    <li ng-if="a.activity.activityType == 1">
-	      <div class="padding-15 text-center">
-	    	<div ng-if="a.signNum == a.detail.signNum && a.shareNum == 1">
-	    	  <div ng-if="a.receiveNum == 0">
-	    	    <a ng-if="a.activity.endNum == 2" href="#" class="a-gray font-14">活动已结束</a>
-	    	    <a ng-if="a.activity.endNum != 2" ng-click="goOrder()" class="a-red font-14">立即领取</a>
-	    	  </div>
-	    	  <div ng-if="a.receiveNum != 0">
-	    	    <a class="a-gray font-14">已领取</a>
-	    	  </div>
-	    	</div>
-	    	<div ng-if="a.signNum != a.detail.signNum || a.shareNum != 1">
-	    	  <div class="padding-15 text-center">
-	    	    <a ng-if="a.signNum == a.detail.signNum" class="btn normal-btn"><i class="icon-menu-active-01"></i>签到已完成</a>
-	    	    <a ng-if="a.signNum != a.detail.signNum" ng-click="addSign()" class="btn normal-btn"><i class="icon-menu-active-01"></i>签到</a>
-	    	    
-	    	    &nbsp;&nbsp;
-	    	    <a ng-if="a.shareNum == 1" href="#" class="btn normal-btn"><i class="icon-share-01"></i>已分享</a>
-	    	    <a ng-if="a.shareNum == 0" ng-click="toShare()" class="btn normal-btn"><i class="icon-share-01"></i>分享</a>
-	    	  </div>
-	    	</div>
-	      </div>
-	    </li>
-	    
-	    满送活动的显示
-	    <li ng-if="a.activity.activityType == 2">
-	      <div class="set-lst-title">{{a.product.remark}}</div>
-	    </li>
-	    <li ng-if="a.activity.activityType == 2">
-	      <div class="padding-15 text-center">
-	        <div ng-if="a.buyState == 0">
-	          <a ng-if="a.activity.endNum == 2" class="a-gray font-14">活动已结束</a>
-	          <a ng-if="a.activity.endNum == 0" class="a-gray font-14">活动尚未开始</a>
-	          <a ng-if="a.activity.endNum == 1" ng-click="goOrder()" class="a-black font-14">立即购买</a>
-	        </div>
-	        <div ng-if="a.receiveNum == a.detail.premiumNum">
-	          <a class="a-gray font-14">已领完</a>
-	        </div>
-	        <div ng-if="a.buyState != 0 && a.receiveNum != a.detail.premiumNum">
-	          <a ng-if="a.isreceive == 2" class="a-gray font-14">购买的商品未确认收货</a>
-	          <a ng-if="a.isreceive == 1" class="a-gray font-14">本月已领取</a>
-	          <a ng-if="a.isreceive != 2 && a.isreceive != 1" ng-click="goOrder()" class="a-red font-14">立即领取</a>
-	        </div>
-	      </div>
-	    </li>
-	    
-    </ul> -->
+   <ul class="ul-activity-block" ng-repeat="a in activitys" ng-if="activitys.length > 0">
+    <li>
+      <div class="set-lst-state right"></div>
+      <div class="set-lst-title">{{a.activity.name}}</div>
+    </li>
+    <li>
+      <div class="set-lst-state right"></div>
+      <div class="set-lst-title">{{a.activity.remark}}</div>
+    </li>
     
-   <ul class="ul-activity-block">
-    <li>
-      <div class="set-lst-state right"></div>
-      <div class="set-lst-title">免费领取活动1</div>
-    </li>
-    <li>
-      <div class="set-lst-state right"></div>
-      <div class="set-lst-title">活动详情介绍文本</div>
-    </li>
-    <li>
-      <div class="set-lst-state right"><span>5/5</span> <i class="icon-select-satatus-01 right" ></i></div>
+    <!-- 免费领取活动的显示 -->
+    <li ng-if="a.activity.activityType == 1">
+      <div class="set-lst-state right">
+        <span>{{a.signNum}}/{{a.detail.signNum}}</span> 
+        <i ng-if="a.signNum == a.detail.signNum" class="icon-select-satatus-01 right" ></i></div>
       <div class="set-lst-title">1、每日签到</div>
     </li>
-    <li>
-      <div class="set-lst-state right"> <i class="icon-select-satatus-01 right" ></i></div>
+    <li ng-if="a.activity.activityType == 1">
+      <div class="set-lst-state right"> 
+      	<i ng-if="a.shareNum == 1" class="icon-select-satatus-01 right" ></i></div>
       <div class="set-lst-title">2、分享朋友圈</div>
     </li>
     <!--<div class="padding-15 text-center"><a href="#" class="a-red font-14">立即领取</a></div>-->
-    <div class="padding-15 text-center"><a href="#" class="btn normal-btn"><i class="icon-menu-active-01"></i>签到</a>&nbsp;&nbsp;<a href="#" class="btn normal-btn"><i class="icon-share-01"></i>分享</a></div>
-  </ul>
-  <ul class="ul-activity-block">
-    <li><div class="set-lst-title">满送活动1</div></li>
-    <li><div class="set-lst-title">活动详情介绍文本</div></li>
-    <li><div class="set-lst-title">商品详情介绍文本</div></li>
-    <div class="padding-15 text-center"><a href="#" class="a-red font-14">立即购买</a></div>
+    <div class="padding-15 text-center" ng-if="a.activity.activityType == 1">
+    	<a ng-if="a.signNum == a.detail.signNum && a.shareNum == 1 && a.receiveNum == 0 && a.activity.endNum != 2" ng-click="goOrder()" class="a-red font-14">立即领取</a>
+    	<a ng-if="a.signNum == a.detail.signNum && a.shareNum == 1 && a.receiveNum == 0 && a.activity.endNum == 2" class="a-red font-14">活动已结束</a>
+    	<a ng-if="a.signNum == a.detail.signNum && a.shareNum == 1 && a.receiveNum != 0" class="a-red font-14">已领取</a>
+    	
+    	<a ng-if="a.signNum != a.detail.signNum" ng-click="addSign('{{a.activity.id}}')" class="btn normal-btn"><i class="icon-menu-active-01"></i>签到</a>
+    	<a ng-if="a.signNum == a.detail.signNum" class="btn normal-btn"><i class="icon-menu-active-01"></i>签到已完成</a>
+    	&nbsp;&nbsp;
+    	<a ng-if="a.shareNum == 0" ng-click="toShare()" class="btn normal-btn"><i class="icon-share-01"></i>分享</a>
+    	<a ng-if="a.shareNum == 1" class="btn normal-btn"><i class="icon-share-01"></i>已分享</a>
+    </div>
+    
+    <!-- 满送活动的显示 -->
+    <li ng-if="a.activity.activityType == 2">
+      <div class="set-lst-title">{{a.product.remark}}</div>
+    </li>
+    <div ng-if="a.activity.activityType == 2" class="padding-15 text-center">
+      <a ng-if="a.buyState == 0 && a.activity.endNum == 0" class="a-gray font-14">活动尚未开始</a>
+      <a ng-if="a.buyState == 0 && a.activity.endNum == 1" ng-click="goOrder()" class="a-red font-14">立即购买</a>
+      <a ng-if="a.buyState == 0 && a.activity.endNum == 2" class="a-gray font-14">活动已结束</a>
+      
+      <a ng-if="a.receiveNum == a.detail.premiumNum" class="a-gray font-14">赠品已领完</a>
+      
+      <a ng-if="a.buyState != 0 && a.receiveNum != a.detail.premiumNum && a.isreceive == 2" class="a-gray font-14">购买的商品未确认收货</a>
+      <a ng-if="a.buyState != 0 && a.receiveNum != a.detail.premiumNum && a.isreceive == 1" class="a-gray font-14">本月已领取赠品</a>
+      <a ng-if="a.buyState != 0 && a.receiveNum != a.detail.premiumNum && a.isreceive != 2 && a.isreceive != 1" ng-click="goOrder()" class="a-red font-14">立即领取</a>
+      
+    </div>
   </ul>
   </ion-content>
 </ion-modal-view>

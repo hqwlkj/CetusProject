@@ -592,8 +592,33 @@ angular.module('starter.controllers', [])
 		$scope.showMsg('开发中。。。');
 	}
 	//签到
-	$scope.addSign = function() {
-		$scope.showMsg('开发中。。。');
+	$scope.addSign = function(acId) {
+//		$ionicLoading.show({
+//		    template: "加载中..."
+//		});
+//		var share = {};
+//		share.userId = (Userinfo.l.id?Userinfo.l.id:"");
+//		share.activityId = acId;
+//		share.type = 1;
+//		share.shareSns = "";
+		$http.post(ApiEndpoint.url + '/api_app_signandshare_save?type=1&userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&activityId='+acId+'&shareSns=').success(function(data) {
+//			$ionicLoading.hide();
+			var title = data.title;
+			var msg = data.msg;
+			if (data.state == 'success') {
+				title = "提示";
+				msg = "签到成功";
+			}
+			$ionicPopup.alert({
+		        title: title,
+		        template: msg,
+		        buttons: [{
+		          text: '确定',
+		          type: 'button-assertive'
+		        }]
+		    });
+			$scope.activityList();
+		});
 	}
 	//分享
 	$scope.toShare = function() {
@@ -601,8 +626,12 @@ angular.module('starter.controllers', [])
 	}
 	//加载活动列表内容
 	$scope.activityList = function() {
+		$ionicLoading.show({
+		    template: "加载中..."
+		});
 		console.log(Userinfo);
 		if(!Userinfo.l.id){
+			$ionicLoading.hide();
 			$scope.modalLogin.show();
 		}else{
 			$scope.modal_activity_list.show();
@@ -610,8 +639,66 @@ angular.module('starter.controllers', [])
 				if (data.state == 'success') {
 					$scope.activitys = data.list;
 				}
+				$ionicLoading.hide();
 			});
 		}
+	}
+	
+	//打开活动详情页面
+	$ionicModal.fromTemplateUrl('templates/public/activity-detail.html', {scope: $scope}).then(function(modal) {
+		$scope.modal_activity_detail = modal;
+	    $scope.activityId = 0;
+	});
+  	//关闭活动详情页面
+	$scope.closeActivityDetail = function() {
+	    $scope.modal_activity_detail.hide();
+	    $scope.activityId = 0;
+	}
+	//加载活动详情内容
+	$scope.activityDetail = function(acId) {
+		$ionicLoading.show({
+		    template: "加载中..."
+		});
+		console.log(Userinfo);
+		if(!Userinfo.l.id){
+			$ionicLoading.hide();
+			$scope.modalLogin.show();
+		}else{
+			$scope.modal_activity_detail.show();
+			$http.post(ApiEndpoint.url + '/api_activity_detail?activityId='+acId+'&userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+				if (data.state == 'success') {
+					$scope.imgUrl = ApiEndpoint.pic_url+"/"+data.obj.activityIcon;
+					$scope.title = data.obj.name;
+					$scope.times = data.obj.showBeginTime+"—"+data.obj.showEndTime;
+					$scope.content = data.obj.remark;
+				    $scope.activityId = data.obj.id;
+				}
+				$ionicLoading.hide();
+			});
+		}
+	}
+	//点击马上参与按钮
+	$scope.addActivity = function() {
+		$http.post(ApiEndpoint.url + '/api_activity_add?activityId='+$scope.activityId+'&userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+			if (data.state == 'success') {
+				var obj = data.activity;
+				if (obj.activityType == 2){  //活动类型为满送活动
+					var detailObj = data.detail;
+					//前往订单页面，参与满送活动
+				}else {
+					$scope.activityList();
+				}
+			}else {
+				$ionicPopup.alert({
+			        title: data.title,
+			        template: data.msg,
+			        buttons: [{
+			          text: '确定',
+			          type: 'button-assertive'
+			        }]
+			    });
+			}
+		});
 	}
 })
 
@@ -642,6 +729,9 @@ angular.module('starter.controllers', [])
 	}
 	//加载详情
 	$scope.quanDetail = function(quanId) {
+		$ionicLoading.show({
+		    template: "加载中..."
+		});
 		$scope.modal_quan_detail.show();
 		$http.post(ApiEndpoint.url + '/api_europeanpowder_detail?euroId='+quanId).success(function(data) {
 			if (data.state == 'success') {
@@ -650,6 +740,7 @@ angular.module('starter.controllers', [])
 				$scope.quanImg = ApiEndpoint.pic_url+"/"+data.european.imgUrl;
 				$scope.detailContent = data.european.content;
 			}
+			$ionicLoading.hide();
 		});
 	}
 })

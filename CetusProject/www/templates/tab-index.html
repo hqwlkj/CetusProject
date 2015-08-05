@@ -5,7 +5,7 @@
     <section>
       <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true" slide-interval="6000">
         <ion-slide ng-repeat="b in banner">
-          <div class="box" ng-click="bannerClick('{{b.id}}')" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
+          <div class="box" ng-click="activityDetail('{{b.id}}')" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
         </ion-slide>
       </ion-slide-box>
     </section>
