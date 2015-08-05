@@ -2,7 +2,7 @@
 angular.module('starter.controllers', [])
 
 .constant('ApiEndpoint', {
-  url: 'http://www.parsec.com.cn/Cetus',
+  url: 'http://192.168.65.152:8080/Cetus',
   pic_url:'http://www.parsec.com.cn/Cetus/pic'
 })
 
@@ -84,9 +84,9 @@ angular.module('starter.controllers', [])
         	$scope.InvitationName = data.InvitationName;
 	    	$scope.discount = data.discount;
           /*if (data.productList.length < 20) {//加载更多
-            $scope.goods_load_over = false;
             return;
           }*/
+	    	$scope.goods_load_over = false;
           $scope.goodsPage++;//页码加加
           //$scope.$broadcast("scroll.infiniteScrollComplete");
         }
@@ -96,10 +96,9 @@ angular.module('starter.controllers', [])
 
 
 
-  $scope.clickDetail = function(id) {//产品详情
-	  $state.go('product.detail');
+  $scope.clickDetail = function(id, title) {//产品详情
+     
   };
-  
 
   //头像选择
   var options = {
@@ -506,6 +505,9 @@ angular.module('starter.controllers', [])
 		}
 	}
 	
+	$scope.usercoin_data_list=[];
+	$scope.usercoin_pageNo=1;
+	$scope.usercoin_pages;
 	//用户积分
 	$ionicModal.fromTemplateUrl('templates/user/usercoin.html', {scope: $scope}).then(function(modal) {
 		$scope.modal_usercoin = modal;
@@ -513,6 +515,80 @@ angular.module('starter.controllers', [])
 	//显示用户积分页面
 	$scope.show_usercoin = function(){
 		$scope.modal_usercoin.show();
+		$scope.load_usercoin_score();//加载数据
+		$scope.load_usercoin_data();//加载列表数据
+	}
+	//关闭用户积分页面
+	$scope.close_usercoin = function(){
+		$scope.modal_usercoin.hide();
+	}
+	//用户积分下拉刷新
+	$scope.usercoin_doRefresh = function(){
+		$scope.usercoin_pageNo = 1;
+		$scope.load_usercoin_data();
+	}
+	$scope.usercoin_load_state = false;
+	//用户积分上拉加载更多
+	$scope.usercoin_loadmore = function(){
+		if($scope.usercoin_pageNo<$scope.usercoin_pages){
+			$scope.usercoin_pageNo = $scope.usercoin_pageNo+1;
+			$scope.usercoin_load_state = true;
+			$scope.load_usercoin_data();
+		}
+		$timeout(function() {
+			$scope.usercoin_load_state = false;
+	    }, 3000);
+	}
+	//加载积分列表
+	$scope.load_usercoin_data = function(){
+		var obj = {};
+		obj.userId = Userinfo.l.id;
+		obj.pageNo = $scope.usercoin_pageNo;
+		obj.state = -1;
+		$http.post(ApiEndpoint.url + '/api_score_list?json='+JSON.stringify(obj)).success(function(data) {
+			$scope.$broadcast("scroll.refreshComplete");
+			$scope.usercoin_load_state = false;
+			if (data.state =="success") {
+				$scope.usercoin_pageNo = data.obj.pageNo;
+				$scope.usercoin_pages = data.obj.totalPages;
+				$scope.usercoin_data_list = data.list;
+			}
+		});
+	}
+	//加载用户积分
+	$scope.load_usercoin_score = function(){
+		$http.post(ApiEndpoint.url + '/api_score_get?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+			if (data.state =="success") {
+				$scope.usercoin_username = data.userName;
+				$scope.usercoin_score = data.score;
+			}
+		});
+	}
+	
+	
+	//我的团队
+	$ionicModal.fromTemplateUrl('templates/user/myteam.html', {scope: $scope}).then(function(modal) {
+		$scope.modal_myteam = modal;
+	});
+	//显示我的团队页面
+	$scope.show_myteam = function(){
+		$scope.modal_myteam.show();
+		$http.post(ApiEndpoint.url + '/api_myteam?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+			if (data.state =="success") {
+				$scope.myteam_username = data.userName;
+				$scope.myteam_moneyInThreeMonth = data.moneyInThreeMonth.toFixed(2)+"元";
+				$scope.myteam_rebate = data.sumRebate.toFixed(2);
+				$scope.myteam_allscore = data.allscore;
+				$scope.myteam_mymoney = data.mymoney.toFixed(2)+"元";
+				$scope.myteam_myscore = data.myscore+"分";
+				$scope.myteam_teammoney = data.teammoney.toFixed(2)+"元";
+				$scope.myteam_teamscore = data.teamscore+"分";
+			}
+		});
+	}
+	//关闭我的团队页面
+	$scope.close_myteam = function(){
+		$scope.modal_myteam.hide();
 	}
 	
 	//-----------------------------------------------------------------我的活动------------------------------------------------------------------------------
@@ -557,6 +633,40 @@ angular.module('starter.controllers', [])
 //美O圈Controller
 .controller('QuanCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state){
 	$scope.titleState=1;//标题的显示状态
+	$scope.quans = [];  //美O圈数据
+	$scope.doRefresh = function() {//下拉刷新
+      $http.post(ApiEndpoint.url + '/api_europeanpowder_list').success(function(data) {
+        if (data.state == 'success') {
+        	$scope.quans = data.list;
+        }else {
+        	$scope.showMsg(data.msg);
+        }
+        $scope.$broadcast("scroll.refreshComplete");
+      })
+	};
+	
+	$scope.doRefresh();
+	
+	//打开某个美O圈数据详情
+	$ionicModal.fromTemplateUrl('templates/quan-detail.html', {scope: $scope}).then(function(modal) {
+		$scope.modal_quan_detail = modal;
+	});
+  	//关闭活动列表页面
+	$scope.closeQuanDetail = function() {
+	    $scope.modal_quan_detail.hide();
+	}
+	//加载详情
+	$scope.quanDetail = function(quanId) {
+		$scope.modal_quan_detail.show();
+		$http.post(ApiEndpoint.url + '/api_europeanpowder_detail?euroId='+quanId).success(function(data) {
+			if (data.state == 'success') {
+				$scope.title = data.european.title;
+				$scope.detailTime = data.european.showCreateTime;
+				$scope.quanImg = ApiEndpoint.pic_url+"/"+data.european.imgUrl;
+				$scope.detailContent = data.european.content;
+			}
+		});
+	}
 })
 
 .controller('Public', function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state) {
@@ -718,17 +828,4 @@ angular.module('starter.controllers', [])
     }
   };
 
-})
-
-.controller('Product',function($scope, $ionicModal, $state){
-	$scope.missData = {};
-	  $scope.backGo = function() {
-	    $ionicHistory.goBack();
-	  };
-	  $scope.goToList = function() {
-	    $state.go('public.misslist');
-	  };
-})
-.controller('ProductCtrl',function($scope, $ionicModal, $state){
-	
 })
