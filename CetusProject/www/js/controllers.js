@@ -48,7 +48,7 @@ angular.module('starter.controllers', [])
   $scope.discount = 1;
   $scope.app_version = Userinfo.l.version;
   $scope.doRefresh = function() {//下拉刷新
-      $http.get(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+      $http.post(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
     	if (data.state == 'success') {
           	$scope.products = data.productList;
           	$scope.InvitationName = data.InvitationName;
@@ -71,7 +71,7 @@ angular.module('starter.controllers', [])
             return;
           }*/
 	    	$scope.goods_load_over = false;
-          $scope.goodsPage++;//页码加加
+          //$scope.goodsPage++;//页码加加
           //$scope.$broadcast("scroll.infiniteScrollComplete");
         }
       });
@@ -81,8 +81,7 @@ angular.module('starter.controllers', [])
 
 
   $scope.clickDetail = function(id) {//产品详情
-	  $scope.pid=id;
-	  $state.go('product.detail');
+	  $state.go('product.detail',{productId: id});
   };
 
   //头像选择
@@ -907,12 +906,13 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('Product',function($scope, $ionicModal, $state, $ionicHistory, $ionicPopover, $timeout){
+.controller('Product',function($scope, $ionicModal, $state, $ionicHistory, $ionicPopover, $timeout,$stateParams){
 	$scope.param = {};
 	//后退
 	$scope.backGoPro = function() {
 	    $ionicHistory.goBack();
 	}
+	
 	//提示信息
 	$scope.showMsg = function(txt) {
 	    var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
@@ -925,9 +925,38 @@ angular.module('starter.controllers', [])
 	    }, 1400);
 	 }
 })
-.controller('ProductCtrl',function($scope, $ionicModal, $state,$timeout){
+.controller('ProductCtrl',function($scope, $http, $ionicModal, $state,$timeout,$stateParams,$ionicLoading,Userinfo,ApiEndpoint,$ionicPopover){
+	$scope.picfiles = [];
+	$scope.product = {};
+	$ionicLoading.show({
+	     template: '加载中...'
+	});
 	$timeout(function() {
-		consol.log();
-	   alert($scope.pid);
-	}, 1400);
+	   console.log($stateParams.productId);
+	   console.log(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:""));
+	   $http.post(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+		   $ionicLoading.hide();  
+			if (data.state == 'success') {
+				$scope.product = data;
+				$scope.picfiles = data.picfiles;
+	        }else{
+	            $scope.showMsg(data.msg);
+	        }
+	    });
+	}, 200)
+	//客服
+	$scope.kf = function() {
+		$scope.showMsg("开发中");
+	};
+	//提示信息
+	$scope.showMsg = function(txt) {
+	    var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
+	    $scope.popover = $ionicPopover.fromTemplate(template, {
+	      scope: $scope
+	    });
+	    $scope.popover.show();
+	    $timeout(function() {
+	      $scope.popover.hide();
+	    }, 1400);
+	 }
 })
