@@ -2,7 +2,7 @@
 angular.module('starter.controllers', [])
 
 .constant('ApiEndpoint', {
-  url: 'http://192.168.65.152:8080/Cetus',
+  url: 'http://www.parsec.com.cn/Cetus',
   pic_url:'http://www.parsec.com.cn/Cetus/pic'
 })
 
@@ -48,34 +48,18 @@ angular.module('starter.controllers', [])
   $scope.discount = 1;
   $scope.app_version = Userinfo.l.version;
   $scope.doRefresh = function() {//下拉刷新
-    if (Userinfo.l.flag == 1) {
-      $http.get(ApiEndpoint.url + '/User/GetUserInfo?_ajax_=1').success(function(data) {
-        // alert(JSON.stringify(data));
-        if (data.error != 0) {
-          if (data.error == 9999) {
-            $scope.flag = '';
-            Userinfo.l.id = '';
-            Userinfo.remove('flag');
-            $scope.$broadcast("scroll.refreshComplete");
-            return;
-          }
-          $scope.showMsg(data.info);
-          return;
-        }
-        Userinfo.save(data.user_info);
-        $scope.flag = 1;
-        $scope.sign = Userinfo.l.today_signed;
-        $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
-        $scope.unreadMsg = Userinfo.l.unread_msg_count == '0' ? '0' : Userinfo.l.unread_msg_count;
-        $scope.$broadcast("scroll.refreshComplete");
-      })
-    }else{
-      $scope.$broadcast("scroll.refreshComplete");
-    }
+      $http.get(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+    	if (data.state == 'success') {
+          	$scope.products = data.productList;
+          	$scope.InvitationName = data.InvitationName;
+  	    	$scope.discount = data.discount;
+  	    	$scope.$broadcast("scroll.refreshComplete");
+         }
+     })
   };
 
   $scope.doRefresh();
-
+  
   $scope.loadGoods = function() {//加载更多商品
     $timeout(function() {
       $http.post(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
@@ -96,8 +80,9 @@ angular.module('starter.controllers', [])
 
 
 
-  $scope.clickDetail = function(id, title) {//产品详情
-     
+  $scope.clickDetail = function(id) {//产品详情
+	  $scope.pid=id;
+	  $state.go('product.detail');
   };
 
   //头像选择
@@ -713,7 +698,7 @@ angular.module('starter.controllers', [])
     $ionicLoading.show({
       template: "正在登录..."
     });
-    $http.post(ApiEndpoint.url + '/User/Login?_ajax_=1', {
+    $http.post(ApiEndpoint.url + '/', {
       user: $scope.loginData.username,
       password: $scope.loginData.password
     }).success(function(data) {
@@ -770,7 +755,7 @@ angular.module('starter.controllers', [])
     $ionicLoading.show({
       template: '注册中...'
     });
-    $http.post(ApiEndpoint.url + '/User/Register?_ajax_=1', {
+    $http.post(ApiEndpoint.url + '/', {
       user: $scope.registerData.username,
       mobile: $scope.registerData.phone,
       password: $scope.registerData.password
@@ -828,4 +813,30 @@ angular.module('starter.controllers', [])
     }
   };
 
+})
+
+
+.controller('Product',function($scope, $ionicModal, $state, $ionicHistory, $ionicPopover, $timeout){
+	$scope.param = {};
+	//后退
+	$scope.backGoPro = function() {
+	    $ionicHistory.goBack();
+	}
+	//提示信息
+	$scope.showMsg = function(txt) {
+	    var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
+	    $scope.popover = $ionicPopover.fromTemplate(template, {
+	      scope: $scope
+	    });
+	    $scope.popover.show();
+	    $timeout(function() {
+	      $scope.popover.hide();
+	    }, 1400);
+	 }
+})
+.controller('ProductCtrl',function($scope, $ionicModal, $state,$timeout){
+	$timeout(function() {
+		consol.log();
+	   alert($scope.pid);
+	}, 1400);
 })
