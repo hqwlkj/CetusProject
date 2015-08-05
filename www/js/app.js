@@ -29,7 +29,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     // window.plugins.jPushPlugin.setDebugMode(true);
 
     //检查更新
-    checkUpdate();
+    //checkUpdate();
 
     /*function checkUpdate() {
       $cordovaAppVersion.getAppVersion().then(function(version) {
@@ -132,7 +132,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
   
   .state('product.detail', {
-	  url: '/detail',
+	  url: '/detail/{productId:[0-9]{1,4}}',//页面之间的参数传递
 	  views: {
 		  'product': {
 			  templateUrl: 'templates/public/product-detail.html',
