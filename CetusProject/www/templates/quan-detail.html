@@ -1,0 +1,22 @@
+<ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="closeQuanDetail()"></a>
+    <h1 class="title">美O圈详情</h1>
+  </ion-header-bar>
+  <ion-content>
+     <div class="wrap-page" >
+	    <p class="quan-p">{{title}}</p>
+	    <div class="quan-header">
+	        <div class="mo-h-left"><div class="l-hr left"></div><div class="l-point left"></div></div>
+	        <div class="mo-h-time">{{detailTime}}</div>
+	        <div class="mo-h-right"><div class="l-point left"></div><div class="l-hr left"></div></div>
+	    </div>
+	    <div class="quanimg">
+	    	<img ng-src="{{quanImg}}" style="max-width: 100%;height: auto;">
+	    </div>
+	    <div class="quanfont">
+	        <p>{{detailContent}}</p>
+	    </div>
+	</div>
+  </ion-content>
+</ion-modal-view>
