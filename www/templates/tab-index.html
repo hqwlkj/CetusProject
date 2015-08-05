@@ -1,4 +1,5 @@
-<ion-content style="padding-top: 45px">
+<ion-view title='<img src="img/logo.png" style="text-align:center; width: 90px;height: 33px;margin-top: 4px;">'>
+<ion-content>
   <ion-refresher pulling-text="下拉刷新"	on-refresh="doRefresh()"></ion-refresher>
   <div id="content">
     <section>
@@ -23,6 +24,7 @@
   </div>
   <ion-infinite-scroll on-infinite="loadGoods()" ng-if="goods_load_over"></ion-infinite-scroll>
 </ion-content>
+</ion-view>
 <!-- tabs -->
 <ion-footer-bar align-title="left" class="bar-assertive" style="padding: 0">
   <ion-tabs class="tabs-icon-top tabs-color-active-positive">

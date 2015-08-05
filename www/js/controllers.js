@@ -11,12 +11,13 @@ angular.module('starter.controllers', [])
 })
 
 .controller('IndexCtrl', function($scope, $http, ApiEndpoint,Userinfo) {
-  $scope.banner = [];
-  $http.post(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
-    if (data.state == 'success') {
-    	$scope.banner = data.activityList;
-    }
-  });
+	$scope.titleState=0;//标题的显示状态
+	$scope.banner = [];
+	$http.post(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+	  if (data.state == 'success') {
+	     $scope.banner = data.activityList;
+	   }
+	});
 })
 
 .controller('Article', function($scope, $ionicHistory, $stateParams, HelpData) {
@@ -516,7 +517,7 @@ angular.module('starter.controllers', [])
 
 //美O圈Controller
 .controller('QuanCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state){
-	$scope.titleState=1;
+	$scope.titleState=1;//标题的显示状态
 })
 
 .controller('Public', function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state) {
