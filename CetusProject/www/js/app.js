@@ -123,6 +123,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 		  }
 	  }
   })
+  
+  .state('product', {
+    url: '/product',
+    abstract: true,
+    templateUrl: 'templates/public/product.html',
+    controller: 'Product'
+  })
+  
+  .state('product.detail', {
+	  url: '/detail',
+	  views: {
+		  'product': {
+			  templateUrl: 'templates/public/product-detail.html',
+			  controller: 'ProductCtrl'
+		  }
+	  }
+  })
 
 
   .state('welcome', {
