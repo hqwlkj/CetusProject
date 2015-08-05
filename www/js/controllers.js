@@ -479,9 +479,8 @@ angular.module('starter.controllers', [])
 			}
 		});
 	}
-	// Open the login modal
+	//加载会员信息数据 并且打开
 	$scope.userInfo = function() {
-		console.log(Userinfo);
 		if(!Userinfo.l.id){
 			$scope.modalLogin.show();
 		}else{
@@ -503,6 +502,15 @@ angular.module('starter.controllers', [])
 				}
 			});
 		}
+	}
+	
+	//用户积分
+	$ionicModal.fromTemplateUrl('templates/user/usercoin.html', {scope: $scope}).then(function(modal) {
+		$scope.modal_usercoin = modal;
+	});
+	//显示用户积分页面
+	$scope.show_usercoin = function(){
+		$scope.modal_usercoin.show();
 	}
 })
 
