@@ -295,10 +295,12 @@ overflow:hidden;/*溢出隐藏*/
 100% {opacity: 0;}
 }
 /*会员中心*/
-.ul-block1{padding-left:15px;margin-top: 10px;margin-bottom: 10px;}
-.ul-block1 li{height:50px;line-height:50px;border-bottom:1px solid #999999;padding-right: 15px}
-.ul-block1 li i{font-size: 1.25rem;margin-right: 10px;position: relative;top:4px;}
-.ul-block1 li span{font-size:0.875rem;color:#999999;}
+.bbn{ border-bottom: none;}
+.ul-block1{padding:0 15px;margin-top: 10px;margin-bottom: 10px;}
+.ul-block1 li{height:50px;line-height:50px;border-bottom:1px solid #999999;}
+.ul-block1 li i{font-size: 1rem;margin-right: 10px;position: relative;top:4px;}
+.ul-block1 li span{font-size:0.65rem;color:#999999;}
+.ul-hide{padding:0 15px;margin-top: 10px;margin-bottom: 10px;}
 /*我的积分*/
 .ul-block{padding-left:15px; background:#ffffff;margin-bottom: 10px; max-width:500px;}
 .ul-block li{height:50px;line-height:50px;border-bottom:1px solid #999999;  margin-right:15px;}
