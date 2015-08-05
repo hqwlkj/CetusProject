@@ -11,18 +11,25 @@
 }
 ul,li{list-style: none;}
 a{text-decoration: none;}
+.col-2 {width:16.6666667%;position: relative; min-height: 1px;float:left;text-align: center;}
 .col-3 {width:25%;position: relative; min-height: 1px;float:left;text-align: center;}
 .col-4 {width:33.33333333%;position: relative; min-height: 1px;float:left;text-align: center;}
 .col-5 {width: 41.66666667%;position: relative; min-height: 1px;float:left;text-align: center;}
 .col-6 {width:50%;position: relative; min-height: 1px;float:left;text-align: center;}
 .col-7 {width: 58.33333333%;position: relative; min-height: 1px;float:left;text-align: center;}
+.col-8 {width: 66.6666667%;position: relative; min-height: 1px;float:left;text-align: center;}
+.col-9 {width: 83.3333333%;position: relative; min-height: 1px;float:left;text-align: center;}
+.col-10 {width: 91.6666667%;position: relative; min-height: 1px;float:left;text-align: center;}
+.col-11 {width: 91.6666667%;position: relative; min-height: 1px;float:left;text-align: center;}
+.col-12 {width: 100%;position: relative; min-height: 1px;float:left;text-align: center;}
 .margin-right-15{margin-right: 15px}
 .padding-top-5{padding-top: 5px;}
+.padding-15{padding: 15px;}
 .left{float:left;}
 .right{float:right;}
 .btn{-webkit-border-radius: 3x; -moz-border-radius: 3px; border-radius: 3px; }
-.normal-btn{border:1px solid #ec3473;color:#ec3473;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
-.danger-btn{border:1px solid #000;color:#000;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
+.normal-btn{border:1px solid #ec3473;color:#ec3473;font-size: 0.65rem;padding:5px 10px;display: inline-block;margin: auto 3px }
+.danger-btn{border:1px solid #000;color:#000;font-size: 0.65rem;padding:5px 10px;display: inline-block;margin: auto 3px }
 .lg-btn{background:#ec3473;color:#ffffff; font-size: 0.75rem;width: 100%;height:45px;line-height:45px;display: inline-block;text-align: center;}
 .check-btn{background:#CCC;color:#ffffff;font-size: 1rem;width: 100%;height:45px;line-height:45px;display: inline-block;text-align: center;}
 .text-left{text-align: left}
@@ -307,4 +314,14 @@ overflow:hidden;/*溢出隐藏*/
 .ul-block li p{ margin: 0 auto; padding: 0;}
 .line-height-1{line-height: 1.5}
 .bg-white{background: #ffffff}
+.a-red{color:#ec3473;}
 .a-gray{color:#999999;}
+/*我的活动*/
+.ul-activity-block{padding-left:15px; background:#ffffff;margin-bottom: 10px;}
+.ul-activity-block li{height:50px;line-height:50px;border-bottom:1px solid #999999;  margin-right:15px;}
+.set-lst-title{color:#999999;font-size:0.65rem;padding-right: 75px;}
+.set-lst-state{width:50px;margin-right: 15px;}
+.set-lst-state span{font-size:0.65rem;}
+.set-lst-state .icon-select-01{margin-top:15px;}
+.set-lst-state .icon-select-satatus-01{margin-top:20px; color:#ec3473;font-size:0.75rem;}
+
