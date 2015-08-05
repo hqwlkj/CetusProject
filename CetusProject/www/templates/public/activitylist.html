@@ -3,16 +3,16 @@
     <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="closeActivityList()"></a>
     <h1 class="title">活动列表</h1>
   </ion-header-bar>
-  <ion-content>
-  	 <h3 style='text-align: center;padding-top: 20px;' ng-if="activitys.length == 0">暂未参与任何活动</h3>
-     <ul class="ul-block" ng-repeat="a in activitys" ng-if="activitys.length > 0">
+  <ion-content style="background-color:#F6F3EE;">
+  	 <!-- <h3 style='text-align: center;padding-top: 20px;' ng-if="activitys.length == 0">暂未参与任何活动</h3>
+     <ul class="ul-activity-block" ng-repeat="a in activitys" ng-if="activitys.length > 0">
         <li>
 	      <div class="set-lst-title">{{a.activity.name}}</div>
 	    </li>
 	    <li>
 	      <div class="set-lst-title">{{a.activity.remark}}</div>
 	    </li>
-	    <!-- 免费领取活动的显示 -->
+	    免费领取活动的显示
 	    <li ng-if="a.activity.activityType == 1">
 	      <div class="set-lst-state right">
 	      	<span>{{a.signNum}}/{{a.detail.signNum}}</span>
@@ -50,7 +50,7 @@
 	      </div>
 	    </li>
 	    
-	    <!-- 满送活动的显示 -->
+	    满送活动的显示
 	    <li ng-if="a.activity.activityType == 2">
 	      <div class="set-lst-title">{{a.product.remark}}</div>
 	    </li>
@@ -72,6 +72,33 @@
 	      </div>
 	    </li>
 	    
-    </ul>
+    </ul> -->
+    
+   <ul class="ul-activity-block">
+    <li>
+      <div class="set-lst-state right"></div>
+      <div class="set-lst-title">免费领取活动1</div>
+    </li>
+    <li>
+      <div class="set-lst-state right"></div>
+      <div class="set-lst-title">活动详情介绍文本</div>
+    </li>
+    <li>
+      <div class="set-lst-state right"><span>5/5</span> <i class="icon-select-satatus-01 right" ></i></div>
+      <div class="set-lst-title">1、每日签到</div>
+    </li>
+    <li>
+      <div class="set-lst-state right"> <i class="icon-select-satatus-01 right" ></i></div>
+      <div class="set-lst-title">2、分享朋友圈</div>
+    </li>
+    <!--<div class="padding-15 text-center"><a href="#" class="a-red font-14">立即领取</a></div>-->
+    <div class="padding-15 text-center"><a href="#" class="btn normal-btn"><i class="icon-menu-active-01"></i>签到</a>&nbsp;&nbsp;<a href="#" class="btn normal-btn"><i class="icon-share-01"></i>分享</a></div>
+  </ul>
+  <ul class="ul-activity-block">
+    <li><div class="set-lst-title">满送活动1</div></li>
+    <li><div class="set-lst-title">活动详情介绍文本</div></li>
+    <li><div class="set-lst-title">商品详情介绍文本</div></li>
+    <div class="padding-15 text-center"><a href="#" class="a-red font-14">立即购买</a></div>
+  </ul>
   </ion-content>
 </ion-modal-view>
