@@ -324,4 +324,14 @@ overflow:hidden;/*溢出隐藏*/
 .set-lst-state span{font-size:0.65rem;}
 .set-lst-state .icon-select-01{margin-top:15px;}
 .set-lst-state .icon-select-satatus-01{margin-top:20px; color:#ec3473;font-size:0.75rem;}
-
+/*设置美O圈的详情界面*/
+.quan-header{ height: 25px;  padding: 10px 10px 0 10px; color: #D4D4D4; }
+.quan-header .l-hr{ position: relative; border-bottom: 1px solid #D4D4D4; height: 2px; width: 92%; z-index: 888; margin-top: 8px; }
+.quan-header .l-point{ position: relative; width:8px ; top:-2px; height: 8px;margin-top: 8px; background-color: #D4D4D4; border-radius: 180px;z-index: 888;}
+.mo-h-left,.mo-h-right{ height: 25px; width: 35%;}
+.mo-h-left,.mo-h-right{ float: left;}
+.mo-h-time{ height: 25px; width: 30%;float: left; background-color: #ffffff; text-align:center; z-index: 999; color: #D4D4D4; font-weight:600; font-size: 0.65rem;}
+.mo-h-right{ float: left;}
+.quanimg{ padding: 0 10px;}
+.quanfont{height:auto;margin:15px;background-size: cover;background-position: center center;font-size: 0.75rem;;color: #acacac;}
+.quan-p{padding: 22px 15px 0 15px;text-align: center; color:#696969; font-family: "幼圆"; font-size: 1.025em; font-weight: 700;}
