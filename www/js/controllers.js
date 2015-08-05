@@ -2,8 +2,8 @@
 angular.module('starter.controllers', [])
 
 .constant('ApiEndpoint', {
-  url: 'http://www.parsec.com.cn/Cetus',
-  pic_url:'http://www.parsec.com.cn/Cetus/pic'
+  url: 'http://192.168.65.163:8080/Cetus',
+  pic_url:'http://192.168.65.163:8080/Cetus/pic'
 })
 
 .constant('HelpData', {
@@ -98,8 +98,6 @@ angular.module('starter.controllers', [])
   $scope.clickDetail = function(id, title) {//产品详情
      
   };
-
- 
 
   //头像选择
   var options = {
@@ -445,6 +443,67 @@ angular.module('starter.controllers', [])
 	});
   }
   $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+  
+	//会员信息
+	$ionicModal.fromTemplateUrl('templates/user/userinfo.html', {scope: $scope}).then(function(modal) {
+		$scope.modal_user_info = modal;
+	    $scope.userInfoData = {};
+	});
+  	//关闭会员信息页面
+	$scope.closeUserInfo = function() {
+	    $scope.modal_user_info.hide();
+	    //$state.go('user.userinfo');
+	    $scope.userInfoData = {};
+	}
+	//打开输入邀请码页面
+	$scope.c_state = 0;
+	$scope.openInvitationEdit = function() {
+		if($scope.c_state==0){
+			$scope.c_state=1
+		}else{
+			$scope.c_state=0;
+		}
+	}
+	//绑定邀请码
+	$scope.bandInvitation = function(){
+		if(!$scope.userInfoData.invitationCode){
+			$scope.showMsg("邀请码为空");
+			return;
+		}
+		$http.post(ApiEndpoint.url + '/api_binding_invitationcode?userId='+(Userinfo.l.id?Userinfo.l.id:"")+"&invitationCode="+$scope.userInfoData.invitationCode).success(function(data) {
+			$scope.showMsg(data.msg);
+			if (data.state =="success") {
+				$scope.c_state = 0;
+				$scope.state = 0;
+				$scope.userinfo_InvitationName = data.InvitationName;
+			}
+		});
+	}
+	// Open the login modal
+	$scope.userInfo = function() {
+		console.log(Userinfo);
+		if(!Userinfo.l.id){
+			$scope.modalLogin.show();
+		}else{
+			$scope.modal_user_info.show();
+			$http.post(ApiEndpoint.url + '/api_userinfo?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+				if (data.state == 'success') {
+					$scope.userinfo_name = data.obj.name;
+					$scope.userinfo_userNo = data.obj.userNo;
+					$scope.userinfo_userType = data.obj.userTypeName;
+					$scope.userinfo_myScore = data.obj.myscore+"分";
+					$scope.userinfo_myMoney = "￥"+data.obj.mymoney.toFixed(2);
+					$scope.userinfo_myInvitationCode = data.obj.myInvitation;
+					if(data.obj.InvitationName!=''){
+						$scope.state = 0;
+						$scope.userinfo_InvitationName = data.obj.InvitationName;
+					}else{
+						$scope.state = 1;
+					}
+				}
+			});
+		}
+	}
 })
 
 
@@ -575,8 +634,8 @@ angular.module('starter.controllers', [])
         });
       }
     });
-  };
-
+  }
+  
 })
 
 
