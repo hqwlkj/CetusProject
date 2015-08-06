@@ -166,7 +166,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     views: {
       'message': {
         templateUrl: 'templates/message/article.html',
-        controller: 'Article'
+        controller: 'msgArticle'
       }
     }
   })
