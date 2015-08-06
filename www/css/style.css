@@ -157,6 +157,27 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .text-center{
 	text-align: center;
 }
+.decora-none{
+	text-decoration: none;
+}
+.noborder{
+	border: 0 !important;
+}
+.noborder-top{
+	border-top: 0 !important;
+}
+.noborder-bottom{
+	border-bottom: 0 !important;
+}
+.noborder-left{
+	border-left: 0 !important;
+}
+.noborder-right{
+	border-right: 0 !important;
+}
+.nopadding-left{
+	padding-left: 0 !important;
+}
 .relative{
 	position: relative;
 }
@@ -169,7 +190,8 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .user-ava{
 	height: 3rem;
 	top: 2.07rem;
-	padding-left: 1.62rem;
+	/* padding-left: 1.62rem; */
+	text-align: center;
 }
 .ava{
 	width: 3rem;
@@ -181,10 +203,9 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	color: #fff;
 }
 .user-info{
-	position: absolute;
 	top: 50%;
-	margin-top: -30px;
-	left: 5rem;
+	height:20px;
+	text-align: center;
 }
 .user-vip{
 	width: 45px;
@@ -240,6 +261,10 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .icon-menu-order-off{
 	background: url(../img/ionic/icon-menu-order-off.png) center center no-repeat;
 	background-size: 20.75px;
+}
+.ion-new-gear{
+	background: url(../img/gear.png) center center no-repeat;
+	background-size: 1rem;
 }
 /* tabs style end*/
 
