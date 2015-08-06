@@ -208,6 +208,22 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     }
   })
   
+  .state('public', { //公用视图容器
+    url: '/public',
+    abstract: true,
+    templateUrl: 'templates/public/public.html',
+    controller: 'Public'
+  })
+  
+  .state('public.myCart', {//我的购物车
+    url: '/myCart',
+    views: {
+      'public': {
+        templateUrl: 'templates/public/myCart.html',
+        controller: 'MyCart'
+      }
+    }
+  })
   
   
 
