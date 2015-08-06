@@ -243,6 +243,7 @@ angular.module('starter.controllers', [])
         $scope.sign = Userinfo.l.today_signed;
         $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
         $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+        $scope.cellPhone = Userinfo.l.cellPhone ? Userinfo.l.cellPhone : '';
         $scope.flag = 1;
         $scope.closeLogin();
         $scope.loadGoods();
@@ -252,21 +253,40 @@ angular.module('starter.controllers', [])
   };
 
 
+  $ionicModal.fromTemplateUrl('templates/user/user.html ', {
+	  scope: $scope
+  }).then(function(modal) {
+	  $scope.userModal = modal;
+	  $scope.userData = {};
+  });
+  $scope.user = function() {
+	  $scope.userModal.show();
+  };
+  $scope.closeUser = function() {
+	  $scope.userModal.hide();
+	  $scope.userData = {};
+  };
+  
   $ionicModal.fromTemplateUrl('templates/help/about.html ', {
     scope: $scope
   }).then(function(modal) {
-    $scope.modal = modal;
+    $scope.aboutModal = modal;
+    $scope.aboutData = {};
   });
   $scope.about = function() {
-    $scope.modal.show();
+    $scope.aboutModal.show();
   };
   $scope.closeAbout = function() {
-    $scope.modal.hide();
+    $scope.aboutModal.hide();
+    $scope.aboutData = {};
   };
   $scope.exit = function() {//退出登录
     $scope.flag = '';
     Userinfo.l.id = '';
-    Userinfo.l = {};
+    $scope.username="登录";
+    $scope.cellPhone = '';
+    $scope.avaImg="img/default-ava.png";
+    window.localStorage.clear();//清除缓存
     Userinfo.remove('flag');
     $scope.modal.hide();
   };
@@ -307,16 +327,78 @@ angular.module('starter.controllers', [])
     });
   }
 
-  $scope.aboutGoTo = function(listid) {
+  $scope.aboutGoTo = function(listid){//用户信息修改
+	  switch (listid) {
+      case 1://头像
+    	  $ionicPopup.alert({
+  	        title: '提示',
+  	        template: '修改头像',
+  	        buttons: [{
+  	          text: '确定',
+  	          type: 'button-assertive'
+  	        }]
+  	    });
+        break;
+      case 2: //姓名
+    	// 一个精心制作的自定义弹窗
+    	   var myPopup = $ionicPopup.show({
+    	     template: '<input type="text" ng-model="data.username">',
+    	     title: '修改姓名',
+    	     subTitle: '',
+    	     scope: $scope,
+    	     buttons: [
+    	       { text: '关闭' },
+    	       {text: '<b>保存</b>',
+    	         type: 'button-assertive',
+    	         onTap: function(e) {
+    	           if (!$scope.data.username) {
+    	             //不允许用户关闭，除非他键入wifi密码
+    	             e.preventDefault();
+    	           } else {
+    	             return $scope.data.username;
+    	           }
+    	         }
+    	       },
+    	     ]
+    	   });
+    	   myPopup.then(function(res) {
+    	     console.log('Tapped!', res);
+    	   });
+        break;
+      case 3://密码
+    	window.localStorage.clear();//清除缓存
+    	$ionicPopup.alert({
+	        title: '提示',
+	        template: '修改密码',
+	        buttons: [{
+	          text: '确定',
+	          type: 'button-assertive'
+	        }]
+	    });
+        break;
+      default:
+        break;
+    };
+  }
+  
+  
+  $scope.userGoTo = function(listid) {
     switch (listid) {
       case 1:
-        $state.go('help.about');
-        $scope.modal.hide();
+    	  $ionicPopup.alert({
+  	        title: '提示',
+  	        template: '开发中',
+  	        buttons: [{
+  	          text: '确定',
+  	          type: 'button-assertive'
+  	        }]
+  	    });
         break;
       case 2:
     	$scope.checkUpdata();
         break;
       case 3:
+    	window.localStorage.clear();//清除缓存
     	$ionicPopup.alert({
 	        title: '提示',
 	        template: '缓存已清除',
@@ -386,6 +468,7 @@ angular.module('starter.controllers', [])
           $scope.sign = Userinfo.l.today_signed;
           $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
           $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+          $scope.cellPhone = Userinfo.l.cellPhone ? Userinfo.l.cellPhone : '';
           $scope.closeRegister();
           $scope.closeLogin();
           $scope.loadGoods();
@@ -393,6 +476,7 @@ angular.module('starter.controllers', [])
 	});
   }
   $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+  $scope.cellPhone = Userinfo.l.cellPhone ? Userinfo.l.cellPhone : '';
   
 	//会员信息
 	$ionicModal.fromTemplateUrl('templates/user/userinfo.html', {scope: $scope}).then(function(modal) {
