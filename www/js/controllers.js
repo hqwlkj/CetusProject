@@ -84,6 +84,10 @@ angular.module('starter.controllers', [])
 	  $state.go('product.detail',{productId: id});
   };
 
+  $scope.myMessage = function(){
+	  $state.go('message.msgall');
+  };
+  
   //头像选择
   var options = {
     title: '上传头像',
@@ -740,6 +744,7 @@ angular.module('starter.controllers', [])
 	}
 })
 
+
 //美O圈Controller
 .controller('QuanCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state){
 	$scope.titleState=1;//标题的显示状态
@@ -1009,6 +1014,7 @@ angular.module('starter.controllers', [])
 	$scope.productShare = function() {
 		$scope.showMsg("开发中");
 	};
+	
 	//提示信息
 	$scope.showMsg = function(txt) {
 	    var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
@@ -1021,3 +1027,82 @@ angular.module('starter.controllers', [])
 	    }, 1400);
 	 }
 })
+
+.controller('Message',function($scope, $ionicModal, $state,$timeout,$ionicHistory){
+	 $scope.backGo = function() {
+	    $ionicHistory.goBack();
+	  }
+})
+
+//美O圈个人消息中心
+.constant('HelpData', {
+  arr: []
+})
+.controller('MessageCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading,$location, $http, Userinfo, ApiEndpoint, $state,HelpData,$ionicHistory){
+	$scope.messageWd = [];
+	$scope.messageYd = [];
+	$scope.messageAll = [];
+	$http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=0'+'&pageNo=1'+'&pageSize=10').success(function(data) {
+	  if (data.state == 'success') {
+		  for (var i = 0; i < data.lst.length; i++) {
+		        (data.lst)[i].index = i + 1;
+		        HelpData.arr.push((data.lst)[i]);
+		      }
+		      $scope.messageWd = data.lst;
+		    }
+	});
+	//已读
+	 $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=1'+'&pageNo=1'+'&pageSize=10').success(function(data) {
+		    if (data.state == 'success') {
+		      for (var i = 0; i < data.lst.length; i++) {
+		        (data.lst)[i].index = i + 1;
+		        HelpData.arr.push((data.lst)[i]);
+		      }
+		      $scope.messageYd = data.lst;
+		    }
+		  });
+	//全部
+	 $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10').success(function(data) {
+		    if (data.state == 'success') {
+		      for (var i = 0; i < data.lst.length; i++) {
+		        (data.lst)[i].index = i + 1;
+		        HelpData.arr.push((data.lst)[i]);
+		      }
+		      $scope.messageAll = data.lst;
+		    }
+		  });
+
+		  $scope.backGo = function() {
+			  $location.path("msgwd");
+		      //$ionicHistory.goBack();
+		  };
+		  $scope.helpDetail = function(title) {
+		    $location.path('message/msgxq/' + title);
+		  }
+		})
+
+		.controller('Help-left', function($scope) {})
+
+		.controller('Help-right', function($scope) {
+		  $scope.helpinfo_right = [];
+		  $scope.$on('help.right', function(event, data) {
+		    $scope.helpinfo_right = data;
+		  });
+
+})
+.controller('Article', function($scope, $ionicHistory, $stateParams, HelpData,$ionicHistory) {
+  $scope.param = {};
+  $scope.backGo = function() {
+   //$location.path("msgwd");
+    $ionicHistory.goBack();
+  }
+
+  for (var i = 0; i < HelpData.arr.length; i++) {
+    if (HelpData.arr[i].title === $stateParams.title) {
+      $scope.param.title = $stateParams.title;
+      $scope.param.content = HelpData.arr[i].content;
+    }
+    // return null;
+  }
+})
+

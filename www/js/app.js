@@ -124,6 +124,56 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 	  }
   })
   
+  .state('message', {
+	  url: '/message',
+	  abstract: true,
+	  templateUrl: 'templates/message/message.html',
+	  controller: 'Message'
+  })
+  
+  .state('message.msgall', {//全部信息
+	  url: '/msgall',
+	  views: {
+		  'message': {
+			  templateUrl: 'templates/message/messageAll.html',
+			  controller: 'MessageCtrl'
+		  }
+	  }
+  })
+  
+  .state('message.msgwd', {//未读信息
+	  url: '/msgwd',
+	  views: {
+		  'message': {
+			  templateUrl: 'templates/message/messageWd.html',
+			  controller: 'MessageCtrl'
+		  }
+	  }
+  })
+  
+  .state('message.msgyd', {//已读信息
+	  url: '/msgyd',
+	  views: {
+		  'message': {
+			  templateUrl: 'templates/message/messageYd.html',
+			  controller: 'MessageCtrl'
+		  }
+	  }
+  })
+  
+  .state('message.msgxq', {//消息详情
+    url: '/msgxq/:title',
+    views: {
+      'message': {
+        templateUrl: 'templates/message/article.html',
+        controller: 'Article'
+      }
+    }
+  })
+  
+  
+  
+  
   .state('product', {
     url: '/product',
     abstract: true,

@@ -1,0 +1,15 @@
+ <div class="tabs-striped tabs-top tabs-light tabs-icon-top">
+  <div class="tabs" >
+   <a class="tab-item"  href="#/message/msgwd"><h5>未读</h5>
+   </a>
+  <a class="tab-item relative" href="#/message/msgyd"><h5>已读</h5>
+   </a>
+   <a class="tab-item active relative" href="#/message/msgall"><h5 style="color:#e34649">全部</h5>
+   </a>
+  </div>
+ </div>
+ <ion-content style="margin-top:58px;">
+ <ul class="list padding-left padding-right">
+ 	<li class="item noborder-left noborder-right nopadding-left" ng-repeat="k in messageAll" ng-click="helpDetail('{{k.title}}')">{{k.index}}.{{k.title}}</li>
+</ul>
+</ion-content>
