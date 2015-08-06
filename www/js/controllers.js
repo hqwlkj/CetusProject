@@ -330,14 +330,7 @@ angular.module('starter.controllers', [])
   $scope.aboutGoTo = function(listid){//用户信息修改
 	  switch (listid) {
       case 1://头像
-    	  $ionicPopup.alert({
-  	        title: '提示',
-  	        template: '修改头像',
-  	        buttons: [{
-  	          text: '确定',
-  	          type: 'button-assertive'
-  	        }]
-  	    });
+    	  $scope.upLoadImg();
         break;
       case 2: //姓名
     	// 一个精心制作的自定义弹窗
