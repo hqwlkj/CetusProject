@@ -398,6 +398,7 @@ angular.module('starter.addressController', [])
 	$scope.address = {};
 	$scope.addressObj = {};
 	$scope.canDelete = false;
+	$scope.showDefault = false;
 	$scope.isDefault = false;
 	$scope.backGoAddress = function() {
 	    $state.go('app.index');
@@ -439,8 +440,17 @@ angular.module('starter.addressController', [])
 	$ionicModal.fromTemplateUrl('templates/user/addressinfo.html', {scope: $scope}).then(function(modal) {
 		$scope.modal_addressinfo = modal;
 	});
+	//更改默认状态
+	$scope.change_default = function(){
+		if($scope.isDefault)
+			$scope.isDefault = false;
+		else
+			$scope.isDefault = true;
+	}
 	//打开地址详情
 	$scope.show_address = function(id){
+		$scope.showDefault = false;
+		$scope.isDefault = false;
 		$scope.modal_addressinfo.show();
 		if(id!=''){
 			$ionicLoading.show({
@@ -451,6 +461,9 @@ angular.module('starter.addressController', [])
 					$scope.addressObj = data.obj;
 					$scope.address=data.obj;
 					$scope.canDelete = true;
+					if(data.obj.state==0){
+						$scope.showDefault = true;
+					}
 				}else{
 					$scope.showMsg(data.msg);
 				}
@@ -461,6 +474,7 @@ angular.module('starter.addressController', [])
 			$scope.addressObj = {};
 			$scope.addressObj.id='';
 			$scope.canDelete = false;
+			$scope.showDefault = true;
 			$scope.address.province='重庆';
 			$scope.address.city='市辖区';
 			$scope.address.county='渝北区';
@@ -526,6 +540,11 @@ angular.module('starter.addressController', [])
 		    return;
 		}
 		msg += "&locations="+$scope.address.locations;
+		if($scope.isDefault){
+			msg+="&state=1"
+		}else{
+			msg+="&state=0"
+		}
 		$http.post(ApiEndpoint.url + '/api_address_save?'+msg).success(function(data) {
 			$scope.showMsg(data.msg);
 			if (data.state == 'success') {
