@@ -10,7 +10,7 @@ angular.module('starter.controllers', [])
   arr: []
 })
 
-.controller('IndexCtrl', function($scope, $http, ApiEndpoint,Userinfo) {
+.controller('IndexCtrl', function($scope, $http, ApiEndpoint,Userinfo,$state) {
 	$scope.titleState=0;//标题的显示状态
 	$scope.banner = [];
 	$http.post(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
@@ -18,6 +18,7 @@ angular.module('starter.controllers', [])
 	     $scope.banner = data.activityList;
 	   }
 	});
+	
 })
 
 .controller('Article', function($scope, $ionicHistory, $stateParams, HelpData) {
@@ -78,7 +79,9 @@ angular.module('starter.controllers', [])
     }, 200);
   };
 
-
+  $scope.cartClick = function() {
+		$state.go("public.myCart");
+	}
 
   $scope.clickDetail = function(id) {//产品详情
 	  $state.go('product.detail',{productId: id});
