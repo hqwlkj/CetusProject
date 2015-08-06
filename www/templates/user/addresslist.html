@@ -3,20 +3,19 @@
     <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="backGoAddress()"></a>
     <h1 class="title">收货地址</h1>
   </ion-header-bar>
-  <ion-content>
+  <ion-content style="background:#F6F3EE;">
     <ul class="address">
         <li class="margin-15 padding-10 clear" ng-repeat="a in addressdatalist">
             <div class="address-option left">
             	<i class="icon-unselect-01" ng-if="a.state==0" ng-click="address_default({{a.id}})"></i>
-            	<i class="icon-radio-01" ng-if="a.state==1"></i>
+            	<i class="icon-select-01" ng-if="a.state==1"></i>
             	<span ng-if="a.state==0">设为默认</span>
-            	<span ng-if="a.state==1">[ 默认 ]</span>
+            	<span ng-if="a.state==1" class="current">[ 默认 ]</span>
             </div>
-            <div class="address-detail right"><a href="addressinfo.html"><i class="icon-arrow-01"></i></a></div>
+            <div class="address-detail right"><a href="javascript:void(0)" ng-click="show_address({{a.id}})"><i class="icon-view-01"></i></a></div>
             <div class="addressbox" ng-click="show_address({{a.id}})">{{a.locations}}</div>
         </li>
         <div class="padding-15"><a href="javaScript:void(0)" class="add-newads text-center" ng-click="show_address('')"><p><i class="icon-add-01"></i></p><p class="font-14" style="color:#000">添加新地址</p></a></div>
     </ul>
-    </form>
   </ion-content>
 </ion-modal-view>
