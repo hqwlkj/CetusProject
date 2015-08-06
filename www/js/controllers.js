@@ -761,7 +761,7 @@ angular.module('starter.controllers', [])
     }, 1400);
   };
 
-  //login
+  /*//login
   $ionicModal.fromTemplateUrl('templates/user/login.html', {
     scope: $scope
   }).then(function(modal) {
@@ -876,7 +876,7 @@ angular.module('starter.controllers', [])
         });
       }
     });
-  }
+  }*/
   
 })
 

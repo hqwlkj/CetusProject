@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers','starter.addressController', 'starter.services', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers','starter.addressController', 'starter.ordercrtl','starter.mycartcrtl','starter.services', 'ngCordova'])
 
 .run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer, Userinfo) {
   $ionicPlatform.ready(function() {
@@ -104,12 +104,22 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     }
   })
   
-  .state('app.quan', {
+  .state('app.quan', {//美O圈
     url: '/quan',
     views: {
       'menuContent': {
         templateUrl: 'templates/tab-quan.html',
         controller: 'QuanCtrl'
+      }
+    }
+  })
+  
+  .state('app.order', { //我的的订单
+    url: '/order',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/tab-order.html',
+        controller: 'OrderCtrl'
       }
     }
   })
