@@ -1,0 +1,37 @@
+<ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="closeAbout()"></a>
+    <h1 class="title">个人设置</h1>
+</ion-header-bar>
+<ion-content style="background-color:#fafafa">
+<ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+<div id="content">
+	<section id="user-bg" class="relative">
+		<div class="user-ava relative" ng-if="flag == 1">
+			<div class="fl" ng-click="upLoadImg()">
+				<img src="img/ava-block.png" alt="" class="ava" style="background-image:url('{{avaImg}}')">
+			</div>
+			<div class="user-info fl">
+				<p><span style="padding-right:10px">{{Userinfo.l.username}}</span><span class="user-vip">{{params.level}}</span>
+				</p>
+				<p>{{Userinfo.l.username}}</p>
+			</div>
+		</div>
+		<p ng-if="flag != 1" style="text-align:center;font-size:20px;color:#fff;padding-top:3.55rem">欢迎来到美O圈</p>
+		<p ng-if="flag != 1" style="text-align:center;padding-top:0.592rem"><a ng-click="login()" class="decora-none" style="color:#fff;font-size:16px">点击登录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a ng-click="register()" class="decora-none" style="color:#fff;font-size:16px">免费注册</a> </p>
+	</section>
+	<section>
+	<ul class="list list-li-bg">
+	 	<li class="item" ng-click="aboutGoTo(1)"><img src="img/icon-bz-c.png" alt="">关于美O</li>
+	</ul>
+	 <ul class="list list-li-bg">
+	 	<li class="item" ng-click="aboutGoTo(2)"><img src="img/icon-gx-c.png" alt="">检查更新<i class="badge" style="font-weight:normal">v{{app_version}}</i></li>
+	 	<li class="item" ng-click="aboutGoTo(3)"><img src="img/icon-delete-c.png" alt="">清除缓存</li>
+	 </ul>
+	 <label class="padding" ng-if="flag == 1">
+	    <button class="button button-block button-assertive" type="submit" ng-click="exit()" style="padding-left:30px;padding-right:30px">退出当前账号</button>
+	 </label>
+	</section>
+</div>
+</ion-content>
+</ion-modal-view>

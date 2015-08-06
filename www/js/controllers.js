@@ -244,9 +244,25 @@ angular.module('starter.controllers', [])
 
   };
 
-  $scope.goToHelp = function() {
-    $state.go('help.helpleft');
-  }
+
+  $ionicModal.fromTemplateUrl('templates/help/about.html ', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.about = function() {
+    $scope.modal.show();
+  };
+  $scope.closeAbout = function() {
+    $scope.modal.hide();
+  };
+  $scope.exit = function() {//退出登录
+    $scope.flag = '';
+    Userinfo.l.id = '';
+    Userinfo.l = {};
+    Userinfo.remove('flag');
+    $scope.modal.hide();
+  };
 
   $scope.checkUpdata = function() {
     $cordovaAppVersion.getAppVersion().then(function(version) {
@@ -287,88 +303,26 @@ angular.module('starter.controllers', [])
   $scope.aboutGoTo = function(listid) {
     switch (listid) {
       case 1:
-        $state.go('help.helpleft');
+        $state.go('help.about');
         $scope.modal.hide();
         break;
       case 2:
-        $state.go('public.tutorial');
-        $scope.modal.hide();
+    	$scope.checkUpdata();
         break;
       case 3:
-        $state.go('public.feedback');
-        $scope.modal.hide();
-        break;
-      case 4:
-        $scope.checkUpdata();
-        break;
-      case 5:
-        alert('缓存已清除');
+    	$ionicPopup.alert({
+	        title: '提示',
+	        template: '缓存已清除',
+	        buttons: [{
+	          text: '确定',
+	          type: 'button-assertive'
+	        }]
+	    });
         break;
       default:
         break;
     };
   }
-
-  $scope.goToEx = function() {
-    $state.go('public.active-back');
-  }
-
-  $scope.goTo = function(listid) {//页面跳转路由器
-    if (Userinfo.l.flag != 1) {
-      $scope.login();
-    } else {
-      switch (listid) {
-        case 1:
-          $state.go('public.orderlist');
-          break;
-        case 2:
-          $state.go('public.incomedetail');
-          break;
-        case 3:
-          window.open();
-          break;
-        case 6:
-          $state.go('public.acount');
-          break;
-        case 9:
-          $scope.unreadMsg = window.localStorage['unread_msg_count'] = '0';
-          $state.go('public.message');
-          break;
-        case 8:
-          $state.go('public.feedback');
-          break;
-        case 7:
-          $state.go('public.invitation');
-          break;
-        case 5:
-          $state.go('public.active-back');
-          break;
-        case 11:
-          $scope.signAlert();
-          break;
-        case 12:
-          $state.go('public.jifen-exchange-cash');
-          break;
-        case 13:
-          $state.go('public.store-rebate');
-          break;
-        case 14:
-          $state.go('missorder.form');
-          break;
-        default:
-          break;
-      }
-    }
-  };
-
-  $scope.kf = function(url, title) {
-    if (window.localStorage['iswebchat'] == 1) {
-      window.open(url, '_blank', 'location=yes', title);
-    } else {
-      window.open(url, '_system', 'location=yes', title);
-    }
-  };
-
 
   // 注册
   $ionicModal.fromTemplateUrl('templates/user/register.html', {
