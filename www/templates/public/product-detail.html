@@ -33,10 +33,11 @@
 	    <div class="comment-content">
 	       <div class="wp">
 	          <ul id="comment-slider" class="comment-slider">
-	            <li ng-repeat='c in comments'> <a class="fl" href="#"><img ng-src="http://www.parsec.com.cn/Cetus/pic/{{c.headImg}}" alt="" /></a>
+	            <li ng-if="commenState" ng-repeat='c in comments' style="width: {{_width}}"> <a class="fl" href="#"><img ng-src="http://www.parsec.com.cn/Cetus/pic/{{c.headImg}}" alt="" /></a>
 	              <p class="name">{{c.username}}</p>
 	              <p>自古多情空余恨，吃恨绵绵无绝期。</p>
 	            </li>
+	            <li ng-if="!commenState" style="width: {{_width}}"><p>{{commenHtml}}</p></li>
 	          </ul>
 	        </div>
 	    </div>

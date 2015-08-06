@@ -295,7 +295,7 @@ overflow:hidden;/*溢出隐藏*/
 .btn-rt{border-radius:0 3px 3px 0;}
 .footer{height: 45px; padding: 0 10px;}
 .fixed-bottom { position: fixed; left: 0; right: 0; bottom: 0;  z-index: 940; }
-.addcart{margin-top:5px;height:35px;line-height:35px;display:inline-block;background: #ec3473;color: #ffffff;font-size: 0.65rem;padding-left: 10px;padding-right: 10px; margin-left: 20px;}
+.addcart{margin-top:5px;height:35px;line-height:35px;display:inline-block;background: #ec3473;color: #ffffff;font-size: 0.65rem;padding-left: 10px;padding-right: 10px;}
 .product-centent-title{color:#ED417C;font-size: 0.65rem; font-weight: 700; padding-bottom:5px; margin-top:15px; border-bottom:1px solid #cccccc; margin-bottom: 15px; }
 .kf{height:45px; line-height:45px; width: 35px;margin: 0 auto; padding: 0; text-align:center; margin-top:-3px; font-family: '幼圆'; color: #8B8B8B; cursor:pointer;  margin-right: 10px; }
 .kf i{ font-size: 1rem;}
@@ -305,12 +305,12 @@ overflow:hidden;/*溢出隐藏*/
 .comment-title{ background-color:#ffffff; padding-right:5px;}
 .comment-hr{ width:100%; border-bottom:1px solid #BABABA; margin-top:-24px;}
 .comment-content{}
-.wp{position:relative;height:400px;overflow:hidden;margin:20px auto;background:#ffffff;}
+.wp{position:relative;margin:10px auto;background:#ffffff;}
 .comment-slider{position:absolute;left:0;top:0;}
 .fl{float:left}
 .comment-slider img{display:block; border-radius:180px; width:30px; height:30px; margin-top:5px;} 
-.comment-slider li{padding:10px 0;border-bottom:1px solid #BABABA;overflow:hidden;width:100%; min-width:500px;}
-.comment-slider p{font-size:12px;margin:0;padding-left:5px;color:#333;line-height:20px; color:#8B8B8B; text-align: left; right:0; white-space:nowrap;/*强制文本在一行内显示*/
+.comment-slider li{padding:10px;border-bottom:1px solid #BABABA;overflow:hidden;width:100%; max-width:500px;  margin-bottom: 20px;}
+.comment-slider p{font-size:12px;margin:0;padding-left:5px; padding-right:5px; color:#333;line-height:20px; color:#8B8B8B; text-align: left; right:0; white-space:nowrap;/*强制文本在一行内显示*/
 text-overflow:ellipsis; /*溢出省略号，支持ie、safari（webkit）*/
 -o-text-overflow:ellipsis; /*溢出省略号，支持opera*/
 overflow:hidden;/*溢出隐藏*/
