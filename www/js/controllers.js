@@ -974,6 +974,7 @@ angular.module('starter.controllers', [])
 	$scope.picfiles = [];
 	$scope.comments = [];
 	$scope.product = {};
+	$scope.cartData ={};
 	$scope.commenHtml="";
 	$scope.commenState=true;
 	$scope._width="200px";
@@ -987,6 +988,8 @@ angular.module('starter.controllers', [])
 			if (data.state == 'success') {
 				$scope.product = data;
 				$scope.picfiles = data.picfiles;
+				$scope.cartData.stockNum = $scope.product.stockNum;
+				$scope.cartData.amount = 1;
 	        }else{
 	            $scope.showMsg(data.msg);
 	        }
@@ -1026,6 +1029,52 @@ angular.module('starter.controllers', [])
 	      $scope.popover.hide();
 	    }, 1400);
 	 }
+	//商品数量减少或增加。sta为1表示减1，为2表示加1
+	$scope.productNum = function(sta) {
+		if (sta == 1) {
+			if ($scope.cartData.amount == 1) 
+				$scope.showMsg('商品数量不能小于1');
+			else
+				$scope.cartData.amount -= 1;
+		}else {
+			if ($scope.cartData.amount >= $scope.product.stockNum) 
+				$scope.showMsg('商品数量不能超过库存数');
+			else
+				$scope.cartData.amount += 1;
+		}
+	}
+	//加入购物车
+	$scope.addCart = function() {
+		if ($scope.cartData.amount > $scope.product.stockNum) {
+			$scope.showMsg('库存不足');
+			return;
+		}
+		if ($scope.cartData.amount < 1) {
+			$scope.showMsg('商品数量不能小于1');
+			return;
+		}
+		$ionicLoading.show({
+		     template: '加载中...'
+		});
+		var cart = {};
+		cart.userId = (Userinfo.l.id?Userinfo.l.id:"");
+		cart.productId = $scope.product.id;
+		cart.productNum = $scope.cartData.amount;
+		if(!Userinfo.l.id){
+			$ionicLoading.hide();
+//			$scope.modalLogin.show();
+			$scope.showMsg("请先登录");
+		}else{
+			$http.post(ApiEndpoint.url + '/api_cart_add?json='+JSON.stringify(cart)).success(function(data) {
+				if (data.state == 'success') {
+					$scope.showMsg("加入购物车成功");
+		        }else{
+		            $scope.showMsg(data.msg);
+		        }
+				$ionicLoading.hide();
+		    });
+		}
+	}
 })
 
 .controller('Message',function($scope, $ionicModal, $state,$timeout,$ionicHistory,$state){
