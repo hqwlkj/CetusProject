@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers','starter.addressController', 'starter.services', 'ngCordova'])
 
 .run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer, Userinfo) {
   $ionicPlatform.ready(function() {
@@ -124,7 +124,44 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 	  }
   })
   
-  .state('message', {
+  .state('addresss', { //收货地址
+	  url: '/addresss',
+	  abstract: true,
+	  templateUrl: 'templates/user/address.html',
+	  controller: 'AddCtrl'
+  })
+  
+  .state('addresss.addresslist', {
+    url: '/addresslist',
+    views: {
+      'addresss': {
+        templateUrl: 'templates/user/addresslist.html',
+        controller: 'AddresssCtrl'
+      }
+    }
+  })
+  
+  
+  
+  .state('product', {
+    url: '/product',
+    abstract: true,
+    templateUrl: 'templates/public/product.html',
+    controller: 'Product'
+  })
+  
+  .state('product.detail', {
+	  url: '/detail/{productId:[0-9]{1,4}}',//页面之间的参数传递
+	  views: {
+		  'product': {
+			  templateUrl: 'templates/public/product-detail.html',
+			  controller: 'ProductCtrl'
+		  }
+	  }
+  })
+
+  
+   .state('message', {
 	  url: '/message',
 	  abstract: true,
 	  templateUrl: 'templates/message/message.html',
@@ -173,24 +210,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   
   
   
-  
-  .state('product', {
-    url: '/product',
-    abstract: true,
-    templateUrl: 'templates/public/product.html',
-    controller: 'Product'
-  })
-  
-  .state('product.detail', {
-	  url: '/detail/{productId:[0-9]{1,4}}',//页面之间的参数传递
-	  views: {
-		  'product': {
-			  templateUrl: 'templates/public/product-detail.html',
-			  controller: 'ProductCtrl'
-		  }
-	  }
-  })
-
 
   .state('welcome', {
     url: '/welcome',
