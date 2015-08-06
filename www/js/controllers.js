@@ -791,7 +791,7 @@ angular.module('starter.controllers', [])
 				}
 			}else {
 				$ionicPopup.alert({
-			        title: data.title,
+			        title: '提示',
 			        template: data.msg,
 			        buttons: [{
 			          text: '确定',
