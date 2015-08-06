@@ -35,7 +35,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('UserCtrl', function($scope, $state, $ionicModal, $timeout, $ionicPopup, $ionicPopover, $http, ApiEndpoint, Userinfo, $ionicLoading, $cordovaActionSheet, $cordovaImagePicker, $cordovaFileTransfer, $cordovaCamera, $cordovaAppVersion, $stateParams) {
-//  window.localStorage.clear();
+  //window.localStorage.clear();
   $scope.flag = Userinfo.l.flag;
   $scope.params = Userinfo.l;
   $scope.sign = Userinfo.l.today_signed;
@@ -82,6 +82,13 @@ angular.module('starter.controllers', [])
 
   $scope.clickDetail = function(id) {//产品详情
 	  $state.go('product.detail',{productId: id});
+  };
+  $scope.goAddress = function() {//收货地址
+	  if(!Userinfo.l.id){
+		  $scope.login();
+		  return;
+	  }
+	  $state.go('addresss.addresslist',{userId: Userinfo.l.id});
   };
 
   $scope.myMessage = function(){
