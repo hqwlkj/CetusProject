@@ -947,6 +947,7 @@ angular.module('starter.controllers', [])
 	            $scope.showMsg(data.msg);
 	        }
 	    });
+	   console.log(ApiEndpoint.url + '/api_comment_list?pid='+$stateParams.productId+'&pageNo=1');
 	   $http.post(ApiEndpoint.url + '/api_comment_list?pid='+$stateParams.productId+'&pageNo=1').success(function(data) {
 			if (data.state == 'success') {
 				$scope._width =(document.body.scrollWidth - 30)+"px;";
@@ -963,6 +964,10 @@ angular.module('starter.controllers', [])
 	}, 200)
 	//客服
 	$scope.kf = function() {
+		$scope.showMsg("开发中");
+	};
+	//分享
+	$scope.productShare = function() {
 		$scope.showMsg("开发中");
 	};
 	//提示信息
