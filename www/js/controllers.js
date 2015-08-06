@@ -359,6 +359,9 @@ angular.module('starter.controllers', [])
     	   });
         break;
       case 3://密码
+    	$scope.username="登录";
+    	$scope.cellPhone = '';
+    	$scope.avaImg="img/default-ava.png";
     	window.localStorage.clear();//清除缓存
     	$ionicPopup.alert({
 	        title: '提示',
@@ -1130,10 +1133,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('Message',function($scope, $ionicModal, $state,$timeout,$ionicHistory,$state){
-	 $scope.backGo = function() {
-	    //$ionicHistory.goBack();
-	    $state.go('app.index');
-	  }
+	 
 })
 
 //美O圈个人消息中心
@@ -1141,6 +1141,10 @@ angular.module('starter.controllers', [])
   arr: []
 })
 .controller('MessageCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading,$location, $http, Userinfo, ApiEndpoint, $state,HelpData,$ionicHistory){
+	$scope.backGoMsg = function() {
+	    //$ionicHistory.goBack();
+	    $state.go('app.index');
+	}
 	$scope.messageWd = [];
 	$scope.messageYd = [];
 	$scope.messageAll = [];
@@ -1174,14 +1178,11 @@ angular.module('starter.controllers', [])
 		    }
 		  });
 
-		  $scope.backGo = function() {
-			  //$location.path("msgwd");
-		      //$ionicHistory.goBack();
-		  };
+
 		  $scope.helpDetail = function(title) {
 		    $location.path('message/msgxq/' + title);
 		  }
-		})
+})
 
 .controller('msgArticle', function($scope, $ionicHistory, $stateParams, HelpData,$ionicHistory, $state) {
   $scope.param = {};
