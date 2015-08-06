@@ -930,6 +930,9 @@ angular.module('starter.controllers', [])
 	$scope.picfiles = [];
 	$scope.comments = [];
 	$scope.product = {};
+	$scope.commenHtml="";
+	$scope.commenState=true;
+	$scope._width="200px";
 	$ionicLoading.show({
 	     template: '加载中...'
 	});
@@ -946,10 +949,13 @@ angular.module('starter.controllers', [])
 	    });
 	   $http.post(ApiEndpoint.url + '/api_comment_list?pid='+$stateParams.productId+'&pageNo=1').success(function(data) {
 			if (data.state == 'success') {
-				if(data.list.length)
-				 $scope.comments = data.list;
-				else
-					
+				$scope._width =(document.body.scrollWidth - 30)+"px;";
+				if(data.list.length){
+					$scope.comments = data.list;
+				}else{
+					$scope.commenState=false;
+					$scope.commenHtml = "该商品暂无任何评论...";
+				}
 	        }else{
 	            $scope.showMsg(data.msg);
 	        }
