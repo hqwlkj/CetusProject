@@ -2,7 +2,7 @@
 angular.module('starter.controllers', [])
 
 .constant('ApiEndpoint', {
-  url: 'http://www.parsec.com.cn/Cetus',
+   url: 'http://www.parsec.com.cn/Cetus',
   pic_url:'http://www.parsec.com.cn/Cetus/pic'
 })
 
@@ -1028,9 +1028,10 @@ angular.module('starter.controllers', [])
 	 }
 })
 
-.controller('Message',function($scope, $ionicModal, $state,$timeout,$ionicHistory){
+.controller('Message',function($scope, $ionicModal, $state,$timeout,$ionicHistory,$state){
 	 $scope.backGo = function() {
-	    $ionicHistory.goBack();
+	    //$ionicHistory.goBack();
+	    $state.go('app.index');
 	  }
 })
 
@@ -1073,7 +1074,7 @@ angular.module('starter.controllers', [])
 		  });
 
 		  $scope.backGo = function() {
-			  $location.path("msgwd");
+			  //$location.path("msgwd");
 		      //$ionicHistory.goBack();
 		  };
 		  $scope.helpDetail = function(title) {
@@ -1081,28 +1082,18 @@ angular.module('starter.controllers', [])
 		  }
 		})
 
-		.controller('Help-left', function($scope) {})
-
-		.controller('Help-right', function($scope) {
-		  $scope.helpinfo_right = [];
-		  $scope.$on('help.right', function(event, data) {
-		    $scope.helpinfo_right = data;
-		  });
-
-})
-.controller('Article', function($scope, $ionicHistory, $stateParams, HelpData,$ionicHistory) {
+.controller('msgArticle', function($scope, $ionicHistory, $stateParams, HelpData,$ionicHistory, $state) {
   $scope.param = {};
-  $scope.backGo = function() {
-   //$location.path("msgwd");
-    $ionicHistory.goBack();
+  $scope.backGoInfo = function() {
+     $ionicHistory.goBack();
   }
 
   for (var i = 0; i < HelpData.arr.length; i++) {
     if (HelpData.arr[i].title === $stateParams.title) {
       $scope.param.title = $stateParams.title;
+      $scope.param.time = HelpData.arr[i].showCreateTime;
       $scope.param.content = HelpData.arr[i].content;
     }
-    // return null;
   }
 })
 

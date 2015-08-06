@@ -1,6 +1,13 @@
 <ion-header-bar class="bar-stable" style="border-bottom:1px solid #b2b2b2 !important">
-    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="backGo()"></a>
-    <h1 class="title">{{param.title}}</h1>
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="backGoInfo()"></a>
+    <h1 class="title">消息详情</h1>
 </ion-header-bar>
-<ion-content style="margin-top:58px;" ng-bind-html="param.content" class="padding">
+<ion-content  class="padding">
+ <div class="wrap-page">
+  <div class="messageinfobox">
+    <div class="msg-title">{{param.title}}</div>
+    <div class="msg-time text-left">{{param.time}}</div>
+    <div class="msg-comment">{{param.content}}</div>
+  </div>
+</div> 
 </ion-content>
