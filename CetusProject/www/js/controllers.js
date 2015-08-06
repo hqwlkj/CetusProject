@@ -592,16 +592,16 @@ angular.module('starter.controllers', [])
 	}
 	//签到
 	$scope.addSign = function(acId) {
-//		$ionicLoading.show({
-//		    template: "加载中..."
-//		});
+		$ionicLoading.show({
+		    template: "加载中..."
+		});
 //		var share = {};
 //		share.userId = (Userinfo.l.id?Userinfo.l.id:"");
 //		share.activityId = acId;
 //		share.type = 1;
 //		share.shareSns = "";
 		$http.post(ApiEndpoint.url + '/api_app_signandshare_save?type=1&userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&activityId='+acId+'&shareSns=').success(function(data) {
-//			$ionicLoading.hide();
+			$ionicLoading.hide();
 			var title = data.title;
 			var msg = data.msg;
 			if (data.state == 'success') {
@@ -615,14 +615,53 @@ angular.module('starter.controllers', [])
 		          text: '确定',
 		          type: 'button-assertive'
 		        }]
-		    });
-			$scope.activityList();
+		    }).then(function(res) {
+		    	if (data.state == 'success')
+		    		$scope.activityList();
+			});
 		});
 	}
 	//分享
 	$scope.toShare = function() {
 		$scope.showMsg('开发中。。。');
+//		    Wechat.isInstalled(function(installed) {
+//		      if (!installed) {
+//		        alert("手机尚未安装微信应用");
+//		      } else {
+//		        $ionicLoading.show({
+//		          template: '正在打开微信,请稍等...'
+//		        });
+//		        $timeout(function() {
+//		          $ionicLoading.hide();
+//		        }, 3000);
+//		      }
+//		    });
+//		$scope.shareViaWechat(WeChat.Scene.timeline, "分享到微信朋友圈", 'aaa', 'http://baidu.com', 'cccc');
+
 	}
+//	$scope.shareViaWechat = function(scene, title, desc, url, thumb) {
+//		alert(222);
+//        // 创建消息体
+//        var msg = {
+//            title: title ? title : "行者无疆",
+//            description: desc ? desc : "A real traveller's province is boundless.",
+//            url: url ? url : "http://www.xingzhewujiang.xinligen.osnuts.com",
+//            thumb: thumb ? thumb : null
+//        };
+//        WeChat.share(msg, scene, function() {
+//            $ionicPopup.alert({
+//                title: '分享成功',
+//                template: '感谢您的支持！',
+//                okText: '关闭'
+//            });
+//        }, function(res) {
+//            $ionicPopup.alert({
+//                title: '分享失败',
+//                template: '错误原因：' + res + '。',
+//                okText: '我知道了'
+//            });
+//        });
+//    };
 	//加载活动列表内容
 	$scope.activityList = function() {
 		$ionicLoading.show({
