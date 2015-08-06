@@ -910,7 +910,8 @@ angular.module('starter.controllers', [])
 	$scope.param = {};
 	//后退
 	$scope.backGoPro = function() {
-	    $ionicHistory.goBack();
+	    //$ionicHistory.goBack();
+	    $state.go('app.index');
 	}
 	
 	//提示信息
@@ -927,18 +928,28 @@ angular.module('starter.controllers', [])
 })
 .controller('ProductCtrl',function($scope, $http, $ionicModal, $state,$timeout,$stateParams,$ionicLoading,Userinfo,ApiEndpoint,$ionicPopover){
 	$scope.picfiles = [];
+	$scope.comments = [];
 	$scope.product = {};
 	$ionicLoading.show({
 	     template: '加载中...'
 	});
 	$timeout(function() {
-	   console.log($stateParams.productId);
-	   console.log(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:""));
+	   //console.log(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:""));
 	   $http.post(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
 		   $ionicLoading.hide();  
 			if (data.state == 'success') {
 				$scope.product = data;
 				$scope.picfiles = data.picfiles;
+	        }else{
+	            $scope.showMsg(data.msg);
+	        }
+	    });
+	   $http.post(ApiEndpoint.url + '/api_comment_list?pid='+$stateParams.productId+'&pageNo=1').success(function(data) {
+			if (data.state == 'success') {
+				if(data.list.length)
+				 $scope.comments = data.list;
+				else
+					
 	        }else{
 	            $scope.showMsg(data.msg);
 	        }
