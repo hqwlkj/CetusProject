@@ -435,6 +435,9 @@ angular.module('starter.controllers', [])
 			$scope.modalLogin.show();
 		}else{
 			$scope.modal_user_info.show();
+			$ionicLoading.show({
+			     template: '加载中...'
+			});
 			$http.post(ApiEndpoint.url + '/api_userinfo?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
 				if (data.state == 'success') {
 					$scope.userinfo_name = data.obj.name;
@@ -450,6 +453,7 @@ angular.module('starter.controllers', [])
 						$scope.state = 1;
 					}
 				}
+				$ionicLoading.hide();
 			});
 		}
 	}
@@ -464,6 +468,9 @@ angular.module('starter.controllers', [])
 	//显示用户积分页面
 	$scope.show_usercoin = function(){
 		$scope.modal_usercoin.show();
+		$ionicLoading.show({
+		     template: '加载中...'
+		});
 		$scope.load_usercoin_score();//加载数据
 		$scope.load_usercoin_data();//加载列表数据
 	}
@@ -511,6 +518,7 @@ angular.module('starter.controllers', [])
 				$scope.usercoin_username = data.userName;
 				$scope.usercoin_score = data.score;
 			}
+			$ionicLoading.hide();
 		});
 	}
 	
@@ -521,6 +529,9 @@ angular.module('starter.controllers', [])
 	});
 	//显示我的团队页面
 	$scope.show_myteam = function(){
+		$ionicLoading.show({
+		     template: '加载中...'
+		});
 		$scope.modal_myteam.show();
 		$http.post(ApiEndpoint.url + '/api_myteam?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
 			if (data.state =="success") {
@@ -532,7 +543,10 @@ angular.module('starter.controllers', [])
 				$scope.myteam_myscore = data.myscore+"分";
 				$scope.myteam_teammoney = data.teammoney.toFixed(2)+"元";
 				$scope.myteam_teamscore = data.teamscore+"分";
+			}else{
+				$scope.showMsg(data.msg);
 			}
+			$ionicLoading.hide();
 		});
 	}
 	//关闭我的团队页面
