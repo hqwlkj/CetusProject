@@ -146,12 +146,12 @@ angular.module('starter.mycartcrtl', [])
 	}
 	
 	
-	//物流详情
-	$scope.wuliu = function(){
-		//aaa。快递公司编号-快递单号-订单编号
-		var aaa = 'tiantian-560331923708-1438679113340';
-		$state.go('public.logistics',{com:aaa});
-	}
+//	//物流详情
+//	$scope.wuliu = function(){
+//		//aaa。快递公司编号-快递单号-订单编号
+//		var aaa = 'tiantian-560331923708-1438679113340';
+//		$state.go('public.logistics',{com:aaa});
+//	}
 })
 
 
