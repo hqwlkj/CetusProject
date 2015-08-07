@@ -377,7 +377,7 @@ overflow:hidden;/*溢出隐藏*/
 .btn-rt{border-radius:0 3px 3px 0;}
 .footer{height: 45px; padding: 0 10px;}
 .fixed-bottom { position: fixed; left: 0; right: 0; bottom: 0;  z-index: 940; }
-.addcart{margin-top:8px;height:35px;line-height:35px;display:inline-block;background: #ec3473;color: #ffffff;font-size: 0.65rem;padding-left: 10px;padding-right: 10px;}
+.addcart{margin-top:5px;height:35px;line-height:35px;display:inline-block;background: #ec3473;color: #ffffff;font-size: 0.65rem;padding-left: 10px;padding-right: 10px;}
 .product-centent-title{color:#ED417C;font-size: 0.65rem; font-weight: 700; padding-bottom:5px; margin-top:15px; border-bottom:1px solid #cccccc; margin-bottom: 15px; }
 .kf{height:45px; line-height:45px; width: 35px;margin: 0 auto; padding: 0; text-align:center; margin-top:-3px; font-family: '幼圆'; color: #8B8B8B; cursor:pointer;  margin-right: 10px; }
 .kf i{ font-size: 1rem;}

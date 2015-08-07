@@ -4365,19 +4365,23 @@ ion-tabs.tabs-color-active-dark .tab-item {
   .popover-backdrop.active {
     background-color: rgba(0, 0, 0, 0.1); }
 
-.popover {
+.popover { /*yanghc 2015-08-07*/
+  text-align: center;
   position: absolute;
-  top: 25%;
+  /*top: 25%;*/
+  bottom: 15%;
   left: 50%;
   z-index: 10;
   display: block;
   margin-top: 12px;
   margin-left: -110px;
-  height: 280px;
-  width: 220px;
+  /*height: 280px;*/
+  min-width: 220px;
   background-color: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  opacity: 0; }
+  /*opacity: 0; */
+  opacity: 1;
+}
   .popover .item:first-child {
     border-top: 0; }
   .popover .item:last-child {
