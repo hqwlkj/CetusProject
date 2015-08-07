@@ -124,6 +124,24 @@ angular.module('starter.mycartcrtl', [])
 	
 	//去结算－－－前往订单页面
 	$scope.toOrder = function() {
-		$scope.showMsg("开发中。。。");
+		var pid = "0";
+		var count = "0";
+		for (var int = 0; int < $scope.cartList.length; int++) {
+			if ($scope.cartList[int].checkClass == "icon-select-01"){
+				pid += ","+$scope.cartList[int].productId;
+				count += ","+$scope.cartList[int].productNum;
+			}
+		}
+		if (pid == "0") {
+			$scope.showMsg("请选择商品");
+			return;
+		}
+		$http.post(ApiEndpoint.url + '/api_encode?msg='+pid+' '+count+' '+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+			if (data.state =="success") {
+//				window.location.href="order-count.html?"+data.secret;
+			}else{
+				$scope.showMsg(data.msg);
+			}
+		});
 	}
 })
