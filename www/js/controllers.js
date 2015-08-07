@@ -2,7 +2,7 @@
 angular.module('starter.controllers', [])
 
 .constant('ApiEndpoint', {
-   url: 'http://192.168.65.152:8080/Cetus',
+   url: 'http://www.parsec.com.cn/Cetus',
   pic_url:'http://www.parsec.com.cn/Cetus/pic'
 })
 
