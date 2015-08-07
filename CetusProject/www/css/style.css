@@ -230,6 +230,12 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	vertical-align:text-top;
 	margin-right:15px;
 }
+.list-li-bg li .headImg{
+	width:50px;
+	height:50px;
+	margin-right:-18px;
+	margin-top: -18px;
+}
 /* tabs style begin*/
 .tab-title{ font-family:'幼圆' ; font-weight: normal; font-size: 0.75rem;}
 .icon-menu-active{
