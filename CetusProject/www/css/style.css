@@ -441,3 +441,28 @@ overflow:hidden;/*溢出隐藏*/
 .address-remove{color:#EC3473;}
 .add-newads i{color:#ec3473;font-size:1rem; }
 .add-newads i.icon-select-01{color:#ec3473;font-size:1rem; }
+
+/*我的订单*/
+.orderlst-resault{border-bottom:1px solid #ccc;line-height: 33px;margin-left: 15px; margin-right:15px; padding-right: 15px;clear: both;}
+.orderlst-resault-name{font-size: 0.75rem;color:#8b8b8b;}
+.orderlst-resault-value{font-size: 0.875rem;}
+.btn{-webkit-border-radius: 3x; -moz-border-radius: 3px;border-radius: 3px;}
+.normal-btn{border:1px solid #ec3473;color:#ec3473;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
+.col-6 {width:50%;position: relative;
+min-height: 1px;float:left;text-align: center;}
+.text-left{text-align: left}
+.text-right{text-align: right}
+.text-center{text-align: center}
+.orderlst-foot{padding:7px 15px}
+.price span{font-size: 0.625rem}
+.price{font-size: 0.875rem;color:#ec3473;}
+.orderlst-top{margin-left: 15px; margin-right:15px; padding: 10px 0 10px 0;border-bottom: 1px dotted #cccccc;min-height: 82px;}
+.orderlst-top-content{padding-left: 72.5px;}
+.orderlst-top .img{height:62.5px;width:62.5px;background-size: cover;background-position: center center;background-repeat: no-repeat;}
+.order-info{ border-bottom: 1px solid #cccccc; color:#8b8b8b; font-size:0.65rem; padding: 10px 0 10px 0; height:35px;}
+.orderlst-top-content-title{font-size: 0.65rem;max-height: 35px;overflow: hidden;}
+.orderlst-top-content-attr{font-size: 0.65rem;color:#8b8b8b;margin-top:10px; height:20px; }
+.btn{-webkit-border-radius: 3x; -moz-border-radius: 3px;border-radius: 3px;}
+.normal-btn{border:1px solid #ec3473;color:#ec3473;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
+.danger-btn{border:1px solid #000;color:#000;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
+.warning-btn{border:1px solid #8a6d3b;color:#8a6d3b;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
