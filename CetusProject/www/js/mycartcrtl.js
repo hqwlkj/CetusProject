@@ -203,4 +203,9 @@ angular.module('starter.mycartcrtl', [])
 	
 	$scope.loadLogisticsData();
 	
+	//关闭物流页面
+	$scope.closeLogistics = function() {
+		
+	}
+	
 });
