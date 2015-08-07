@@ -648,9 +648,22 @@ angular.module('starter.controllers', [])
 	    $scope.modal_activity_list.hide();
 	    $scope.activityListData = {};
 	}
-	//跳转到订单页面（免费领取活动的立即领取、满送活动的立即购买或领取赠品）
-	$scope.goOrder = function() {
-		$scope.showMsg('开发中。。。');
+	//跳转到订单页面（免费领取活动的立即领取、满送活动的立即购买或领取赠品）。sta为1表示领取，2表示购买
+	$scope.goOrder = function(obj, sta) {
+		var productId = obj.product.id;
+		var productNum = 1;
+		if (sta == 2) 
+			productNum = obj.detail.buysNum;
+		var userId = (Userinfo.l.id?Userinfo.l.id:"");
+		var activityId = obj.activity.id;
+
+		$http.post(ApiEndpoint.url + '/api_encode?msg='+productId+' '+productNum+' '+userId+' '+activityId+' '+sta).success(function(data) {
+			if (data.state =="success") {
+				$state.go('public.order',{msg:data.secret});
+			}else{
+				$scope.showMsg(data.msg);
+			}
+		});
 	}
 	//签到
 	$scope.addSign = function(acId) {

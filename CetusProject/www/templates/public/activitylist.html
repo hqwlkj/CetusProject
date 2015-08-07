@@ -28,7 +28,7 @@
     </li>
     <!--<div class="padding-15 text-center"><a href="#" class="a-red font-14">立即领取</a></div>-->
     <div class="padding-15 text-center" ng-if="a.activity.activityType == 1">
-    	<a ng-if="a.signNum == a.detail.signNum && a.shareNum == 1 && a.receiveNum == 0 && a.activity.endNum != 2" ng-click="goOrder()" class="a-red font-14">立即领取</a>
+    	<a ng-if="a.signNum == a.detail.signNum && a.shareNum == 1 && a.receiveNum == 0 && a.activity.endNum != 2" ng-click="goOrder({{a}}, 1)" class="a-red font-14">立即领取</a>
     	<a ng-if="a.signNum == a.detail.signNum && a.shareNum == 1 && a.receiveNum == 0 && a.activity.endNum == 2" class="a-red font-14">活动已结束</a>
     	<a ng-if="a.signNum == a.detail.signNum && a.shareNum == 1 && a.receiveNum != 0" class="a-red font-14">已领取</a>
     	
@@ -45,14 +45,14 @@
     </li>
     <div ng-if="a.activity.activityType == 2" class="padding-15 text-center">
       <a ng-if="a.buyState == 0 && a.activity.endNum == 0" class="a-gray font-14">活动尚未开始</a>
-      <a ng-if="a.buyState == 0 && a.activity.endNum == 1" ng-click="goOrder()" class="a-red font-14">立即购买</a>
+      <a ng-if="a.buyState == 0 && a.activity.endNum == 1" ng-click="goOrder({{a}}, 2)" class="a-red font-14">立即购买</a>
       <a ng-if="a.buyState == 0 && a.activity.endNum == 2" class="a-gray font-14">活动已结束</a>
       
       <a ng-if="a.receiveNum == a.detail.premiumNum" class="a-gray font-14">赠品已领完</a>
       
       <a ng-if="a.buyState != 0 && a.receiveNum != a.detail.premiumNum && a.isreceive == 2" class="a-gray font-14">购买的商品未确认收货</a>
       <a ng-if="a.buyState != 0 && a.receiveNum != a.detail.premiumNum && a.isreceive == 1" class="a-gray font-14">本月已领取赠品</a>
-      <a ng-if="a.buyState != 0 && a.receiveNum != a.detail.premiumNum && a.isreceive != 2 && a.isreceive != 1" ng-click="goOrder()" class="a-red font-14">立即领取</a>
+      <a ng-if="a.buyState != 0 && a.receiveNum != a.detail.premiumNum && a.isreceive != 2 && a.isreceive != 1" ng-click="goOrder({{a}}, 1)" class="a-red font-14">立即领取</a>
       
     </div>
   </ul>
