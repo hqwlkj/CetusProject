@@ -1,0 +1,90 @@
+<ion-header-bar class="bar-stable"
+	style="border-bottom:1px solid #b2b2b2 !important"> <a
+	class="button icon-left ion-ios-arrow-left button-clear button-dark"
+	ng-click="orderBackGo()"></a>
+<h1 class="title">我的购物车</h1>
+</ion-header-bar>
+<ion-content class="has-subheader">
+<ul class="orderlst">
+	<li>
+		<div class="orderlst-top">
+			<span class="orderlst-title">快递费</span>
+			<div class="orderlst-top-right right text-right">
+				<p class="price express">
+					<span>￥</span> 0.00
+				</p>
+			</div>
+		</div>
+		<div class="orderlst-count-price">
+			<div class="orderlst-top-right right text-right">
+				<p class="count-price">
+					订单总计：<span>￥</span><em>0.00</em>
+				</p>
+			</div>
+		</div>
+		<div class="orderlst-foot text-right">
+			<a href="javaScript:history.go(-1);" class="btn normal-btn">修改</a>
+		</div>
+	</li>
+	<li>
+		<div class="orderlst-top bbn">
+			<span class="distribution-title">配送方式：</span> <span
+				class="distribution-content"><p data-type="1">
+					<i class="icon-select-01"></i> <span>系统配送</span>
+				</p>
+				<p class="showbox" data-type="0">
+					<i class="icon-unselect-01"></i> <span>上门自提</span>
+				</p></span>
+		</div>
+	</li>
+	<li id="hava_address" class="hide">
+		<div class="orderlst-top">
+			<span class="orderlst-title">收货人:</span><span class="recive-name"></span>
+			<div class="orderlst-top-right right text-right">
+				<span class="recive-name recive-tel"></span>
+			</div>
+			<p class="orderlst-top-content-attr">
+				<i class="icon-pote-01"></i><span class="recive-address"></span>
+			</p>
+		</div>
+		<div class="orderlst-foot text-right">
+			<a href="#" class="btn normal-btn">修改</a>
+		</div>
+	</li>
+	<li id="not_hava_address" class="hide">
+		<div class="orderlst-top">
+			<span class="orderlst-title">暂无收货地址</span>
+		</div>
+		<div class="orderlst-foot text-right">
+			<a href="#" class="btn normal-btn">新增</a>
+		</div>
+	</li>
+	<li id="autoaddress" class="showbox" style="display: none;"><input
+		type="hidden" value="" id="autoaddressId" />
+		<div class="orderlst-top bbn">
+			<span class="orderlst-title">自提地点:</span>
+			<p class="orderlst-top-content-attr" id="shopName"></p>
+			<p class="orderlst-top-content-attr" id="address"></p>
+		</div></li>
+	<li>
+		<div class="lst-sub">
+			<div class=" margin-top-11">
+				<a href="javaScript:void(0);" class="btn lg-btn">提交订单</a>
+			</div>
+		</div>
+		<div
+			class=" margin-top-15 margin-left-15 margin-right-15 fz75 fcec3473 padding-bottom-15"
+			id="ruleInfo"></div>
+	</li>
+</ul>
+<div id="TB_overlayBG"></div>
+<div class="box" style="display: none">
+	<h2>
+		选择自提点
+		<!-- <a href="javascript:viod(0);" class="close">关闭</a> -->
+	</h2>
+	<div class="mainlist">
+		<ul id="auto-add"></ul>
+	</div>
+</div>
+</ion-content>
