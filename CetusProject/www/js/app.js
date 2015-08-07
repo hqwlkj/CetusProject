@@ -29,9 +29,9 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     // window.plugins.jPushPlugin.setDebugMode(true);
 
     //检查更新
-    //checkUpdate();
+    checkUpdate();
 
-    /*function checkUpdate() {
+    function checkUpdate() {
       $cordovaAppVersion.getAppVersion().then(function(version) {
         Userinfo.add('version', version);
         $http.get('v='+version).success(function(data) {
@@ -42,7 +42,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
           }
         })
       });
-    };*/
+    };
 
     function showUpdateConfirm(desc, url) {
       var confirmPopup = $ionicPopup.confirm({
