@@ -183,7 +183,7 @@ angular.module('starter.mycartcrtl', [])
 
 
 //物流详情
-.controller('Logistics',function($scope, $state, $ionicPopup, Userinfo, $ionicLoading, $http, ApiEndpoint, $stateParams){
+.controller('Logistics',function($scope, $state, $ionicPopup, Userinfo, $ionicLoading,$ionicHistory, $http, ApiEndpoint, $stateParams){
 	$scope.companyName = "快递名称";
 	$scope.orderListImg = "";
 	$scope.com = $stateParams.com.split("-")[0];
@@ -197,7 +197,9 @@ angular.module('starter.mycartcrtl', [])
 	$ionicLoading.show({
 	    template: "加载中..."
 	});
-	
+	/*$scope.com  = 'tiantian';
+	$scope.postId  = '550169065187';
+	$scope.ordNum  = '1124839389468986';*/
 	$scope.loadLogisticsData = function() {
 		$http.post(ApiEndpoint.url + '/api_express_findbycode?code='+$scope.com).success(function(data) {
 			if (data.state =="success") {
@@ -213,8 +215,8 @@ angular.module('starter.mycartcrtl', [])
 				$scope.orderItemList = data.oitem;
 				$scope.logisticsState = data.json.status;
 				$scope.logisticsList = data.json.data;
-				for (var int = 0; int < $scope.orderItemList.length; int++) {
-					$scope.orderItemList[int].imgUrl = ApiEndpoint.pic_url+'/'+$scope.orderItemList[int].imgurl;
+				for (var i = 0; i < $scope.orderItemList.length; i++) {
+					$scope.orderItemList[i].imgUrl = ApiEndpoint.pic_url+'/'+$scope.orderItemList[i].imgurl;
 				}
 				if ($scope.logisticsList != null && $scope.logisticsList.length > 0) {
 					$scope.logisticsList[0].numberOne = 1;
@@ -231,7 +233,6 @@ angular.module('starter.mycartcrtl', [])
 	
 	//关闭物流页面
 	$scope.closeLogistics = function() {
-		
+		$ionicHistory.goBack();
 	}
-	
 });

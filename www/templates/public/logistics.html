@@ -3,7 +3,7 @@
     <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="closeLogistics()"></a>
     <h1 class="title">物流详情</h1>
   </ion-header-bar>
-  <ion-content>
+  <ion-content style="background:#E5E5E5;">
      <div class="log-tabbar fixed-top"> 
 	  <!-- 快递信息 -->
 	  <div class="log-top">
@@ -19,7 +19,7 @@
 	    </div>
 	  </div>
 	</div>
-	<div class="wrap-page" style=" padding-top: 85px;" > 
+	<div class="wrap-page" > 
 	  <!-- 商品详情 -->
 	  <div class="log-content">
 	    <div class="content" id="item">
@@ -50,16 +50,17 @@
 	      <div class="demo" ng-if="logisticsState == 1">
 	      	 <div class="history">
 			 	<div class="history-date">
-					<ul ng-repeat="logis in logisticsList">
-						<li class="green">
-							<dl>
-								<dt><span class="content-info">{{logis.context}}</span></dt>
-								<dt><span class="time">{{logis.time}}</span></dt>
-							</dl>
+					<ul>
+						<li class="green" ng-repeat="logis in logisticsList">
+							<dl><dt><span class="content-info">{{logis.context}}</span></dt>
+								<dt><span class="time">{{logis.time}}</span></dt></dl>
 						</li>
 					</ul>
 				</div>
 			</div>
+	      </div>
+	      <div class="demo" ng-if="logisticsState != 0 && logisticsState != 1 && logisticsState != 3">
+	      	 <div class="errordiv"><p>快递公司数据异常，请稍候查询。</p></div>
 	      </div>
 	      <!-- end --> 
 	    </div>
