@@ -28,6 +28,78 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     //调试模式
     // window.plugins.jPushPlugin.setDebugMode(true);
 
+    document.addEventListener("devuceready", function() {
+    	$cordovaActionSheet.show(options)
+        .then(function(btnIndex) {
+          switch (btnIndex) {
+            case 1:
+              $scope.pickImg();
+              break;
+            case 2:
+              $scope.cameraImg();
+              break;
+            default:
+              break;
+          }
+        });
+    	$cordovaImagePicker.getPictures(options)
+        .then(function(results) {
+          $cordovaFileTransfer.upload(server, results[0], option, true)
+            .then(function(result) {
+              alert('上传成功');
+              $scope.avaImg = results[0];
+            }, function(err) {
+              alert('上传失败，请重试');
+            }, function(progress) {
+              $ionicLoading.show({
+                template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
+              });
+              if (Math.round((progress.loaded / progress.total) * 100) >= 99) {
+                $ionicLoading.hide();
+              }
+            });
+        }, function(error) {
+           alert('出错');
+        });
+    	$cordovaCamera.getPicture(options).then(function(imageData) {
+	      $cordovaFileTransfer.upload(server, "data:image/jpeg;base64," + imageData, option, true)
+	        .then(function(result) {
+	          alert('上传成功');
+	          $scope.doRefresh();
+	        }, function(err) {
+	          alert('上传失败，请重试');
+	        }, function(progress) {
+	          $ionicLoading.show({
+	            template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
+	          });
+	          if (Math.round((progress.loaded / progress.total) * 100) >= 99) {
+	            $ionicLoading.hide();
+	          };
+	        });
+	    }, function(err) {
+	      // alert('出错');
+	    });
+    	
+    	$cordovaAppVersion.getAppVersion().then(function(version) {
+	      $ionicLoading.show({
+	        template: '检测版本中...'
+	      });
+	      Userinfo.add('version', version);
+	      $http.get('v=' + version).success(function(data) {
+	        $ionicLoading.hide();
+	        if (data.error == 0) {
+	          if (version != data.version) {
+	            $scope.showUpdateConfirm(data.desc, data.apk);
+	          } else {
+	            alert('目前是最新版本');
+	          }
+	        } else {
+	          alert('服务器连接错误，请稍微再试');
+	        }
+	      })
+	    });
+    });
+    
     //检查更新
     checkUpdate();
 
