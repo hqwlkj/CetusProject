@@ -144,4 +144,63 @@ angular.module('starter.mycartcrtl', [])
 			}
 		});
 	}
+	
+	
+	//物流详情
+	$scope.wuliu = function(){
+		//aaa。快递公司编号-快递单号-订单编号
+		var aaa = 'tiantian-560331923708-1438679113340';
+		$state.go('public.logistics',{com:aaa});
+	}
 })
+
+
+
+//物流详情
+.controller('Logistics',function($scope, $state, $ionicPopup, Userinfo, $ionicLoading, $http, ApiEndpoint, $stateParams){
+	$scope.companyName = "快递名称";
+	$scope.orderListImg = "";
+	$scope.com = $stateParams.com.split("-")[0];
+	$scope.postId = $stateParams.com.split("-")[1];  //快递单号
+	$scope.ordNum = $stateParams.com.split("-")[2];  //订单编号
+	$scope.orderItemMsg = "";
+	$scope.orderItemList = []; //该订单中的商品集合
+	$scope.logisticsList = []; //该订单的物流信息
+	$scope.logisticsState = 0; //该订单的物流状态
+	
+	$ionicLoading.show({
+	    template: "加载中..."
+	});
+	
+	$scope.loadLogisticsData = function() {
+		$http.post(ApiEndpoint.url + '/api_express_findbycode?code='+$scope.com).success(function(data) {
+			if (data.state =="success") {
+				$scope.companyName = data.data.name;
+				$scope.orderListImg = data.data.img;
+			}else{
+				$scope.showMsg(data.msg);
+			}
+		});
+		$http.post(ApiEndpoint.url + '/api_express_send?code='+$scope.com+'&nu='+$scope.postId+'&ordnum='+$scope.ordNum).success(function(data) {
+			if (data.state =="success") {
+				$scope.orderItemMsg = data.msg;
+				$scope.orderItemList = data.oitem;
+				$scope.logisticsState = data.json.status;
+				$scope.logisticsList = data.json.data;
+				for (var int = 0; int < $scope.orderItemList.length; int++) {
+					$scope.orderItemList[int].imgUrl = ApiEndpoint.pic_url+'/'+$scope.orderItemList[int].imgurl;
+				}
+				if ($scope.logisticsList != null && $scope.logisticsList.length > 0) {
+					$scope.logisticsList[0].numberOne = 1;
+				}
+			}else{
+				$scope.showMsg(data.msg);
+			}
+			
+			$ionicLoading.hide();
+		});
+	}
+	
+	$scope.loadLogisticsData();
+	
+});
