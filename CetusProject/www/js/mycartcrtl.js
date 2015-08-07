@@ -40,9 +40,9 @@ angular.module('starter.mycartcrtl', [])
 	$scope.allchecked = function() {
 		$scope.allMoney = 0;
 		if ($scope.allCheckClass == "icon-unselect-01") {
-			$scope.allCheckClass = "icon-select-01";
+			$scope.allCheckClass = "icon-select-satatus-01";
 			for (var int = 0; int < $scope.cartList.length; int++) {
-				$scope.cartList[int].checkClass = "icon-select-01";
+				$scope.cartList[int].checkClass = "icon-select-satatus-01";
 				$scope.allMoney += $scope.cartList[int].product.price*$scope.discount*$scope.cartList[int].productNum;
 			}
 		}else {
@@ -83,7 +83,7 @@ angular.module('starter.mycartcrtl', [])
 			     });
 			}else {
 				$scope.c.productNum -= 1;
-				if ($scope.c.checkClass == "icon-select-01") 
+				if ($scope.c.checkClass == "icon-select-satatus-01") 
 					$scope.allMoney -= $scope.c.product.price*$scope.discount;
 			}
 		}else {
@@ -92,7 +92,7 @@ angular.module('starter.mycartcrtl', [])
 				$scope.showMsg("该商品的库存量不足");
 			}else {
 				$scope.c.productNum += 1;
-				if ($scope.c.checkClass == "icon-select-01") 
+				if ($scope.c.checkClass == "icon-select-satatus-01") 
 					$scope.allMoney += $scope.c.product.price*$scope.discount;
 			}
 		}
@@ -113,11 +113,11 @@ angular.module('starter.mycartcrtl', [])
 	//选中购物车中的某商品
 	$scope.choseCheck = function(obj) {
 		$scope.c = obj;
-		if ($scope.c.checkClass == "icon-select-01") {
+		if ($scope.c.checkClass == "icon-select-satatus-01") {
 			$scope.c.checkClass = "icon-unselect-01";
 			$scope.allMoney -= $scope.c.product.price*$scope.discount*$scope.c.productNum;
 		}else {
-			$scope.c.checkClass = "icon-select-01";
+			$scope.c.checkClass = "icon-select-satatus-01";
 			$scope.allMoney += $scope.c.product.price*$scope.discount*$scope.c.productNum;
 		}
 	}
@@ -127,7 +127,7 @@ angular.module('starter.mycartcrtl', [])
 		var pid = "0";
 		var count = "0";
 		for (var int = 0; int < $scope.cartList.length; int++) {
-			if ($scope.cartList[int].checkClass == "icon-select-01"){
+			if ($scope.cartList[int].checkClass == "icon-select-satatus-01"){
 				pid += ","+$scope.cartList[int].productId;
 				count += ","+$scope.cartList[int].productNum;
 			}
@@ -144,6 +144,32 @@ angular.module('starter.mycartcrtl', [])
 			}
 		});
 	}
+	
+	$scope.policy_state=false;
+	$scope.prompt_height="50px;";
+	$scope.prompt_info="none;";
+	$scope.policy = function(){
+		if($scope.policy_state){
+			$scope.prompt_height="50px;";
+			$scope.prompt_info ="none;";
+			$scope.policy_state=false;
+		}else{
+			$scope.prompt_height="230px;";
+			$scope.prompt_info = "block;";
+			$scope.policy_state=true;
+		}
+	}
+
+	//包邮政策、商品政策
+	/*jQuery(function(){
+	     jQuery("#key").toggle(function(){
+		   jQuery("#key .up").removeClass("up").addClass("down").parent().animate({height:jQuery("#key").height()+$(".info").outerHeight(true)+"px"},1000);
+		   jQuery(".info").css("display","block");
+		 },function(){
+		   jQuery("#key .down").removeClass("down").addClass("up").parent().animate({height:"50px"},1000);
+		   jQuery(".info").css("display","none");
+		 })
+	  });*/
 	
 	
 //	//物流详情
