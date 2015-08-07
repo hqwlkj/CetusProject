@@ -245,7 +245,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })
   
   .state('public.logistics', {//物流详情
-    url: '/logistics/{com}/{postid}/{ordNum}', //快递公司代码、快递单号、订单编号
+    url: '/logistics/{com}', //快递公司代码、快递单号、订单编号
     views: {
       'public': {
         templateUrl: 'templates/public/logistics.html',
