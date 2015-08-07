@@ -142,7 +142,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })
   
   .state('addresss.addresslist', {
-    url: '/addresslist',
+    url: '/addresslist/{msg}',
     views: {
       'addresss': {
         templateUrl: 'templates/user/addresslist.html',

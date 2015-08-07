@@ -4,7 +4,7 @@ angular.module('starter.addressController', [])
 .controller('AddCtrl', function($scope, $http, $state, $ionicLoading, $timeout, ApiEndpoint, Userinfo) {
 	
 })
-.controller('AddresssCtrl', function($scope,$ionicPopover, $http, $state, $ionicLoading, $timeout,$ionicModal,$ionicPopup,ApiEndpoint, Userinfo) {
+.controller('AddresssCtrl', function($scope,$ionicPopover, $http,$stateParams, $state, $ionicLoading,$ionicHistory, $timeout,$ionicModal,$ionicPopup,ApiEndpoint, Userinfo) {
 	
 	$scope.addList = {'北京': {'市辖区':['东城区','西城区','崇文区','宣武区','朝阳区','丰台区','石景山区','海淀区','门头沟区','房山区','通州区','顺义区','昌平区','大兴区','怀柔区','平谷区'],'县':['密云县','延庆县']},
 						'上海':{'市辖区':['黄浦区','卢湾区','徐汇区','长宁区','静安区','普陀区','闸北区','虹口区','杨浦区','闵行区','宝山区','嘉定区','浦东新区','金山区','松江区','青浦区','南汇区','奉贤区'],'县':['崇明县']},
@@ -401,8 +401,15 @@ angular.module('starter.addressController', [])
 	$scope.showDefault = false;
 	$scope.isDefault = false;
 	$scope.backGoAddress = function() {
-	    $state.go('app.index');
+	    if($stateParams.msg==''){
+	    	console.log(1);
+	    	$state.go('app.index');
+	    }else{
+	    	console.log(2);
+	    	$state.go('public.order',{msg:$stateParams.msg});
+	    }
 	}
+	
 	$ionicLoading.show({
 	     template: '加载中...'
 	});
