@@ -138,7 +138,7 @@ angular.module('starter.mycartcrtl', [])
 		}
 		$http.post(ApiEndpoint.url + '/api_encode?msg='+pid+' '+count+' '+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
 			if (data.state =="success") {
-//				window.location.href="order-count.html?"+data.secret;
+				$state.go('public.order',{msg:data.secret});
 			}else{
 				$scope.showMsg(data.msg);
 			}

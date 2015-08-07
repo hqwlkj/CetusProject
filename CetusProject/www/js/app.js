@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers','starter.addressController', 'starter.ordercrtl','starter.mycartcrtl','starter.services', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers','starter.addressController', 'starter.ordercrtl','starter.order','starter.mycartcrtl','starter.services', 'ngCordova'])
 
 .run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer, Userinfo) {
   $ionicPlatform.ready(function() {
@@ -233,6 +233,15 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
         controller: 'MyCart'
       }
     }
+  })
+  .state('public.order', {//我的订单
+	  url: '/order/{msg}',
+	  views: {
+		  'public': {
+			  templateUrl: 'templates/public/order.html',
+			  controller: 'Order'
+		  }
+	  }
   })
   
   
