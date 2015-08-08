@@ -660,6 +660,8 @@ angular.module('starter.controllers', [])
 		$http.post(ApiEndpoint.url + '/api_encode?msg='+productId+' '+productNum+' '+userId+' '+activityId+' '+sta).success(function(data) {
 			if (data.state =="success") {
 				$state.go('public.order',{msg:data.secret});
+				$scope.modal_activity_list.hide();
+				return;
 			}else{
 				$scope.showMsg(data.msg);
 			}
