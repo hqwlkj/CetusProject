@@ -496,10 +496,10 @@ cursor: pointer;
 .btn{-webkit-border-radius: 3x; -moz-border-radius: 3px;border-radius: 3px;}
 .normal-btn{border:1px solid #ec3473;color:#ec3473;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
 .col-6 {width:50%;position: relative;
-min-height: 1px;float:left;text-align: center;}
-.text-left{text-align: left}
-.text-right{text-align: right}
-.text-center{text-align: center}
+min-height: 1px;float:left;text-align: center;overflow: hidden;}
+.text-left{text-align: left;overflow: hidden;}
+.text-right{text-align: right;overflow: hidden;}
+.text-center{text-align: center;overflow: hidden;}
 .orderlst-foot{padding:7px 15px}
 .price span{font-size: 0.625rem}
 .price{font-size: 0.875rem;color:#ec3473;}
@@ -508,7 +508,7 @@ min-height: 1px;float:left;text-align: center;}
 .orderlst-top .img{height:62.5px;width:62.5px;background-size: cover;background-position: center center;background-repeat: no-repeat;}
 .order-info{ border-bottom: 1px solid #cccccc; color:#8b8b8b; font-size:0.65rem; padding: 10px 0 10px 0; height:35px;}
 .orderlst-top-content-title{font-size: 0.65rem;max-height: 35px;overflow: hidden;}
-.orderlst-top-content-attr{font-size: 0.65rem;color:#8b8b8b;margin-top:10px; height:20px; }
+.orderlst-top-content-attr{font-size: 0.65rem;color:#8b8b8b;margin-top:10px; height:20px; overflow: hidden;	}
 .btn{-webkit-border-radius: 3x; -moz-border-radius: 3px;border-radius: 3px;}
 .normal-btn{border:1px solid #ec3473;color:#ec3473;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
 .danger-btn{border:1px solid #000;color:#000;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
@@ -551,3 +551,6 @@ min-height: 1px;float:left;text-align: center;}
 *body .history-date ul li.green dl dt a{_background:transparent!important;*background:transparent!important;*font-size:12px!important;_font-weight:normal!important;}
 .errordiv{max-width:500px; margin-top:15px;border:#fe8d1d 1px solid;padding:20px;background:#FFFAE2;}
 .errordiv p{line-height:28px;margin:0px;padding:0px;color:#F21818;}
+/*订单详情*/
+.orderlst li{background:#ffffff;margin-bottom: 10px}
+.orderlst-title{font-size: 0.75rem}
