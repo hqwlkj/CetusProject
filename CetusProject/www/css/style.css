@@ -513,7 +513,7 @@ min-height: 1px;float:left;text-align: center;overflow: hidden;}
 .btn{-webkit-border-radius: 3x; -moz-border-radius: 3px;border-radius: 3px;}
 .normal-btn{border:1px solid #ec3473;color:#ec3473;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
 .danger-btn{border:1px solid #000;color:#000;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
-.warning-btn{border:1px solid #8a6d3b;color:#8a6d3b;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
+.warning-btn{border:1px solid #8a6d3b;color:#8a6d3b;font-size: 0.75rem;padding:5px 2px;display: inline-block;margin: auto 3px }
 
 /*物流详情*/
 .log-tabbar{height:90px;background:#5C6C85;font-size: 0.75rem;color:#FFF;max-width:500px; margin:auto; }
