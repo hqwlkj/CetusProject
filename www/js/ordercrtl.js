@@ -141,8 +141,15 @@ angular.module('starter.ordercrtl', [])
 	   */
 	  $ionicModal.fromTemplateUrl('templates/order-detail.html', {scope: $scope}).then(function(modal) {
 			$scope.modal_order_info = modal;
-			$scope.orderDetail = [];
+			$scope.orderdata = [];
+			$scope.orderAdd = [];
+			$scope.orderItems = [];
+			$scope.orderOrder = [];
 		});
+	  //关闭当前的视图 
+	  $scope.closeOrderDetail = function() {
+		    $scope.modal_order_info.hide();
+		}
 	  
 	//加载订单详情信息数据 并且打开一个界面
 		$scope.goOrderDetail = function(ordNum) {
@@ -153,15 +160,46 @@ angular.module('starter.ordercrtl', [])
 				$ionicLoading.show({
 				     template: '加载中...'
 				});
-				$http.post(ApiEndpoint.url + '/api_order_get?ordNum='+ordNum).success(function(data) {
+				$http.post(ApiEndpoint.url + '/api_order_get?ordNum='+ordNum+'&pageNo=1'+'&pageSize=10').success(function(data) {
 					console.log(data);
 					if (data.state == 'success') {
+						//$scope.orderData=data;
 						$scope.ordNum = data.order.ordNum;
-						$scope.ordNum = data.order.ordNum;
-						
-						$scope.orderDetail=data.lst
+						$scope.orderAdd=data.add;
+						$scope.orderItems=data.item;
+						$scope.orderOrder=data.order;
+						if(data.order.payMethod==1||data.order.payMethod=="1"){
+							$scope.payMethod="在线支付";
+						}else if(data.order.payMethod == "2" || data.order.payMethod == 2){
+							$scope.payMethod="货到付款";
+						}
+						$scope.com=data.order.com;
+						//$scope.myorderId=data.order.id;
+						$scope.deliveryTime=data.order.deliveryTime;//送货时间
+						$scope.orderMoney=data.order.orderMoney;//订单单价
+						$scope.freight=data.order.freight;//运费
+						$scope.discountPrice=data.order.discountPrice;//优惠价格
+						$scope.countPrice=data.order.orderMoney;//订单总价
+						$scope.showRiseTime=data.order.showRiseTime;//下单时间
 					}
 					$ionicLoading.hide();
+				});
+			}
+		}
+		
+		/**
+		 * 订单详情中  取消订单
+		 */
+		$scope.reallyDelete=function(id){
+			//alert(id);
+			if(confirm("确定要取消该订单吗？")){
+				$http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(orderId)).success(function(data) {
+					  if (data.state == 'success') {
+							  alert("订单已取消");
+							  setTimeout("getOrderWf()",2000);//刷新
+					  }else{
+							alert(data.msg);
+						}
 				});
 			}
 		}

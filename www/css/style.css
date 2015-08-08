@@ -552,5 +552,10 @@ min-height: 1px;float:left;text-align: center;overflow: hidden;}
 .errordiv{max-width:500px; margin-top:15px;border:#fe8d1d 1px solid;padding:20px;background:#FFFAE2;}
 .errordiv p{line-height:28px;margin:0px;padding:0px;color:#F21818;}
 /*订单详情*/
+.orderxq-top{margin-left: 15px; margin-right:15px; padding: 10px 0 10px 0;border-bottom: 1px dotted #cccccc;}
 .orderlst li{background:#ffffff;margin-bottom: 10px}
 .orderlst-title{font-size: 0.75rem}
+#not_hava_address{ background-color: #ffbfbf; border-top: 2px dashed red; border-bottom: 2px dashed red;}
+.evaluate-btn{border:1px solid #ec3473;color:#ffffff; background-color:#ec3473; font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
+.pingl-btn{border:1px solid #8a6d3b;color:#8a6d3b;font-size: 0.75rem;padding:4px 10px;display: inline-block;margin: auto 3px }
+
