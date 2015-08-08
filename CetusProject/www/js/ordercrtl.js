@@ -116,7 +116,9 @@ angular.module('starter.ordercrtl', [])
 	  /*
 	   * 已完成订单中 ，删除订单
 	   */
-	  $scope.deleteOrder=function(orderId){
+	  $scope.deleteOrder=function(orderOrder){
+		  var orderId=orderOrder.id;
+		  alert(orderId);
 		  $ionicLoading.show({
 			  template: "加载中..."
 		  });
@@ -169,6 +171,10 @@ angular.module('starter.ordercrtl', [])
 						$scope.orderAdd=data.add;
 						$scope.orderItems=data.item;
 						$scope.orderOrder=data.order;
+						
+						$scope.recipients=data.add.recipients;
+						$scope.telephone=data.add.telephone;
+						$scope.locations=data.add.province+data.add.city+data.add.county+data.add.locations;//地址
 						if(data.order.payMethod==1||data.order.payMethod=="1"){
 							$scope.payMethod="在线支付";
 						}else if(data.order.payMethod == "2" || data.order.payMethod == 2){
@@ -197,7 +203,7 @@ angular.module('starter.ordercrtl', [])
 				$http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(ordNum)).success(function(data) {
 					  if (data.state == 'success') {
 							  alert("订单已取消");
-							  setTimeout("getOrderWf()",2000);//刷新
+							  setTimeout("closeOrderDetail()",2000);//刷新
 					  }else{
 							alert(data.msg);
 						}
