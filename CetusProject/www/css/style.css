@@ -235,6 +235,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	height:50px;
 	margin-right:-18px;
 	margin-top: -18px;
+	border-radius: 50%;
 }
 /* tabs style begin*/
 .tab-title{ font-family:'幼圆' ; font-weight: normal; font-size: 0.75rem;}
