@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers','starter.addressController', 'starter.ordercrtl','starter.order','starter.mycartcrtl','starter.services', 'ngCordova'])
 
-.run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer, Userinfo) {
+.run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer,$cordovaImagePicker, Userinfo) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -27,9 +27,18 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     window.plugins.jPushPlugin.init();
     //调试模式
     // window.plugins.jPushPlugin.setDebugMode(true);
-
-    document.addEventListener("devuceready", function() {
-    	$cordovaActionSheet.show(options)
+    
+    
+   //头像选择开始
+    var options = {
+      title: '上传头像',
+      buttonLabels: ['从相册选择', '拍照'],
+      addCancelButtonWithLabel: '取消',
+      androidEnableCancelButton: true,
+      winphoneEnableCancelButton: true
+    };
+    $scope.upLoadImg = function() {
+      $cordovaActionSheet.show(options)
         .then(function(btnIndex) {
           switch (btnIndex) {
             case 1:
@@ -42,12 +51,26 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
               break;
           }
         });
-    	$cordovaImagePicker.getPictures(options)
+    };
+
+    $scope.pickImg = function() {
+      var options = {
+        maximumImagesCount: 1,
+        width: 800,
+        height: 800,
+        quality: 80
+      };
+      alert(Userinfo.l.ue);
+      var server =   'http://www.parsec.com.cn/Cetus/api_update_head?id='+Userinfo.l.id;//图片上传
+      var trustHosts = true
+      var option = {};
+
+      $cordovaImagePicker.getPictures(options)
         .then(function(results) {
           $cordovaFileTransfer.upload(server, results[0], option, true)
             .then(function(result) {
               alert('上传成功');
-              $scope.avaImg = results[0];
+              $scope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
             }, function(err) {
               alert('上传失败，请重试');
             }, function(progress) {
@@ -59,62 +82,126 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
               }
             });
         }, function(error) {
-           alert('出错');
+          // alert('出错');
         });
-    	$cordovaCamera.getPicture(options).then(function(imageData) {
-	      $cordovaFileTransfer.upload(server, "data:image/jpeg;base64," + imageData, option, true)
-	        .then(function(result) {
-	          alert('上传成功');
-	          $scope.doRefresh();
-	        }, function(err) {
-	          alert('上传失败，请重试');
-	        }, function(progress) {
-	          $ionicLoading.show({
-	            template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
-	          });
-	          if (Math.round((progress.loaded / progress.total) * 100) >= 99) {
-	            $ionicLoading.hide();
-	          };
-	        });
-	    }, function(err) {
-	      // alert('出错');
-	    });
-    	
-    	$cordovaAppVersion.getAppVersion().then(function(version) {
-	      $ionicLoading.show({
-	        template: '检测版本中...'
-	      });
-	      Userinfo.add('version', version);
-	      $http.get('v=' + version).success(function(data) {
-	        $ionicLoading.hide();
-	        if (data.error == 0) {
-	          if (version != data.version) {
-	            $scope.showUpdateConfirm(data.desc, data.apk);
-	          } else {
-	            alert('目前是最新版本');
-	          }
-	        } else {
-	          alert('服务器连接错误，请稍微再试');
-	        }
-	      })
-	    });
-    });
-    
-    //检查更新
-    checkUpdate();
+    };
 
+    $scope.cameraImg = function() {
+      var server =   'http://www.parsec.com.cn/Cetus/api_update_head?id='+Userinfo.l.id;//图片上传
+      var trustHosts = true
+      var option = {};
+      var options = {
+        quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.CAMERA,
+        allowEdit: true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 100,
+        targetHeight: 100,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false
+      };
+      $cordovaCamera.getPicture(options).then(function(imageData) {
+    	  alert(imageData);
+        $cordovaFileTransfer.upload(server, "data:image/jpeg;base64," + imageData, option, true)
+          .then(function(result) {
+            alert('上传成功');
+            $scope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
+            //$scope.doRefresh();
+          }, function(err) {
+            alert('上传失败，请重试');
+          }, function(progress) {
+            $ionicLoading.show({
+              template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
+            });
+            if (Math.round((progress.loaded / progress.total) * 100) >= 99) {
+              $ionicLoading.hide();
+            };
+          });
+      }, function(err) {
+        // alert('出错'+err);
+      });
+    };
+    //头像选择结束
+    //产品分享 开始
+    /*$scope.productShare = function(e, desc, p, index) {
+	    var url = '/' + e;
+	    var short_title = desc.substr(0, 3) + '...';
+	    var price = null;
+	    if (parseFloat(p) < 1) {
+	      price = 1;
+	    } else {
+	      price = p;
+	    }
+	    var title = '神奇的美O圈“' + short_title + '”才' + price + '元';
+	    Wechat.isInstalled(function(installed) {
+	      if (!installed) {
+	        alert("手机尚未安装微信应用");
+	      } else {
+	        $ionicLoading.show({
+	          template: '正在打开微信,请稍等...'
+	        });
+	        $timeout(function() {
+	          $ionicLoading.hide();
+	        }, 3000);
+	      }
+	    });
+
+	    Wechat.share({
+	      message: {
+	        title: title,
+	        description: '美O圈',
+	        thumb: "",//LOGO
+	        media: {
+	          type: Wechat.Type.LINK,
+	          webpageUrl: url
+	        }
+	      },
+	      scene: Wechat.Scene.TIMELINE // share to Timeline
+	    }, function() {
+	      $http.post(ApiEndpoint.url + '/', {//操作数据
+	        'e': e
+	      }).success(function(data) {
+	        if (data.error == 0) {
+	          $state.reload();
+	          alert("分享成功");
+	        } else {
+	          alert('数据匹配错误，请重新分享');
+	        }
+	      });
+	    }, function(reason) {
+	      if (reason == 'ERR_USER_CANCEL') {} else {
+	        alert("分享失败: " + reason);
+	      }
+	    });
+	};*/
+	//产品分享结束
+	
+	
+    //检查更新
+	$scope.checkUpdata = function() {
+		console.log($cordovaAppVersion);
+		 $cordovaAppVersion.getAppVersion().then(function (version) {
+	          alert(version);
+	      });
+	}
+    /*checkUpdate();
     function checkUpdate() {
+      alert("检查更新")
+      $cordovaAppVersion.getAppVersion().then(function (version) {
+          alert(version);
+       });
       $cordovaAppVersion.getAppVersion().then(function(version) {
         Userinfo.add('version', version);
-        $http.get('v='+version).success(function(data) {
-          if (data.error == 0) {
+        $http.get(ApiEndpoint.url + '/api_checkversion_get').success(function(data) {
+          if (data.state == 'success') {
             if (version != data.version) {
               showUpdateConfirm(data.desc, data.apk);
             }
           }
         })
       });
-    };
+    };*/
 
     function showUpdateConfirm(desc, url) {
       var confirmPopup = $ionicPopup.confirm({
@@ -131,6 +218,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 
       });
     }
+    
   });
 })
 

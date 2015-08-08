@@ -6,7 +6,28 @@ angular.module('starter.ordercrtl', [])
 	$scope.orderYf = [];
 	$scope.orderYwc = [];
 	
-	
+	if (!Userinfo.l.id) {
+      $scope.login();
+      return;
+    }
+	// 登陆
+	  $ionicModal.fromTemplateUrl('templates/user/login.html', {
+	    scope: $scope
+	  }).then(function(modal) {
+	    $scope.modalLogin = modal;
+	    $scope.loginData = {};
+	  });
+
+	  // 关闭登录页面
+	  $scope.closeLogin = function() {
+		$ionicHistory.goBack();
+	    $scope.loginData = {};
+	  };
+
+	  // 打开登陆页面
+	  $scope.login = function() {
+	    $scope.modalLogin.show();
+	  };
 	$scope.isActive = 'a';
 	$scope.changeTab = function(evt) {
 	    var elem = evt.currentTarget;

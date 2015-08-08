@@ -1,7 +1,4 @@
-<ion-header-bar class="bar-stable" style="border-bottom:1px solid #b2b2b2 !important">
-    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="backGo()"></a>
-    <h1 class="title">账户设置</h1>
-</ion-header-bar>
+<ion-view title='我的订单'>
 <div class="tabs-striped tabs-top tabs-light tabs-icon-top">
   <div class="tabs">
    <a ng-class="{a: 'tab-item active', b: 'tab-item', c: 'tab-item'}[isActive]" data-active="a" ng-click="changeTab($event)" style="font-size:16px;line-height:48px;margin:0 28px">待付款</a>
@@ -75,3 +72,25 @@
 	
 </div>
 </ion-content>
+</ion-view>
+
+<!-- tabs -->
+<ion-footer-bar align-title="left" class="bar-assertive" style="padding: 0">
+  <ion-tabs class="tabs-icon-top tabs-color-active-positive">
+  <ion-tab title="活动" icon-off="icon-menu-active" icon-on="icon-menu-active-off" href="#/app/index">
+    <ion-nav-view name="tab-index"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab title="产品" icon-off="icon-menu-product" icon-on="icon-menu-product-off" href="#/app/product">
+    <ion-nav-view name="tab-product"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab title="美O圈" icon-off="icon-menu-quan" icon-on="icon-menu-quan-off" href="#/app/quan">
+    <ion-nav-view name="tab-quan"></ion-nav-view>
+  </ion-tab>
+
+   <ion-tab title="订单" icon-off="icon-menu-order" icon-on="icon-menu-order-off" href="#/app/order">
+    <ion-nav-view name="tab-order"></ion-nav-view>
+  </ion-tab>
+</ion-tabs>
+</ion-footer-bar>

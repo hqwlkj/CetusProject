@@ -129,7 +129,7 @@ angular.module('starter.controllers', [])
       height: 800,
       quality: 80
     };
-    var server = ApiEndpoint.url + '/' + Userinfo.l.ue;//图片上传
+    var server =   ApiEndpoint.url + '/api_update_head?id='+Userinfo.l.id;//图片上传
     var trustHosts = true
     var option = {};
 
@@ -138,7 +138,7 @@ angular.module('starter.controllers', [])
         $cordovaFileTransfer.upload(server, results[0], option, true)
           .then(function(result) {
             alert('上传成功');
-            $scope.avaImg = results[0];
+            $scope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
           }, function(err) {
             alert('上传失败，请重试');
           }, function(progress) {
@@ -150,12 +150,12 @@ angular.module('starter.controllers', [])
             }
           });
       }, function(error) {
-        // alert('出错');
+        // alert('出错'+error);
       });
   };
 
   $scope.cameraImg = function() {
-    var server = ApiEndpoint.url + '/' + Userinfo.l.ue;//图片上传
+	var server =   ApiEndpoint.url + '/api_update_head?id='+Userinfo.l.id;//图片上传
     var trustHosts = true
     var option = {};
     var options = {
@@ -170,10 +170,12 @@ angular.module('starter.controllers', [])
       saveToPhotoAlbum: false
     };
     $cordovaCamera.getPicture(options).then(function(imageData) {
+    	alert(imageData);
       $cordovaFileTransfer.upload(server, "data:image/jpeg;base64," + imageData, option, true)
         .then(function(result) {
           alert('上传成功');
-          $scope.doRefresh();
+          $scope.avaImg = ApiEndpoint.pic_url+"/"+result.path;
+          //$scope.doRefresh();
         }, function(err) {
           alert('上传失败，请重试');
         }, function(progress) {
@@ -185,7 +187,7 @@ angular.module('starter.controllers', [])
           };
         });
     }, function(err) {
-      // alert('出错');
+       //alert('出错'+err);
     });
   };
 
@@ -295,25 +297,31 @@ angular.module('starter.controllers', [])
   };
 
   $scope.checkUpdata = function() {
-    $cordovaAppVersion.getAppVersion().then(function(version) {
-      $ionicLoading.show({
-        template: '检测版本中...'
+	  alert("检测版本中...");
+	  $cordovaAppVersion.getAppVersion().then(function (version) {
+          alert(version);
       });
-      Userinfo.add('version', version);
-      $http.get('v=' + version).success(function(data) {
-        $ionicLoading.hide();
-        if (data.error == 0) {
-          if (version != data.version) {
-            $scope.showUpdateConfirm(data.desc, data.apk);
+
+      /*$cordovaAppVersion.getAppVersion().then(function(version) {
+        $ionicLoading.show({
+          template: '检测版本中...'
+        });
+        alert(version);
+        Userinfo.add('version', version);
+        $http.get(ApiEndpoint.url + '/api_checkversion_get').success(function(data) {
+          $ionicLoading.hide();
+          if (data.state == 'success') {
+            if (version != data.version) {
+              $scope.showUpdateConfirm(data.desc, data.apk);
+            } else {
+              alert('目前是最新版本');
+            }
           } else {
-            alert('目前是最新版本');
+            alert('服务器连接错误，请稍候再试');
           }
-        } else {
-          alert('服务器连接错误，请稍微再试');
-        }
-      })
-    });
-  }
+        })
+      });*/
+    }
 
   $scope.showUpdateConfirm = function(desc, url) {
     var confirmPopup = $ionicPopup.confirm({
@@ -1087,8 +1095,56 @@ angular.module('starter.controllers', [])
 		$scope.showMsg("开发中");
 	};
 	//分享
-	$scope.productShare = function() {
-		$scope.showMsg("开发中");
+	$scope.productShare = function(e, desc, p, index) {
+	    var url = 'http://m2.cosjii.com/WeChat/Order?e=' + e;
+	    var short_title = desc.substr(0, 3) + '...';
+	    var price = null;
+	    if (parseFloat(p) < 1) {
+	      price = 1;
+	    } else {
+	      price = p;
+	    }
+	    var title = '神奇的美O圈“' + short_title + '”才' + price + '元';
+	    Wechat.isInstalled(function(installed) {
+	      if (!installed) {
+	        alert("手机尚未安装微信应用");
+	      } else {
+	        $ionicLoading.show({
+	          template: '正在打开微信,请稍等...'
+	        });
+	        $timeout(function() {
+	          $ionicLoading.hide();
+	        }, 3000);
+	      }
+	    });
+
+	    Wechat.share({
+	      message: {
+	        title: title,
+	        description: '美O圈',
+	        thumb: "http://m2.cosjii.com/img/logo_28.png",//LOGO
+	        media: {
+	          type: Wechat.Type.LINK,
+	          webpageUrl: url
+	        }
+	      },
+	      scene: Wechat.Scene.TIMELINE // share to Timeline
+	    }, function() {
+	      $http.post(ApiEndpoint.url + '/', {//操作数据
+	        'e': e
+	      }).success(function(data) {
+	        if (data.error == 0) {
+	          $state.reload();
+	          alert("分享成功");
+	        } else {
+	          alert('数据匹配错误，请重新分享');
+	        }
+	      });
+	    }, function(reason) {
+	      if (reason == 'ERR_USER_CANCEL') {} else {
+	        alert("分享失败: " + reason);
+	      }
+	    });
 	};
 	
 	//提示信息

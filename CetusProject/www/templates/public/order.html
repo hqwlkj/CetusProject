@@ -4,7 +4,7 @@
 	ng-click="orderBackGo()"></a>
 <h1 class="title">订单详情</h1>
 </ion-header-bar>
-<ion-content class="has-subheader">
+<ion-content  style="background:#E5E5E5;">
 <ul class="orderlst">
 	<li>
 		<div class="orderlst-top" ng-repeat="o in orderItemList">
@@ -18,7 +18,7 @@
 	          	<p class="orderlst-top-content-attr">{{data.list[i].parameter}}</p>
 	        </div>
       	</div>
-		<div class="orderlst-top">
+		<div class="orderlst-kd-fee">
 			<span class="orderlst-title">快递费</span>
 			<div class="orderlst-top-right right text-right">
 				<p class="price express">
@@ -42,7 +42,7 @@
 			<span class="distribution-title">配送方式：</span>
 				<span class="distribution-content">
 					<p>
-						<i class="icon-select-01" ng-if="send_type_state==0" ng-click="send_type()"></i><i class="icon-unselect-01" ng-if="send_type_state==1" ng-click="send_type()"></i><span>系统配送</span>
+						<i class="icon-select-01" ng-if="send_type_state==0" ng-click="send_type()"></i><i class="icon-unselect-01" ng-if="send_type_state==1" ng-click="send_type()"></i> <span>系统配送</span>
 					</p>
 					<p>
 						<i class="icon-select-01" ng-if="send_type_state==1" ng-click="send_type1()"></i><i class="icon-unselect-01" ng-if="send_type_state==0" ng-click="send_type1()"></i> <span>上门自提</span>
@@ -57,7 +57,7 @@
 				<span class="recive-name recive-tel">{{address.telephone}}</span>
 			</div>
 			<p class="orderlst-top-content-attr">
-				<i class="icon-pote-01"></i><span class="recive-address">{{address.locations}}</span>
+				<i class="icon-address-01"></i><span class="recive-address">{{address.locations}}</span>
 			</p>
 		</div>
 		<div class="orderlst-foot text-right">
@@ -81,12 +81,10 @@
 	<li>
 		<div class="lst-sub">
 			<div class=" margin-top-11">
-				<a href="javaScript:void(0);" class="btn lg-btn" ng-click="submit_order()">提交订单</a>
+				<a href="javaScript:void(0);" class="btn submit-order-btn" ng-click="submit_order()">提交订单</a>
 			</div>
 		</div>
-		<div
-			class=" margin-top-15 margin-left-15 margin-right-15 fz75 fcec3473 padding-bottom-15"
-			ng-bind-html ='ruleInfo'></div>
+		<div class=" margin-top-15 margin-left-15 margin-right-15 fz65 fcec3473 padding-bottom-15" ng-bind-html ='ruleInfo'></div>
 	</li>
 </ul>
 <div id="TB_overlayBG"></div>
