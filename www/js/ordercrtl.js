@@ -6,6 +6,7 @@ angular.module('starter.ordercrtl', [])
 	$scope.orderYf = [];
 	$scope.orderYwc = [];
 	
+	
 	$scope.isActive = 'a';
 	$scope.changeTab = function(evt) {
 	    var elem = evt.currentTarget;
@@ -134,6 +135,35 @@ angular.module('starter.ordercrtl', [])
 		    var oNumber=order.com+"-"+order.postid+"-"+order.ordNum;
 			//var aaa = 'tiantian-560331923708-1438679113340';
 			$state.go('public.logistics',{com:oNumber});
+		}
+	  /*
+	   * 封装一个订单详情的mode
+	   */
+	  $ionicModal.fromTemplateUrl('templates/order-detail.html', {scope: $scope}).then(function(modal) {
+			$scope.modal_order_info = modal;
+			$scope.orderDetail = [];
+		});
+	  
+	//加载订单详情信息数据 并且打开一个界面
+		$scope.goOrderDetail = function(ordNum) {
+			if(!Userinfo.l.id){//处理是否登陆
+				$scope.modalLogin.show();
+			}else{
+				$scope.modal_order_info.show();
+				$ionicLoading.show({
+				     template: '加载中...'
+				});
+				$http.post(ApiEndpoint.url + '/api_order_get?ordNum='+ordNum).success(function(data) {
+					console.log(data);
+					if (data.state == 'success') {
+						$scope.ordNum = data.order.ordNum;
+						$scope.ordNum = data.order.ordNum;
+						
+						$scope.orderDetail=data.lst
+					}
+					$ionicLoading.hide();
+				});
+			}
 		}
 	  
 	  $scope.changeAcount = function() {

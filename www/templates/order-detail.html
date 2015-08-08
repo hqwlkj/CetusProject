@@ -1,0 +1,95 @@
+<ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="closeQuanDetail()"></a>
+    <h1 class="title">订单详情</h1>
+  </ion-header-bar>
+  <ion-content>
+	    <div class="wrap-page">
+    <ul class="orderlst">
+        <li><div class="orderlst-top bbn"><span class="orderlst-title">订单号：</span><span class="orderlst-title" ng-bind="ordNum"></span></div>
+			<img src="images/wcl.png" alt="完成" class="mo-isdo">
+        </li>
+        <li>
+            <div class="orderlst-top bbn">
+                <span class="orderlst-title">感谢您在美欧购物,欢迎再次光临！</span>
+            </div>
+        </li>
+
+        <li id="not_hava_address">
+            <div class="mo-order-orderlst"><span class="orderlst-title">收货人:</span><span class="recive-name" ng-bind="username"></span>
+                <div class="orderlst-top-right right text-right"><span class="orderlst-title">手机号:</span><span class="recive-name" id="telephone"></span></div>
+                <p class="orderlst-top-content-attr" id="locations"> </p>
+            </div>
+        </li>
+	<li id="autoaddress" style="display: none;">
+      <input type="hidden" value="" id="autoaddressId"/>
+      <div class="orderlst-top bbn"><span class="orderlst-title">自提地点:</span>
+        <p class="orderlst-top-content-attr" id="shopName"></p>
+        <p class="orderlst-top-content-attr" id="address"></p>
+      </div>
+    </li>
+        <li id="orderItem"></li>
+    </ul>
+
+   <div class="page-method" >
+            <div class="orderlst-top bb1sc"><span class="orderlst-title">支付方式</span>
+                <div class="orderlst-top-right right text-right">
+                    <p class="orderlst-title"><span id="payMethod"></span></p>
+                </div>
+            </div>
+            <div class="orderlst-top bb1sc"><span class="orderlst-title">配送方式</span>
+                <div class="orderlst-top-right right text-right">
+                    <p class="orderlst-title"><span id="com"></span></p>
+                </div>
+            </div>
+            <div class="orderlst-top bbn"><span class="orderlst-title">送货时间</span>
+                <div class="orderlst-top-right right text-right">
+                    <p class="orderlst-title"><span id="deliveryTime"></span></p>
+                </div>
+            </div>
+    </div>
+    <div class="fee">
+		<div class="orderlst-top padding-5-0 bbn">
+			<span class="orderlst-title">商品总额</span>
+			<div class="orderlst-top-right right text-right">
+				<p class="price" id="orderMoney"></p>
+			</div>
+		</div>
+		<div class="orderlst-top padding-5-0 bbn">
+			<span class="orderlst-title font-10">+运费</span>
+			<div class="orderlst-top-right right text-right">
+				<p class="price font-10" id="freight">
+					<span>￥</span> 10.00
+				</p>
+			</div>
+		</div>
+
+		<div class="orderlst-top padding-5-0 bbn">
+			<span class="font-10 orderlst-title">-优惠</span>
+			<div class="orderlst-top-right right text-right">
+				<p class="price font-10" id="discountPrice">
+					<span>￥</span> 89.00
+				</p>
+			</div>
+		</div>
+
+		<div class="orderlst-top bbn itemFee">
+			<p style="text-align: right">
+				<span class="orderlst-title">实付款:</span> <span
+					class="recive-name price" id="countPrice"></span>
+			</p>
+			<p style="text-align: right; color: #8B8B8B;">
+				<span class="orderlst-title" style="font-size: 0.725em;">下单时间:</span><span
+					class="orderlst-title" style="font-size: 0.725em;" id="riseTime">
+				</span>
+			</p>
+		</div>
+		<div class="lst-bg">
+			<div class=" margin-top-11 not-paid" style="text-align: right;"> <a href="javascript:OD.reallyDelete()" class="btn warning-btn">取消订单</a> <a href="javascript:OD.goPay()" class="btn evaluate-btn">去支付</a> </div>
+			<div class=" margin-top-11 paid" style="text-align: right;"> <a href="javascript:OD.drawback()" class="btn warning-btn">申请退款</a> <a href="javascript:OD.changeStateToCompleted()" class="btn normal-btn">确认收货</a> </div>
+			<div class=" margin-top-11 complete" style="text-align: right;"> <a href="javascript:OD.returnGoods()" class="btn warning-btn">申请退货</a> <a href="javascript:OD.purchaseAgain()" class="btn sm-btn">再次购买</a> <a id="toComment" href="javascript:OD.evaluate();" class="btn evaluate-btn">去评价</a> </div>
+		</div>
+		</div>
+</div>
+  </ion-content>
+</ion-modal-view>
