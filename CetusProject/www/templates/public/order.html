@@ -22,14 +22,14 @@
 			<span class="orderlst-title">快递费</span>
 			<div class="orderlst-top-right right text-right">
 				<p class="price express">
-					<span>￥</span>{{transportation_expenses}}
+					<span>￥</span>{{show_transportation_expenses}}
 				</p>
 			</div>
 		</div>
 		<div class="orderlst-count-price">
 			<div class="orderlst-top-right right text-right">
 				<p class="count-price">
-					订单总计：<span>￥</span><em>{{price}}</em>
+					订单总计：<span>￥</span><em>{{show_price.toFixed(2)}}</em>
 				</p>
 			</div>
 		</div>
@@ -81,7 +81,7 @@
 	<li>
 		<div class="lst-sub">
 			<div class=" margin-top-11">
-				<a href="javaScript:void(0);" class="btn lg-btn">提交订单</a>
+				<a href="javaScript:void(0);" class="btn lg-btn" ng-click="submit_order()">提交订单</a>
 			</div>
 		</div>
 		<div
