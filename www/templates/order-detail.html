@@ -97,11 +97,13 @@
 			</p>
 		</div>
 		<div class="lst-bg">
-			<input type="hidden" ng-bind="orderOrder.id">
-			<div class=" margin-top-11 not-paid" style="text-align: right;">
-			 <a ng-click="deleteOrder(orderOrder)" class="btn warning-btn">取消订单</a> 
-			 <a href="javascript:OD.goPay()" class="btn evaluate-btn">去支付</a>
-	   </div>
+			<div class=" margin-top-11 not-paid" style="text-align: right;"> <a ng-click="deleteOrder(orderOrder)" ng-show="flag1" class="btn warning-btn">取消订单</a> <a href="javascript:OD.goPay()" class="btn evaluate-btn" ng-show="flag2">去支付</a> </div>
+			<div class=" margin-top-11 paid" style="text-align: right;"> <a href="javascript:OD.changeStateToCompleted()" class="btn normal-btn" ng-show="flag3">确认收货</a> </div>
+			<div class=" margin-top-11 complete" style="text-align: right;">
+			 <a href="javascript:OD.returnGoods()" class="btn warning-btn" ng-show="flag4">申请退货</a>
+			<a href="#" onclick="order.pretendDelete(176)" class="btn danger-btn" ng-show="flag7">删除订单</a>
+			<a href="./logistics.html?com=&amp;postid=&amp;ordnum=1439012748778" class="btn normal-btn" ng-show="flag6">查看物流</a>
+			<a id="toComment" href="javascript:OD.evaluate();" class="btn evaluate-btn" ng-show="flag5">评价</a> </div>
 		</div>
 		</div>
 </div>

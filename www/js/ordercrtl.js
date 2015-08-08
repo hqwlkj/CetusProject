@@ -166,6 +166,28 @@ angular.module('starter.ordercrtl', [])
 				$http.post(ApiEndpoint.url + '/api_order_get?ordNum='+ordNum+'&pageNo=1'+'&pageSize=10').success(function(data) {
 					console.log(data);
 					if (data.state == 'success') {
+						//根据订单状态处理按钮的显示
+						$scope.flag1 = false;
+						$scope.flag2 = false;
+						$scope.flag3 = false;
+						$scope.flag4 = false;
+						$scope.flag5 = false;
+						$scope.flag6 = false;
+						$scope.flag7 = false;
+						if(data.order.state == 4){
+							$scope.flag4 = true;
+							$scope.flag5 = true;
+							$scope.flag6 = true;
+							$scope.flag7 = true;
+							//$(".mo-isdo").css("display","block");
+							//$(".complete").css("display","block");
+						}else if(data.order.state == 2 || data.order.state == 3 ){
+							//$(".paid").css("display","block");
+							$scope.flag3 = true;
+						}else if(data.order.state == 1){
+							$scope.flag1 = true;
+							$scope.flag1 = true;
+						}
 						//$scope.orderData=data;
 						$scope.ordNum = data.order.ordNum;
 						$scope.orderAdd=data.add;
