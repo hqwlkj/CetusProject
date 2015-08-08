@@ -96,8 +96,9 @@
 			</p>
 		</div>
 		<div class="lst-bg">
+			<input type="hidden" ng-bind="orderOrder.id">
 			<div class=" margin-top-11 not-paid" style="text-align: right;">
-			 <a ng-click="reallyDelete({{orderOrder.id}})" class="btn warning-btn">取消订单</a> 
+			 <a ng-click="deleteOrder({{orderOrder.id}})" class="btn warning-btn">取消订单</a> 
 			 <a href="javascript:OD.goPay()" class="btn evaluate-btn">去支付</a>
 	   </div>
 		</div>
