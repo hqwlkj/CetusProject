@@ -507,7 +507,7 @@ min-height: 1px;float:left;text-align: center;overflow: hidden;}
 .orderlst-top-content{padding-left: 72.5px;}
 .orderlst-top .img{height:62.5px;width:62.5px;background-size: cover;background-position: center center;background-repeat: no-repeat;}
 .order-info{ border-bottom: 1px solid #cccccc; color:#8b8b8b; font-size:0.65rem; padding: 10px 0 10px 0; height:35px;}
-.orderlst-top-content-title{font-size: 0.65rem;max-height: 35px;overflow: hidden;}
+.orderlst-top-content-title{font-size: 0.65rem;max-height: 38px;overflow: hidden;}
 .orderlst-top-content-attr{font-size: 0.65rem;color:#8b8b8b;margin-top:10px; height:20px; overflow: hidden;	}
 .btn{-webkit-border-radius: 3x; -moz-border-radius: 3px;border-radius: 3px;}
 .normal-btn{border:1px solid #ec3473;color:#ec3473;font-size: 0.75rem;padding:5px 10px;display: inline-block;margin: auto 3px }
