@@ -14,10 +14,11 @@
             </div>
         </li>
 
-        <li id="not_hava_address" ng-repeat="add in orderAdd">
-            <div class="mo-order-orderlst"><span class="orderlst-title">收货人:</span><span class="recive-name" ng-bind="add.recipients"></span>
-                <div class="orderxq-top-right right text-right"><span class="orderlst-title">手机号:</span><span class="recive-name" ng-bind="add.telephone"></span></div>
-                <p class="orderxq-top-content-attr" id="locations"> </p>
+        <li id="not_hava_address">
+            <div class="mo-order-orderlst"><span class="orderlst-title">收货人:</span><span class="recive-name" ng-bind="recipients"></span>
+                <div class="orderxq-top-right right text-right"><span class="orderlst-title">手机号:</span><span class="recive-name" ng-bind="telephone"></span></div>
+                <p class="orderlst-top-content-attr" id="locations">
+                <i class="icon-pote-01"></i><span ng-bind="locations"></span></p>
             </div>
         </li>
 	<li id="autoaddress" style="display: none;">
@@ -98,7 +99,7 @@
 		<div class="lst-bg">
 			<input type="hidden" ng-bind="orderOrder.id">
 			<div class=" margin-top-11 not-paid" style="text-align: right;">
-			 <a ng-click="deleteOrder({{orderOrder.id}})" class="btn warning-btn">取消订单</a> 
+			 <a ng-click="deleteOrder(orderOrder)" class="btn warning-btn">取消订单</a> 
 			 <a href="javascript:OD.goPay()" class="btn evaluate-btn">去支付</a>
 	   </div>
 		</div>
