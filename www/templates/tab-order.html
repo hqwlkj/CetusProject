@@ -35,13 +35,13 @@
 	 <div class="list padding">
         <ul class="orderlst db" id="obligation">
 		    <li  ng-repeat="order in orderYf">
-		      <div class="order-info"><span class="col-6 left text-left">订单号：{{order.ordNum}}</span><span class="col-6 right text-right">{{order.showRiseTime}} 下单</span></div>
+		      <div class="order-info"><span class="col-6 left text-left" >订单号：{{order.ordNum}}</span><span class="col-6 right text-right">{{order.showRiseTime}} 下单</span></div>
 		      <div class="orderlst-top">
 		        <div ng-repeat="i in order.items" class="img left" >
 		        	<img src="http://www.parsec.com.cn/Cetus/pic/{{i.imgurl}}" style="width: 62px;height: 62px;margin: 2px;"/>
 		        </div>
 		        <div class="orderlst-top-content ">
-		          <p class="orderlst-top-content-title">{{order.name}}</p>
+		          <p class="orderlst-top-content-title" ng-repeat="i in order.items">{{::i.name}}</p>
 		          <!-- <p ng-bind-html ='product.details'></p> -->
 		          <p class="orderlst-top-content-attr" ng-repeat="i in order.items"><span class="col-6 text-left">{{i.parameter}}</span><span class="col-6 text-right"><em class="orderlst-num">x{{i.num}}</em><em class="orderlst-price">￥{{i.prince}}</em></span></p>
 		        </div>
@@ -62,7 +62,7 @@
 		        	
 		        </div>
 		        <div class="orderlst-top-content ">
-		          <p class="orderlst-top-content-title">{{order.name}}</p>
+		          <p class="orderlst-top-content-title" ng-repeat="i in order.items">{{i.name}}</p>
 		          <!-- <p ng-bind-html ='product.details'></p> -->
 		          <p class="orderlst-top-content-attr" ng-repeat="i in order.items"><span class="col-6 text-left">{{i.parameter}}</span><span class="col-6 text-right"><em class="orderlst-num">x{{i.num}}</em><em class="orderlst-price">￥{{i.prince}}</em></span></p>
 		        </div>
