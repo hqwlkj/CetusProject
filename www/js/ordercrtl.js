@@ -188,23 +188,18 @@ angular.module('starter.ordercrtl', [])
 					console.log(data);
 					if (data.state == 'success') {
 						//根据订单状态处理按钮的显示
-						$scope.flag1 = false;
-						$scope.flag2 = false;
-						$scope.flag3 = false;
-						$scope.flag4 = false;
-						$scope.flag5 = false;
-						$scope.flag6 = false;
-						$scope.flag7 = false;
+						$scope.flag1 = false;//取消订单
+						$scope.flag2 = false;//去支付
+						$scope.flag3 = false;//确认收货
+						$scope.flag4 = false;//申请退货
+						$scope.flag5 = false;//评价
+						$scope.flag6 = false;//再次购买
 						if(data.order.state == 4){
 							$scope.flag4 = true;
 							$scope.flag5 = true;
 							$scope.flag6 = true;
-							$scope.flag7 = true;
-							//$(".mo-isdo").css("display","block");
-							//$(".complete").css("display","block");
 						}else if(data.order.state == 2 || data.order.state == 3 ){
-							//$(".paid").css("display","block");
-							$scope.flag3 = true;
+ 							$scope.flag3 = true;
 						}else if(data.order.state == 1){
 							$scope.flag1 = true;
 							$scope.flag1 = true;
@@ -227,9 +222,9 @@ angular.module('starter.ordercrtl', [])
 						//$scope.myorderId=data.order.id;
 						$scope.deliveryTime=data.order.deliveryTime;//送货时间
 						$scope.orderMoney=data.order.orderMoney;//订单单价
-						$scope.freight=data.order.freight;//运费
+						$scope.freight=data.order.freight.toFixed(2);//运费
 						$scope.discountPrice=data.order.discountPrice;//优惠价格
-						$scope.countPrice=data.order.orderMoney;//订单总价
+						$scope.countPrice=(parseFloat(data.order.orderMoney).toFixed(2));//实付金额
 						$scope.showRiseTime=data.order.showRiseTime;//下单时间
 					}
 					$ionicLoading.hide();
@@ -241,7 +236,7 @@ angular.module('starter.ordercrtl', [])
 		 * 订单详情中  取消订单
 		 */
 		$scope.reallyDelete=function(orderOrder){
-			alert(orderOrder.id);
+			var ordNum=orderOrder.id;
 			if(confirm("确定要取消该订单吗？")){
 				$http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(ordNum)).success(function(data) {
 					  if (data.state == 'success') {
@@ -253,7 +248,72 @@ angular.module('starter.ordercrtl', [])
 				});
 			}
 		}
-	  
+		/**
+		 * 申请退款
+		 */
+		/*$scope.drawback=function(orderOrder){
+			if(confirm("确定要将此订单申请退款吗？")){
+				$http.post(ApiEndpoint.url + '/api_order_drawback?id='+(ordNum)).success(function(data) {
+					if (data.state == 'success') {
+						alert(data.msg);
+						setTimeout("closeOrderDetail()",2000);//刷新
+					}else{
+						alert(data.msg);
+					}
+				});
+			}
+		}*/
+		/**
+		 * 申请退货
+		 */
+		$scope.returnGoods=function(orderOrder){
+			var ordNum=orderOrder.id;
+			if(confirm("确定要将此订单申请退货吗？")){
+				$http.post(ApiEndpoint.url + '/api_order_return?id='+(ordNum)).success(function(data) {
+					if (data.state == 'success') {
+						alert(data.msg);
+						setTimeout("closeOrderDetail()",2000);//刷新
+					}else{
+						alert(data.msg);
+					}
+				});
+			}
+		}
+		/**
+		 * 确认收获订单
+		 */
+		$scope.changeStateToCompleted=function(orderOrder){
+			var ordNum=orderOrder.id;
+			var state = 4;//更改订单为完成状态
+			if(confirm("请收到货后，再确认收货！否则您可能钱货两空哦！")){
+				$http.post(ApiEndpoint.url + '/api_order_changeState?id='+(ordNum)+'&state=4').success(function(data) {
+					if (data.state == 'success') {
+						alert(data.msg);
+						setTimeout("closeOrderDetail()",2000);//刷新
+					}else{
+						alert(data.msg);
+					}
+				});
+			}
+		}
+		/**
+		 * 评价
+		 */
+		/*OD.evaluate = function(){
+			if (len == 1){
+				window.location.href="comment.html?userId="+userId+"&orderitemId="+itemId+"&orderNum="+orderNum+"&pnum=1";
+			}else {
+				window.location.href="order-list.html?userId="+userId+"&orderNum="+orderNum;
+			}
+		};
+		*/
+		/**
+		 * 跳转到产品详情
+		 */
+		/*function skipToProductDetail(productId){
+			location.href="product-detail.html?userId="+userId+"&productId="+productId;
+		}
+	  */
 	  $scope.changeAcount = function() {
 		  alert(2);
 	  };
