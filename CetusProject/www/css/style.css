@@ -568,6 +568,7 @@ min-height: 1px;float:left;text-align: center;overflow: hidden;}
 .evaluate-btn{border:1px solid #ec3473;color:#ffffff; background-color:#ec3473; font-size: 0.65rem;padding:5px 10px;display: inline-block;margin: auto 3px }
 .pingl-btn{border:1px solid #8a6d3b;color:#8a6d3b;font-size: 0.65rem;padding:4px 10px;display: inline-block;margin: auto 3px }
 .mo-order-orderlst{margin-left: 15px; margin-right:15px; padding: 10px 0 10px 0;}
+.sm-btn{background:#ec3473;color:#ffffff; border:1px solid #ec3473; background-color:#ec3473; font-size: 0.75rem;padding:4px 10px;display: inline-block;text-align: center;}
 
 /*配送方式*/
 .price span{font-size: 0.625rem}
