@@ -194,10 +194,12 @@ angular.module('starter.ordercrtl', [])
 						$scope.flag4 = false;//申请退货
 						$scope.flag5 = false;//评价
 						$scope.flag6 = false;//再次购买
+						$scope.flag9 = false;//显示完成的图片
 						if(data.order.state == 4){
 							$scope.flag4 = true;
 							$scope.flag5 = true;
 							$scope.flag6 = true;
+							$scope.flag9 = true;
 						}else if(data.order.state == 2 || data.order.state == 3 ){
  							$scope.flag3 = true;
 						}else if(data.order.state == 1){
