@@ -33,7 +33,7 @@
 	 	<ul class="orderlst db" id="obligation">
 		    <li  ng-repeat="order in orderYf">
 		      <div class="order-info"><span class="col-6 left text-left" >订单号：{{order.ordNum}}</span><span class="col-6 right text-right">{{order.showRiseTime}} 下单</span></div>
-		      <div class="orderlst-top" ng-repeat="i in order.items" ng-click="goOrderDetail({{order.ordNum}})">
+		      <div class="orderlst-top" ng-repeat="i in order.items" ng-click="goOrderDetail(order.ordNum)">
 		        <div  class="img left" >
 		        	<img src="http://www.parsec.com.cn/Cetus/pic/{{::i.imgurl}}" style="width: 62px;height: 62px;margin: 2px;"/>
 		        </div>
