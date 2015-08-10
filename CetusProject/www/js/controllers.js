@@ -2,8 +2,8 @@
 angular.module('starter.controllers', [])
 
 .constant('ApiEndpoint', {
-   url: 'http://192.168.65.147:8080/Cetus',
-  pic_url:'http://192.168.65.147:8080/Cetus/pic'
+   url: 'http://www.parsec.com.cn/Cetus',
+  pic_url:'http://www.parsec.com.cn/Cetus/pic'
 })
 
 .constant('HelpData', {
@@ -96,6 +96,10 @@ angular.module('starter.controllers', [])
 
   $scope.myMessage = function(){
 	  $state.go('message.msgall');
+  };
+  //到客服列表
+  $scope.goQuestion = function(){
+	  $state.go('public.question');
   };
   
   //头像选择
@@ -505,6 +509,7 @@ angular.module('starter.controllers', [])
 			$scope.c_state=0;
 		}
 	}
+	
 	//绑定邀请码
 	$scope.bandInvitation = function(){
 		if(!$scope.userInfoData.invitationCode){
@@ -520,6 +525,7 @@ angular.module('starter.controllers', [])
 			}
 		});
 	}
+	$scope.show_myInvitationCode = 0;
 	//加载会员信息数据 并且打开
 	$scope.userInfo = function() {
 		if(!Userinfo.l.id){
@@ -542,6 +548,9 @@ angular.module('starter.controllers', [])
 						$scope.userinfo_InvitationName = data.obj.InvitationName;
 					}else{
 						$scope.state = 1;
+					}
+					if(data.obj.userType!=1){
+						$scope.show_myInvitationCode = 1;
 					}
 				}
 				$ionicLoading.hide();
