@@ -218,7 +218,13 @@ angular.module('starter.ordercrtl', [])
 						
 						$scope.recipients=data.add.recipients;
 						$scope.telephone=data.add.telephone;
-						$scope.locations=data.add.province+data.add.city+data.add.county+data.add.locations;//地址
+						
+						
+						if(data.order.atype == 0){ //上门自提
+							$scope.locations=data.add.address;//地址
+						}else{
+							$scope.locations=data.add.province+data.add.city+data.add.county+data.add.locations;//地址
+						}
 						if(data.order.payMethod==1||data.order.payMethod=="1"){
 							$scope.payMethod="在线支付";
 						}else if(data.order.payMethod == "2" || data.order.payMethod == 2){
