@@ -414,6 +414,26 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     }
   })
   
+  .state('public.commentList', {//评价订单的商品列表
+    url: '/commentList/{ordNum}', //订单编号
+    views: {
+      'public': {
+        templateUrl: 'templates/public/commentlist.html',
+        controller: 'CommentList'
+      }
+    }
+  })
+  
+  .state('public.comment', {//评价订单的商品详情
+    url: '/comment/{itemId}', //订单下商品的itemID
+    views: {
+      'public': {
+        templateUrl: 'templates/public/comment.html',
+        controller: 'Comment'
+      }
+    }
+  })
+  
   
 
   .state('welcome', {
