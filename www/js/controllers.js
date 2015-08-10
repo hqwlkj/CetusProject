@@ -2,8 +2,8 @@
 angular.module('starter.controllers', [])
 
 .constant('ApiEndpoint', {
-   url: 'http://www.parsec.com.cn/Cetus',
-  pic_url:'http://www.parsec.com.cn/Cetus/pic'
+   url: 'http://192.168.65.147:8080/Cetus',
+  pic_url:'http://192.168.65.147:8080/Cetus/pic'
 })
 
 .constant('HelpData', {
@@ -170,7 +170,6 @@ angular.module('starter.controllers', [])
       saveToPhotoAlbum: false
     };
     $cordovaCamera.getPicture(options).then(function(imageData) {
-    	alert(imageData);
       $cordovaFileTransfer.upload(server, "data:image/jpeg;base64," + imageData, option, true)
         .then(function(result) {
           alert('上传成功');
@@ -297,30 +296,31 @@ angular.module('starter.controllers', [])
   };
 
   $scope.checkUpdata = function() {
-	  alert("检测版本中...");
-	  $cordovaAppVersion.getAppVersion().then(function (version) {
-          alert(version);
-      });
-
-      /*$cordovaAppVersion.getAppVersion().then(function(version) {
+      $cordovaAppVersion.getVersionNumber().then(function(version) {
         $ionicLoading.show({
           template: '检测版本中...'
         });
-        alert(version);
-        Userinfo.add('version', version);
-        $http.get(ApiEndpoint.url + '/api_checkversion_get').success(function(data) {
+        Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
+        $http.get(ApiEndpoint.url + '/api_checkversion_get?deviceType=android&v='+version).success(function(data) {
           $ionicLoading.hide();
           if (data.state == 'success') {
             if (version != data.version) {
               $scope.showUpdateConfirm(data.desc, data.apk);
             } else {
-              alert('目前是最新版本');
+              $ionicPopup.alert({
+			        title: '提示',
+			        template: '目前是最新版本',
+			        buttons: [{
+			          text: '确定',
+			          type: 'button-assertive'
+			        }]
+			    });
             }
           } else {
             alert('服务器连接错误，请稍候再试');
           }
         })
-      });*/
+      });
     }
 
   $scope.showUpdateConfirm = function(desc, url) {
@@ -333,7 +333,7 @@ angular.module('starter.controllers', [])
     var url = url;
     confirmPopup.then(function(res) {
       if (res) {
-        window.open(url, '_system', 'location=yes');
+    	  Window.open(url);
       };
     });
   }
