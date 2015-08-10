@@ -146,12 +146,18 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	        }, 3000);
 	      }
 	    });
-
+	    var scope = "snsapi_userinfo";
+	    Wechat.auth(scope, function (response) {
+	        // you may use response.code to get the access token.
+	        alert(JSON.stringify(response));
+	    }, function (reason) {
+	        alert("Failed: " + reason);
+	    });
 	    Wechat.share({
 	      message: {
 	        title: title,
 	        description: '美O圈',
-	        thumb: "",//LOGO
+	        thumb: "http://m2.cosjii.com/img/logo_28.png",//LOGO
 	        media: {
 	          type: Wechat.Type.LINK,
 	          webpageUrl: url
@@ -159,19 +165,10 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	      },
 	      scene: Wechat.Scene.TIMELINE // share to Timeline
 	    }, function() {
-	      $http.post('http://www.parsec.com.cn/Cetus/', {//操作数据
-	        'e': e
-	      }).success(function(data) {
-	        if (data.error == 0) {
-	          $state.reload();
-	          alert("分享成功");
-	        } else {
-	          alert('数据匹配错误，请重新分享');
-	        }
-	      });
+	    	$scope.showMsg("分享成功");
 	    }, function(reason) {
 	      if (reason == 'ERR_USER_CANCEL') {} else {
-	        alert("分享失败: " + reason);
+	    	  $scope.showMsg("分享失败: " + reason);
 	      }
 	    });
 	};
@@ -289,6 +286,15 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     }
   })
   
+  .state('app.product', {//美O圈
+	  url: '/product',
+	  views: {
+		  'menuContent': {
+			  templateUrl: 'templates/tab-product.html',
+			  controller: 'UserCtrl'
+		  }
+	  }
+  })
   .state('app.quan', {//美O圈
     url: '/quan',
     views: {
