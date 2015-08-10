@@ -7,8 +7,8 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers','starter.addressController', 'starter.ordercrtl','starter.order','starter.mycartcrtl','starter.services', 'ngCordova'])
 
-.run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer,$cordovaImagePicker, Userinfo) {
-  $ionicPlatform.ready(function() {
+.run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer,$cordovaImagePicker, Userinfo,$location,$rootScope) {
+	$ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
 
@@ -177,23 +177,16 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	};*/
 	//产品分享结束
 	
-	
     //检查更新
-	$scope.checkUpdata = function() {
-		console.log($cordovaAppVersion);
-		 $cordovaAppVersion.getAppVersion().then(function (version) {
-	          alert(version);
-	      });
-	}
-    /*checkUpdate();
+    checkUpdate();
+    
+    document.addEventListener("deviceready", checkUpdate(), false);
+    
     function checkUpdate() {
-      alert("检查更新")
-      $cordovaAppVersion.getAppVersion().then(function (version) {
-          alert(version);
-       });
-      $cordovaAppVersion.getAppVersion().then(function(version) {
-        Userinfo.add('version', version);
-        $http.get(ApiEndpoint.url + '/api_checkversion_get').success(function(data) {
+      alert("初始化检查版本");
+      $cordovaAppVersion.getVersionNumber().then(function(version) {
+        Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
+        $http.get('http://www.parsec.com.cn/Cetus/api_checkversion_get?deviceType=android&v='+version).success(function(data) {
           if (data.state == 'success') {
             if (version != data.version) {
               showUpdateConfirm(data.desc, data.apk);
@@ -201,7 +194,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
           }
         })
       });
-    };*/
+    };
 
     function showUpdateConfirm(desc, url) {
       var confirmPopup = $ionicPopup.confirm({
@@ -213,13 +206,45 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       var url = url;
       confirmPopup.then(function(res) {
         if (res) {
-          window.open(url, '_system', 'location=yes');
+        	Window.open(url, '_system', 'location=yes');
         };
 
       });
     }
     
   });
+	//主页面显示退出提示框
+	  /*$ionicPlatform.registerBackButtonAction(function (e) {
+	    e.preventDefault();
+	
+	    function showConfirm() {
+	      var confirmPopup = $ionicPopup.confirm({
+	        title: '<strong>退出应用?</strong>',
+	        template: '你确定要退出应用吗?',
+	        okText: '退出',
+	        cancelText: '取消'
+	      });
+	      confirmPopup.then(function (res) {
+	        if (res) {
+	          ionic.Platform.exitApp();
+	        } else {
+	          // Don't close
+	        }
+	      });
+	    }
+	    // Is there a page to go back to?
+	    if ($location.path() == '/home' ) {
+	      showConfirm();
+	    } else if ($rootScope.$viewHistory.backView ) {
+	      console.log('currentView:', $rootScope.$viewHistory.currentView);
+	      // Go back in history
+	      $rootScope.$viewHistory.backView.go();
+	    } else {
+	      // This is the last page: Show confirmation popup
+	      showConfirm();
+	    }
+	    return false;
+	  }, 101);*/
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
