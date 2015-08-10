@@ -23,19 +23,25 @@
 	        <li>
 	            <div class="lst-score">
 	                <div class="margin-top" style="width: 100%;">
-	                    <span>评分：</span><span id="star"  data-number="5" style=""></span>
-	
+	                    <span>评分：</span>
+	                    <span id="star"  data-number="5" style="cursor: pointer; width: 200px;">
+	                    	<img src="{{star.starSrc}}" alt="{{star.starAlt}}" title="{{star.starTitle}}" ng-repeat="star in commentStars" ng-click="updStar(star)">&nbsp;
+	                    	</img>
+	                    </span>
 	                </div>
 	            </div>
 	        </li>
 	        <li>
 	            <div class="orderlst-top bbn">
                         <div class="form-group">
-                            <textarea maxlength="500" class="form-control" ng-model="commentData.content" rows="8" style="width: 100%;" placeholder="亲，您的评价对其他用户有很大的帮助"></textarea>
-                            <div style="text-align: right;font-size: 0.725em;color: #5C6C85">还可以输入<span id="lsheng">500</span>字</div>
+                            <textarea maxlength="500" class="form-control" ng-model="commentData.content" rows="8" style="width: 100%;" placeholder="亲，您的评价对其他用户有很大的帮助" ng-keyup="contentNum()" ng-blur="contentNum()"></textarea>
+                            <div style="text-align: right;font-size: 0.725em;color: #5C6C85">还可以输入{{lsheng}}字</div>
                         </div>
 						<input type="hidden" ng-model="commentData.score"/>
 	            </div>
+		        <br/>
+		        <br/>
+		        <br/>
 	        </li>
 	        <li class="fixed-bottom">
 	            <div class="lst-score">

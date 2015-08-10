@@ -291,11 +291,27 @@ angular.module('starter.mycartcrtl', [])
 	$scope.productId = 0;
 	$scope.ordNum = "";
 	$scope.commentData = {};
-	$scope.commentData.score = 4;
+	$scope.commentData.score = 5;
+	
+	$scope.commentStars = [{starSrc: "img/star-on.png", starAlt: 1, starTitle: "bad"},
+	                       {starSrc: "img/star-on.png", starAlt: 2, starTitle: "poor"},
+	                       {starSrc: "img/star-on.png", starAlt: 3, starTitle: "regular"},
+	                       {starSrc: "img/star-on.png", starAlt: 4, starTitle: "good"},
+	                       {starSrc: "img/star-on.png", starAlt: 5, starTitle: "gorgeous"}];
+	$scope.onStar = "img/star-on.png";
+	$scope.offStar = "img/star-off.png";
+	
+	$scope.lsheng = 500;  //评论内容的剩余长度
+	$scope.maxLengthContent = 500;  //评论内容的最大长度
 	
 	$ionicLoading.show({
 	    template: "加载中..."
 	});
+	
+	//关闭商品评价详情页面
+	$scope.closeCommentDetail = function() {
+		$ionicHistory.goBack();
+	}
 	
 	//加载订单下的商品详情
 	$scope.commentDetail = function() {
@@ -312,9 +328,10 @@ angular.module('starter.mycartcrtl', [])
 			}
 			$ionicLoading.hide();
 		});
+
 	}
 	
-	//提交平台
+	//提交评论
 	$scope.saveComment = function() {
 		if ($scope.commentData.score == undefined || $scope.commentData.score == 0) {
 			$scope.showMsg("请为商品打分");
@@ -343,8 +360,28 @@ angular.module('starter.mycartcrtl', [])
 	
 	$scope.commentDetail();
 	
-	//关闭商品评价详情页面
-	$scope.closeCommentDetail = function() {
-		$ionicHistory.goBack();
+	//打分的星星的显示
+	$scope.updStar = function(obj) {
+		$scope.commentData.score = obj.starAlt;
+		for (var i = 0; i < obj.starAlt; i++) {
+			$scope.commentStars[i].starSrc = $scope.onStar;
+		}
+		for (var i = 4; i > obj.starAlt-1; i--) {
+			$scope.commentStars[i].starSrc = $scope.offStar;
+		}
+	}
+	
+	//监视评价的内容长度
+	$scope.contentNum = function() {
+		var max = parseInt($scope.maxLengthContent, 10); //获取maxlength的值 转化为10进制，将输入到textarea的文本长度
+        //这个判断可知max得到的是不是数字，设定的大小是多少
+        if (max > 0) {
+            if ($scope.commentData.content.length > max) { //textarea的文本长度大于maxlength
+            	$scope.commentData.content = $scope.commentData.content.substr(0, max); //截断textarea的文本重新赋值
+            }
+
+            var sheng = max - $scope.commentData.content.length;
+            $scope.lsheng = sheng;
+        }
 	}
 })
