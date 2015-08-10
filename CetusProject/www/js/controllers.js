@@ -1060,7 +1060,7 @@ angular.module('starter.controllers', [])
 	    }, 1400);
 	 }
 })
-.controller('ProductCtrl',function($scope, $http, $ionicModal, $state,$timeout,$stateParams,$ionicLoading,Userinfo,ApiEndpoint,$ionicPopover){
+.controller('ProductCtrl',function($scope, $http, $ionicModal, $state,$timeout,$stateParams,$ionicLoading,$ionicActionSheet,Userinfo,ApiEndpoint,$ionicPopover){
 	$scope.picfiles = [];
 	$scope.comments = [];
 	$scope.product = {};
@@ -1114,13 +1114,7 @@ angular.module('starter.controllers', [])
 	      price = p;
 	    }
 	    var title = '神奇的美O圈“' + short_title + '”才' + price + '元';
-	    var scope = "snsapi_userinfo";
-	    Wechat.auth(scope, function (response) {
-	        // you may use response.code to get the access token.
-	        alert(JSON.stringify(response));
-	    }, function (reason) {
-	        alert("Failed: " + reason);
-	    });
+	    
 	    Wechat.isInstalled(function(installed) {
 	      if (!installed) {
 	        alert("手机尚未安装微信应用");
@@ -1133,7 +1127,13 @@ angular.module('starter.controllers', [])
 	        }, 3000);
 	      }
 	    });
-
+	    var scope = "snsapi_userinfo";
+	    Wechat.auth(scope, function (response) {
+	        // you may use response.code to get the access token.
+	        alert(JSON.stringify(response));
+	    }, function (reason) {
+	        alert("Failed: " + reason);
+	    });
 	    Wechat.share({
 	      message: {
 	        title: title,

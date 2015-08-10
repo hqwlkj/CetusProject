@@ -1,17 +1,7 @@
-<ion-view title='首页'>
+<ion-view title='产品列表'>
 <ion-content>
   <ion-refresher pulling-text="下拉刷新"	on-refresh="doRefresh()"></ion-refresher>
   <div id="content">
-    <section>
-      <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true" slide-interval="6000">
-        <ion-slide ng-repeat="b in banner">
-          <div class="box" ng-click="activityDetail('{{b.id}}')" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
-        </ion-slide>
-      </ion-slide-box>
-    </section>
-    <section style=" background-color: #F6F3EE;">
-	    <div class="shop-name"><span>{{InvitationName}}</span>的店铺</div>
-	  </section>
 	  <section style=" background-color: #F6F3EE; padding-top: 5px; padding-bottom: 6px; ">
 	  <ul class="productlst">
 	    <li ng-repeat="p in products" ng-click="clickDetail('{{p.id}}')">
