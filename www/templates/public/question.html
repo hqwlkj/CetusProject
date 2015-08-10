@@ -1,0 +1,18 @@
+<ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="questionBackGo()"></a>
+    <h1 class="title">问题列表</h1>
+  </ion-header-bar>
+  <ion-content style="background:#F6F3EE;">
+    <ul class="address">
+        <li class="margin-15 padding-10 clear" ng-repeat="q in QuestionDataList" ng-click="show_question_show({{q.id}})">
+        	<div class="address-option left">
+            	<span ng-if="q.answer==0">[未回复]</span>
+            	<span ng-if="q.answer==1" class="current">[已回复]</span>
+            </div>
+            <div class="addressbox">{{q.content}}</div>
+        </li>
+        <div class="padding-15"><a href="javaScript:void(0)" class="add-newads text-center" ng-click="show_question_add('')"><p><i class="icon-add-01"></i></p><p class="font-14" style="color:#000">提交新问题</p></a></div>
+    </ul>
+  </ion-content>
+</ion-modal-view>
