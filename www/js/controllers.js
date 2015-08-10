@@ -1104,8 +1104,8 @@ angular.module('starter.controllers', [])
 		$scope.showMsg("开发中");
 	};
 	//分享
-	$scope.productShare = function(e, desc, p, index) {
-	    var url = 'http://m2.cosjii.com/WeChat/Order?e=' + e;
+	$scope.productShare = function(code, desc, p, index) {
+	    var url = 'httpp://www.parsec.com.cn';
 	    var short_title = desc.substr(0, 3) + '...';
 	    var price = null;
 	    if (parseFloat(p) < 1) {
@@ -1114,6 +1114,13 @@ angular.module('starter.controllers', [])
 	      price = p;
 	    }
 	    var title = '神奇的美O圈“' + short_title + '”才' + price + '元';
+	    var scope = "snsapi_userinfo";
+	    Wechat.auth(scope, function (response) {
+	        // you may use response.code to get the access token.
+	        alert(JSON.stringify(response));
+	    }, function (reason) {
+	        alert("Failed: " + reason);
+	    });
 	    Wechat.isInstalled(function(installed) {
 	      if (!installed) {
 	        alert("手机尚未安装微信应用");
@@ -1139,19 +1146,10 @@ angular.module('starter.controllers', [])
 	      },
 	      scene: Wechat.Scene.TIMELINE // share to Timeline
 	    }, function() {
-	      $http.post(ApiEndpoint.url + '/', {//操作数据
-	        'e': e
-	      }).success(function(data) {
-	        if (data.error == 0) {
-	          $state.reload();
-	          alert("分享成功");
-	        } else {
-	          alert('数据匹配错误，请重新分享');
-	        }
-	      });
+	    	$scope.showMsg("分享成功");
 	    }, function(reason) {
 	      if (reason == 'ERR_USER_CANCEL') {} else {
-	        alert("分享失败: " + reason);
+	    	  $scope.showMsg("分享失败: " + reason);
 	      }
 	    });
 	};
