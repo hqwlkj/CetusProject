@@ -1219,9 +1219,53 @@ angular.module('starter.controllers', [])
 	    //$ionicHistory.goBack();
 	    $state.go('app.index');
 	}
+	$scope.isActive = 'a';
+	$scope.changeTab = function(evt) {
+	    var elem = evt.currentTarget;
+	    $scope.isActive = elem.getAttributeNode('data-active').value;
+	    $scope.orderGoTo($scope.isActive);
+    };
+    $scope.orderGoTo = function(isActive){
+    	switch (isActive) {
+		case 'a':
+			$scope.getMessageWd();
+			break;
+		case 'b':
+			//$scope.getMessageYd();
+			break;
+		case 'c':
+			//$scope.getMessageAll();
+			break;
+		default:
+			$scope.getMessageWd();
+			break;
+		}
+    }
+    $scope.flag = true;//显示消息中心
 	$scope.messageWd = [];
 	$scope.messageYd = [];
 	$scope.messageAll = [];
+	//未读的点击
+	$scope.getMessageWd = function() {
+		  $ionicLoading.show({
+			    template: "加载中..."
+		 });
+		  $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=0'+'&pageNo=1'+'&pageSize=10').success(function(data) {
+			  if (data.state == 'success') {
+				  if(data.lst.length<1){
+					  alert("暂无消息")
+					  $ionicLoading.hide();
+				  }
+				  for (var i = 0; i < data.lst.length; i++) {
+				        (data.lst)[i].index = i + 1;
+				        HelpData.arr.push((data.lst)[i]);
+				        $ionicLoading.hide();
+				      }
+				      $scope.messageWd = data.lst;
+				    }
+			});
+	  };
+	//未读的默认加载
 	$http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=0'+'&pageNo=1'+'&pageSize=10').success(function(data) {
 	  if (data.state == 'success') {
 		  for (var i = 0; i < data.lst.length; i++) {
@@ -1231,6 +1275,7 @@ angular.module('starter.controllers', [])
 		      $scope.messageWd = data.lst;
 		    }
 	});
+	
 	//已读
 	 $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=1'+'&pageNo=1'+'&pageSize=10').success(function(data) {
 		    if (data.state == 'success') {
@@ -1252,9 +1297,23 @@ angular.module('starter.controllers', [])
 		    }
 		  });
 
-
-		  $scope.helpDetail = function(title) {
-		    $location.path('message/msgxq/' + title);
+         //处理未读消息变成已读消息
+		  $scope.helpDetail = function(k,test) {
+			  var title=k.title;
+			  var msgId=k.mid;
+			   //alert(title);
+			  // alert(msgId);
+			  if(test==1||test=="1"){
+				  $http.post(ApiEndpoint.url + '/api_message_detail?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&msgId='+msgId).success(function(data) {
+					    if (data.state == 'success') {
+					    	 $location.path('message/msgxq/' + title);
+					    }
+					  });
+			  }else{
+				  $location.path('message/msgxq/' + title);
+			  }
+			  
+		   
 		  }
 })
 
@@ -1263,7 +1322,7 @@ angular.module('starter.controllers', [])
   $scope.backGoInfo = function() {
      $ionicHistory.goBack();
   }
-
+  $scope.flag = false;//隐藏大的消息中心 显示出详情的顶部
   for (var i = 0; i < HelpData.arr.length; i++) {
     if (HelpData.arr[i].title === $stateParams.title) {
       $scope.param.title = $stateParams.title;

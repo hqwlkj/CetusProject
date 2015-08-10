@@ -355,24 +355,30 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	  }
   })
 
-  
-   .state('message', {
+  //新版  消息中心
+  .state('message', {
 	  url: '/message',
 	  abstract: true,
 	  templateUrl: 'templates/message/message.html',
 	  controller: 'Message'
   })
+   /*.state('message', {
+	  url: '/message',
+	  abstract: true,
+	  templateUrl: 'templates/message/message.html',
+	  controller: 'Message'
+  })*/
   
-  .state('message.msgall', {//全部信息
+ .state('message.msgall', {//全部信息
 	  url: '/msgall',
 	  views: {
 		  'message': {
-			  templateUrl: 'templates/message/messageAll.html',
+			  templateUrl: 'templates/message/messageShow.html',
 			  controller: 'MessageCtrl'
 		  }
 	  }
   })
-  
+   /*
   .state('message.msgwd', {//未读信息
 	  url: '/msgwd',
 	  views: {
@@ -391,7 +397,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 			  controller: 'MessageCtrl'
 		  }
 	  }
-  })
+  })*/
   
   .state('message.msgxq', {//消息详情
     url: '/msgxq/:title',
