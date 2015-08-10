@@ -204,6 +204,12 @@ angular.module('starter.ordercrtl', [])
 							$scope.flag1 = true;
 							$scope.flag1 = true;
 						}
+						//计算出price countFee
+						var price =0,countFee=0;
+						for (var i = 0; i < data.item.length; i++) {
+							price +=(parseFloat(data.item[i].prince)*parseInt(data.item[i].num));
+							countFee +=( parseFloat(data.item[i].productPrice)*parseInt(data.item[i].num));
+						}
 						//$scope.orderData=data;
 						$scope.ordNum = data.order.ordNum;
 						$scope.orderAdd=data.add;
@@ -221,9 +227,10 @@ angular.module('starter.ordercrtl', [])
 						$scope.com=data.order.com;
 						//$scope.myorderId=data.order.id;
 						$scope.deliveryTime=data.order.deliveryTime;//送货时间
-						$scope.orderMoney=data.order.orderMoney;//订单单价
+						//$scope.orderMoney=data.order.orderMoney;//订单单价
+						$scope.orderMoney=(countFee.toFixed(2));//订单总额
 						$scope.freight=data.order.freight.toFixed(2);//运费
-						$scope.discountPrice=data.order.discountPrice;//优惠价格
+						$scope.discountPrice=(parseFloat(countFee - price).toFixed(2));//优惠价格
 						$scope.countPrice=(parseFloat(data.order.orderMoney).toFixed(2));//实付金额
 						$scope.showRiseTime=data.order.showRiseTime;//下单时间
 					}
