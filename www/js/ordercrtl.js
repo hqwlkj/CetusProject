@@ -216,6 +216,8 @@ angular.module('starter.ordercrtl', [])
 						$scope.orderItems=data.item;
 						$scope.orderOrder=data.order;
 						
+						$scope.orderOrder.items = data.item;
+						
 						$scope.recipients=data.add.recipients;
 						$scope.telephone=data.add.telephone;
 						
@@ -229,6 +231,10 @@ angular.module('starter.ordercrtl', [])
 							$scope.payMethod="在线支付";
 						}else if(data.order.payMethod == "2" || data.order.payMethod == 2){
 							$scope.payMethod="货到付款";
+						}
+						//判断该订单是否已经评价
+						if(data.allComment == 1){
+							$scope.flag5 = false;
 						}
 						$scope.com=data.order.com;
 						//$scope.myorderId=data.order.id;
@@ -312,14 +318,20 @@ angular.module('starter.ordercrtl', [])
 		/**
 		 * 评价
 		 */
-		/*OD.evaluate = function(){
-			if (len == 1){
-				window.location.href="comment.html?userId="+userId+"&orderitemId="+itemId+"&orderNum="+orderNum+"&pnum=1";
+		$scope.evaluate = function(orderOrder){
+			
+//			if (len == 1){
+//				window.location.href="comment.html?userId="+userId+"&orderitemId="+itemId+"&orderNum="+orderNum+"&pnum=1";
+//			}else {
+//				window.location.href="order-list.html?userId="+userId+"&orderNum="+orderNum;
+//			}
+			$scope.modal_order_info.hide();
+			if (orderOrder.items != null && orderOrder.items.length == 1) {
+				$state.go('public.comment', {itemId: orderOrder.items[0].id+"-"+1});
 			}else {
-				window.location.href="order-list.html?userId="+userId+"&orderNum="+orderNum;
+				$state.go('public.commentList', {ordNum: orderOrder.ordNum});
 			}
 		};
-		*/
 		/**
 		 * 跳转到产品详情
 		 */

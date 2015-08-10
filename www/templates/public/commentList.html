@@ -1,0 +1,27 @@
+<ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="closeCommentList()"></a>
+    <h1 class="title">产品评价</h1>
+  </ion-header-bar>
+  <ion-content>
+	<div class="wrap-page" >
+	    <ul  id="completed" style="background-color: #ffffff;">
+	    	<li class="" ng-repeat="p in commentListData">
+				<div class="orderlst-solid">
+					<div class="img left">
+						<img class="img" height="52.5px" width="52.5px" ng-src="{{p.imgUrl}}">
+					</div>
+					<div class="orderlst-top-content ">
+						<p class="orderlst-top-content-title2">{{p.name}}</p>
+						<p class="orderlst-top-content-attr" style="height: 28px;">
+							<span class="col-6 text-left" style="padding-top: 4px;overflow:hidden; white-space:nowrap;text-overflow:ellipsis;">{{p.parameter}}</span>
+							<span class="col-6 text-right" ng-if="p.commentId > 0"><a href="javascript:void(0)" class="btn pingl-btn">已评价</a></span>
+							<span class="col-6 text-right" ng-if="p.commentId == 0 || p.commentId == '' || p.commentId == null"><a ng-click="toComment({{p.id}})" class="btn evaluate-btn">去评价</a></span>
+						</p>
+					</div>
+				</div>
+			</li>
+    	</ul>
+	</div>
+  </ion-content>
+</ion-modal-view>

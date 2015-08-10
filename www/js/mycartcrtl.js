@@ -178,6 +178,8 @@ angular.module('starter.mycartcrtl', [])
 //		var aaa = 'tiantian-560331923708-1438679113340';
 //		$state.go('public.logistics',{com:aaa});
 //	}
+	
+	
 })
 
 
@@ -235,4 +237,114 @@ angular.module('starter.mycartcrtl', [])
 	$scope.closeLogistics = function() {
 		$ionicHistory.goBack();
 	}
-});
+})
+
+
+//评价列表
+.controller('CommentList',function($scope, $state, $ionicPopup, Userinfo, $ionicLoading,$ionicHistory, $http, ApiEndpoint, $stateParams){
+	$scope.commentListData = []; //该订单中的商品集合
+	
+	$ionicLoading.show({
+	    template: "加载中..."
+	});
+	
+	//加载订单下的商品列表
+	$scope.loadCommentList = function(ordNum) {
+
+		$http.post(ApiEndpoint.url + '/api_ordernum_list?orderNum='+$stateParams.ordNum).success(function(data) {
+			if (data.state == 'success') {
+				$scope.commentListData = data.items;
+				for (var i = 0; i < $scope.commentListData.length; i++) {
+					$scope.commentListData[i].imgUrl = ApiEndpoint.pic_url+'/'+$scope.commentListData[i].imgurl;
+				}
+			}
+			$ionicLoading.hide();
+		});
+	}
+	
+	$scope.loadCommentList();
+	
+	//去评价
+	$scope.toComment = function(itemId) {
+		$state.go('public.comment', {itemId: itemId+"-"+$scope.commentListData.length});
+	}
+	
+	//关闭商品评价列表页面
+	$scope.closeCommentList = function() {
+//		$ionicHistory.goBack();
+		$state.go('app.order');
+	}
+})
+
+
+//评价商品详情
+.controller('Comment',function($scope, $state, $ionicPopup, Userinfo, $ionicLoading,$ionicHistory, $http, ApiEndpoint, $stateParams){
+
+	$scope.itemId = $stateParams.itemId.split("-")[0];
+	$scope.itemNum = $stateParams.itemId.split("-")[1];
+	
+	$scope.productImg = "";
+	$scope.productNum = "";
+	$scope.productPrice = "";
+	$scope.productName = "";
+	$scope.productPara = "";
+	$scope.productId = 0;
+	$scope.ordNum = "";
+	$scope.commentData = {};
+	$scope.commentData.score = 4;
+	
+	$ionicLoading.show({
+	    template: "加载中..."
+	});
+	
+	//加载订单下的商品详情
+	$scope.commentDetail = function() {
+
+		$http.post(ApiEndpoint.url + '/api_ordernum_detail?orderitemId='+$scope.itemId).success(function(data) {
+			if (data.state == 'success') {
+				$scope.productImg = ApiEndpoint.pic_url+'/'+data.item.imgurl;
+				$scope.productNum = "x"+data.item.num;
+				$scope.productPrice = "￥"+data.item.prince;
+				$scope.productName = data.item.name;
+				$scope.productId = data.item.pid;
+				$scope.productPara = data.item.parameter;
+				$scope.ordNum = data.item.ordNum;
+			}
+			$ionicLoading.hide();
+		});
+	}
+	
+	//提交平台
+	$scope.saveComment = function() {
+		if ($scope.commentData.score == undefined || $scope.commentData.score == 0) {
+			$scope.showMsg("请为商品打分");
+			return;
+		}
+		if ($scope.commentData.content == "" || $scope.commentData.content.trim() == "") {
+			$scope.showMsg("请为商品写下评价");
+			return;
+		}
+		var comment = {};
+		comment.score = $scope.commentData.score;
+		comment.content = $scope.commentData.content;
+		comment.pid = $scope.productId;
+		comment.userId = Userinfo.l.id;
+		comment.ordNum = $scope.ordNum;
+		$http.post(ApiEndpoint.url + '/api_app_comment_save?commentStr='+JSON.stringify(comment)).success(function(data) {
+			if (data.state == 'success') {
+				if ($scope.itemNum == 1 || $scope.itemNum == "1"){
+					$state.go('app.order');
+				}else 
+					$state.go('public.commentList', {ordNum: $scope.ordNum});
+			}
+			$ionicLoading.hide();
+		});
+	}
+	
+	$scope.commentDetail();
+	
+	//关闭商品评价详情页面
+	$scope.closeCommentDetail = function() {
+		$ionicHistory.goBack();
+	}
+})
