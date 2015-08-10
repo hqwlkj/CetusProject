@@ -1328,9 +1328,9 @@ angular.module('starter.controllers', [])
 
 .controller('msgArticle', function($scope, $ionicHistory, $stateParams, HelpData,$ionicHistory, $state) {
   $scope.param = {};
-  $scope.backGoInfo = function() {
+  /*$scope.backGoInfo = function() {
      $ionicHistory.goBack();
-  }
+  }*/
   $scope.flag = false;//隐藏大的消息中心 显示出详情的顶部
   for (var i = 0; i < HelpData.arr.length; i++) {
     if (HelpData.arr[i].title === $stateParams.title) {
