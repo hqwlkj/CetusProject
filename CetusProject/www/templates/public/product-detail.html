@@ -18,7 +18,7 @@
 	      <div class="col-7 text-left"><span class="fba">殴歌价：</span><span class="fwb">￥{{(product.price*product.discount).toFixed(2)}}</span></div>
 	      <div class="col-5 text-right"><span class="fba">市场价：</span><strike class="fba">￥{{product.price.toFixed(2)}}</strike></div>
 	    </div>
-	    <a href="javascript:void()" ng-click="productShare('{{product.pcode}}','{{product.name}}',{{product.price.toFixed(2)}},{{product.id}})" class="fenxiang"><i class="icon-share-01"></i></a></div>
+	    <a href="javascript:void()" ng-click="productShare('{{product.pcode}}','{{product.name}}','{{product.price}}','{{product.id}}')" class="fenxiang"><i class="icon-share-01"></i></a></div>
 	  <div class="product-content">
 	    <p class='product-centent-title'>产品参数：</p>
 	    <p ng-bind-html ='product.parameter'></p>

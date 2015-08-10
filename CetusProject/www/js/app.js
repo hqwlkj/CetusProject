@@ -124,8 +124,8 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     };
     //头像选择结束
     //产品分享 开始
-    /*$scope.productShare = function(e, desc, p, index) {
-	    var url = '/' + e;
+    $scope.productShare = function(e, desc, p, index) {
+	    var url = 'http://www.parsec.com.cn/Cetus/' + e;
 	    var short_title = desc.substr(0, 3) + '...';
 	    var price = null;
 	    if (parseFloat(p) < 1) {
@@ -159,7 +159,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	      },
 	      scene: Wechat.Scene.TIMELINE // share to Timeline
 	    }, function() {
-	      $http.post(ApiEndpoint.url + '/', {//操作数据
+	      $http.post('http://www.parsec.com.cn/Cetus/', {//操作数据
 	        'e': e
 	      }).success(function(data) {
 	        if (data.error == 0) {
@@ -174,7 +174,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	        alert("分享失败: " + reason);
 	      }
 	    });
-	};*/
+	};
 	//产品分享结束
 	
     //检查更新
