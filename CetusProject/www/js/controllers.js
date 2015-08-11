@@ -80,7 +80,11 @@ angular.module('starter.controllers', [])
   };
 
   $scope.cartClick = function() {
-		$state.go("public.myCart");
+	  if(!Userinfo.l.id){
+		  $scope.login();
+		  return;
+	  }
+	  $state.go("public.myCart");
 	}
 
   $scope.clickDetail = function(id) {//产品详情
@@ -95,10 +99,18 @@ angular.module('starter.controllers', [])
   };
 
   $scope.myMessage = function(){
+	  if(!Userinfo.l.id){
+		  $scope.login();
+		  return;
+	  }
 	  $state.go('message.msgall');
   };
   //到客服列表
   $scope.goQuestion = function(){
+	  if(!Userinfo.l.id){
+		  $scope.login();
+		  return;
+	  }
 	  $state.go('public.question');
   };
   
