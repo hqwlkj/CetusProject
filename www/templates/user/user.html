@@ -7,8 +7,8 @@
 <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
 <div id="content">
 	<section id="user-bg" class="relative">
-	   <button class="button-large ion-new-gear noborder" ng-click="about()" style="position:absolute;right:0;top:0;"></button>
-		<div class="user-ava relative" ng-if="flag == 1">
+	   <!-- <button class="button-large ion-new-gear noborder" ng-click="about()" style="position:absolute;right:0;top:0;"></button> -->
+		<div class="user-ava relative" ng-if="flag == 1" ng-click="upLoadImg()";>
 			<img src="img/ava-block.png" alt="" class="ava" style="background-image:url('{{avaImg}}')">
 			<div class="user-info"><p>{{username}}</p></div>
 		</div>
@@ -17,8 +17,9 @@
 	</section>
 	<section>
 	 <ul class="list list-li-bg">
-	 	<li class="item" ng-click="userGoTo(2)"><img src="img/icon-gx-c.png" alt="">检查更新<i class="badge" style="font-weight:normal">v{{app_version}}</i></li>
+	 	<li class="item" ng-click="userGoTo(4)"><img src="img/icon-zh.png" alt="">账户设置</li>
 	 	<li class="item" ng-click="userGoTo(3)"><img src="img/icon-delete-c.png" alt="">清除缓存</li>
+	 	<li class="item" ng-click="userGoTo(2)"><img src="img/icon-gx-c.png" alt="">检查更新<i class="badge" style="font-weight:normal">v{{app_version}}</i></li>
 	 </ul>
 	<ul class="list list-li-bg">
 	 	<li class="item" ng-click="userGoTo(1)"><img src="img/icon-bz-c.png" alt="">关于美O</li>

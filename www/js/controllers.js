@@ -287,7 +287,7 @@ angular.module('starter.controllers', [])
 	  $scope.userData = {};
   };
   
-  $ionicModal.fromTemplateUrl('templates/help/about.html ', {
+  /*$ionicModal.fromTemplateUrl('templates/help/about.html ', {
     scope: $scope
   }).then(function(modal) {
     $scope.aboutModal = modal;
@@ -299,7 +299,7 @@ angular.module('starter.controllers', [])
   $scope.closeAbout = function() {
     $scope.aboutModal.hide();
     $scope.aboutData = {};
-  };
+  };*/
   $scope.exit = function() {//退出登录
     $scope.flag = '';
     Userinfo.l.id = '';
@@ -404,18 +404,29 @@ angular.module('starter.controllers', [])
     };
   }
   
+  //关于meiO
+  $ionicModal.fromTemplateUrl('templates/help/aboutUs.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modalAbortUs = modal;
+    $scope.abortUsData = {};
+  });
+
+  // 关闭关于页面
+  $scope.closeAbortUs = function() {
+    $scope.modalAbortUs.hide();
+    $scope.abortUsData = {};
+  };
+
+  // 打开关于页面
+  $scope.goAbortUs = function() {
+    $scope.modalAbortUs.show();
+  };
   
   $scope.userGoTo = function(listid) {
     switch (listid) {
       case 1:
-    	  $ionicPopup.alert({
-  	        title: '提示',
-  	        template: '开发中',
-  	        buttons: [{
-  	          text: '确定',
-  	          type: 'button-assertive'
-  	        }]
-  	    });
+    	$scope.goAbortUs();
         break;
       case 2:
     	$scope.checkUpdata();
@@ -431,6 +442,11 @@ angular.module('starter.controllers', [])
 	        }]
 	    });
         break;
+      case 4:
+    	  //$scope.about();
+    	  $state.go('acount.account');
+    	  $scope.modal.hide();
+    	  break;
       default:
         break;
     };
@@ -901,123 +917,6 @@ angular.module('starter.controllers', [])
       $scope.popover.hide();
     }, 1400);
   };
-
-  /*//login
-  $ionicModal.fromTemplateUrl('templates/user/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modalLogin = modal;
-    $scope.loginData = {};
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modalLogin.hide();
-    $state.go('tab.user');
-    $scope.loginData = {};
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modalLogin.show();
-  };
-
-  $scope.doLogin = function() {
-    if (!$scope.loginData.username) {
-      $scope.showMsg('用户名不能为空');
-      return false;
-    };
-    if (!$scope.loginData.password) {
-      $scope.showMsg('密码不能为空');
-      return false;
-    };
-    $ionicLoading.show({
-      template: "正在登录..."
-    });
-    $http.post(ApiEndpoint.url + '/', {
-      user: $scope.loginData.username,
-      password: $scope.loginData.password
-    }).success(function(data) {
-      $ionicLoading.hide();
-      if (data.error != 0) {
-        $scope.showMsg(data.info);
-      } else {
-        Userinfo.save(data.user_info);
-        Userinfo.add('flag', 1);
-        $scope.sign = Userinfo.l.today_signed;
-        $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
-        $scope.flag = 1;
-        $scope.closeLogin();
-      }
-    });
-
-  };
-
-  // 注册
-  $ionicModal.fromTemplateUrl('templates/user/register.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal_register = modal;
-    $scope.registerData = {};
-  });
-
-  $scope.register = function() {
-    $scope.modal_register.show();
-  };
-  $scope.closeRegister = function() {
-    $scope.modal_register.hide();
-    $scope.registerData = {};
-  };
-  $scope.doRegister = function() {
-    var reg = /^1\d{10}$/;
-    if (!$scope.registerData.username) {
-      $scope.showMsg('用户名不能为空');
-      return false;
-    };
-    if (!$scope.registerData.phone) {
-      $scope.showMsg('手机号不能为空');
-      return false;
-    } else if (!reg.test($scope.registerData.phone)) {
-      $scope.showMsg('手机号格式错误');
-      return false;
-    };
-    if (!$scope.registerData.password || !$scope.registerData.repassword) {
-      $scope.showMsg('密码不能为空');
-      return false;
-    } else if ($scope.registerData.password != $scope.registerData.repassword) {
-      $scope.showMsg('两次密码不一致');
-      return false;
-    }
-    $ionicLoading.show({
-      template: '注册中...'
-    });
-    $http.post(ApiEndpoint.url + '/', {
-      user: $scope.registerData.username,
-      mobile: $scope.registerData.phone,
-      password: $scope.registerData.password
-    }).success(function(data) {
-      $ionicLoading.hide();
-      $scope.showMsg(data.info);
-      if (data.error == 0) {
-        $http.post(ApiEndpoint.url + '/User/Login?_ajax_=1', {
-          user: $scope.registerData.username,
-          password: $scope.registerData.password
-        }).success(function(data) {
-          if (data.error != 0) {
-            $scope.showMsg(data.info);
-          } else {
-            Userinfo.save(data.user_info);
-            Userinfo.add('flag', 1);
-            $scope.flag = 1;
-            $scope.sign = Userinfo.l.today_signed;
-            $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
-            $scope.closeRegister();
-            $scope.closeLogin();
-          }
-        });
-      }
-    });
-  }*/
   
 })
 
@@ -1338,9 +1237,6 @@ angular.module('starter.controllers', [])
 
 .controller('msgArticle', function($scope, $ionicHistory, $stateParams, HelpData,$ionicHistory, $state) {
   $scope.param = {};
-  /*$scope.backGoInfo = function() {
-     $ionicHistory.goBack();
-  }*/
   $scope.flag = false;//隐藏大的消息中心 显示出详情的顶部
   for (var i = 0; i < HelpData.arr.length; i++) {
     if (HelpData.arr[i].title === $stateParams.title) {
@@ -1351,3 +1247,134 @@ angular.module('starter.controllers', [])
   }
 })
 
+
+.controller('Acount', function($scope, $ionicHistory, $state, $http, ApiEndpoint, Userinfo) {
+	$scope.showMsg = function(txt) {
+	    var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
+	    $scope.popover = $ionicPopover.fromTemplate(template, {
+	      scope: $scope
+	    });
+	    $scope.popover.show();
+	    $timeout(function() {
+	      $scope.popover.hide();
+	    }, 1400);
+	  };
+})
+.controller('AccountCrtl', function($scope, $ionicHistory, $state, $http, ApiEndpoint, Userinfo) {
+	$http.get(ApiEndpoint.url + '/api_user_detail?id='+Userinfo.l.id).success(function(data) {
+	    if (data.state == "success") {
+	      Userinfo.save(data.obj);
+	      $scope.userinfo = Userinfo.l;
+	      $scope.userinfo.cellPhone = Userinfo.l.cellPhone != 'null' ? Userinfo.l.cellPhone : '';
+	      $scope.userinfo.realname = Userinfo.l.name != 'null' ? Userinfo.l.name : '';
+	      $scope.userinfo.alipay = Userinfo.l.alipay != 'null' ? Userinfo.l.alipay : '';
+	    } else {
+	      alert('登录超时，请重新登录');
+	      $scope.login();
+	      $scope.flag = '';
+	      Userinfo.l.id = '';
+	      Userinfo.remove('flag');
+	      return;
+	    }
+	  });
+	  $scope.isActive = 'a';
+	  $scope.changeTab = function(evt) {
+	    var elem = evt.currentTarget;
+	    $scope.isActive = elem.getAttributeNode('data-active').value;
+	  };
+	  
+	  $scope.changeBasic = function() {
+		   if (!$scope.userinfo.password_person) {
+		      $scope.showMsg('请输入账户密码');
+		      return false;
+		    };
+		    if (!$scope.userinfo.name) {
+		    	$scope.showMsg('请输入会员姓名');
+		    	return false;
+		    };
+		    $http.post(ApiEndpoint.url + '/api_update_user', {
+		      'password': $scope.userinfo.password_person,
+		      'name': $scope.userinfo.name,
+		      'id': Userinfo.l.id
+		    }).success(function(data) {
+		      $scope.showMsg(data.info);
+		      if (data.error == 0) {
+		        $scope.userinfo.password_person = '';
+		        $state.reload();
+		      }
+		    })
+		  };
+		  $scope.changePwd = function() {
+		    if (!$scope.userinfo.password_change) {
+		      $scope.showMsg('原始密码不能为空');
+		      return false;
+		    };
+		    if (!$scope.userinfo.password) {
+		    	$scope.showMsg('新密码不能为空');
+		    	return false;
+		    }else if ($scope.userinfo.password != $scope.userinfo.password_repeat) {
+		      $scope.showMsg('两次密码不一致');
+		      return false;
+		    }
+		    $ionicLoading.show({
+		      template: '保存中...'
+		    });
+			  
+		    $http.post(ApiEndpoint.url + '/api_password_update', {
+		      'id': Userinfo.l.id,
+		      'oldpassword': $scope.userinfo.password_change,
+		      'newpassword': $scope.userinfo.password
+		    }).success(function(data) {
+		      $scope.showMsg(data.info);
+		      if (data.state == 'successs') {
+		        $scope.userinfo.password_change = '';
+		        $scope.userinfo.password = '';
+		        $scope.userinfo.password_repeat = '';
+		        $ionicLoading.hide();
+		        $state.reload();
+		      }
+		    })
+		  };
+		  $scope.changeAcount = function() {
+			  if (!$scope.userinfo.password_person) {
+			      $scope.showMsg('请输入账户密码');
+			      return false;
+			    };
+			    if (!$scope.userinfo.alipay) {
+			    	$scope.showMsg('请输入支付宝账号');
+			    	return false;
+			    };
+		    $http.post(ApiEndpoint.url + '/api_update_user', {
+		      'id': Userinfo.l.id,
+		      'password': $scope.userinfo.password_acount,
+		      'alipay': $scope.userinfo.alipay
+		    }).success(function(data) {
+		      $scope.showMsg(data.info);
+		      if (data.error == 0) {
+		        $scope.userinfo.password_acount = '';
+		        $state.reload();
+		      }
+		    })
+		  };
+	  
+	  
+	  $scope.showMsg = function(txt) {
+	    var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
+	    $scope.popover = $ionicPopover.fromTemplate(template, {
+	      scope: $scope
+	    });
+	    $scope.popover.show();
+	    $timeout(function() {
+	      $scope.popover.hide();
+	    }, 1400);
+	  };
+	  
+	  $scope.backGo = function() {
+	    $scope.userinfo.password_change = '';
+	    $scope.userinfo.password = '';
+	    $scope.userinfo.password_repeat = '';
+	    $scope.userinfo.password_acount = '';
+	    $scope.userinfo.password_person = '';
+	    $state.go('app.index');
+	  }
+})
