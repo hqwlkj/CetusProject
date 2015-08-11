@@ -15,22 +15,22 @@
             </div>
         </li>
 
-        <li id="not_hava_address">
+        <li id="not_hava_address" ng-show="falgaddress1">
             <div class="mo-order-orderlst"><span class="orderlst-title">收货人:</span><span class="recive-name" ng-bind="recipients"></span>
                 <div class="orderxq-top-right right text-right"><span class="orderlst-title">手机号:</span><span class="recive-name" ng-bind="telephone"></span></div>
                 <p class="orderlst-top-content-attr" id="locations">
                 <i class="icon-pote-01"></i><span ng-bind="locations"></span></p>
             </div>
         </li>
-	<li id="autoaddress" style="display: none;">
-      <input type="hidden" value="" id="autoaddressId"/>
+	<li id="autoaddress" ng-show="falgaddress2">
       <div class="orderxq-top bbn"><span class="orderlst-title">自提地点:</span>
-        <p class="orderxq-top-content-attr" id="shopName"></p>
-        <p class="orderxq-top-content-attr" id="address"></p>
+        <p class="orderxq-top-content-attr" ng-bind="shopName" ></p>
+        <p class="orderxq-top-content-attr" ng-bind="address" ></p>
       </div>
     </li>
-    <li id="orderItem" ng-repeat="msg in orderItems"><div class="orderlst-top bbn">
-        <div class="img left" onclick="skipToProductDetail(9)">
+    <li id="orderItem" ng-repeat="msg in orderItems">
+    <div class="orderlst-top bbn">
+        <div class="img left" ng-click="skipToProductDetail(msg.pid)">
         <img src="http://www.parsec.com.cn/Cetus/pic/{{::msg.imgurl}}" class="img" height="52.5px" width="52.5px"></div>
         <div class="orderlst-top-right right text-right">
           <p class="price"><span>￥</span>{{msg.prince}}</p>

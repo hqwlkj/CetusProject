@@ -222,10 +222,14 @@ angular.module('starter.ordercrtl', [])
 						
 						$scope.recipients=data.add.recipients;
 						$scope.telephone=data.add.telephone;
-						
-						
+						$scope.falgaddress1 = true;//有地址
+						$scope.falgaddress2 = false;//上门自提
 						if(data.order.atype == 0){ //上门自提
-							$scope.locations=data.add.address;//地址
+							$scope.falgaddress1 = false;
+							$scope.falgaddress2 =true;
+							$scope.shopcom="上门自提";
+							$scope.shopName=data.add.shopName;//店名
+							$scope.address=data.add.address;//地址
 						}else{
 							$scope.locations=data.add.province+data.add.city+data.add.county+data.add.locations;//地址
 						}
@@ -339,8 +343,18 @@ angular.module('starter.ordercrtl', [])
 		 */
 		/*function skipToProductDetail(productId){
 			location.href="product-detail.html?userId="+userId+"&productId="+productId;
+			 location.href="../public/product-detail.html?userId="+(Userinfo.l.id?Userinfo.l.id:"")+"&productId="+id;
 		}
 	  */
+		/**
+		 * 跳转到产品详情
+		 */
+	 /* $scope.skipToProductDetail = function(id) {
+		  alert(id);
+		  //$state.go('product.detail',{productId: id});
+		 
+	  };*/
+		  
 	  $scope.changeAcount = function() {
 		  alert(2);
 	  };
