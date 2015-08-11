@@ -14,7 +14,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 
     // 设备准备完后 隐藏启动动画
     
-    navigator.splashscreen.hide();
+    //navigator.splashscreen.hide();
 
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -24,28 +24,28 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       StatusBar.styleLightContent();
     }
     //启动极光推送服务
-    window.plugins.jPushPlugin.init();
+    //window.plugins.jPushPlugin.init();
     //调试模式
     // window.plugins.jPushPlugin.setDebugMode(true);
     
     
    //头像选择开始
-    var options = {
+   var options = {
       title: '上传头像',
       buttonLabels: ['从相册选择', '拍照'],
       addCancelButtonWithLabel: '取消',
       androidEnableCancelButton: true,
       winphoneEnableCancelButton: true
     };
-    $scope.upLoadImg = function() {
+    $rootScope.upLoadImg = function() {
       $cordovaActionSheet.show(options)
         .then(function(btnIndex) {
           switch (btnIndex) {
             case 1:
-              $scope.pickImg();
+            	$rootScope.pickImg();
               break;
             case 2:
-              $scope.cameraImg();
+            	$rootScope.cameraImg();
               break;
             default:
               break;
@@ -53,7 +53,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
         });
     };
 
-    $scope.pickImg = function() {
+    $rootScope.pickImg = function() {
       var options = {
         maximumImagesCount: 1,
         width: 800,
@@ -70,7 +70,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
           $cordovaFileTransfer.upload(server, results[0], option, true)
             .then(function(result) {
               alert('上传成功');
-              $scope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
+              $rootScope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
             }, function(err) {
               alert('上传失败，请重试');
             }, function(progress) {
@@ -86,7 +86,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
         });
     };
 
-    $scope.cameraImg = function() {
+    $rootScope.cameraImg = function() {
       var server =   'http://www.parsec.com.cn/Cetus/api_update_head?id='+Userinfo.l.id;//图片上传
       var trustHosts = true
       var option = {};
@@ -106,7 +106,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
         $cordovaFileTransfer.upload(server, "data:image/jpeg;base64," + imageData, option, true)
           .then(function(result) {
             alert('上传成功');
-            $scope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
+            $rootScope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
             //$scope.doRefresh();
           }, function(err) {
             alert('上传失败，请重试');
@@ -124,7 +124,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     };
     //头像选择结束
     //产品分享 开始
-    $scope.productShare = function(e, desc, p, index) {
+    $rootScope.productShare = function(e, desc, p, index) {
 	    var url = 'http://www.parsec.com.cn/Cetus/' + e;
 	    var short_title = desc.substr(0, 3) + '...';
 	    var price = null;
@@ -165,10 +165,10 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	      },
 	      scene: Wechat.Scene.TIMELINE // share to Timeline
 	    }, function() {
-	    	$scope.showMsg("分享成功");
+	    	$rootScope.showMsg("分享成功");
 	    }, function(reason) {
 	      if (reason == 'ERR_USER_CANCEL') {} else {
-	    	  $scope.showMsg("分享失败: " + reason);
+	    	  $rootScope.showMsg("分享失败: " + reason);
 	      }
 	    });
 	};
@@ -180,7 +180,6 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     document.addEventListener("deviceready", checkUpdate(), false);
     
     function checkUpdate() {
-      alert("初始化检查版本");
       $cordovaAppVersion.getVersionNumber().then(function(version) {
         Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
         $http.get('http://www.parsec.com.cn/Cetus/api_checkversion_get?deviceType=android&v='+version).success(function(data) {
@@ -203,17 +202,15 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       var url = url;
       confirmPopup.then(function(res) {
         if (res) {
-        	Window.open(url, '_system', 'location=yes');
+        	window.open(url, '_system', 'location=yes');
         };
-
       });
     }
     
   });
 	//主页面显示退出提示框
-	  /*$ionicPlatform.registerBackButtonAction(function (e) {
+/*   $ionicPlatform.registerBackButtonAction(function (e) {
 	    e.preventDefault();
-	
 	    function showConfirm() {
 	      var confirmPopup = $ionicPopup.confirm({
 	        title: '<strong>退出应用?</strong>',
@@ -253,11 +250,12 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   $ionicConfigProvider.platform.android.tabs.position('standard');
 
   $ionicConfigProvider.platform.ios.navBar.alignTitle('center');
-  $ionicConfigProvider.platform.android.navBar.alignTitle('left');
+  $ionicConfigProvider.platform.android.navBar.alignTitle('center'); //处理android nav-title 没有居中的问题
 
   $ionicConfigProvider.platform.ios.backButton.previousTitleText('').icon('ion-ios-arrow-thin-left');
   $ionicConfigProvider.platform.android.backButton.previousTitleText('').icon('ion-android-arrow-back');
 
+  //$ionicConfigProvider.navBar.alignTitle('center');//处理android nav-title 没有居中的问题
   $ionicConfigProvider.platform.ios.views.transition('ios');
   $ionicConfigProvider.platform.android.views.transition('android');
   // Ionic uses AngularUI Router which uses the concept of states
@@ -279,7 +277,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   .state('app.index', {
     url: '/index',
     views: {
-      'menuContent': {
+      'tab-index': {
         templateUrl: 'templates/tab-index.html',
         controller: 'IndexCtrl'
       }
@@ -289,7 +287,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   .state('app.product', {//美O圈
 	  url: '/product',
 	  views: {
-		  'menuContent': {
+		  'tab-product': {
 			  templateUrl: 'templates/tab-product.html',
 			  controller: 'UserCtrl'
 		  }
@@ -298,7 +296,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   .state('app.quan', {//美O圈
     url: '/quan',
     views: {
-      'menuContent': {
+      'tab-quan': {
         templateUrl: 'templates/tab-quan.html',
         controller: 'QuanCtrl'
       }
@@ -308,7 +306,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   .state('app.order', { //我的的订单
     url: '/order',
     views: {
-      'menuContent': {
+      'tab-order': {
         templateUrl: 'templates/tab-order.html',
         controller: 'OrderCtrl'
       }
@@ -361,6 +359,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	  }
   })
 
+  
   //新版  消息中心
   .state('message', {
 	  url: '/message',
@@ -480,7 +479,23 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     }
   })
   
+  .state('acount', {
+    url: '/acount',
+    abstract: true,
+    templateUrl: 'templates/help/acount.html',
+    controller: 'Acount'
+  })
   
+  .state('acount.account', {//账户设置
+    url: '/account',
+    cache: 'false',
+    views: {
+      'acount': {
+        templateUrl: 'templates/help/account.html',
+        controller: 'AccountCrtl'
+      }
+    }
+  })
 
   .state('welcome', {
     url: '/welcome',

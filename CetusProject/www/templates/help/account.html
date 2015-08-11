@@ -1,0 +1,98 @@
+<!-- <ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="closeAbout()"></a>
+    <h1 class="title">个人信息</h1>
+</ion-header-bar>
+<ion-content style="background-color:#fafafa;">
+<form ng-submit="doRegister()">
+<ul class="list list-li-bg">
+ 	<li class="item" ng-click="aboutGoTo(1)">头像<i class="badge" style="font-weight:normal"><img class="headImg" src="img/default-ava.png" ng-src="{{avaImg}}" alt=""></i></li>
+ 	<li class="item">账号<i class="badge" style="font-weight:normal">{{username}}</i></li>
+ 	<li class="item" ng-click="aboutGoTo(2)">姓名<i class="badge" style="font-weight:normal">{{username}}</i></li>
+ 	<li class="item" ng-click="aboutGoTo(3)">修改密码</li>
+</ul>
+ <div class="padding">
+    <button class="button button-block button-assertive" type="submit">保存</button>
+ </div>
+</form>
+</ion-content>
+</ion-modal-view> -->
+<ion-header-bar class="bar-stable" style="border-bottom:1px solid #b2b2b2 !important">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="backGo()"></a>
+    <h1 class="title">账户设置</h1>
+</ion-header-bar>
+<div class="tabs-striped tabs-top tabs-light tabs-icon-top">
+  <div class="tabs">
+   <a ng-class="{a: 'tab-item active', b: 'tab-item', c: 'tab-item'}[isActive]" data-active="a" ng-click="changeTab($event)" style="font-size:16px;line-height:48px;">个人信息</a>
+   <a ng-class="{a: 'tab-item', b: 'tab-item active', c: 'tab-item'}[isActive]" data-active="b" ng-click="changeTab($event)" style="font-size:16px;line-height:48px;">修改密码</a>
+   <a ng-class="{a: 'tab-item', b: 'tab-item', c: 'tab-item active'}[isActive]" data-active="c" ng-click="changeTab($event)" style="font-size:16px;line-height:48px;">修改支付宝</a>
+  </div>
+ </div>
+<ion-content class="has-subheader">
+<div ng-if="isActive == 'a'">
+	<form ng-submit="changeBasic()">
+      <div class="list padding">
+        <label class="item-input padding-left padding-right">
+          <span class="input-label">手机号码</span>
+          <input type="tel" ng-model="userinfo.cellPhone" readonly="readonly"  placeholder="请输入手机号码">
+        </label>
+
+        <label class="item-input padding-left padding-right">
+          <span class="input-label">会员姓名</span>
+          <input type="text" ng-model="userinfo.name" placeholder="请输入会员姓名">
+        </label>
+
+       <label class="item-input padding-left padding-right">
+          <span class="input-label">登陆密码</span>
+          <input type="password" ng-model="userinfo.password_person" placeholder="请输入登陆密码">
+        </label>
+        <label class="padding">
+          <button class="button button-block button-assertive" type="submit">保存修改</button>
+        </label>
+    </div>
+      </form>
+</div>
+<div ng-if="isActive == 'b'">
+	<form ng-submit="changePwd()">
+      <div class="list padding">
+        <label class="item-input padding-left padding-right">
+          <span class="input-label">原始密码</span>
+          <input type="password" ng-model="userinfo.password_change" placeholder="请输入原始密码">
+        </label>
+
+        <label class="item-input padding-left padding-right">
+          <span class="input-label">新密码</span>
+          <input type="password" ng-model="userinfo.password" placeholder="请输入新密码">
+        </label>
+
+        <label class="item-input padding-left padding-right">
+          <span class="input-label">重复密码</span>
+          <input type="password" ng-model="userinfo.password_repeat" placeholder="请再次输入密码">
+        </label>
+
+        <label class="padding">
+          <button class="button button-block button-assertive" type="submit">保存修改</button>
+        </label>
+        </div>
+      </form>
+</div>
+<div ng-if="isActive == 'c'">
+	<form ng-submit="changeAcount()">
+      <div class="list padding">
+        <label class="item-input padding-left padding-right">
+          <span class="input-label">登陆密码</span>
+          <input type="password" ng-model="userinfo.password_acount" placeholder="请输入登陆密码">
+        </label>
+
+        <label class="item-input padding-left padding-right">
+          <span class="input-label">支付宝</span>
+          <input type="text" ng-model="userinfo.alipay" placeholder="请输入支付宝账号">
+        </label>
+
+        <label class="padding">
+          <button class="button button-block button-assertive" type="submit">保存修改</button>
+        </label>
+        </div>
+      </form>
+</div>
+</ion-content>
