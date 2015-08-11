@@ -594,3 +594,7 @@ overflow:hidden;/*溢出隐藏*/
 .pickup-detail{width:20px;}
 .pickup-option,.pickup-detail{font-size: 1.25rem;position: relative;top:14px;}
 .pickup .current .pickup-option{color:#ec3473;}
+/*客户中心 问题列表样式调整*/
+.kh-addressbox{padding-right: 30px;height:50px;color:#999999;font-size: 0.65rem;text-align: left;}
+#kh-spanw{font-size:0.55rem;position: absolute;top:-38px;left:46%;}
+#kh-spany{font-size:0.55rem;position: absolute;top:-38px;left:46%;}
