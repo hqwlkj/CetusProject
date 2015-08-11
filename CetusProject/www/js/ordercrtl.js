@@ -325,12 +325,6 @@ angular.module('starter.ordercrtl', [])
 		 * 评价
 		 */
 		$scope.evaluate = function(orderOrder){
-			
-//			if (len == 1){
-//				window.location.href="comment.html?userId="+userId+"&orderitemId="+itemId+"&orderNum="+orderNum+"&pnum=1";
-//			}else {
-//				window.location.href="order-list.html?userId="+userId+"&orderNum="+orderNum;
-//			}
 			$scope.modal_order_info.hide();
 			if (orderOrder.items != null && orderOrder.items.length == 1) {
 				$state.go('public.comment', {itemId: orderOrder.items[0].id+"-"+1});
@@ -340,20 +334,25 @@ angular.module('starter.ordercrtl', [])
 		};
 		/**
 		 * 跳转到产品详情
-		 */
-		/*function skipToProductDetail(productId){
-			location.href="product-detail.html?userId="+userId+"&productId="+productId;
-			 location.href="../public/product-detail.html?userId="+(Userinfo.l.id?Userinfo.l.id:"")+"&productId="+id;
-		}
-	  */
+		*/
+		  $scope.skipToProductDetail = function(id) {
+			  $scope.modal_order_info.hide();
+			  $state.go('product.detail',{productId: id});
+			 
+		  };
 		/**
-		 * 跳转到产品详情
+		 * 再次购买
 		 */
-	 /* $scope.skipToProductDetail = function(id) {
-		  alert(id);
-		  //$state.go('product.detail',{productId: id});
-		 
-	  };*/
+		/*OD.purchaseAgain= function(){
+			WX.boxMask({});
+			for (var i = 0; i < json.length; i++) {
+				$.post("../api_cart_add",{"json":json[i]},function(data){});
+				if( i == json.length-1){
+					WX.Exit();
+					window.location.href="cart.html?userId="+userId+"&openId="+LS.get("openId");
+				}
+			}
+		};*/
 		  
 	  $scope.changeAcount = function() {
 		  alert(2);
