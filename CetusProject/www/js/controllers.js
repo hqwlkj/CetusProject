@@ -19,6 +19,10 @@ angular.module('starter.controllers', [])
 	   }
 	});
 	
+	//打开广告链接
+	$scope.openAdUrl = function(adUrl) {
+		window.open(adUrl);
+	}
 })
 
 .controller('Article', function($scope, $ionicHistory, $stateParams, HelpData) {
@@ -814,6 +818,36 @@ angular.module('starter.controllers', [])
 			    });
 			}
 		});
+	}
+	
+	//打开广告详情页面
+	$ionicModal.fromTemplateUrl('templates/public/adDetail.html', {scope: $scope}).then(function(modal) {
+		$scope.modal_ad_detail = modal;
+	});
+  	//关闭广告详情页面
+	$scope.closeAdDetail = function() {
+	    $scope.modal_ad_detail.hide();
+	}
+	//加载广告详情内容
+	$scope.adDetail = function(acId) {
+		$ionicLoading.show({
+		    template: "加载中..."
+		});
+		console.log(Userinfo);
+		if(!Userinfo.l.id){
+			$ionicLoading.hide();
+			$scope.modalLogin.show();
+		}else{
+			$scope.modal_ad_detail.show();
+			$http.post(ApiEndpoint.url + '/api_activity_detail?activityId='+acId+'&userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+				if (data.state == 'success') {
+					$scope.detailImg = ApiEndpoint.pic_url+"/"+data.obj.activityIcon;
+					$scope.detailTitle = data.obj.name;
+					$scope.detailContent = data.obj.adContent;
+				}
+				$ionicLoading.hide();
+			});
+		}
 	}
 })
 
