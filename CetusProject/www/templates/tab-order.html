@@ -19,7 +19,7 @@
 		        <div class="orderlst-top-content ">
 		          <p class="orderlst-top-content-title" ng-repeat="i in order.items">{{::i.name}}</p>
 		          <!-- <p ng-bind-html ='product.details'></p> -->
-		          <p class="orderlst-top-content-attr" ng-repeat="i in order.items "><span class="col-6 text-left" ng-bild-html='i.parameter | delHtmlTag'></span><span class="col-6 text-right"><em class="orderlst-num">x{{i.num}}</em><em class="orderlst-price">￥{{i.prince}}</em></span></p>
+		          <p class="orderlst-top-content-attr" ng-repeat="i in order.items "><span class="col-6 text-left" ng-bind-html="i.parameter"></span><span class="col-6 text-right"><em class="orderlst-num">x{{i.num}}</em><em class="orderlst-price">￥{{i.prince}}</em></span></p>
 		        </div>
 		      </div>
 		      <div class="orderlst-resault text-right" ng-repeat="i in order.items"><span class="orderlst-resault-name">共{{i.num}}件商品   实付:</span> <span class="orderlst-resault-value price">￥{{order.orderMoney}}</span></div>
@@ -39,7 +39,7 @@
 		        </div>
 		        <div class="orderlst-top-content ">
 		          <p class="orderlst-top-content-title" >{{::i.name}}</p>
-		          <p class="orderlst-top-content-attr" ><span class="col-6 text-left">{{i.parameter}}</span><span class="col-6 text-right"><em class="orderlst-num">x{{i.num}}</em><em class="orderlst-price">￥{{i.prince}}</em></span></p>
+		          <p class="orderlst-top-content-attr" ><span class="col-6 text-left" ng-bind-html="i.parameter"></span><span class="col-6 text-right"><em class="orderlst-num">x{{i.num}}</em><em class="orderlst-price">￥{{i.prince}}</em></span></p>
 		        </div>
 		      </div>
 		      <div class="orderlst-resault text-right" ><span class="orderlst-resault-name">共{{i.num}}件商品   实付:</span> <span class="orderlst-resault-value price">￥{{order.orderMoney}}</span></div>
@@ -61,7 +61,7 @@
 		        <div class="orderlst-top-content ">
 		          <p class="orderlst-top-content-title" >{{i.name}}</p>
 		          <!-- <p ng-bind-html ='product.details'></p> -->
-		          <p class="orderlst-top-content-attr" ><span class="col-6 text-left">{{i.parameter}}</span><span class="col-6 text-right"><em class="orderlst-num">x{{i.num}}</em><em class="orderlst-price">￥{{i.prince}}</em></span></p>
+		          <p class="orderlst-top-content-attr" ><span class="col-6 text-left" ng-bind-html="i.parameter"></span><span class="col-6 text-right"><em class="orderlst-num">x{{i.num}}</em><em class="orderlst-price">￥{{i.prince}}</em></span></p>
 		        </div>
 		      </div>
 		      <div class="orderlst-resault text-right"><span class="orderlst-resault-name">共{{i.num}}件商品   实付:</span> <span class="orderlst-resault-value price">￥{{order.orderMoney}}</span></div>
