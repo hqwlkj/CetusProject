@@ -1,5 +1,5 @@
 /*starry*/
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
   url: 'http://www.parsec.com.cn/Cetus',
@@ -39,7 +39,7 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('UserCtrl', function($scope, $state, $ionicModal, $timeout, $ionicPopup, $ionicPopover, $http, ApiEndpoint, Userinfo, $ionicLoading, $cordovaActionSheet, $cordovaImagePicker, $cordovaFileTransfer, $cordovaCamera, $cordovaAppVersion, $stateParams) {
+.controller('UserCtrl', function($scope, $state, $ionicModal, $timeout, $ionicPopup, $ionicPopover, $http, ApiEndpoint, Userinfo, $ionicLoading, $cordovaActionSheet, $cordovaImagePicker, $cordovaFileTransfer, $cordovaCamera, $cordovaAppVersion,$cordovaFileOpener2, $stateParams) {
   //window.localStorage.clear();
   $scope.flag = Userinfo.l.flag;
   $scope.params = Userinfo.l;
@@ -157,17 +157,33 @@ angular.module('starter.controllers', [])
       .then(function(results) {
         $cordovaFileTransfer.upload(server, results[0], option, true)
           .then(function(result) {
-            alert('上传成功');
+            $ionicPopup.alert({
+		        title: '提示',
+		        template: '上传成功',
+		        buttons: [{
+		          text: '确定',
+		          type: 'button-assertive'
+		        }]
+		    });
             $scope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
           }, function(err) {
-            alert('上传失败，请重试');
+            $ionicPopup.alert({
+		        title: '提示',
+		        template: '上传失败，请稍后重试',
+		        buttons: [{
+		          text: '确定',
+		          type: 'button-assertive'
+		        }]
+		    });
           }, function(progress) {
-            $ionicLoading.show({
-              template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
-            });
-            if (Math.round((progress.loaded / progress.total) * 100) >= 99) {
-              $ionicLoading.hide();
-            }
+        	  $timeout(function(){
+        		  $ionicLoading.show({
+        			  template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
+        		  });
+        		  if (Math.round((progress.loaded / progress.total) * 100) >= 99) {
+        			  $ionicLoading.hide();
+        		  }
+        	  },200);
           });
       }, function(error) {
         // alert('出错'+error);
@@ -198,12 +214,14 @@ angular.module('starter.controllers', [])
         }, function(err) {
           alert('上传失败，请重试');
         }, function(progress) {
-          $ionicLoading.show({
-            template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
-          });
-          if (Math.round((progress.loaded / progress.total) * 100) >= 99) {
-            $ionicLoading.hide();
-          };
+        	$timeout(function(){
+      		  $ionicLoading.show({
+      			  template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
+      		  });
+      		  if (Math.round((progress.loaded / progress.total) * 100) >= 99) {
+      			  $ionicLoading.hide();
+      		  }
+      	  },200);
         });
     }, function(err) {
        //alert('出错'+err);
@@ -355,7 +373,35 @@ angular.module('starter.controllers', [])
     var url = url;
     confirmPopup.then(function(res) {
       if (res) {
-    	  Window.open(url);
+    	  $ionicLoading.show({
+              template: "已经下载：0%"
+          });
+          var targetPath = "file:///storage/sdcard0/Download/Cetus_android.apk"; //APP下载存放的路径，可以使用cordova file插件进行相关配置
+          var trustHosts = true
+          var options = {};
+          $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+              // 打开下载下来的APP
+              $cordovaFileOpener2.open(targetPath, 'application/vnd.android.package-archive'
+              ).then(function () {
+                      // 成功
+              }, function (err) {
+                  // 错误
+              });
+              $ionicLoading.hide();
+          }, function (err) {
+              alert('下载失败');
+          }, function (progress) {
+              //进度，这里使用文字显示下载百分比
+              $timeout(function () {
+                  var downloadProgress = (progress.loaded / progress.total) * 100;
+                  $ionicLoading.show({
+                      template: "已经下载：" + Math.floor(downloadProgress) + "%"
+                  });
+                  if (downloadProgress > 99) {
+                      $ionicLoading.hide();
+                  }
+              },500)
+          });
       };
     });
   }
@@ -1254,11 +1300,13 @@ angular.module('starter.controllers', [])
 	    }, 1400);
 	  };
 })
-.controller('UserSetCrtl',function($scope, $ionicHistory, $state, $http, ApiEndpoint, Userinfo,$ionicModal,$ionicPopup){
-	  $scope.flag = Userinfo.l.flag;
-	  $scope.params = Userinfo.l;
-	  $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
-	  $scope.app_version = Userinfo.l.version;
+.controller('UserSetCrtl',function($scope, $ionicHistory, $state, $ionicPopup, $http, $ionicLoading, $ionicPopover, ApiEndpoint, $ionicModal, $timeout, Userinfo ,$cordovaActionSheet, $cordovaImagePicker, $cordovaFileTransfer, $cordovaCamera, $cordovaAppVersion,$cordovaFileOpener2, $stateParams){
+	$scope.loginData ={};
+	$scope.registerData ={};
+	$scope.flag = Userinfo.l.flag;
+	$scope.params = Userinfo.l;
+	$scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+	$scope.app_version = Userinfo.l.version;
 	$scope.userGoTo = function(listid) {
 	    switch (listid) {
 	      case 1:
@@ -1268,7 +1316,8 @@ angular.module('starter.controllers', [])
 	    	$scope.checkUpdata();
 	        break;
 	      case 3:
-	    	window.localStorage.clear();//清除缓存
+	    	  console.log(window.localStorage);
+	    	//window.localStorage.clear();//清除缓存
 	    	$ionicPopup.alert({
 		        title: '提示',
 		        template: '缓存已清除',
@@ -1288,10 +1337,335 @@ angular.module('starter.controllers', [])
 	  }
 	  $scope.closeUser = function() {
 		  $state.go('app.index');
-		  //$ionicHistory.goBack(-1);
 	  };
 	  
-	//关于meiO
+	//头像选择
+	  var options = {
+	    title: '上传头像',
+	    buttonLabels: ['从相册选择', '拍照'],
+	    addCancelButtonWithLabel: '取消',
+	    androidEnableCancelButton: true,
+	    winphoneEnableCancelButton: true
+	  };
+	  $scope.upLoadImg = function() {
+	    $cordovaActionSheet.show(options)
+	      .then(function(btnIndex) {
+	        switch (btnIndex) {
+	          case 1:
+	            $scope.pickImg();
+	            break;
+	          case 2:
+	            $scope.cameraImg();
+	            break;
+	          default:
+	            break;
+	        }
+	      });
+	  };
+
+	  $scope.pickImg = function() {
+	    var options = {
+	      maximumImagesCount: 1,
+	      width: 800,
+	      height: 800,
+	      quality: 80
+	    };
+	    var server =   ApiEndpoint.url + '/api_update_head?id='+Userinfo.l.id;//图片上传
+	    var trustHosts = true
+	    var option = {};
+
+	    $cordovaImagePicker.getPictures(options)
+	      .then(function(results) {
+	        $cordovaFileTransfer.upload(server, results[0], option, true)
+	          .then(function(result) {
+	            $ionicPopup.alert({
+			        title: '提示',
+			        template: '上传成功',
+			        buttons: [{
+			          text: '确定',
+			          type: 'button-assertive'
+			        }]
+			    });
+	            $scope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
+	            $state.reload();
+	          }, function(err) {
+	            $ionicPopup.alert({
+			        title: '提示',
+			        template: '上传失败，请稍后重试',
+			        buttons: [{
+			          text: '确定',
+			          type: 'button-assertive'
+			        }]
+			    });
+	          }, function(progress) {
+	        	  $timeout(function(){
+	        		  $ionicLoading.show({
+	        			  template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
+	        		  });
+	        		  if (Math.round((progress.loaded / progress.total) * 100) >= 99) {
+	        			  $ionicLoading.hide();
+	        		  }
+	        	  },200);
+	          });
+	      }, function(error) {
+	        // alert('出错'+error);
+	      });
+	  };
+
+	  $scope.cameraImg = function() {
+		var server =   ApiEndpoint.url + '/api_update_head?id='+Userinfo.l.id;//图片上传
+	    var trustHosts = true
+	    var option = {};
+	    var options = {
+	      quality: 50,
+	      destinationType: Camera.DestinationType.DATA_URL,
+	      sourceType: Camera.PictureSourceType.CAMERA,
+	      allowEdit: true,
+	      encodingType: Camera.EncodingType.JPEG,
+	      targetWidth: 100,
+	      targetHeight: 100,
+	      popoverOptions: CameraPopoverOptions,
+	      saveToPhotoAlbum: false
+	    };
+	    $cordovaCamera.getPicture(options).then(function(imageData) {
+	      $cordovaFileTransfer.upload(server, "data:image/jpeg;base64," + imageData, option, true)
+	        .then(function(result) {
+	            $ionicPopup.alert({
+			        title: '提示',
+			        template: '上传成功',
+			        buttons: [{
+			          text: '确定',
+			          type: 'button-assertive'
+			        }]
+			    });
+	          $scope.avaImg = ApiEndpoint.pic_url+"/"+result.path;
+	          $state.reload();
+	          //$scope.doRefresh();
+	        }, function(err) {
+	            $ionicPopup.alert({
+			        title: '提示',
+			        template: '上传失败，请稍后重试',
+			        buttons: [{
+			          text: '确定',
+			          type: 'button-assertive'
+			        }]
+			    });
+	        }, function(progress) {
+	        	$timeout(function(){
+        		  $ionicLoading.show({
+        			  template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
+        		  });
+        		  if (Math.round((progress.loaded / progress.total) * 100) >= 99) {
+        			  $ionicLoading.hide();
+        		  }
+        	  },200);
+	        });
+	    }, function(err) {
+	       //alert('出错'+err);
+	    });
+	  };
+	  
+	  
+	  $scope.checkUpdata = function() {
+	      $cordovaAppVersion.getVersionNumber().then(function(version) {
+	        $ionicLoading.show({
+	          template: '检测版本中...'
+	        });
+	        Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
+	        $http.get(ApiEndpoint.url + '/api_checkversion_get?deviceType=android&v='+version).success(function(data) {
+	          $ionicLoading.hide();
+	          if (data.state == 'success') {
+	            if (version != data.version) {
+	              $scope.showUpdateConfirm(data.desc, data.apk);
+	            } else {
+	              $ionicPopup.alert({
+				        title: '提示',
+				        template: '目前是最新版本',
+				        buttons: [{
+				          text: '确定',
+				          type: 'button-assertive'
+				        }]
+				    });
+	            }
+	          } else {
+	            alert('服务器连接错误，请稍候再试');
+	          }
+	        })
+	      });
+	    }
+
+	  $scope.showUpdateConfirm = function(desc, url) {
+	    var confirmPopup = $ionicPopup.confirm({
+	      title: '有新版本了！是否要升级？',
+	      template: desc,
+	      cancelText: '下一次',
+	      okText: '确定'
+	    });
+	    var url = url;
+	    confirmPopup.then(function(res) {
+	      if (res) {
+	    	  //window.open(url, '_blank', 'location=yes');
+	    	 $ionicLoading.show({
+	                template: "已经下载：0%"
+	            });
+	            var targetPath = "file:///storage/sdcard0/Download/Cetus_android.apk"; //APP下载存放的路径，可以使用cordova file插件进行相关配置
+	            var trustHosts = true
+	            var options = {};
+	            $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+	                // 打开下载下来的APP
+	                $cordovaFileOpener2.open(targetPath, 'application/vnd.android.package-archive'
+	                ).then(function () {
+	                        // 成功
+	                }, function (err) {
+	                    // 错误
+	                });
+	                $ionicLoading.hide();
+	            }, function (err) {
+	                alert('下载失败');
+	            }, function (progress) {
+	                //进度，这里使用文字显示下载百分比
+	                $timeout(function () {
+	                    var downloadProgress = (progress.loaded / progress.total) * 100;
+	                    $ionicLoading.show({
+	                        template: "已经下载：" + Math.floor(downloadProgress) + "%"
+	                    });
+	                    if (downloadProgress > 99) {
+	                        $ionicLoading.hide();
+	                    }
+	                },500)
+	            });
+	      };
+	    });
+	  }
+	  
+	  $scope.exit = function() {//退出登录
+	    $scope.flag = '';
+	    Userinfo.l.id = '';
+	    $scope.username="登录";
+	    $scope.cellPhone = '';
+	    $scope.avaImg="img/default-ava.png";
+	    Userinfo.remove('flag');
+	    window.localStorage.clear();//清除缓存
+	    window.localStorage['first'] = '1';//不在显示欢迎页
+	    $scope.modal.hide();
+	  };
+	  
+	  
+	// 登陆
+	  $ionicModal.fromTemplateUrl('templates/user/login.html', {
+	    scope: $scope
+	  }).then(function(modal) {
+	    $scope.modalLogin = modal;
+	    $scope.loginData = {};
+	  });
+
+	  // 关闭登录页面
+	  $scope.closeLogin = function() {
+		$scope.modalLogin.hide();
+	    $scope.loginData = {};
+	  };
+
+	  // 打开登陆页面
+	  $scope.login = function() {
+	    $scope.modalLogin.show();
+	  };
+	  
+	  $scope.doLogin = function() {
+	    if (!$scope.loginData.username) {
+	      $scope.showMsg('用户名不能为空');
+	      return false;
+	    };
+	    if (!$scope.loginData.password) {
+	      $scope.showMsg('密码不能为空');
+	      return false;
+	    };
+	    $ionicLoading.show({
+	      template: "正在登录..."
+	    });
+	    $http.post(ApiEndpoint.url + '/api_user_login?json='+JSON.stringify({
+	    	loginName: $scope.loginData.username,
+	    	pwd: $scope.loginData.password
+	    })).success(function(data) {
+	      $ionicLoading.hide();
+	      if (data.state!= 'success') {
+	        $scope.showMsg(data.msg);
+	      } else {
+	        Userinfo.save(data.obj);
+	        Userinfo.add('flag', 1);
+	        $scope.sign = Userinfo.l.today_signed;
+	        $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+	        $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+	        $scope.cellPhone = Userinfo.l.cellPhone ? Userinfo.l.cellPhone : '';
+	        $scope.flag = 1;
+	        $scope.closeLogin();
+	      }
+	    });
+	    $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+	    $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+	  };
+	  
+	  
+	  $ionicModal.fromTemplateUrl('templates/user/register.html', {
+	    scope: $scope
+	  }).then(function(modal) {
+	    $scope.modal_register = modal;
+	    $scope.registerData = {};
+	  });
+
+	  $scope.register = function() {
+	    $scope.modal_register.show();
+	  };
+	  $scope.closeRegister = function() {
+	    $scope.modal_register.hide();
+	    $scope.registerData = {};
+	  };
+	  
+	  $scope.doRegister = function() {
+	    var reg = /^1\d{10}$/;
+	    if (!$scope.registerData.phone) {
+	      $scope.showMsg('手机号不能为空');
+	      return false;
+	    } else if (!reg.test($scope.registerData.phone)) {
+	      $scope.showMsg('手机号格式错误');
+	      return false;
+	    };
+	    if (!$scope.registerData.username) {
+	    	$scope.showMsg('用户名不能为空');
+	    	return false;
+	    };
+	    if (!$scope.registerData.password || !$scope.registerData.repassword) {
+	      $scope.showMsg('密码不能为空');
+	      return false;
+	    } else if ($scope.registerData.password != $scope.registerData.repassword) {
+	      $scope.showMsg('两次密码不一致');
+	      return false;
+	    }
+	    $ionicLoading.show({
+	      template: '注册中...'
+	    });
+	    var u ={
+			userName:$scope.registerData.username,
+			cellPhone:$scope.registerData.phone,
+			pwd:$scope.registerData.password,
+			code:$scope.registerData.invitation,
+			alipay:$scope.registerData.alipayCode
+	    }
+	    $http.post(ApiEndpoint.url + '/api_user_register?json='+ JSON.stringify(u)).success(function(data) {
+	      $ionicLoading.hide();
+	      $scope.showMsg(data.msg);
+	      if (data.state== 'success') {
+	    	  Userinfo.save(data.obj);
+	          Userinfo.add('flag', 1);
+	          $scope.flag = 1;
+	          $scope.sign = Userinfo.l.today_signed;
+	          $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+	          $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+	          $scope.cellPhone = Userinfo.l.cellPhone ? Userinfo.l.cellPhone : '';
+	          $scope.closeRegister();
+	      }
+		});
+	  }
+	  //关于meiO
 	  $ionicModal.fromTemplateUrl('templates/help/aboutUs.html', {
 	    scope: $scope
 	  }).then(function(modal) {
@@ -1310,8 +1684,67 @@ angular.module('starter.controllers', [])
 	    $scope.modalAbortUs.show();
 	  };
 })
-.controller('AccountCrtl',function($scope, $ionicHistory, $state, $http, $ionicLoading, $ionicPopover, ApiEndpoint, $timeout, Userinfo) {
+.controller('AccountCrtl',function($scope, $state, $http, $ionicLoading, $ionicPopover, ApiEndpoint, $ionicModal, $timeout, Userinfo ) {
 	$scope.userinfo ={};
+
+	if (!Userinfo.l.id) {
+      $scope.alogin();
+      return;
+    }
+	
+	// 登陆
+	  $ionicModal.fromTemplateUrl('templates/user/login.html', {
+	    scope: $scope
+	  }).then(function(modal) {
+	    $scope.modalLogin = modal;
+	    $scope.loginData = {};
+	  });
+
+	  // 关闭登录页面
+	  $scope.closeLogin = function() {
+		$scope.modalLogin.hide();
+	    $scope.loginData = {};
+	  };
+
+	  // 打开登陆页面
+	  $scope.alogin = function() {
+	    $scope.modalLogin.show();
+	  };
+	  
+	  $scope.doLogin = function() {
+	    if (!$scope.loginData.username) {
+	      $scope.showMsg('用户名不能为空');
+	      return false;
+	    };
+	    if (!$scope.loginData.password) {
+	      $scope.showMsg('密码不能为空');
+	      return false;
+	    };
+	    $ionicLoading.show({
+	      template: "正在登录..."
+	    });
+	    $http.post(ApiEndpoint.url + '/api_user_login?json='+JSON.stringify({
+	    	loginName: $scope.loginData.username,
+	    	pwd: $scope.loginData.password
+	    })).success(function(data) {
+	      $ionicLoading.hide();
+	      if (data.state!= 'success') {
+	        $scope.showMsg(data.msg);
+	      } else {
+	        Userinfo.save(data.obj);
+	        Userinfo.add('flag', 1);
+	        $scope.sign = Userinfo.l.today_signed;
+	        $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+	        $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+	        $scope.cellPhone = Userinfo.l.cellPhone ? Userinfo.l.cellPhone : '';
+	        $scope.flag = 1;
+	        $scope.closeLogin();
+	      }
+	    });
+	    $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+	    $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+	  };
+	
 	$http.post(ApiEndpoint.url + '/api_user_detail?id='+Userinfo.l.id).success(function(data) {
 	    if (data.state == "success") {
 	      Userinfo.save(data.obj);
@@ -1346,11 +1779,7 @@ angular.module('starter.controllers', [])
 		    $ionicLoading.show({
 		      template: '保存中...'
 		    });
-		    $http.post(ApiEndpoint.url + '/api_update_user', {
-		      'password': $scope.userinfo.password_person,
-		      'name': $scope.userinfo.name,
-		      'id': Userinfo.l.id
-		    }).success(function(data) {
+		    $http.post(ApiEndpoint.url + '/api_update_user?password='+ $scope.userinfo.password_person+'&name='+ $scope.userinfo.name+'&id='+ Userinfo.l.id).success(function(data) {
 		    	$ionicLoading.hide();
 		      $scope.showMsg(data.msg);
 		      if (data.state == 'successs') {
@@ -1375,11 +1804,7 @@ angular.module('starter.controllers', [])
 		      template: '保存中...'
 		    });
 			  console.log(Userinfo.l.id);
-		    $http.post(ApiEndpoint.url + '/api_password_update', {
-		      'id': Userinfo.l.id,
-		      'oldpassword': $scope.userinfo.password_change,
-		      'newpassword': $scope.userinfo.password
-		    }).success(function(data) {
+		    $http.post(ApiEndpoint.url + '/api_password_update?id='+ Userinfo.l.id+'&oldpassword='+ $scope.userinfo.password_change+'&newpassword='+ $scope.userinfo.password).success(function(data) {
 		    	$ionicLoading.hide();
 		      $scope.showMsg(data.msg);
 		      if (data.state == 'successs') {
@@ -1402,21 +1827,18 @@ angular.module('starter.controllers', [])
 		    $ionicLoading.show({
 		      template: '保存中...'
 		    });
-		    $http.post(ApiEndpoint.url + '/api_update_user', {
-		      'id': Userinfo.l.id,
-		      'password': $scope.userinfo.password_acount,
-		      'alipay': $scope.userinfo.alipay
-		    }).success(function(data) {
+
+		   $http.post(ApiEndpoint.url + '/api_update_user?password='+ $scope.userinfo.password_person+'&alipay='+ $scope.userinfo.alipay+'&id='+ Userinfo.l.id).success(function(data) {
 		      $ionicLoading.hide();
 		      $scope.showMsg(data.msg);
 		      if (data.state == 'successs') {
-		        $scope.userinfo.password_acount = '';
+		        $scope.userinfo.password_person = '';
 		        $state.reload();
 		      }
 		    })
 		  };
 	  
-	  
+
 	  $scope.showMsg = function(txt) {
 	    var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
 	    $scope.popover = $ionicPopover.fromTemplate(template, {
