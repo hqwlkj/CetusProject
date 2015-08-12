@@ -6,19 +6,14 @@
   <ion-content style="background:#F6F3EE;">
     <ul class="address">
         <li class="margin-15 padding-10 clear">
-           	 问题内容
+           	<p>问题内容:</p> 
+           	<div class="">{{questionData.content}}</div>
         </li>
-        <li class="margin-15 padding-10 clear">
-            <div class="">{{questionData.content}}</div>
-        </li>
-        <li class="margin-15 padding-10 clear" style="color: #EC3473;">
-           	 问题回复
-        </li>
-        <li class="margin-15 padding-10 clear">
-            <div class="">{{questionData.answer==null?'[未回复]':questionData.answer}}</div>
+        <li class="margin-15 padding-10 clear" >
+           	 <p style="color: #EC3473;">问题回复:</p>
+           	  <div class="">{{questionData.answer==null?'[未回复]':questionData.answer}}</div>
         </li>
         <div class="padding-15">
-        
          <a href="javaScript:void(0)" class="add-newads text-center" ng-click="show_address('')">
           <button class="button button-block button-assertive" type="submit">提交新问题</button>
          </a>
