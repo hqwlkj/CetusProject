@@ -7,7 +7,7 @@
         <ion-slide ng-repeat="b in banner">
           <div class="box" ng-click="activityDetail({{b.id}})" ng-if="b.state != 1" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
           <div class="box" ng-click="openAdUrl('{{b.adUrl}}')" ng-if="b.state == 1 && b.adUrl != null && b.adUrl.length > 0" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
-          <div class="box" ng-click="adDetail({{b.id}})" ng-if="b.state == 1 && (b.adUrl == null || b.adUrl.length == 0)" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
+          <div class="box" ng-click="adDetail({{b.id}}, '{{b.name}}')" ng-if="b.state == 1 && (b.adUrl == null || b.adUrl.length == 0)" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
         </ion-slide>
       </ion-slide-box>
     </section>

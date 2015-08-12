@@ -10,7 +10,7 @@
 	    	<img ng-src="{{detailImg}}" style="max-width: 100%;height: auto;">
 	    </div>
 	    <div class="quanfont">
-	        <p>{{detailContent}}</p>
+	        <p ng-bind-html="detailContent"></p>
 	    </div>
 	</div>
   </ion-content>
