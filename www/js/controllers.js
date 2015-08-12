@@ -1001,7 +1001,12 @@ angular.module('starter.controllers', [])
 	}, 200)
 	//客服
 	$scope.kf = function() {
-		$scope.showMsg("开发中");
+		if(!Userinfo.l.id){
+			  $scope.login();
+			  return;
+		  }
+		  $state.go('public.question');
+		//$scope.showMsg("开发中");
 	};
 	//分享
 	$scope.productShare = function(code, desc, p, index) {
