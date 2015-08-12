@@ -59,6 +59,10 @@
                         {
                             "xml": "<preference name=\"WECHATAPPID\" value=\"wxc6db12f46905614d\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Toast\"><param name=\"android-package\" value=\"nl.xservices.plugins.Toast\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -134,6 +138,9 @@
         },
         "xu.li.cordova.wechat": {
             "WECHATAPPID": "wxc6db12f46905614d",
+            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+        },
+        "nl.x-services.plugins.toast": {
             "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
         }
     },
