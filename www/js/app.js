@@ -7,13 +7,12 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers','starter.addressController', 'starter.ordercrtl','starter.order','starter.question','starter.mycartcrtl','starter.services','starter.filter', 'ngCordova'])
 
-.run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer,$cordovaImagePicker, Userinfo,$location,$rootScope) {
+.run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer,$cordovaImagePicker, Userinfo,$location,$rootScope,$cordovaActionSheet, $timeout, $ionicHistory,$cordovaFileOpener2, $cordovaToast) {
 	$ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
 
     // 设备准备完后 隐藏启动动画
-    
     //navigator.splashscreen.hide();
 
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -23,10 +22,6 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
-    //启动极光推送服务
-    //window.plugins.jPushPlugin.init();
-    //调试模式
-    // window.plugins.jPushPlugin.setDebugMode(true);
     
     
    //头像选择开始
@@ -60,7 +55,6 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
         height: 800,
         quality: 80
       };
-      alert(Userinfo.l.ue);
       var server =   'http://www.parsec.com.cn/Cetus/api_update_head?id='+Userinfo.l.id;//图片上传
       var trustHosts = true
       var option = {};
@@ -102,7 +96,6 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
         saveToPhotoAlbum: false
       };
       $cordovaCamera.getPicture(options).then(function(imageData) {
-    	  alert(imageData);
         $cordovaFileTransfer.upload(server, "data:image/jpeg;base64," + imageData, option, true)
           .then(function(result) {
             alert('上传成功');
@@ -177,12 +170,9 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     //检查更新
     checkUpdate();
     
-    document.addEventListener("deviceready", checkUpdate(), false);
-    
     function checkUpdate() {
       $cordovaAppVersion.getVersionNumber().then(function(version) {
         Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
-        console.log(version);
         $http.get('http://www.parsec.com.cn/Cetus/api_checkversion_get?deviceType=android&v='+version).success(function(data) {
           if (data.state == 'success') {
             if (version != data.version) {
@@ -203,43 +193,66 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       var url = url;
       confirmPopup.then(function(res) {
         if (res) {
-        	window.open(url, '_system', 'location=yes');
+        	//window.open(url, '_blank', 'location=yes');
+            $ionicLoading.show({
+                template: "已经下载：0%"
+            });
+            var targetPath = "file:///storage/sdcard0/Download/Cetus_android.apk"; //APP下载存放的路径，可以使用cordova file插件进行相关配置
+            var trustHosts = true
+            var options = {};
+            $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+                // 打开下载下来的APP
+                $cordovaFileOpener2.open(targetPath, 'application/vnd.android.package-archive'
+                ).then(function () {
+                        // 成功
+                }, function (err) {
+                    // 错误
+                });
+                $ionicLoading.hide();
+            }, function (err) {
+                alert('下载失败');
+            }, function (progress) {
+                //进度，这里使用文字显示下载百分比
+                $timeout(function () {
+                    var downloadProgress = (progress.loaded / progress.total) * 100;
+                    $ionicLoading.show({
+                        template: "已经下载：" + Math.floor(downloadProgress) + "%"
+                    });
+                    if (downloadProgress > 99) {
+                        $ionicLoading.hide();
+                    }
+                },500)
+            });
         };
       });
     }
     
   });
-	//主页面显示退出提示框
-/*   $ionicPlatform.registerBackButtonAction(function (e) {
-	    e.preventDefault();
-	    function showConfirm() {
-	      var confirmPopup = $ionicPopup.confirm({
-	        title: '<strong>退出应用?</strong>',
-	        template: '你确定要退出应用吗?',
-	        okText: '退出',
-	        cancelText: '取消'
-	      });
-	      confirmPopup.then(function (res) {
-	        if (res) {
-	          ionic.Platform.exitApp();
-	        } else {
-	          // Don't close
-	        }
-	      });
-	    }
-	    // Is there a page to go back to?
-	    if ($location.path() == '/home' ) {
-	      showConfirm();
-	    } else if ($rootScope.$viewHistory.backView ) {
-	      console.log('currentView:', $rootScope.$viewHistory.currentView);
-	      // Go back in history
-	      $rootScope.$viewHistory.backView.go();
-	    } else {
-	      // This is the last page: Show confirmation popup
-	      showConfirm();
-	    }
-	    return false;
-	  }, 101);*/
+	//双击退出
+    $ionicPlatform.registerBackButtonAction(function (e) {
+        //判断处于哪个页面时双击退出
+        if ($location.path() == '/app/index') {
+            if ($rootScope.backButtonPressedOnceToExit) {
+                ionic.Platform.exitApp();
+            } else {
+                $rootScope.backButtonPressedOnceToExit = true;
+                $cordovaToast.showShortBottom('再按一次退出系统');
+                setTimeout(function () {
+                    $rootScope.backButtonPressedOnceToExit = false;
+                }, 2000);
+            }
+        } else if ($ionicHistory.backView()) {
+            $ionicHistory.goBack();
+        } else {
+            $rootScope.backButtonPressedOnceToExit = true;
+            $cordovaToast.showShortBottom('再按一次退出系统');
+            setTimeout(function () {
+                $rootScope.backButtonPressedOnceToExit = false;
+            }, 2000);
+        }
+        e.preventDefault();
+        return false;
+    }, 101);
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
@@ -527,7 +540,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })
 
   // if none of the above states are matched, use this as the fallback
-  console.log(!window.localStorage['first']);
+  //console.log(!window.localStorage['first']);
   if(!window.localStorage['first']){
     $urlRouterProvider.otherwise('/welcome/w_page');
   }else{
