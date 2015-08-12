@@ -20,8 +20,8 @@ angular.module('starter.controllers', [])
 	});
 	
 	//打开广告链接
-	$scope.openAdUrl = function(adUrl) {
-		window.open(adUrl);
+	$scope.openAdUrl = function(adUrl, title) {
+		window.open(adUrl, '_blank', 'location=yes', title);
 	}
 })
 
