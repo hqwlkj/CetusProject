@@ -14,7 +14,7 @@
 					<div class="orderlst-top-content ">
 						<p class="orderlst-top-content-title2">{{p.name}}</p>
 						<p class="orderlst-top-content-attr" style="height: 28px;">
-							<span class="col-6 text-left" style="padding-top: 4px;overflow:hidden; white-space:nowrap;text-overflow:ellipsis;">{{p.parameter}}</span>
+							<span class="col-6 text-left" style="padding-top: 4px;overflow:hidden; white-space:nowrap;text-overflow:ellipsis;">{{p.parameter | delHtmlTag}}</span>
 							<span class="col-6 text-right" ng-if="p.commentId > 0"><a href="javascript:void(0)" class="btn pingl-btn">已评价</a></span>
 							<span class="col-6 text-right" ng-if="p.commentId == 0 || p.commentId == '' || p.commentId == null"><a ng-click="toComment({{p.id}})" class="btn evaluate-btn">去评价</a></span>
 						</p>

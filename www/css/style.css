@@ -351,7 +351,11 @@ overflow:hidden;/*溢出隐藏*/
 /*我的活动*/
 .ul-activity-block{padding-left:15px; background:#ffffff;margin-bottom: 10px;}
 .ul-activity-block li{height:50px;line-height:50px;border-bottom:1px solid #999999;  margin-right:15px;}
-.set-lst-title{color:#999999;font-size:0.65rem;padding-right: 75px;}
+.set-lst-title{color:#999999;font-size:0.65rem;padding-right: 75px;white-space:nowrap;/*强制文本在一行内显示*/
+text-overflow:ellipsis; /*溢出省略号，支持ie、safari（webkit）*/
+-o-text-overflow:ellipsis; /*溢出省略号，支持opera*/
+overflow:hidden;/*溢出隐藏*/
+-moz-binding:url('ellipsis.xml#ellipsis');/*溢出省略号，支持firefox*/}
 .set-lst-state{width:50px;margin-right: 15px;}
 .set-lst-state span{font-size:0.65rem;}
 .set-lst-state .icon-select-01{margin-top:15px;}

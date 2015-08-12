@@ -34,15 +34,15 @@
     	<a ng-if="a.signNum == a.detail.signNum && a.shareNum == 1 && a.receiveNum != 0" class="a-red font-14">已领取</a>
     	
     	<a ng-if="a.signNum != a.detail.signNum" ng-click="addSign('{{a.activity.id}}')" class="btn normal-btn"><i class="icon-menu-active-01"></i>签到</a>
-    	<a ng-if="a.signNum == a.detail.signNum" class="btn normal-btn"><i class="icon-menu-active-01"></i>签到已完成</a>
+    	<a ng-if="a.signNum == a.detail.signNum && a.receiveNum == 0" class="btn normal-btn"><i class="icon-menu-active-01"></i>签到已完成</a>
     	&nbsp;&nbsp;
-    	<a ng-if="a.shareNum == 0" ng-click="toShare()" class="btn normal-btn"><i class="icon-share-01"></i>分享</a>
-    	<a ng-if="a.shareNum == 1" class="btn normal-btn"><i class="icon-share-01"></i>已分享</a>
+    	<a ng-if="a.shareNum == 0 && a.receiveNum == 0" ng-click="toShare()" class="btn normal-btn"><i class="icon-share-01"></i>分享</a>
+    	<a ng-if="a.shareNum == 1 && a.receiveNum == 0" class="btn normal-btn"><i class="icon-share-01"></i>已分享</a>
     </div>
     
     <!-- 满送活动的显示 -->
     <li ng-if="a.activity.activityType == 2">
-      <div class="set-lst-title">{{a.product.remark}}</div>
+      <div class="set-lst-title">{{a.product.remark | delHtmlTag}}</div>
     </li>
     <div ng-if="a.activity.activityType == 2" class="padding-15 text-center">
       <a ng-if="a.buyState == 0 && a.activity.endNum == 0" class="a-gray font-14">活动尚未开始</a>
