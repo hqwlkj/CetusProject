@@ -56,6 +56,7 @@ angular.module('starter.question', [])
 	//打开问题新增
 	$scope.show_question_add = function(){
 		$scope.modal_question_add.show();
+		$scope.questionData = {};
 	}
 	//关闭问题新增
 	$scope.close_question_add = function(){
