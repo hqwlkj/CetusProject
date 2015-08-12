@@ -273,19 +273,21 @@ angular.module('starter.controllers', [])
   };
 
 
-  $ionicModal.fromTemplateUrl('templates/user/user.html ', {
+  /*$ionicModal.fromTemplateUrl('templates/user/user.html ', {
 	  scope: $scope
   }).then(function(modal) {
 	  $scope.userModal = modal;
 	  $scope.userData = {};
-  });
+  });*/
   $scope.user = function() {
-	  $scope.userModal.show();
+	  //$scope.userModal.show();
+	  //acount.user
+	  $state.go('acount.user');
   };
-  $scope.closeUser = function() {
+ /* $scope.closeUser = function() {
 	  $scope.userModal.hide();
 	  $scope.userData = {};
-  };
+  };*/
   
   /*$ionicModal.fromTemplateUrl('templates/help/about.html ', {
     scope: $scope
@@ -404,53 +406,6 @@ angular.module('starter.controllers', [])
     };
   }
   
-  //关于meiO
-  $ionicModal.fromTemplateUrl('templates/help/aboutUs.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modalAbortUs = modal;
-    $scope.abortUsData = {};
-  });
-
-  // 关闭关于页面
-  $scope.closeAbortUs = function() {
-    $scope.modalAbortUs.hide();
-    $scope.abortUsData = {};
-  };
-
-  // 打开关于页面
-  $scope.goAbortUs = function() {
-    $scope.modalAbortUs.show();
-  };
-  
-  $scope.userGoTo = function(listid) {
-    switch (listid) {
-      case 1:
-    	$scope.goAbortUs();
-        break;
-      case 2:
-    	$scope.checkUpdata();
-        break;
-      case 3:
-    	window.localStorage.clear();//清除缓存
-    	$ionicPopup.alert({
-	        title: '提示',
-	        template: '缓存已清除',
-	        buttons: [{
-	          text: '确定',
-	          type: 'button-assertive'
-	        }]
-	    });
-        break;
-      case 4:
-    	  //$scope.about();
-    	  $state.go('acount.account');
-    	  $scope.modal.hide();
-    	  break;
-      default:
-        break;
-    };
-  }
 
   // 注册
   $ionicModal.fromTemplateUrl('templates/user/register.html', {
@@ -1260,8 +1215,65 @@ angular.module('starter.controllers', [])
 	    }, 1400);
 	  };
 })
-.controller('AccountCrtl', function($scope, $ionicHistory, $state, $http, ApiEndpoint, Userinfo) {
-	$http.get(ApiEndpoint.url + '/api_user_detail?id='+Userinfo.l.id).success(function(data) {
+.controller('UserSetCrtl',function($scope, $ionicHistory, $state, $http, ApiEndpoint, Userinfo,$ionicModal,$ionicPopup){
+	  $scope.flag = Userinfo.l.flag;
+	  $scope.params = Userinfo.l;
+	  $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+	  $scope.app_version = Userinfo.l.version;
+	$scope.userGoTo = function(listid) {
+	    switch (listid) {
+	      case 1:
+	    	$scope.goAbortUs();
+	        break;
+	      case 2:
+	    	$scope.checkUpdata();
+	        break;
+	      case 3:
+	    	window.localStorage.clear();//清除缓存
+	    	$ionicPopup.alert({
+		        title: '提示',
+		        template: '缓存已清除',
+		        buttons: [{
+		          text: '确定',
+		          type: 'button-assertive'
+		        }]
+		    });
+	        break;
+	      case 4:
+	    	  $state.go('acount.account');
+	    	  $scope.modal.hide();
+	    	  break;
+	      default:
+	        break;
+	    };
+	  }
+	  $scope.closeUser = function() {
+		  $state.go('app.index');
+		  //$ionicHistory.goBack(-1);
+	  };
+	  
+	//关于meiO
+	  $ionicModal.fromTemplateUrl('templates/help/aboutUs.html', {
+	    scope: $scope
+	  }).then(function(modal) {
+	    $scope.modalAbortUs = modal;
+	    $scope.abortUsData = {};
+	  });
+
+	  // 关闭关于页面
+	  $scope.closeAbortUs = function() {
+	    $scope.modalAbortUs.hide();
+	    $scope.abortUsData = {};
+	  };
+
+	  // 打开关于页面
+	  $scope.goAbortUs = function() {
+	    $scope.modalAbortUs.show();
+	  };
+})
+.controller('AccountCrtl',function($scope, $ionicHistory, $state, $http, $ionicLoading, $ionicPopover, ApiEndpoint, $timeout, Userinfo) {
+	$scope.userinfo ={};
+	$http.post(ApiEndpoint.url + '/api_user_detail?id='+Userinfo.l.id).success(function(data) {
 	    if (data.state == "success") {
 	      Userinfo.save(data.obj);
 	      $scope.userinfo = Userinfo.l;
@@ -1292,13 +1304,17 @@ angular.module('starter.controllers', [])
 		    	$scope.showMsg('请输入会员姓名');
 		    	return false;
 		    };
+		    $ionicLoading.show({
+		      template: '保存中...'
+		    });
 		    $http.post(ApiEndpoint.url + '/api_update_user', {
 		      'password': $scope.userinfo.password_person,
 		      'name': $scope.userinfo.name,
 		      'id': Userinfo.l.id
 		    }).success(function(data) {
-		      $scope.showMsg(data.info);
-		      if (data.error == 0) {
+		    	$ionicLoading.hide();
+		      $scope.showMsg(data.msg);
+		      if (data.state == 'successs') {
 		        $scope.userinfo.password_person = '';
 		        $state.reload();
 		      }
@@ -1319,38 +1335,42 @@ angular.module('starter.controllers', [])
 		    $ionicLoading.show({
 		      template: '保存中...'
 		    });
-			  
+			  console.log(Userinfo.l.id);
 		    $http.post(ApiEndpoint.url + '/api_password_update', {
 		      'id': Userinfo.l.id,
 		      'oldpassword': $scope.userinfo.password_change,
 		      'newpassword': $scope.userinfo.password
 		    }).success(function(data) {
-		      $scope.showMsg(data.info);
+		    	$ionicLoading.hide();
+		      $scope.showMsg(data.msg);
 		      if (data.state == 'successs') {
 		        $scope.userinfo.password_change = '';
 		        $scope.userinfo.password = '';
 		        $scope.userinfo.password_repeat = '';
-		        $ionicLoading.hide();
 		        $state.reload();
 		      }
 		    })
 		  };
 		  $scope.changeAcount = function() {
-			  if (!$scope.userinfo.password_person) {
-			      $scope.showMsg('请输入账户密码');
-			      return false;
-			    };
-			    if (!$scope.userinfo.alipay) {
-			    	$scope.showMsg('请输入支付宝账号');
-			    	return false;
-			    };
+		   if (!$scope.userinfo.password_person) {
+		      $scope.showMsg('请输入账户密码');
+		      return false;
+		    };
+		    if (!$scope.userinfo.alipay) {
+		    	$scope.showMsg('请输入支付宝账号');
+		    	return false;
+		    };
+		    $ionicLoading.show({
+		      template: '保存中...'
+		    });
 		    $http.post(ApiEndpoint.url + '/api_update_user', {
 		      'id': Userinfo.l.id,
 		      'password': $scope.userinfo.password_acount,
 		      'alipay': $scope.userinfo.alipay
 		    }).success(function(data) {
-		      $scope.showMsg(data.info);
-		      if (data.error == 0) {
+		      $ionicLoading.hide();
+		      $scope.showMsg(data.msg);
+		      if (data.state == 'successs') {
 		        $scope.userinfo.password_acount = '';
 		        $state.reload();
 		      }
@@ -1375,6 +1395,6 @@ angular.module('starter.controllers', [])
 	    $scope.userinfo.password_repeat = '';
 	    $scope.userinfo.password_acount = '';
 	    $scope.userinfo.password_person = '';
-	    $state.go('app.index');
+	    $state.go('acount.user');
 	  }
 })

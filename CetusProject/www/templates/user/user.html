@@ -10,7 +10,7 @@
 	   <!-- <button class="button-large ion-new-gear noborder" ng-click="about()" style="position:absolute;right:0;top:0;"></button> -->
 		<div class="user-ava relative" ng-if="flag == 1" ng-click="upLoadImg()";>
 			<img src="img/ava-block.png" alt="" class="ava" style="background-image:url('{{avaImg}}')">
-			<div class="user-info"><p>{{username}}</p></div>
+			<div class="user-info"><p>{{params.name}}</p></div>
 		</div>
 		<p ng-if="flag != 1" style="text-align:center;font-size:20px;color:#fff;padding-top:3.55rem">欢迎来到美O圈</p>
 		<p ng-if="flag != 1" style="text-align:center;padding-top:0.592rem"><a ng-click="login()" class="decora-none" style="color:#fff;font-size:16px">点击登录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a ng-click="register()" class="decora-none" style="color:#fff;font-size:16px">免费注册</a> </p>

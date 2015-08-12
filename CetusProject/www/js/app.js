@@ -182,6 +182,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     function checkUpdate() {
       $cordovaAppVersion.getVersionNumber().then(function(version) {
         Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
+        console.log(version);
         $http.get('http://www.parsec.com.cn/Cetus/api_checkversion_get?deviceType=android&v='+version).success(function(data) {
           if (data.state == 'success') {
             if (version != data.version) {
@@ -484,6 +485,17 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     abstract: true,
     templateUrl: 'templates/help/acount.html',
     controller: 'Acount'
+  })
+  
+  .state('acount.user', {//用户信息管理
+    url: '/user',
+    cache: 'false',
+    views: {
+      'acount': {
+        templateUrl: 'templates/user/user.html',
+        controller: 'UserSetCrtl'
+      }
+    }
   })
   
   .state('acount.account', {//账户设置
