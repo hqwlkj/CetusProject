@@ -17,7 +17,12 @@
         <li class="margin-15 padding-10 clear">
             <div class="">{{questionData.answer==null?'[未回复]':questionData.answer}}</div>
         </li>
-        <div class="padding-15"><a href="javaScript:void(0)" class="add-newads text-center" ng-click="show_address('')"><p><i class="icon-add-01"></i></p><p class="font-14" style="color:#000">提交新问题</p></a></div>
+        <div class="padding-15">
+        
+         <a href="javaScript:void(0)" class="add-newads text-center" ng-click="show_address('')">
+          <button class="button button-block button-assertive" type="submit">提交新问题</button>
+         </a>
+        </div>
     </ul>
   </ion-content>
 </ion-modal-view>
