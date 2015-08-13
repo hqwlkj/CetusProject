@@ -210,7 +210,16 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
                 });
                 $ionicLoading.hide();
             }, function (err) {
-                alert('下载失败');
+                //alert('下载失败');
+            	$ionicLoading.hide();
+            	$ionicPopup.alert({
+			        title: '提示',
+			        template: '下载失败，请稍候重试...',
+			        buttons: [{
+			          text: '确定',
+			          type: 'button-assertive'
+			        }]
+			    });
             }, function (progress) {
                 //进度，这里使用文字显示下载百分比
                 $timeout(function () {

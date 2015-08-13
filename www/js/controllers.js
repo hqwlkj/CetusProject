@@ -389,7 +389,16 @@ angular.module('starter.controllers', ['ionic'])
               });
               $ionicLoading.hide();
           }, function (err) {
-              alert('下载失败');
+              //alert('下载失败');
+              $ionicLoading.hide();
+              $ionicPopup.alert({
+			        title: '提示',
+			        template: '下载失败，请稍候重试...',
+			        buttons: [{
+			          text: '确定',
+			          type: 'button-assertive'
+			        }]
+			    });
           }, function (progress) {
               //进度，这里使用文字显示下载百分比
               $timeout(function () {
@@ -1339,6 +1348,23 @@ angular.module('starter.controllers', ['ionic'])
 		  $state.go('app.index');
 	  };
 	  
+	  $scope.doRefreshUser = function(){
+		  $timeout(function(){
+			  $http.post(ApiEndpoint.url + '/api_user_detail?id='+Userinfo.l.id).success(function(data) {
+			    if (data.state == "success") {
+			      Userinfo.save(data.obj);
+			      $scope.userinfo = Userinfo.l;
+			      $scope.userinfo.cellPhone = Userinfo.l.cellPhone != 'null' ? Userinfo.l.cellPhone : '';
+			      $scope.userinfo.realname = Userinfo.l.name != 'null' ? Userinfo.l.name : '';
+			      $scope.userinfo.alipay = Userinfo.l.alipay != 'null' ? Userinfo.l.alipay : '';
+			      $scope.$broadcast("scroll.refreshComplete");
+			    }
+			  });
+		  },500);
+	  }
+	  
+	  
+	  
 	//头像选择
 	  var options = {
 	    title: '上传头像',
@@ -1521,7 +1547,16 @@ angular.module('starter.controllers', ['ionic'])
 	                });
 	                $ionicLoading.hide();
 	            }, function (err) {
-	                alert('下载失败');
+	                //alert('下载失败');
+	            	$ionicLoading.hide();
+	            	$ionicPopup.alert({
+				        title: '提示',
+				        template: '下载失败，请稍候重试...',
+				        buttons: [{
+				          text: '确定',
+				          type: 'button-assertive'
+				        }]
+				    });
 	            }, function (progress) {
 	                //进度，这里使用文字显示下载百分比
 	                $timeout(function () {
@@ -1806,7 +1841,7 @@ angular.module('starter.controllers', ['ionic'])
 			  console.log(Userinfo.l.id);
 		    $http.post(ApiEndpoint.url + '/api_password_update?id='+ Userinfo.l.id+'&oldpassword='+ $scope.userinfo.password_change+'&newpassword='+ $scope.userinfo.password).success(function(data) {
 		    	$ionicLoading.hide();
-		      $scope.showMsg(data.msg);
+		       $scope.showMsg(data.msg);
 		      if (data.state == 'successs') {
 		        $scope.userinfo.password_change = '';
 		        $scope.userinfo.password = '';
