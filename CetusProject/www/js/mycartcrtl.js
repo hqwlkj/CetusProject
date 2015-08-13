@@ -250,7 +250,6 @@ angular.module('starter.mycartcrtl', [])
 	
 	//加载订单下的商品列表
 	$scope.loadCommentList = function() {
-		alert($stateParams.ordNum);
 		$http.post(ApiEndpoint.url + '/api_ordernum_list?orderNum='+$stateParams.ordNum).success(function(data) {
 			if (data.state == 'success') {
 				$scope.commentListData = data.items;

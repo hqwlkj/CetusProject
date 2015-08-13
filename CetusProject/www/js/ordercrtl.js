@@ -64,6 +64,8 @@ angular.module('starter.ordercrtl', [])
 		    }
 		});
 	  };
+	  
+	  $scope.getOrderWf();
 	  //已付款
 	  $scope.getOrderYf = function() {
 		  $ionicLoading.show({
