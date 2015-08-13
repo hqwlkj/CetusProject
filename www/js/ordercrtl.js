@@ -1,5 +1,5 @@
+var json=new Array();
 angular.module('starter.ordercrtl', [])
-
 
 .controller('OrderCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading,$location, $http, Userinfo, ApiEndpoint, $state ,$ionicHistory){
 	$scope.orderWf = [];
@@ -139,7 +139,6 @@ angular.module('starter.ordercrtl', [])
 	   */
 	  $scope.deleteOrder=function(orderOrder){
 		  var orderId=orderOrder.id;
-		  alert(orderId);
 		  $ionicLoading.show({
 			  template: "加载中..."
 		  });
@@ -185,7 +184,7 @@ angular.module('starter.ordercrtl', [])
 				     template: '加载中...'
 				});
 				$http.post(ApiEndpoint.url + '/api_order_get?ordNum='+ordNum+'&pageNo=1'+'&pageSize=10').success(function(data) {
-					console.log(data);
+					//console.log(data);
 					if (data.state == 'success') {
 						//根据订单状态处理按钮的显示
 						$scope.flag1 = false;//取消订单
@@ -211,6 +210,8 @@ angular.module('starter.ordercrtl', [])
 						for (var i = 0; i < data.item.length; i++) {
 							price +=(parseFloat(data.item[i].prince)*parseInt(data.item[i].num));
 							countFee +=( parseFloat(data.item[i].productPrice)*parseInt(data.item[i].num));
+							var args = '{"userId":'+(Userinfo.l.id?Userinfo.l.id:"")+', "productId":'+data.item[i].pid+', "productNum":'+data.item[i].num+'}';
+							json.push(args);
 						}
 						//$scope.orderData=data;
 						$scope.ordNum = data.order.ordNum;
@@ -343,16 +344,31 @@ angular.module('starter.ordercrtl', [])
 		/**
 		 * 再次购买
 		 */
-		/*OD.purchaseAgain= function(){
-			WX.boxMask({});
-			for (var i = 0; i < json.length; i++) {
-				$.post("../api_cart_add",{"json":json[i]},function(data){});
-				if( i == json.length-1){
-					WX.Exit();
-					window.location.href="cart.html?userId="+userId+"&openId="+LS.get("openId");
+		 $scope.purchaseAgain = function(orderOrder) {
+			 console.log(orderOrder);
+			  var pid = "0";
+			  var count = "0";
+				for (var int = 0; int < $scope.orderOrder.items.length; int++) {
+						pid += ","+$scope.orderOrder.items[int].pid;
+						 console.log(pid);
+						count += ","+$scope.orderOrder.items[int].num;
+						 console.log(count);
+					
 				}
-			}
-		};*/
+				if (pid == "0") {
+					$scope.showMsg("请选择商品");
+					return;
+				}
+				$http.post(ApiEndpoint.url + '/api_encode?msg='+pid+' '+count+' '+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+					if (data.state =="success") {
+						$scope.modal_order_info.hide();
+						$state.go('public.order',{msg:data.secret});
+					}else{
+						$scope.showMsg(data.msg);
+					}
+				});
+			  
+		  };
 		  
 	  $scope.changeAcount = function() {
 		  alert(2);
