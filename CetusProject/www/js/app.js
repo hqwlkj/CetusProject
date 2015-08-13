@@ -477,7 +477,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     url: '/commentList/{ordNum}', //订单编号
     views: {
       'public': {
-        templateUrl: 'templates/public/commentlist.html',
+        templateUrl: 'templates/public/commentList.html',
         controller: 'CommentList'
       }
     }
