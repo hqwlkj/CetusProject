@@ -757,47 +757,123 @@ angular.module('starter.controllers', ['ionic'])
 			});
 		});
 	}
-	//分享
-	$scope.toShare = function() {
-		$scope.showMsg('开发中。。。');
-//		    Wechat.isInstalled(function(installed) {
-//		      if (!installed) {
-//		        alert("手机尚未安装微信应用");
-//		      } else {
-//		        $ionicLoading.show({
-//		          template: '正在打开微信,请稍等...'
-//		        });
-//		        $timeout(function() {
-//		          $ionicLoading.hide();
-//		        }, 3000);
-//		      }
-//		    });
-//		$scope.shareViaWechat(WeChat.Scene.timeline, "分享到微信朋友圈", 'aaa', 'http://baidu.com', 'cccc');
+	//分享。
+	$scope.toShare = function(acId) {
+//	    Wechat.isInstalled(function(installed) {
+//	      if (!installed) {
+//	        alert("手机尚未安装微信应用");
+//	      } else {
+//	        $ionicLoading.show({
+//	          template: '正在打开微信,请稍等...'
+//	        });
+//	        $timeout(function() {
+//	          $ionicLoading.hide();
+//	        }, 3000);
+//
+////			alert(WeChat.Scene.TIMELINE+"----");
+////		    $scope.shareViaWechat(1, "分享到微信朋友圈", 'aaa', 'http://baidu.com', 'cccc');
+//	      }
+//	    });
+		var shareContent = {
+				title: '', // 分享标题
+				desc: '', // 分享描述
+				link: '', // 分享链接 分享的URL，以http或https开头
+				imgUrl: '', // 分享图标 分享图标的URL，以http或https开头
+				type: '', // 分享类型,music、video或link，不填默认为link
+				dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+				acId:'',//活动ID 
+				shareUser:'' //分享用户
+			}
+		$http.post(ApiEndpoint.url + '/api_activity_detail?activityId='+acId+'&userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+			if(data.state =="success") {
+				var obj = data.obj;
+				
+				shareContent.title =obj.name;//标题
+				shareContent.desc =obj.remark+"活动时间："+obj.showBeginTime+"—"+obj.showEndTime;//描述
+				//shareContent.link = window.location.protocol+"//"+window.location.host+":"+window.location.port+"/Cetus/mobile/activity.html?userid=&activityId="+acId;//分享链接
+				shareContent.link = data.sharelink;//分享链接
+				shareContent.imgUrl= window.location.protocol+"//"+window.location.host+":"+window.location.port+"/Cetus/qn_pic/"+obj.activityIcon;//分享图标
+				shareContent.type='link';
+				shareContent.shareUser = (Userinfo.l.id?Userinfo.l.id:"");
+				shareContent.acId = acId;
+//				console.log(shareContent);
+				
+				$scope.shareViaWechat(shareContent);
+			}else{
+				$ionicLoading.show({
+			          template: data.msg
+		        });
+		        $timeout(function() {
+		            $ionicLoading.hide();
+		        }, 1000);
+			}
+		});
+		
+	    
 
 	}
-//	$scope.shareViaWechat = function(scene, title, desc, url, thumb) {
-//		alert(222);
-//        // 创建消息体
-//        var msg = {
-//            title: title ? title : "行者无疆",
-//            description: desc ? desc : "A real traveller's province is boundless.",
-//            url: url ? url : "http://www.xingzhewujiang.xinligen.osnuts.com",
-//            thumb: thumb ? thumb : null
-//        };
-//        WeChat.share(msg, scene, function() {
-//            $ionicPopup.alert({
-//                title: '分享成功',
-//                template: '感谢您的支持！',
-//                okText: '关闭'
-//            });
-//        }, function(res) {
-//            $ionicPopup.alert({
-//                title: '分享失败',
-//                template: '错误原因：' + res + '。',
-//                okText: '我知道了'
-//            });
-//        });
-//    };
+	$scope.shareViaWechat = function(shareContent) {
+		Wechat.isInstalled(function(installed) {
+		      if (!installed) {
+		        alert("手机尚未安装微信应用");
+		      } else {
+		        $ionicLoading.show({
+		          template: '正在打开微信,请稍等...'
+		        });
+		        $timeout(function() {
+		          $ionicLoading.hide();
+		        }, 3000);
+		      }
+		    });
+		
+
+	        var scope = "snsapi_userinfo";
+		    Wechat.auth(scope, function (response) {
+		        // you may use response.code to get the access token.
+		        alert(JSON.stringify(response));
+		    }, function (reason) {
+		        alert("Failed: " + reason);
+		    });
+		    
+		    Wechat.share({
+		      message: {
+		        title: shareContent.title,
+		        description: shareContent.desc,
+//		        thumb: shareContent.imgUrl,//LOGO
+		        thumb: "http://m2.cosjii.com/img/logo_28.png",
+		        media: {
+		           type: Wechat.Type.LINK,
+		           webpageUrl: shareContent.link
+		        }
+		      },
+	         scene: Wechat.Scene.TIMELINE
+		    }, function() {
+		    	$http.post(ApiEndpoint.url + '/api_app_signandshare_save?type=2&userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&activityId='+shareContent.acId+'&shareSns="微信朋友圈"').success(function(data) {
+					$ionicLoading.hide();
+					var title = data.title;
+					var msg = data.msg;
+					if (data.state == 'success') {
+						title = "提示";
+						msg = "分享成功";
+					}
+					$ionicPopup.alert({
+				        title: title,
+				        template: msg,
+				        buttons: [{
+				          text: '确定',
+				          type: 'button-assertive'
+				        }]
+				    }).then(function(res) {
+				    	if (data.state == 'success')
+				    		$scope.activityList();
+					});
+				});
+		    }, function(reason) {
+		      if (reason == 'ERR_USER_CANCEL') {} else {
+		    	  $scope.showMsg("分享失败: " + reason);
+		      }
+		    });
+    };
 	//加载活动列表内容
 	$scope.activityList = function() {
 		$ionicLoading.show({
