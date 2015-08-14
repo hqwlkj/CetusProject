@@ -16,7 +16,7 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
-  <preference name="wechatappid" value="wxc6db12f46905614d" /> <!--注意“YOUR_APPID”要换成你自己申请的微信的appid 美O-->
+  <preference name="WECHATAPPID" value="wxc6db12f46905614d" /><!--注意“YOUR_APPID”要换成你自己申请的微信的appid 美O-->
   <preference name="SplashScreen" value="splash" /> <!-- 不带后缀png的文件名，默认是screen-->
   <preference name="SplashScreenDelay" value="10000" /> <!-- Splash显示时间，默认是3000ms-->
 
