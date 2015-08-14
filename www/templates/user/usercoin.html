@@ -14,8 +14,8 @@
 <ion-refresher pulling-text="下拉刷新" on-refresh="usercoin_doRefresh()"></ion-refresher>
 <ul class="ul-block bg-white a-gray">
 	<li ng-repeat="s in usercoin_data_list">
-		<div class="col-6 text-left">{{s.remark}}</div>
-		<div class="col-6 text-right line-height-1 padding-top-5">
+		<div class="col-6 text-left" style="width:65%;">{{s.remark}}</div>
+		<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;">
 			<p>{{s.state==0?'+':'-'}}{{s.score}}</p>
 			<p>{{s.showcreateTime}}</p>
 		</div>
