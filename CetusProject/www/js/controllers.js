@@ -1212,15 +1212,17 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.messageWd = [];
 	$scope.messageYd = [];
 	$scope.messageAll = [];
+	
 	//未读的点击
 	$scope.getMessageWd = function() {
 		  $ionicLoading.show({
 			    template: "加载中..."
 		 });
 		  $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=0'+'&pageNo=1'+'&pageSize=10').success(function(data) {
+			  $scope.nomsg = false;//未读消息提示默认隐藏
 			  if (data.state == 'success') {
 				  if(data.lst.length<1){
-					  alert("暂无消息")
+					  $scope.nomsg = true;
 					  $ionicLoading.hide();
 				  }
 				  for (var i = 0; i < data.lst.length; i++) {
