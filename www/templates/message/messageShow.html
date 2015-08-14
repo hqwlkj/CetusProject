@@ -21,6 +21,12 @@
 		      <div class="messagebox">
 		        <h4>{{k.title}}</h4>
 		        <p>{{k.content}}</p>
+		        <p ng-show="nomsg">暂无未读消息</p>
+		      </div>
+		    </li>
+		    <li class="margin-15 padding-10 clear" ng-show="nomsg">
+		      <div class="messagebox">
+		        <p  style="text-align: center;">暂无未读消息</p>
 		      </div>
 		    </li>
 		</ul>
