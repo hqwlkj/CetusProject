@@ -127,10 +127,10 @@
         "is_top_level": true,
         "variables": {}
     },
-    "com.justep.cordova.plugin.alipay": {
+    "com.qdc.plugins.alipay": {
         "source": {
             "type": "git",
-            "url": "https://github.com/vmlinz/cordova-plugin-alipay.git",
+            "url": "https://github.com/mrwutong/cordova-qdc-alipay.git",
             "subdir": "."
         },
         "is_top_level": true,
