@@ -1225,6 +1225,15 @@ angular.module('starter.controllers', ['ionic'])
 				$scope.cartData.amount += 1;
 		}
 	}
+	//跳转到我的购物车
+	$scope.cartClick = function() {
+		  if(!Userinfo.l.id){
+			  $scope.login();
+			  return;
+		  }
+		  $state.go("public.myCart");
+		}
+
 	//加入购物车
 	$scope.addCart = function() {
 		if ($scope.cartData.amount > $scope.product.stockNum) {
