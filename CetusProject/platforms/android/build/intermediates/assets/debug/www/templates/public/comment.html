@@ -1,0 +1,56 @@
+<ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="closeCommentDetail()"></a>
+    <h1 class="title">产品评价</h1>
+  </ion-header-bar>
+  <ion-content>
+	<div class="wrap-page" >
+	  <form ng-submit="saveComment()">
+	    <ul class="discusslist">
+	        <li>
+	            <div class="orderlst-top noborder">
+	                <div class="left"><img ng-src="{{productImg}}" width="52.5px" height="52.5px" class="img" /></div>
+	                <div class="orderlst-top-right right text-right">
+	                    <p class="price">{{productPrice}}</p>
+	                    <p class="orderlst-num">{{productNum}}</p>
+	                </div>
+	                <div class="orderlst-top-content ">
+	                    <p class="orderlst-top-content-title">{{productName}}</p>
+	                    <p class="orderlst-top-content-attr">{{productPara | delHtmlTag}}</p>
+	                </div>
+	            </div>
+	        </li>
+	        <li>
+	            <div class="lst-score">
+	                <div class="margin-top" style="width: 100%;">
+	                    <span>评分：</span>
+	                    <span id="star"  data-number="5" style="cursor: pointer; width: 200px;">
+	                    	<img src="{{star.starSrc}}" alt="{{star.starAlt}}" title="{{star.starTitle}}" ng-repeat="star in commentStars" ng-click="updStar(star)">
+	                    </span>
+	                </div>
+	            </div>
+	        </li>
+	        <li>
+	            <div class="orderlst-top bbn">
+                        <div class="form-group">
+                            <textarea maxlength="500px" style=" height: 100px; width: 100%;";  class="form-control" ng-model="commentData.content" rows="8"  placeholder="亲，您的评价对其他用户有很大的帮助" ng-keyup="contentNum()" ng-blur="contentNum()"></textarea>
+                            <div style="text-align: right;font-size: 0.725em;color: #5C6C85">还可以输入{{lsheng}}字</div>
+                        </div>
+						<input type="hidden" ng-model="commentData.score"/>
+	            </div>
+		        <br/>
+		        <br/>
+		        <br/>
+	        </li>
+	        <li class="fixed-bottom">
+	            <div class="lst-score">
+	                <div class=" margin-top-11">
+	                	<button class="btn lg-btn noborder" type="submit">提交评论</button>
+	                </div>
+	            </div>
+	        </li>
+	    </ul>
+	  </form>
+	</div>
+  </ion-content>
+</ion-modal-view>

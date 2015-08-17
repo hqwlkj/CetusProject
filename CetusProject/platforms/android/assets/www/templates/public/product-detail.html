@@ -1,0 +1,64 @@
+<ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="backGoPro()"></a>
+    <h1 class="title">产品详情</h1>
+    <a class="button button-clear" style="background:url(img/ionic/icon-cart.png) center center no-repeat; background-size:21px 21px; width:28px" ng-click="cartClick()"></a>
+  </ion-header-bar>
+  <ion-content>
+	<section>
+      <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true" slide-interval="6000">
+        <ion-slide ng-repeat="p in picfiles">
+          <div class="box" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{p.imgurl}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
+        </ion-slide>
+      </ion-slide-box>
+    </section>
+    <section style=" background-color: #ffffff; padding-top: 10px; padding-bottom: 6px; ">
+	  <div class="product-title">
+	    <div class="product-name">【{{product.pcode}}】{{product.name}}</div>
+	    <div class="product-price">
+	      <div class="col-7 text-left"><span class="fba">殴歌价：</span><span class="fwb">￥{{(product.price*product.discount).toFixed(2)}}</span></div>
+	      <div class="col-5 text-right"><span class="fba">市场价：</span><strike class="fba">￥{{product.price.toFixed(2)}}</strike></div>
+	    </div>
+	    <a href="javascript:void()" ng-click="productShare('{{product.pcode}}','{{product.name}}','{{product.price}}','{{product.id}}')" class="fenxiang"><i class="icon-share-01"></i></a></div>
+	  <div class="product-content">
+	    <p class='product-centent-title'>产品参数：</p>
+	    <p ng-bind-html ='product.parameter'></p>
+	    <p class='product-centent-title'>产品详情：</p>
+	    <p ng-bind-html ='product.details'></p>
+	    <p class='product-centent-title'>导购观点：</p>
+	    <p ng-bind-html ='product.remark'></p>
+	  </div>
+	  <div class="product-content">
+	    <!-- <div class=""><span class="comment-title">大家的点评</span><p class="comment-hr">&nbsp;</p></div> -->
+	    <p class='product-centent-title'>大家的点评：</p>
+	    <div class="comment-content">
+	       <div class="wp">
+	          <ul id="comment-slider" class="comment-slider">
+	            <li ng-if="commenState" ng-repeat='c in comments' style="width: {{_width}}"> <a class="fl" href="#"><img ng-src="http://www.parsec.com.cn/Cetus/pic/{{c.headImg}}" alt="" /></a>
+	              <p class="name">{{c.username}}</p>
+	              <p>{{c.content}}</p>
+	            </li>
+	            <li ng-if="!commenState" style="width: {{_width}}"><p>{{commenHtml}}</p></li>
+	          </ul>
+	        </div>
+	    </div>
+	  </div>
+	  </section>
+  </ion-content>
+    <!-- tabs -->
+<ion-footer-bar align-title="left" class="bar-assertive" style="padding: 0">
+  <ion-tabs class="tabs-icon-top tabs-color-active-positive">
+ <div class="footer fixed-bottom">
+  <div class="left kf" ng-click="kf();"><p><i class="icon-service-01"></i></p><p>客服</p></div>
+  <form ng-submit="addCart();" >
+  	<input type="hidden" id="stockNum" ng-model="cartData.stockNum" value="{{product.stockNum}}"><!-- 库存 -->
+	  <input type="number" id="amount" class="num left" ng-model="cartData.amount" value="1" style="height: 35px; padding: 0;">
+	  <a ng-click="productNum(1)" class="btn-lf left reduction"><i class="icon-sub-01"></i></a>
+	  <a ng-click="productNum(2)" class="btn-rt left plus"><i class="icon-add-01"></i></a>
+	  <button type="submit" class="btn addcart right noborder">加入购物车</button>
+	  <!-- <a class="btn addcart right">加入购物车</a> --> 
+  </form>
+  </div>
+  </ion-tabs>
+</ion-footer-bar>
+</ion-modal-view>
