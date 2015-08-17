@@ -126,14 +126,17 @@ angular.module('starter.order', [])
 	}
 	//提交订单
 	$scope.submit_order = function(){
-		if($scope.send_type_state==0&&($scope.order_data.address.id==null||$scope.order_data.address.id=='')){
-			$scope.showMsg("收货地址为空");
-			return;
-		}
-		//提交订单
-		var url = ApiEndpoint.url + "/api_order_insert?userId="+Userinfo.l.id+"&activityId="+$scope.order_data.activityId+"&atype="+($scope.send_type_state==0?1:0)+"&aid="+$scope.order_data.address.id+"&productIds="+$scope.order_data.ids+"&counts="+$scope.order_data.count+"&activityType="+$scope.order_data.activityType;
-		console.log(url);
+		//module.exports = require('/alipay/lib/alipay');
+		window.location="../alipay/test/views/create_direct_pay_by_user";
+//		if($scope.send_type_state==0&&($scope.order_data.address.id==null||$scope.order_data.address.id=='')){
+//			$scope.showMsg("收货地址为空");
+//			return;
+//		}
+//		//提交订单
+//		var url = ApiEndpoint.url + "/api_order_insert?userId="+Userinfo.l.id+"&activityId="+$scope.order_data.activityId+"&atype="+($scope.send_type_state==0?1:0)+"&aid="+$scope.order_data.address.id+"&productIds="+$scope.order_data.ids+"&counts="+$scope.order_data.count+"&activityType="+$scope.order_data.activityType;
+//		console.log(url);
 //		$http.post(url).success(function(data) {
+//			console.log(data);
 //			if (data.state == 'success') {
 //				$scope.ruleInfo = data.val;
 //			}

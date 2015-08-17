@@ -30,7 +30,12 @@ angular.module('starter.mycartcrtl', [])
 	};
 	
 	$scope.loadCartData();
-	
+	$scope.info = "";
+	$http.post(ApiEndpoint.url + '/api_policy_get').success(function(data) {
+		if (data.state == 'success') {
+			$scope.info = data.val;
+		}
+	});
 	//返回
 	$scope.backToIndex = function() {
 	    $state.go('app.index');

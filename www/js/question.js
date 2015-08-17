@@ -76,6 +76,7 @@ angular.module('starter.question', [])
 			$scope.showMsg(data.msg);
 			if (data.state == 'success') {
 				$scope.close_question_add();
+				$scope.loadQuestionData();
 			}
 		});
 	}
