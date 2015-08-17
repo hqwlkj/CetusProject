@@ -25,6 +25,12 @@
 		      <div class="orderlst-resault text-right" ng-repeat="i in order.items"><span class="orderlst-resault-name">共{{i.num}}件商品   实付:</span> <span class="orderlst-resault-value price">{{order.orderMoney|currency:'￥'}}</span></div>
 		      <div class="orderlst-foot text-right"><a href="#" ng-click="removeOrder({{order}})" class="btn normal-btn">取消</a><a href="#" class="btn normal-btn" ng-click="payOrder({{order.id}})">付款</a></div>
 		    </li>
+		    
+		    <li class="margin-15 padding-10 clear" ng-show="ordermsg">
+		      <div>
+		        <p  style="text-align: center;color: #999;">暂无订单</p>
+		      </div>
+		    </li>
         </ul>
     </div>
 </div>

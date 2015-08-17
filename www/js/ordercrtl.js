@@ -57,7 +57,12 @@ angular.module('starter.ordercrtl', [])
 			    template: "加载中..."
 		 });
 		 $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=1').success(function(data) {
-			if (data.state == 'success') {
+			 $scope.ordermsg = false;//未读消息提示默认隐藏
+			 if (data.state == 'success') {
+				if(data.lst.length<1){
+					  $scope.ordermsg = true;
+					  $ionicLoading.hide();
+				  }
 				$scope.orderWf = data.lst;
 				//console.log($scope.orderWf.Item);
 				$ionicLoading.hide();
