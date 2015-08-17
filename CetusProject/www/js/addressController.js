@@ -487,6 +487,14 @@ angular.module('starter.addressController', [])
 			$scope.address.county='渝北区';
 		}
 	}
+	//跳转到我的购物车
+	$scope.cartClick = function() {
+		  if(!Userinfo.l.id){
+			  $scope.login();
+			  return;
+		  }
+		  $state.go("public.myCart");
+		}
 	//关闭地址详情
 	$scope.close_address = function(){
 		$scope.modal_addressinfo.hide();
