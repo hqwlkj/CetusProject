@@ -1142,14 +1142,14 @@ angular.module('starter.controllers', ['ionic'])
 	//分享
 	$scope.productShare = function(code, desc, p, index) {
 	    var url = 'httpp://www.parsec.com.cn';
-	    var short_title = desc.substr(0, 3) + '...';
+	    //var short_title = desc.substr(0, 3) + '...';
 	    var price = null;
 	    if (parseFloat(p) < 1) {
 	      price = 1;
 	    } else {
 	      price = p;
 	    }
-	    var title = '神奇的美O圈“' + short_title + '”才' + price + '元';
+	    var title = '神奇的美O圈“' + desc + '”才' + price + '元';
 	    
 	    Wechat.isInstalled(function(installed) {
 	      if (!installed) {
@@ -1174,7 +1174,7 @@ angular.module('starter.controllers', ['ionic'])
 	      message: {
 	        title: title,
 	        description: '美O圈',
-	        thumb: "http://m2.cosjii.com/img/logo_28.png",//LOGO
+	        thumb: ApiEndpoint.url + "/img/logo_28.png",//LOGO
 	        media: {
 	          type: Wechat.Type.LINK,
 	          webpageUrl: url
