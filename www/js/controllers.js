@@ -1389,6 +1389,7 @@ angular.module('starter.controllers', ['ionic'])
 			  
 		   
 		  }
+		  $scope.getMessageWd();//默认执行去加载未读的消息
 })
 
 .controller('msgArticle', function($scope, $ionicHistory, $stateParams, HelpData,$ionicHistory, $state) {
