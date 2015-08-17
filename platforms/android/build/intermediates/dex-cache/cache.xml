@@ -2,6 +2,20 @@
 <items version="2" >
 
     <item
+        jar="C:\Work\ParsecProject\CetusProject\platforms\android\libs\libammsdk.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="47f4993168154fa73377d7470b9f6887d48a8023">
+        <dex dex="C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\libammsdk-028781e103561b7ad0f40364d918c89994ff0ba7.jar" />
+    </item>
+    <item
+        jar="C:\Work\ParsecProject\CetusProject\platforms\android\libs\alipaySDK-20150610.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5a05e35493f2b4712dda31da3625a4a7459dc088">
+        <dex dex="C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\alipaySDK-20150610-b70ce754bbc11bc27a328ae29497e42ffea2914a.jar" />
+    </item>
+    <item
         jar="C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\exploded-aar\android\CordovaLib\unspecified\debug\classes.jar"
         jumboMode="false"
         revision="22.0.1"

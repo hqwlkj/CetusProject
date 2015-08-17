@@ -1,2 +1,4 @@
 C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\classes\debug
 C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\classes-78fa8a0f128d0046d7e33298923234f4e2faf0db.jar
+C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\libammsdk-028781e103561b7ad0f40364d918c89994ff0ba7.jar
+C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\alipaySDK-20150610-b70ce754bbc11bc27a328ae29497e42ffea2914a.jar

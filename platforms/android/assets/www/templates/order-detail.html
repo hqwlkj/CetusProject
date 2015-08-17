@@ -1,0 +1,117 @@
+<ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="closeOrderDetail()"></a>
+    <h1 class="title">订单详情</h1>
+  </ion-header-bar>
+  <ion-content>
+	    <div class="wrap-page">
+    <ul class="orderlst">
+        <li><div class="orderxq-top bbn"><span class="orderlst-title">订单号：</span><span class="orderlst-title" ng-bind="ordNum"></span></div>
+            <img src="img/wcl.png" alt="完成" class="mo-isdo" ng-show="flag9">
+        </li>
+        <li>
+            <div class="orderxq-top bbn">
+                <span class="orderlst-title">感谢您在美欧购物,欢迎再次光临！</span>
+            </div>
+        </li>
+
+        <li id="not_hava_address" ng-show="falgaddress1">
+            <div class="mo-order-orderlst"><span class="orderlst-title">收货人:</span><span class="recive-name" ng-bind="recipients"></span>
+                <div class="orderxq-top-right right text-right"><span class="orderlst-title">手机号:</span><span class="recive-name" ng-bind="telephone"></span></div>
+                <p class="orderlst-top-content-attr" id="locations">
+                <i class="icon-pote-01"></i><span ng-bind="locations"></span></p>
+            </div>
+        </li>
+	<li id="autoaddress" ng-show="falgaddress2">
+      <div class="orderxq-top bbn"><span class="orderlst-title">自提地点:</span>
+        <p class="orderxq-top-content-attr" ng-bind="shopName" ></p>
+        <p class="orderxq-top-content-attr" ng-bind="address" ></p>
+      </div>
+    </li>
+    <li id="orderItem" ng-repeat="msg in orderItems">
+    <div class="orderlst-top bbn" ng-click="skipToProductDetail(msg.pid)">
+        <div class="img left" >
+        <img src="http://www.parsec.com.cn/Cetus/pic/{{::msg.imgurl}}" class="img" height="52.5px" width="52.5px"></div>
+        <div class="orderlst-top-right right text-right">
+          <p class="price"><span>￥</span>{{msg.prince}}</p>
+          <p class="orderlst-num">x{{msg.num}}</p>
+        </div>
+        <div class="orderlst-top-content ">
+          <p class="orderlst-top-content-title" ng-bind="msg.name"></p>
+          <p class="orderlst-top-content-attr" ng-bind-html="msg.parameter"></p>
+        </div>
+      </div><div class="orderlst-foot text-right"></div>
+     </li>
+    </ul>
+
+   <div class="page-method" >
+            <div class="orderxq-top bb1sc"><span class="orderlst-title">支付方式</span>
+                <div class="orderxq-top-right right text-right">
+                    <p class="orderlst-title"><span ng-bind="payMethod"></span></p>
+                </div>
+            </div>
+            <div class="orderxq-top bb1sc"><span class="orderlst-title">配送方式</span>
+                <div class="orderxq-top-right right text-right">
+                    <p class="orderlst-title"><span  ng-bind="com"></span></p>
+                </div>
+            </div>
+            <div class="orderxq-top bbn"><span class="orderlst-title">送货时间</span>
+                <div class="orderxq-top-right right text-right">
+                    <p class="orderlst-title"><span ng-bind="deliveryTime"></span></p>
+                </div>
+            </div>
+    </div>
+    <div class="fee">
+		<div class="orderxq-top padding-5-0 bbn">
+			<span class="orderlst-title">商品总额</span>
+			<div class="orderxq-top-right right text-right">
+				<p class="price"  ng-bind="orderMoney"></p>
+			</div>
+		</div>
+		<div class="orderxq-top padding-5-0 bbn">
+			<span class="orderlst-title font-10">+运费</span>
+			<div class="orderxq-top-right right text-right">
+				<p class="price font-10" id="freight">
+					<span>￥</span><span ng-bind="freight"></span> 
+				</p>
+			</div>
+		</div>
+
+		<div class="orderxq-top padding-5-0 bbn">
+			<span class="font-10 orderlst-title">-优惠</span>
+			<div class="orderxq-top-right right text-right">
+				<p class="price font-10" id="discountPrice">
+					<span>￥</span> <span ng-bind="discountPrice"></span> 
+				</p>
+			</div>
+		</div>
+
+		<div class="orderxq-top bbn itemFee">
+			<p style="text-align: right">
+				<span class="orderlst-title">实付款:</span> <span
+					class="recive-name price" ng-bind="countPrice"></span>
+			</p>
+			<p style="text-align: right; color: #8B8B8B;">
+				<span class="orderlst-title" style="font-size: 0.875em;">下单时间:</span><span
+					class="orderlst-title" style="font-size: 0.875em;" ng-bind="showRiseTime">
+				</span>
+			</p>
+		</div>
+		<div class="lst-bg">
+			<div class=" margin-top-11 not-paid" style="text-align: right;"> 
+				<a ng-click="deleteOrder(orderOrder)" ng-show="flag1" class="btn warning-btn">取消订单</a>
+				<a href="javascript:OD.goPay()" class="btn evaluate-btn" ng-show="flag2">去支付</a>
+			</div>
+			<div class=" margin-top-11 paid" style="text-align: right;"> 
+				<a ng-click="changeStateToCompleted(orderOrder)"  class="btn normal-btn" ng-show="flag3">确认收货</a> 
+			</div>
+			<div class=" margin-top-11 complete" style="text-align: right;">
+				<!-- <a ng-click="returnGoods(orderOrder)"  class="btn warning-btn" ng-show="flag4">申请退货</a> -->
+				<a ng-click="purchaseAgain(orderOrder)"  class="btn evaluate-btn" ng-show="flag6">再次购买</a>
+				<a ng-click="evaluate(orderOrder)" id="toComment"  style="margin-right:12px;" class="btn evaluate-btn" ng-show="flag5">评价</a> 
+			</div>
+		</div>
+		</div>
+</div>
+  </ion-content>
+</ion-modal-view>
