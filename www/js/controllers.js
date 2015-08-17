@@ -1310,6 +1310,16 @@ angular.module('starter.controllers', ['ionic'])
 				    }
 			});
 	  };
+	//跳转到我的购物车
+	$scope.cartClick = function() {
+		  if(!Userinfo.l.id){
+			  $scope.login();
+			  return;
+		  }
+		  $state.go("public.myCart");
+		}
+
+	  
 	//未读的默认加载
 	$http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=0'+'&pageNo=1'+'&pageSize=10').success(function(data) {
 	  if (data.state == 'success') {
