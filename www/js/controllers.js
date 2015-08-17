@@ -1000,6 +1000,16 @@ angular.module('starter.controllers', ['ionic'])
 	
 	$scope.doRefresh();
 	
+	//跳转到我的购物车
+	$scope.cartClick = function() {
+		  if(!Userinfo.l.id){
+			  $scope.login();
+			  return;
+		  }
+		  $scope.modal_quan_detail.hide();//关闭打开的视图 
+		  $state.go("public.myCart");//跳转到需要的视图
+		}
+	
 	//打开某个美O圈数据详情
 	$ionicModal.fromTemplateUrl('templates/quan-detail.html', {scope: $scope}).then(function(modal) {
 		$scope.modal_quan_detail = modal;
