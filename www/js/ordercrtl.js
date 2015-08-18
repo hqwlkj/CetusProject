@@ -298,8 +298,10 @@ angular.module('starter.ordercrtl', [])
 			if(confirm("确定要取消该订单吗？")){
 				$http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(ordNum)).success(function(data) {
 					  if (data.state == 'success') {
-							  alert("订单已取消");
-							  setTimeout("closeOrderDetail()",2000);//刷新
+							  $scope.showMsg("订单已取消");
+							  $timeout(function() {
+								  closeOrderDetail()
+							    }, 2000);
 					  }else{
 							$scope.showMsg(data.msg);
 						}
@@ -329,8 +331,12 @@ angular.module('starter.ordercrtl', [])
 			if(confirm("确定要将此订单申请退货吗？")){
 				$http.post(ApiEndpoint.url + '/api_order_return?id='+(ordNum)).success(function(data) {
 					if (data.state == 'success') {
-						alert(data.msg);
-						setTimeout("closeOrderDetail()",2000);//刷新
+						$scope.showMsg(data.msg);
+						$timeout(function() {
+							closeOrderDetail()
+					    }, 2000);
+
+						
 					}else{
 						$scope.showMsg(data.msg);
 					}
@@ -346,8 +352,10 @@ angular.module('starter.ordercrtl', [])
 			if(confirm("请收到货后，再确认收货！否则您可能钱货两空哦！")){
 				$http.post(ApiEndpoint.url + '/api_order_changeState?id='+(ordNum)+'&state=4').success(function(data) {
 					if (data.state == 'success') {
-						alert(data.msg);
-						setTimeout("closeOrderDetail()",2000);//刷新
+						$scope.showMsg(data.msg);
+						$timeout(function() {
+							closeOrderDetail()
+					    }, 2000);
 					}else{
 						$scope.showMsg(data.msg);
 					}
@@ -403,7 +411,7 @@ angular.module('starter.ordercrtl', [])
 		  };
 		  
 	  $scope.changeAcount = function() {
-		  alert(2);
+		//  alert(2);
 	  };
 	  $scope.backGo = function() {
 	    $state.go('tab.user');
