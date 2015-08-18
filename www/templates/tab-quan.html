@@ -6,7 +6,7 @@
   	  <h3 style='text-align: center;padding-top: 20px;' ng-if="quans.length == 0">暂未发表任何美O圈数据</h3>
 	  <ul class="productlst">
 	    <li ng-repeat="q in quans" ng-click="quanDetail('{{q.id}}')">
-	      <div class="productlst-img-box" style="background-image:url(http://www.parsec.com.cn/Cetus/pic/{{q.imgUrl}})"></div>
+	      <div class="productlst-img-box"><img width="100%" height="100%" src = "http://121.40.255.179/Cetus/pic/{{q.imgUrl}}"></div>
 	    </li>
 	  </ul>
 	  </section>
