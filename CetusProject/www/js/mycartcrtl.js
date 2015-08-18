@@ -216,7 +216,7 @@ angular.module('starter.mycartcrtl', [])
 				$scope.showMsg(data.msg);
 			}
 		});
-		$http.post(ApiEndpoint.url + '/api_express_send?code='+$scope.com+'&nu='+$scope.postId+'&ordnum='+$scope.ordNum).success(function(data) {
+		$http.post(ApiEndpoint.url + '/api_express_send?com='+$scope.com+'&nu='+$scope.postId+'&ordnum='+$scope.ordNum).success(function(data) {
 			if (data.state =="success") {
 				$scope.orderItemMsg = data.msg;
 				$scope.orderItemList = data.oitem;
