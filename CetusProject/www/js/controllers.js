@@ -2,8 +2,8 @@
 angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
-  url: 'http://www.parsec.com.cn/Cetus',
-  pic_url:'http://www.parsec.com.cn/Cetus/pic'
+  url: 'http://121.40.255.179/Cetus',
+  pic_url:'http://121.40.255.179/Cetus/pic'
 })
 
 .constant('HelpData', {
@@ -874,7 +874,7 @@ angular.module('starter.controllers', ['ionic'])
 	};
 	//分享
 	$scope.productShare = function(code, desc, p, index) {
-	    var url = 'httpp://www.parsec.com.cn';
+	    var url = 'httpp://121.40.255.179';
 	    //var short_title = desc.substr(0, 3) + '...';
 	    var price = null;
 	    if (parseFloat(p) < 1) {
