@@ -55,7 +55,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
         height: 800,
         quality: 80
       };
-      var server =   'http://www.parsec.com.cn/Cetus/api_update_head?id='+Userinfo.l.id;//图片上传
+      var server =   'http://121.40.255.179/Cetus/api_update_head?id='+Userinfo.l.id;//图片上传
       var trustHosts = true
       var option = {};
 
@@ -81,7 +81,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     };
 
     $rootScope.cameraImg = function() {
-      var server =   'http://www.parsec.com.cn/Cetus/api_update_head?id='+Userinfo.l.id;//图片上传
+      var server =   'http://121.40.255.179/Cetus/api_update_head?id='+Userinfo.l.id;//图片上传
       var trustHosts = true
       var option = {};
       var options = {
@@ -118,7 +118,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     //头像选择结束
     //产品分享 开始
     $rootScope.productShare = function(e, desc, p, index) {
-	    var url = 'http://www.parsec.com.cn/Cetus/' + e;
+	    var url = 'http://121.40.255.179/Cetus/' + e;
 	    var short_title = desc.substr(0, 3) + '...';
 	    var price = null;
 	    if (parseFloat(p) < 1) {
@@ -173,7 +173,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     function checkUpdate() {
       $cordovaAppVersion.getVersionNumber().then(function(version) {
         Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
-        $http.get('http://www.parsec.com.cn/Cetus/api_checkversion_get?deviceType=android&v='+version).success(function(data) {
+        $http.get('http://121.40.255.179/Cetus/api_checkversion_get?deviceType=android&v='+version).success(function(data) {
           if (data.state == 'success') {
             if (version != data.version) {
               showUpdateConfirm(data.desc, data.apk);
