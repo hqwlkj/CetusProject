@@ -353,10 +353,15 @@ angular.module('starter.mycartcrtl', [])
 		comment.ordNum = $scope.ordNum;
 		$http.post(ApiEndpoint.url + '/api_app_comment_save?commentStr='+JSON.stringify(comment)).success(function(data) {
 			if (data.state == 'success') {
-				if ($scope.itemNum == 1 || $scope.itemNum == "1"){
-					$state.go('app.order');
-				}else 
-					$state.go('public.commentList', {ordNum: $scope.ordNum});
+				$scope.showMsg("评论成功");
+				
+				$timeout(function() {
+					if ($scope.itemNum == 1 || $scope.itemNum == "1"){
+						$state.go('app.order');
+					}else 
+						$state.go('public.commentList', {ordNum: $scope.ordNum});
+			    }, 2000);
+				
 			}
 			$ionicLoading.hide();
 		});
