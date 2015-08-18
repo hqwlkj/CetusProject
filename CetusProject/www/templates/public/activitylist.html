@@ -30,7 +30,7 @@
     <!--<div class="padding-15 text-center"><a href="#" class="a-red font-14">立即领取</a></div>-->
     <div class="padding-15 text-center" ng-if="a.activity.activityType == 1">
     	<a ng-if="a.signNum == a.detail.signNum && a.shareNum == 1 && a.receiveNum == 0 && a.activity.endNum != 2" ng-click="goOrder({{a}}, 1)" class="a-red font-14">立即领取</a>
-    	<a ng-if="a.signNum == a.detail.signNum && a.shareNum == 1 && a.receiveNum == 0 && a.activity.endNum == 2" class="a-red font-14">活动已结束</a>
+    	<a ng-if="a.receiveNum == 0 && a.activity.endNum == 2" class="a-red font-14">活动已结束</a>
     	<a ng-if="a.signNum == a.detail.signNum && a.shareNum == 1 && a.receiveNum != 0" class="a-red font-14">已领取</a>
     	
     	<a ng-if="a.signNum != a.detail.signNum && a.activity.endNum != 2" ng-click="addSign('{{a.activity.id}}')" class="btn normal-btn"><i class="icon-menu-active-01"></i>签到</a>
