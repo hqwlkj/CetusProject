@@ -34,7 +34,7 @@
 	    <div class="comment-content">
 	       <div class="wp">
 	          <ul id="comment-slider" class="comment-slider">
-	            <li ng-if="commenState" ng-repeat='c in comments' style="width: {{_width}}"> <a class="fl" href="#"><img ng-src="http://121.40.255.179/Cetus/pic/{{c.headImg}}" alt="" /></a>
+	            <li ng-if="commenState" ng-repeat='c in comments' style="width: {{_width}}"> <a class="fl" href="#"><img ng-if="c.headImg == ''" src="../img/eleven.png" alt="" /><img ng-if="c.headImg != ''"  ng-src="http://121.40.255.179/Cetus/pic/{{c.headImg}}" alt="" /></a>
 	              <p class="name">{{c.username}}</p>
 	              <p>{{c.content}}</p>
 	            </li>
