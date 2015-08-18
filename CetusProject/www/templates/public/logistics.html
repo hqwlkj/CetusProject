@@ -27,7 +27,7 @@
 	      <div class="content-product" ng-if="orderItemList.length == 0">{{orderItemMsg}}</div>
 	      
 	      <div class="content-product" ng-if="orderItemList.length > 0" ng-repeat="oitem in orderItemList">
-	      	<div class="left"><img ng-src="{{oitem.imgUrl}}" class="img" /></div>
+	      	<div class="left"><img ng-src="http://121.40.255.179/Cetus/pic/{{oitem.imgUrl}}" class="img" /></div>
 	      	<div class="product-right right text-right">
 	      		<p class="font-12" style="margin-top:5px;"><span>￥</span>{{oitem.prince}}</p>
 	      		<p class="product-num">x{{oitem.num}}</p>
