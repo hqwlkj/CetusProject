@@ -66,7 +66,10 @@ angular.module('starter.ordercrtl', [])
 				$scope.orderWf = data.lst;
 				//console.log($scope.orderWf.Item);
 				$ionicLoading.hide();
-		    }
+		    }else{
+		    	$ionicLoading.hide();
+				$scope.showMsg(data.msg);
+			}
 		});
 	  };
 	  
@@ -81,7 +84,10 @@ angular.module('starter.ordercrtl', [])
 				$scope.orderYf = data.lst;
 				//console.log($scope.orderWf.Item);
 				$ionicLoading.hide();
-		    }
+		    }else{
+		    	$ionicLoading.hide();
+				$scope.showMsg(data.msg);
+			}
 		});
 	  };
 	  
@@ -98,7 +104,10 @@ angular.module('starter.ordercrtl', [])
 				  $scope.orderYwc = data.lst;
 				  //console.log($scope.orderWf.Item);
 				  $ionicLoading.hide();
-			  }
+			  }else{
+			    	$ionicLoading.hide();
+					$scope.showMsg(data.msg);
+				}
 		  });
 	  };
 	  
@@ -122,7 +131,10 @@ angular.module('starter.ordercrtl', [])
 					  alert(data.msg);
 				  $scope.getOrderWf();
 				  $ionicLoading.hide();
-			  }
+			  }else{
+			    	$ionicLoading.hide();
+					$scope.showMsg(data.msg);
+				}
 		  });
 	  }
 	  
@@ -138,7 +150,10 @@ angular.module('starter.ordercrtl', [])
 					  alert("确认收货成功");
 				  $scope.getOrderYf();//重新加载出未做操作的数据  
 				  $ionicLoading.hide();
-			  }
+			  }else{
+			    	$ionicLoading.hide();
+					$scope.showMsg(data.msg);
+				}
 		  });
 	  }
 	  /*
@@ -154,7 +169,10 @@ angular.module('starter.ordercrtl', [])
 					  alert("删除成功");
 				  $scope.getOrderYwc();
 				  $ionicLoading.hide();
-			  }
+			  }else{
+			    	$ionicLoading.hide();
+					$scope.showMsg(data.msg);
+				}
 		  });
 	  }
 	  /*
@@ -250,7 +268,14 @@ angular.module('starter.ordercrtl', [])
 						if(data.allComment == 1){
 							$scope.flag5 = false;
 						}
-						$scope.com=data.order.com;
+						$scope.testcom=data.order.com;//处理 快递代码问题
+						$http.post(ApiEndpoint.url + '/api_express_findbycode?code='+$scope.testcom).success(function(data) {
+							if (data.state =="success") {
+								$scope.com = data.data.name;
+							}else{
+								$scope.showMsg(data.msg);
+							}
+						});
 						//$scope.myorderId=data.order.id;
 						$scope.deliveryTime=data.order.deliveryTime;//送货时间
 						//$scope.orderMoney=data.order.orderMoney;//订单单价
@@ -276,7 +301,7 @@ angular.module('starter.ordercrtl', [])
 							  alert("订单已取消");
 							  setTimeout("closeOrderDetail()",2000);//刷新
 					  }else{
-							alert(data.msg);
+							$scope.showMsg(data.msg);
 						}
 				});
 			}
@@ -307,7 +332,7 @@ angular.module('starter.ordercrtl', [])
 						alert(data.msg);
 						setTimeout("closeOrderDetail()",2000);//刷新
 					}else{
-						alert(data.msg);
+						$scope.showMsg(data.msg);
 					}
 				});
 			}
@@ -324,7 +349,7 @@ angular.module('starter.ordercrtl', [])
 						alert(data.msg);
 						setTimeout("closeOrderDetail()",2000);//刷新
 					}else{
-						alert(data.msg);
+						$scope.showMsg(data.msg);
 					}
 				});
 			}
