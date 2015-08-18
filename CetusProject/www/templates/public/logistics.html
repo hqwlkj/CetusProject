@@ -51,7 +51,11 @@
 	      	 <div class="history">
 			 	<div class="history-date">
 					<ul>
-						<li class="green" ng-repeat="logis in logisticsList">
+						<li ng-if="logis.numberOne == 1" class="green" ng-repeat="logis in logisticsList">
+							<dl><dt><span class="content-info">{{logis.context}}</span></dt>
+								<dt><span class="time">{{logis.time}}</span></dt></dl>
+						</li>
+						<li ng-if="logis.numberOne != 1" ng-repeat="logis in logisticsList">
 							<dl><dt><span class="content-info">{{logis.context}}</span></dt>
 								<dt><span class="time">{{logis.time}}</span></dt></dl>
 						</li>
