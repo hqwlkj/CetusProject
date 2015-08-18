@@ -81,6 +81,9 @@ angular.module('starter.ordercrtl', [])
 		 });
 		 $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=2').success(function(data) {
 			if (data.state == 'success') {
+				if(data.lst.length<1){
+					  $scope.showMsg("暂无数据");
+				  }
 				$scope.orderYf = data.lst;
 				//console.log($scope.orderWf.Item);
 				$ionicLoading.hide();
@@ -99,7 +102,8 @@ angular.module('starter.ordercrtl', [])
 		  $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=3').success(function(data) {
 			  if (data.state == 'success') {
 				  if(data.lst.length<1){
-					  alert("暂无数据");
+					//  alert("暂无数据");
+					  $scope.showMsg("暂无数据");
 				  }
 				  $scope.orderYwc = data.lst;
 				  //console.log($scope.orderWf.Item);
@@ -128,7 +132,8 @@ angular.module('starter.ordercrtl', [])
 		  });
 		  $http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(orderId)).success(function(data) {
 			  if (data.state == 'success') {
-					  alert(data.msg);
+					  //alert(data.msg);
+				        $scope.showMsg(data.msg);
 				  $scope.getOrderWf();
 				  $ionicLoading.hide();
 			  }else{
@@ -147,7 +152,8 @@ angular.module('starter.ordercrtl', [])
 		  });
 		  $http.post(ApiEndpoint.url + '/api_order_changeState?id='+(orderId)+'&state=4').success(function(data) {
 			  if (data.state == 'success') {
-					  alert("确认收货成功");
+					  //alert("确认收货成功");
+					  $scope.showMsg("确认收货成功");
 				  $scope.getOrderYf();//重新加载出未做操作的数据  
 				  $ionicLoading.hide();
 			  }else{
@@ -166,7 +172,8 @@ angular.module('starter.ordercrtl', [])
 		  });
 		  $http.post(ApiEndpoint.url + '/api_order_pretendDelete?id='+(orderId)).success(function(data) {
 			  if (data.state == 'success') {
-					  alert("删除成功");
+					 // alert("删除成功");
+				  $scope.showMsg("删除成功");
 				  $scope.getOrderYwc();
 				  $ionicLoading.hide();
 			  }else{
