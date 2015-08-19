@@ -80,9 +80,10 @@ angular.module('starter.ordercrtl', [])
 			    template: "加载中..."
 		 });
 		 $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=2').success(function(data) {
+			 $scope.ordermsg2 = false;//已付款默认隐藏
 			if (data.state == 'success') {
 				if(data.lst.length<1){
-					  $scope.showMsg("暂无数据");
+					$scope.ordermsg2 = true;
 				  }
 				$scope.orderYf = data.lst;
 				//console.log($scope.orderWf.Item);
@@ -100,10 +101,11 @@ angular.module('starter.ordercrtl', [])
 			  template: "加载中..."
 		  });
 		  $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=3').success(function(data) {
+			  $scope.ordermsg3 = false;//已完成默认隐藏
 			  if (data.state == 'success') {
 				  if(data.lst.length<1){
 					//  alert("暂无数据");
-					  $scope.showMsg("暂无数据");
+					  $scope.ordermsg3 = true;
 				  }
 				  $scope.orderYwc = data.lst;
 				  //console.log($scope.orderWf.Item);
