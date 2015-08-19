@@ -28,7 +28,7 @@
 		    
 		    <li class="margin-15 padding-10 clear" ng-show="ordermsg">
 		      <div>
-		        <p  style="text-align: center;color: #999;">暂无订单</p>
+		        <p  style="text-align: center;color: #999;">暂无数据</p>
 		      </div>
 		    </li>
         </ul>
@@ -51,6 +51,12 @@
 		      <div class="orderlst-resault text-right" ><span class="orderlst-resault-name">共{{i.num}}件商品   实付:</span> <span class="orderlst-resault-value price">{{order.orderMoney|currency:'￥'}}</span></div>
 		      <div class="orderlst-foot text-right"><a href="#" class="btn normal-btn" ng-click="successOrder({{order.id}})">确认收货</a></div>
 		    </li>
+		    
+		    <li class="margin-15 padding-10 clear" ng-show="ordermsg2">
+		      <div>
+		        <p  style="text-align: center;color: #999;">暂无数据</p>
+		      </div>
+		    </li>
         </ul>
 	 	
     </div>
@@ -72,6 +78,12 @@
 		      </div>
 		      <div class="orderlst-resault text-right"><span class="orderlst-resault-name">共{{i.num}}件商品   实付:</span> <span class="orderlst-resault-value price">{{order.orderMoney|currency:'￥'}}</span></div>
 		      <div class="orderlst-foot text-right"><a href="#" class="btn danger-btn" ng-click="deleteOrder(order)">删除订单</a><a ng-click="chaWuliu({{order}})" class="btn normal-btn">查看物流</a></div>
+		    </li>
+		    
+		    <li class="margin-15 padding-10 clear" ng-show="ordermsg3">
+		      <div>
+		        <p  style="text-align: center;color: #999;">暂无数据</p>
+		      </div>
 		    </li>
         </ul>
     </div>
