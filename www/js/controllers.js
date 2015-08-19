@@ -907,7 +907,7 @@ angular.module('starter.controllers', ['ionic'])
 	      message: {
 	        title: title,
 	        description: '美O圈',
-	        thumb: ApiEndpoint.url + "/img/logo_28.png",//LOGO
+	        thumb: ApiEndpoint.url + "/images/logo_28.png",//LOGO
 	        media: {
 	          type: Wechat.Type.LINK,
 	          webpageUrl: url

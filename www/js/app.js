@@ -150,7 +150,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	      message: {
 	        title: title,
 	        description: '美O圈',
-	        thumb: "http://m2.cosjii.com/img/logo_28.png",//LOGO
+	        thumb: "http://121.40.255.179/Cetus/images/logo_28.png",//LOGO
 	        media: {
 	          type: Wechat.Type.LINK,
 	          webpageUrl: url
@@ -240,7 +240,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	//双击退出
     $ionicPlatform.registerBackButtonAction(function (e) {
         //判断处于哪个页面时双击退出
-        if ($location.path() == '/app/index') {
+        if ($location.path() == '/app/index' || $location.path() == '/app/product' || $location.path() == '/app/quan' || $location.path() == '/app/order') {
             if ($rootScope.backButtonPressedOnceToExit) {
                 ionic.Platform.exitApp();
             } else {
@@ -250,7 +250,10 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
                     $rootScope.backButtonPressedOnceToExit = false;
                 }, 2000);
             }
-        } else if ($ionicHistory.backView()) {
+        }else{
+        	$ionicHistory.goBack();
+        }
+        /*} else if ($ionicHistory.backView()) {
             $ionicHistory.goBack();
         } else {
             $rootScope.backButtonPressedOnceToExit = true;
@@ -258,7 +261,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
             setTimeout(function () {
                 $rootScope.backButtonPressedOnceToExit = false;
             }, 2000);
-        }
+        }*/
         e.preventDefault();
         return false;
     }, 101);
