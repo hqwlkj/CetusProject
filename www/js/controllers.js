@@ -1049,7 +1049,10 @@ angular.module('starter.controllers', ['ionic'])
 				        $ionicLoading.hide();
 				      }
 				      $scope.messageWd = data.lst;
-				    }
+				    }else{
+				    	$ionicLoading.hide();
+						$scope.showMsg(data.msg);
+					}
 			});
 	  };
 	//跳转到我的购物车
