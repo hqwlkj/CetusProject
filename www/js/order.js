@@ -126,8 +126,14 @@ angular.module('starter.order', [])
 	}
 	//提交订单
 	$scope.submit_order = function(){
-		//module.exports = require('/alipay/lib/alipay');
-		window.location="../alipay/test/views/create_direct_pay_by_user";
+		alipay.payment({pay_info:"testpaty",sign:"123456"}, 
+		function(data){
+			alert(data);
+			alert("success");
+		}, function(data){
+			alert(data);
+			alert("fail");
+		});
 //		if($scope.send_type_state==0&&($scope.order_data.address.id==null||$scope.order_data.address.id=='')){
 //			$scope.showMsg("收货地址为空");
 //			return;
