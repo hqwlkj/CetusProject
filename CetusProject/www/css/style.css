@@ -360,6 +360,7 @@ overflow:hidden;/*溢出隐藏*/
 .set-lst-state span{font-size:0.65rem;}
 .set-lst-state .icon-select-01{margin-top:15px;}
 .set-lst-state .icon-select-satatus-01{margin-top:20px; color:#ec3473;font-size:0.75rem;}
+.font-h-3{text-align: center;margin-top: 32%;font-size: 0.875rem;color: #8F8F8F;}
 /*设置美O圈的详情界面*/
 .quan-header{ height: 25px;  padding: 10px 10px 0 10px; color: #D4D4D4; }
 .quan-header .l-hr{ position: relative; border-bottom: 1px solid #D4D4D4; height: 2px; width: 92%; z-index: 888; margin-top: 8px; }

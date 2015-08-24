@@ -5,7 +5,7 @@
     <a class="button button-clear" style="background:url(img/ionic/icon-cart.png) center center no-repeat; background-size:21px 21px; width:28px" ng-click="cartClick();closeActivityList();"></a>
   </ion-header-bar>
   <ion-content style="background-color:#F6F3EE;">
-   <h3 style="text-align: center;" ng-if="activitys == null || activitys.length == 0">暂未参与任何活动</h3>
+   <h3 class="font-h-3" style="margin-top:32%;" ng-if="activitys == null || activitys.length == 0">暂未参与任何活动</h3>
    <ul class="ul-activity-block" ng-repeat="a in activitys" ng-if="activitys.length > 0">
     <li>
       <div class="set-lst-state right"></div>
