@@ -48,6 +48,6 @@
 <!-- tabs -->
 <ion-footer-bar align-title="left" class="bar-assertive" style="padding: 0">
   <ion-tabs class="tabs-icon-top tabs-color-active-positive">
-    <div class="fixed-cart-bottom" style="padding:0 10px;background:#d1d1d1;border:none">订单合计：<span>{{allMoney.toFixed(2)}}</span><button ng-click="toOrder()" class="btn addcart right noborder">去结算</button></div>
+    <div class="fixed-cart-bottom" style="padding:0 10px;background:#d1d1d1;border:none">订单合计：<span>{{allMoney | currency:'￥'}}</span><button ng-click="toOrder()" class="btn addcart right noborder">去结算</button></div>
   </ion-tabs>
 </ion-footer-bar>
