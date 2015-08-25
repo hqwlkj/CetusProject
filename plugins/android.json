@@ -65,7 +65,19 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Alipay\"><param name=\"android-package\" value=\"com.qdc.plugins.alipay.Alipay\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "xml": "<preference name=\"partner\" value=\"2088811446024912\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"rsa_private\" value=\"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAM3NsYcFbce3omzhiXY1Mr8nkxuHkpVFky9JBb+vnLzje+mjZIxbHDGIU//3c88H5F6CO6CPNMa036QJ9nhS6Ea7xmEGQ2JxY0JMM2bnQxhRtwwe1nV67boFzkjrOWD1loThzK3pgVkb6D6gLqANXcPSe3JAqrvouNUYvK/+75O1AgMBAAECgYBy3IdlZUlE+x+DB0lyGPTOrSa0abEM8LzZ2jaEKl4fKhOBbXjzwPH2TzEaniAbfzsc6DChRuvcrxxWcF0IALWzqyJdGNxZjlhwyVhKc4BJnn90AUXohvB83AFd2+cHurHkAE8sEO8ihDsSOon0YpKKkA/haQ8RKshTCO8RZIlugQJBAP2WkR3BbPzgHZxKR8u0woe0ZzIkUCa/+dMr8XELE6ZBj1w3uPTq4ePHto5W9MLwzN3p3lN+WcUkAM/BdzlbUyECQQDPwsf4SYCjV5hTNY7sj1sqcO4O8Ti7HnINHkefb90TsIrQjaBYNYxeEjj028yLxKkNkNUoLZQekt0jDast24IVAkBDvM5yplJYkf0W3HilH1m/Kh9Os4h9cVZoZBqQWaccB/MlbPUI5x0D3TsUdoHW+L+gn3H115BfKqjU1hbkyVJBAkEAryckVTMKayrG9aeahd7Z2e75E8nTrRUey+ZyNX0mYZodfXNY8eS7IPe14uCHEnJKn3Ax9DxwulHQcuPsI64CfQJBAPYgBMhCX6HXpLTKUuIID1dy1ENZyEEUZCouQsuPYwirOO6z4NIi8wSa98wgM0/2NJrVs1W2/l2fn8xVycd4Ykk=\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"rsa_public\" value=\"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Alipay\"><param name=\"android-package\" value=\"com.justep.cordova.plugin.alipay.Alipay\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -76,26 +88,10 @@
                     "/*": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 4
+                            "count": 3
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
                             "count": 1
                         }
                     ],
@@ -167,7 +163,7 @@
         "nl.x-services.plugins.toast": {
             "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
         },
-        "com.qdc.plugins.alipay": {
+        "com.justep.cordova.plugin.alipay": {
             "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
         }
     },
