@@ -32,6 +32,7 @@ angular.module('starter.order', [])
 	$scope.address = {};
 	$scope.ruleInfo = "";//提示信息
 	$scope.autoaddress_list = [];
+	$scope.orderName="";
 	//加载数据
 	$scope.loadOrderCountData = function(){
 		$http.post(ApiEndpoint.url + '/api_order_count?msg='+$stateParams.msg).success(function(data) {
@@ -41,6 +42,7 @@ angular.module('starter.order', [])
 				for (var i = 0; i < data.list.length; i++) {
 					data.list[i].coverUrl = ApiEndpoint.pic_url+"/"+data.list[i].coverUrl;
 					$scope.price += Number(data.list[i].price)*Number(data.discount)*Number(data.list[i].stockNum);
+					$scope.orderName += ","+data.list[i].name;
 				}
 				$scope.orderItemList = data.list;
 				$scope.discount = data.discount;   //用户的折扣率
@@ -126,31 +128,36 @@ angular.module('starter.order', [])
 	}
 	//提交订单
 	$scope.submit_order = function(){
-		navigator.alipay.pay(
-				{seller:"ougemaoyi@163.com",subject:"test",body:"testOrder",price:"0.01",tradeNo:"123456789",timeout:"30m",notifyUrl:"wwww.justep.com"},
-				function(msgCode){alert(msgCode)},
-				function(msg){alert(msg)}
-		)
-//		alipay.payment({pay_info:"testpaty",sign:"123456"}, 
-//		function(data){
-//			alert(data);
-//			alert("success");
-//		}, function(data){
-//			alert(data);
-//			alert("fail");
-//		});
-//		if($scope.send_type_state==0&&($scope.order_data.address.id==null||$scope.order_data.address.id=='')){
-//			$scope.showMsg("收货地址为空");
-//			return;
-//		}
-//		//提交订单
-//		var url = ApiEndpoint.url + "/api_order_insert?userId="+Userinfo.l.id+"&activityId="+$scope.order_data.activityId+"&atype="+($scope.send_type_state==0?1:0)+"&aid="+$scope.order_data.address.id+"&productIds="+$scope.order_data.ids+"&counts="+$scope.order_data.count+"&activityType="+$scope.order_data.activityType;
-//		console.log(url);
-//		$http.post(url).success(function(data) {
-//			console.log(data);
-//			if (data.state == 'success') {
-//				$scope.ruleInfo = data.val;
-//			}
-//		});
+		if($scope.send_type_state==0&&($scope.order_data.address.id==null||$scope.order_data.address.id=='')){
+			$scope.showMsg("收货地址为空");
+			return;
+		}
+		//提交订单
+		var url = ApiEndpoint.url + "/api_order_insert?userId="+Userinfo.l.id+"&activityId="+$scope.order_data.activityId+"&atype="+($scope.send_type_state==0?1:0)+"&aid="+$scope.order_data.address.id+"&productIds="+$scope.order_data.ids+"&counts="+$scope.order_data.count+"&activityType="+$scope.order_data.activityType;
+		$http.post(url).success(function(data) {
+			console.log(data);
+			if (data.state == 'success') {
+				$scope.ruleInfo = data.val;
+				if(data.orderState==1){
+					var order = data.obj;
+					alert(order.orderMoney);
+					var name= $scope.orderName.substring(1, $scope.orderName.length);
+					navigator.alipay.pay(
+						{
+							seller : "ougemaoyi@163.com",
+							subject : name,
+							body : name,
+							price : "0.01",
+							tradeNo : order.ordNum,
+							timeout : "30m",
+							notifyUrl : ApiEndpoint.url +"/api_alipay_asynchronous_notify"
+						},
+						function(msgCode){alert(msgCode)},
+						function(msg){alert(msg)}
+					)
+				}
+				
+			}
+		});
 	}
 })
