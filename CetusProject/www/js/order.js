@@ -150,7 +150,7 @@ angular.module('starter.order', [])
 							price : "0.01",
 							tradeNo : order.ordNum,
 							timeout : "30m",
-							notifyUrl : ApiEndpoint.url +"/api_alipay_asynchronous_notify"
+							notifyUrl : "http://meio.chinaun.net/Cetus/api_alipay_asynchronous_notify"
 						},
 						function(msgCode){alert(msgCode)},
 						function(msg){alert(msg)}
