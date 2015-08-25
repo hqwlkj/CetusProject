@@ -1,6 +1,6 @@
 angular.module('starter.mycartcrtl', [])
 
-.controller('MyCart',function($scope, $state, $ionicPopup, Userinfo, $ionicLoading, $http, ApiEndpoint){
+.controller('MyCart',function($scope, $state, $ionicPopup, Userinfo, $ionicLoading, $http, ApiEndpoint,$location){
 	$scope.cartList = [];  //购物车数据几盒
 	$scope.discount = 1;   //用户的折扣率
 	$scope.allCheckClass = "icon-unselect-01";  //全选按钮的样式
@@ -36,9 +36,33 @@ angular.module('starter.mycartcrtl', [])
 			$scope.info = data.val;
 		}
 	});
-	//返回
+	/**
+	 * 返回前一页（或关闭本页面）
+	 * <li>如果没有前一页历史，则直接关闭当前页面</li>
+	 */
 	$scope.backToIndex = function() {
-	    $state.go('app.index');
+	    if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){ // IE
+	        if(history.length > 0){
+	            window.history.go( -1 );
+	        }else{
+	            window.opener=null;window.close();
+	        }
+	    }else{ //非IE浏览器
+	        if (navigator.userAgent.indexOf('Firefox') >= 0 ||
+	            navigator.userAgent.indexOf('Opera') >= 0 ||
+	            navigator.userAgent.indexOf('Safari') >= 0 ||
+	            navigator.userAgent.indexOf('Chrome') >= 0 ||
+	            navigator.userAgent.indexOf('WebKit') >= 0){
+
+	            if(window.history.length > 1){
+	                window.history.go( -1 );
+	            }else{
+	                window.opener=null;window.close();
+	            }
+	        }else{ //未知的浏览器
+	            window.history.go( -1 );
+	        }
+	    }
 	}
 	
 	//全选
