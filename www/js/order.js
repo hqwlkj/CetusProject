@@ -126,14 +126,19 @@ angular.module('starter.order', [])
 	}
 	//提交订单
 	$scope.submit_order = function(){
-		alipay.payment({pay_info:"testpaty",sign:"123456"}, 
-		function(data){
-			alert(data);
-			alert("success");
-		}, function(data){
-			alert(data);
-			alert("fail");
-		});
+		navigator.alipay.pay(
+				{seller:"ougemaoyi@163.com",subject:"test",body:"testOrder",price:"0.01",tradeNo:"123456789",timeout:"30m",notifyUrl:"wwww.justep.com"},
+				function(msgCode){alert(msgCode)},
+				function(msg){alert(msg)}
+		)
+//		alipay.payment({pay_info:"testpaty",sign:"123456"}, 
+//		function(data){
+//			alert(data);
+//			alert("success");
+//		}, function(data){
+//			alert(data);
+//			alert("fail");
+//		});
 //		if($scope.send_type_state==0&&($scope.order_data.address.id==null||$scope.order_data.address.id=='')){
 //			$scope.showMsg("收货地址为空");
 //			return;
