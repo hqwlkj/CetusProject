@@ -13,58 +13,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"ActionSheet\"><param name=\"android-package\" value=\"nl.xservices.plugins.actionsheet.ActionSheet\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"FileOpener2\"><param name=\"android-package\" value=\"io.github.pwlin.cordova.plugins.fileopener2.FileOpener2\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"ImagePicker\"><param name=\"android-package\" value=\"com.synconset.ImagePicker\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Wechat\"><param name=\"android-package\" value=\"xu.li.cordova.wechat.Wechat\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"WECHATAPPID\" value=\"wxc6db12f46905614d\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Toast\"><param name=\"android-package\" value=\"nl.xservices.plugins.Toast\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<preference name=\"partner\" value=\"2088811446024912\" />",
                             "count": 1
                         },
@@ -79,12 +27,84 @@
                         {
                             "xml": "<feature name=\"Alipay\"><param name=\"android-package\" value=\"com.justep.cordova.plugin.alipay.Alipay\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ImagePicker\"><param name=\"android-package\" value=\"com.synconset.ImagePicker\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FileOpener2\"><param name=\"android-package\" value=\"io.github.pwlin.cordova.plugins.fileopener2.FileOpener2\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ActionSheet\"><param name=\"android-package\" value=\"nl.xservices.plugins.actionsheet.ActionSheet\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Toast\"><param name=\"android-package\" value=\"nl.xservices.plugins.Toast\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Wechat\"><param name=\"android-package\" value=\"xu.li.cordova.wechat.Wechat\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"WECHATAPPID\" value=\"wxc6db12f46905614d\" />",
+                            "count": 1
                         }
                     ]
                 }
             },
             "AndroidManifest.xml": {
                 "parents": {
+                    "/manifest/application": [
+                        {
+                            "xml": "<activity android:configChanges=\"orientation|keyboardHidden|navigation\" android:exported=\"false\" android:name=\"com.alipay.sdk.app.H5PayActivity\" android:screenOrientation=\"behind\" android:windowSoftInputMode=\"adjustResize|stateHidden\"></activity>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:label=\"@string/multi_app_name\" android:name=\"com.synconset.MultiImageChooserActivity\" android:theme=\"@android:style/Theme.Holo.Light\"></activity>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:exported=\"true\" android:label=\"@string/launcher_name\" android:name=\".wxapi.WXEntryActivity\"><intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><data android:scheme=\"wxc6db12f46905614d\" /></intent-filter></activity>",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        }
+                    ],
                     "/*": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
@@ -94,26 +114,6 @@
                             "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
                             "count": 1
                         }
-                    ],
-                    "/manifest/application": [
-                        {
-                            "xml": "<activity android:label=\"@string/multi_app_name\" android:name=\"com.synconset.MultiImageChooserActivity\" android:theme=\"@android:style/Theme.Holo.Light\"></activity>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<activity android:exported=\"true\" android:label=\"@string/launcher_name\" android:name=\".wxapi.WXEntryActivity\"><intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><data android:scheme=\"wxc6db12f46905614d\" /></intent-filter></activity>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<activity android:configChanges=\"orientation|keyboardHidden|navigation\" android:exported=\"false\" android:name=\"com.alipay.sdk.app.H5PayActivity\" android:screenOrientation=\"behind\" android:windowSoftInputMode=\"adjustResize|stateHidden\"></activity>",
-                            "count": 1
-                        }
-                    ],
-                    "/manifest": [
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 1
-                        }
                     ]
                 }
             }
@@ -121,6 +121,15 @@
     },
     "installed_plugins": {
         "com.ionic.keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+        },
+        "com.justep.cordova.plugin.alipay": {
+            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+        },
+        "com.synconset.imagepicker": {
+            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+        },
+        "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
         },
         "cordova-plugin-console": {
@@ -135,13 +144,13 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
         },
-        "uk.co.whiteoctober.cordova.appversion": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
-        },
-        "cordova-plugin-camera": {
+        "io.github.pwlin.cordova.plugins.fileopener2": {
             "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
         },
         "nl.x-services.plugins.actionsheet": {
+            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+        },
+        "nl.x-services.plugins.toast": {
             "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
         },
         "org.apache.cordova.file": {
@@ -150,20 +159,11 @@
         "org.apache.cordova.file-transfer": {
             "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
         },
-        "io.github.pwlin.cordova.plugins.fileopener2": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
-        },
-        "com.synconset.imagepicker": {
+        "uk.co.whiteoctober.cordova.appversion": {
             "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
         },
         "xu.li.cordova.wechat": {
             "WECHATAPPID": "wxc6db12f46905614d",
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
-        },
-        "nl.x-services.plugins.toast": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
-        },
-        "com.justep.cordova.plugin.alipay": {
             "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
         }
     },
