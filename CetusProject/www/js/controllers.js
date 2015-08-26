@@ -341,6 +341,11 @@ angular.module('starter.controllers', ['ionic'])
 	});
 	//显示用户积分页面
 	$scope.show_usercoin = function(){
+		if(!Userinfo.l.id){
+			$ionicLoading.hide();
+			$scope.modalLogin.show();
+			return;
+		}
 		$scope.modal_usercoin.show();
 		$ionicLoading.show({
 		     template: '加载中...'
@@ -403,6 +408,11 @@ angular.module('starter.controllers', ['ionic'])
 	});
 	//显示我的团队页面
 	$scope.show_myteam = function(){
+		if(!Userinfo.l.id){
+			$ionicLoading.hide();
+			$scope.modalLogin.show();
+			return;
+		}
 		$ionicLoading.show({
 		     template: '加载中...'
 		});
@@ -611,7 +621,6 @@ angular.module('starter.controllers', ['ionic'])
 		$ionicLoading.show({
 		    template: "加载中..."
 		});
-		console.log(Userinfo);
 		if(!Userinfo.l.id){
 			$ionicLoading.hide();
 			$scope.modalLogin.show();
