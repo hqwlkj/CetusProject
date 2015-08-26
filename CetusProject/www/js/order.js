@@ -137,7 +137,7 @@ angular.module('starter.order', [])
 				$scope.ruleInfo = data.val;
 				if(data.orderState==1){
 					var order = data.obj;
-					alert(order.orderMoney);
+					alert(ApiEndpoint.url +"/api_alipay_asynchronous_notify");
 					var name= $scope.orderName.substring(1, $scope.orderName.length);
 					navigator.alipay.pay(
 						{
