@@ -132,9 +132,7 @@ angular.module('starter.order', [])
 		//提交订单
 		var url = ApiEndpoint.url + "/api_order_insert?userId="+Userinfo.l.id+"&activityId="+$scope.order_data.activityId+"&atype="+($scope.send_type_state==0?1:0)+"&aid="+$scope.order_data.address.id+"&productIds="+$scope.order_data.ids+"&counts="+$scope.order_data.count+"&activityType="+$scope.order_data.activityType;
 		$http.post(url).success(function(data) {
-			console.log(data);
 			if (data.state == 'success') {
-				$scope.ruleInfo = data.val;
 				if(data.orderState==1){
 					var order = data.obj;
 					alert(ApiEndpoint.url +"/api_alipay_asynchronous_notify");
@@ -149,11 +147,27 @@ angular.module('starter.order', [])
 							timeout : "30m",
 							notifyUrl : ApiEndpoint.url +"/api_alipay_asynchronous_notify"
 						},
-						function(msgCode){alert(msgCode)},
-						function(msg){alert(msg)}
+						function(msgCode){
+							var temp="";
+							if(msgCode=="9000"){
+								temp="支付成功"
+							}else{
+								temp="支付失败"
+							}
+							$scope.myPopup = $ionicPopup.show({
+								template: temp,
+								title: '提示',
+								scope: $scope,
+								buttons: [{ text: '确定',onTap:function(e){
+									$state.go('app.index');
+								}}]
+						   });
+						},
+						function(msg){
+							console.log(msg);
+						}
 					)
 				}
-				
 			}
 		});
 	}
