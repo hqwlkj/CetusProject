@@ -162,7 +162,7 @@ angular.module('starter.order', [])
 							template: temp,
 							title: '提示',
 							scope: $scope,
-							buttons: [{ text: '确定',onTap:function(e){
+							buttons: [{ text: '确定',type: 'button-assertive',onTap:function(e){
 								$state.go('app.index');
 							}}]
 					   });
