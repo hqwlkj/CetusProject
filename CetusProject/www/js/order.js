@@ -123,52 +123,58 @@ angular.module('starter.order', [])
 		Userinfo.add('order_address', true);
 		$state.go('addresss.addresslist',{msg:$stateParams.msg});
 	}
+	$scope.save_state = false;
 	//提交订单
 	$scope.submit_order = function(){
-		if($scope.send_type_state==0&&($scope.order_data.address==null||$scope.order_data.address.id=='')){
-			$scope.showMsg("收货地址为空");
-			return;
-		}
-		//提交订单
-		var url = ApiEndpoint.url + "/api_order_insert?userId="+Userinfo.l.id+"&activityId="+$scope.order_data.activityId+"&atype="+($scope.send_type_state==0?1:0)+"&aid="+$scope.order_data.address.id+"&productIds="+$scope.order_data.ids+"&counts="+$scope.order_data.count+"&activityType="+$scope.order_data.activityType;
-		$http.post(url).success(function(data) {
-			if (data.state == 'success') {
-				if(data.orderState==1){
-					var order = data.obj;
-					alert(ApiEndpoint.url +"/api_alipay_asynchronous_notify");
-					var name= $scope.orderName.substring(1, $scope.orderName.length);
-					navigator.alipay.pay(
-						{
-							seller : "ougemaoyi@163.com",
-							subject : name,
-							body : name,
-							price : "0.01",
-							tradeNo : order.ordNum,
-							timeout : "30m",
-							notifyUrl : ApiEndpoint.url +"/api_alipay_asynchronous_notify"
-						},
-						function(msgCode){
-							var temp="";
-							if(msgCode=="9000"){
-								temp="支付成功"
-							}else{
-								temp="支付失败"
-							}
-							$scope.myPopup = $ionicPopup.show({
-								template: temp,
-								title: '提示',
-								scope: $scope,
-								buttons: [{ text: '确定',onTap:function(e){
-									$state.go('app.index');
-								}}]
-						   });
-						},
-						function(msg){
-							console.log(msg);
+	if($scope.send_type_state==0&&($scope.order_data.address==null||$scope.order_data.address.id=='')){
+		$scope.showMsg("收货地址为空");
+		return;
+	}
+	if($scope.save_state==true){
+		return;
+	}
+	$scope.save_state = true;
+	//提交订单
+	var url = ApiEndpoint.url + "/api_order_insert?userId="+Userinfo.l.id+"&activityId="+$scope.order_data.activityId+"&atype="+($scope.send_type_state==0?1:0)+"&aid="+$scope.order_data.address.id+"&productIds="+$scope.order_data.ids+"&counts="+$scope.order_data.count+"&activityType="+$scope.order_data.activityType;
+	$http.post(url).success(function(data) {
+		if (data.state == 'success') {
+			if(data.orderState==1){
+				var order = data.obj;
+				alert(ApiEndpoint.url +"/api_alipay_asynchronous_notify");
+				var name= $scope.orderName.substring(1, $scope.orderName.length);
+				navigator.alipay.pay(
+					{
+						seller : "ougemaoyi@163.com",
+						subject : name,
+						body : name,
+						price : "0.01",
+						tradeNo : order.ordNum,
+						timeout : "30m",
+						notifyUrl : ApiEndpoint.url +"/api_alipay_asynchronous_notify"
+					},
+					function(msgCode){
+						var temp="";
+						if(msgCode=="9000"){
+							temp="支付成功"
+						}else{
+							temp="支付失败"
 						}
-					)
-				}
+						$scope.myPopup = $ionicPopup.show({
+							template: temp,
+							title: '提示',
+							scope: $scope,
+							buttons: [{ text: '确定',onTap:function(e){
+								$state.go('app.index');
+							}}]
+					   });
+					},
+					function(msg){
+						console.log(msg);
+					}
+				)
 			}
-		});
+			$scope.save_state = false;
+		}
+	});
 	}
 })
