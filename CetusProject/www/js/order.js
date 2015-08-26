@@ -2,8 +2,6 @@ angular.module('starter.order', [])
 
 .controller('Order',function($scope,$ionicPopover, $http, $state,$ionicHistory,$ionicLoading,$stateParams, $timeout,$ionicModal,$ionicPopup,ApiEndpoint, Userinfo){
 	//提示消息
-	console.log($stateParams.msg);
-	console.log(ApiEndpoint.pic_url);
 	$ionicLoading.show({
 	     template: '加载中...'
 	});
@@ -36,8 +34,8 @@ angular.module('starter.order', [])
 	//加载数据
 	$scope.loadOrderCountData = function(){
 		$http.post(ApiEndpoint.url + '/api_order_count?msg='+$stateParams.msg).success(function(data) {
-			console.log(data);
 			$scope.order_data = data;
+			$ionicLoading.hide();
 			if (data.state == 'success') {
 				for (var i = 0; i < data.list.length; i++) {
 					data.list[i].coverUrl = ApiEndpoint.pic_url+"/"+data.list[i].coverUrl;
@@ -52,14 +50,13 @@ angular.module('starter.order', [])
 					$scope.show_transportation_expenses = data.transportation_expenses.toFixed(2);
 					$scope.show_price += data.transportation_expenses;
 				}
-				if(data.address.id==null||data.address.id==''){
-					$scope.have_address==false;
+				if(data.address==null||data.address.id==''){
+					$scope.have_address=false;
 				}else{
-					$scope.have_address==true;
+					$scope.have_address=true;
 					$scope.address = data.address;
 				}
 			}
-			$ionicLoading.hide();
 		});
 		//加载提示
 		$http.post(ApiEndpoint.url + '/api_rule_get').success(function(data) {
@@ -128,7 +125,7 @@ angular.module('starter.order', [])
 	}
 	//提交订单
 	$scope.submit_order = function(){
-		if($scope.send_type_state==0&&($scope.order_data.address.id==null||$scope.order_data.address.id=='')){
+		if($scope.send_type_state==0&&($scope.order_data.address==null||$scope.order_data.address.id=='')){
 			$scope.showMsg("收货地址为空");
 			return;
 		}

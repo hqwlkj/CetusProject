@@ -555,14 +555,18 @@ angular.module('starter.addressController', [])
 		    return;
 		}
 		msg += "&locations="+$scope.address.locations;
-		if($scope.isDefault){
+		if($scope.isDefault||$stateParams.msg!=''){
 			msg+="&state=1"
 		}else{
 			msg+="&state=0"
 		}
+		console.log(msg);
 		$http.post(ApiEndpoint.url + '/api_address_save?'+msg).success(function(data) {
 			$scope.showMsg(data.msg);
 			if (data.state == 'success') {
+				if($stateParams.msg!=''){
+			    	$state.go('public.order',{msg:$stateParams.msg});
+			    }
 				$scope.modal_addressinfo.hide();
 				$scope.loadAddressData();
 			}
