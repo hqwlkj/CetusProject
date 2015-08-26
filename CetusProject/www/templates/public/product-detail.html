@@ -14,7 +14,7 @@
     </section>
     <section style=" background-color: #ffffff; padding-top: 10px; padding-bottom: 6px; ">
 	  <div class="product-title">
-	    <div class="product-name">【{{product.pcode}}】{{product.name}}</div>
+	    <div class="product-name"><p>{{"【"+product.pcode+"】"}}{{product.name}}</p></div>
 	    <div class="product-price">
 	      <div class="col-7 text-left"><span class="fba">殴歌价：</span><span class="fwb">￥{{(product.price*product.discount).toFixed(2)}}</span></div>
 	      <div class="col-5 text-right"><span class="fba">市场价：</span><strike class="fba">￥{{product.price.toFixed(2)}}</strike></div>

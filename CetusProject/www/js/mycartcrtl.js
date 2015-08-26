@@ -41,7 +41,8 @@ angular.module('starter.mycartcrtl', [])
 	 * <li>如果没有前一页历史，则直接关闭当前页面</li>
 	 */
 	$scope.backToIndex = function() {
-	    if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){ // IE
+		$state.go('app.index');
+	    /*if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){ // IE
 	        if(history.length > 0){
 	            window.history.go( -1 );
 	        }else{
@@ -62,7 +63,7 @@ angular.module('starter.mycartcrtl', [])
 	        }else{ //未知的浏览器
 	            window.history.go( -1 );
 	        }
-	    }
+	    }*/
 	}
 	
 	//全选

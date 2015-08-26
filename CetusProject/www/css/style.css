@@ -504,7 +504,7 @@ cursor: pointer;
 
 /*我的订单*/
 .orderlst-resault{border-bottom:1px solid #ccc;line-height: 33px;margin-left: 15px; margin-right:15px; padding-right: 15px;clear: both;}
-.orderlst-resault-name{font-size: 0.75rem;color:#8b8b8b;}
+.orderlst-resault-name{font-size: 0.65rem;color:#8b8b8b;}
 .orderlst-resault-value{font-size: 0.875rem;}
 .btn{-webkit-border-radius: 3x; -moz-border-radius: 3px;border-radius: 3px;}
 .normal-btn{border:1px solid #ec3473;color:#ec3473;font-size: 0.65rem;padding:5px 10px;display: inline-block;margin: auto 3px }
@@ -543,7 +543,7 @@ min-height: 1px;float:left;text-align: center;overflow: hidden;}
 .content-product{ padding: 10px 0 10px 0;}
 .content-product .img{height:52.5px;width:52.5px;background-size: cover;background-position: center center;background-repeat:no-repeat;} 
 .log-product{padding-left: 72.5px;}
-.log-product-title{font-size: 0.75rem;max-height: 35px;overflow: hidden;}
+.log-product-title{font-size: 0.75rem;overflow: hidden;}
 .log-product-attr{font-size: 0.75rem;color:#8b8b8b;margin-top:10px; height:20px; white-space:nowrap;/*强制文本在一行内显示*/
 text-overflow:ellipsis; /*溢出省略号，支持ie、safari（webkit）*/
 -o-text-overflow:ellipsis; /*溢出省略号，支持opera*/
@@ -588,8 +588,9 @@ overflow:hidden;/*溢出隐藏*/
 .count-price em{color:#ec3473;}
 
 .margin-top-10{ margin-top:10px;}
-.distribution-title{font-size: 0.75rem;}
-.distribution-content p{ padding-left:65px; font-size: 0.675rem; height:25px; line-height:25px; cursor:pointer;}
+.distribution-title{font-size: 0.75rem; width: 30%}
+.distribution-content{ float: right; text-align: left;width: 70%}
+.distribution-content p{ font-size: 0.675rem; height:25px; line-height:25px; cursor:pointer;}
 .distribution-content p i{font-size: 0.875rem; padding-top: 18px; }
 .distribution-content p span{ margin-top: -3px;}
 .pickup li{background:#ffffff;margin-bottom: 10px; cursor:pointer;}
