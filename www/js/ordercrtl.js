@@ -120,8 +120,21 @@ angular.module('starter.ordercrtl', [])
 	  /*
 	   * 支付订单
 	   */
-	  $scope.payOrder=function(orderId){
+	  $scope.payOrder=function(order){
 		 //console.log(orderId);
+		  navigator.alipay.pay(
+			{
+				seller : "ougemaoyi@163.com",
+				subject : name,
+				body : name,
+				price : "0.01",
+				tradeNo : order.ordNum,
+				timeout : "30m",
+				notifyUrl : ApiEndpoint.url +"/api_alipay_asynchronous_notify"
+			},
+			function(msgCode){alert(msgCode)},
+			function(msg){alert(msg)}
+		)
 	  }
 	  
 	  /*
