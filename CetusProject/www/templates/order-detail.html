@@ -33,7 +33,7 @@
         <div class="img left" >
         <img src="http://121.40.255.179/Cetus/pic/{{::msg.imgurl}}" class="img" height="52.5px" width="52.5px"></div>
         <div class="orderlst-top-right right text-right">
-          <p class="price"><span>￥</span>{{msg.prince}}</p>
+          <p class="price"><span>￥</span>{{(msg.prince).toFixed(2)}}</p>
           <p class="orderlst-num">x{{msg.num}}</p>
         </div>
         <div class="orderlst-top-content ">
