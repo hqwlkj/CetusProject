@@ -307,7 +307,7 @@ angular.module('starter.controllers', ['ionic'])
 		}else{
 			$scope.modal_user_info.show();
 			$ionicLoading.show({
-			     template: '加载中...'
+			     template: '<ion-spinner></ion-spinner>'
 			});
 			$http.post(ApiEndpoint.url + '/api_userinfo?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
 				if (data.state == 'success') {
@@ -348,7 +348,7 @@ angular.module('starter.controllers', ['ionic'])
 		}
 		$scope.modal_usercoin.show();
 		$ionicLoading.show({
-		     template: '加载中...'
+		     template: '<ion-spinner></ion-spinner>'
 		});
 		$scope.load_usercoin_score();//加载数据
 		$scope.load_usercoin_data();//加载列表数据
@@ -414,7 +414,7 @@ angular.module('starter.controllers', ['ionic'])
 			return;
 		}
 		$ionicLoading.show({
-		     template: '加载中...'
+		     template: '<ion-spinner></ion-spinner>'
 		});
 		$scope.modal_myteam.show();
 		$http.post(ApiEndpoint.url + '/api_myteam?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
@@ -471,7 +471,7 @@ angular.module('starter.controllers', ['ionic'])
 	//签到
 	$scope.addSign = function(acId) {
 		$ionicLoading.show({
-		    template: "加载中..."
+		    template: "<ion-spinner></ion-spinner>"
 		});
 //		var share = {};
 //		share.userId = (Userinfo.l.id?Userinfo.l.id:"");
@@ -619,7 +619,7 @@ angular.module('starter.controllers', ['ionic'])
 	//加载活动列表内容
 	$scope.activityList = function() {
 		$ionicLoading.show({
-		    template: "加载中..."
+		    template: "<ion-spinner></ion-spinner>"
 		});
 		if(!Userinfo.l.id){
 			$ionicLoading.hide();
@@ -648,7 +648,7 @@ angular.module('starter.controllers', ['ionic'])
 	//加载活动详情内容
 	$scope.activityDetail = function(acId) {
 		$ionicLoading.show({
-		    template: "加载中..."
+		    template: "<ion-spinner></ion-spinner>"
 		});
 		console.log(Userinfo);
 		if(!Userinfo.l.id){
@@ -703,7 +703,7 @@ angular.module('starter.controllers', ['ionic'])
 	//加载广告详情内容
 	$scope.adDetail = function(acId) {
 		$ionicLoading.show({
-		    template: "加载中..."
+		    template: "<ion-spinner></ion-spinner>"
 		});
 		console.log(Userinfo);
 		if(!Userinfo.l.id){
@@ -762,7 +762,7 @@ angular.module('starter.controllers', ['ionic'])
 	//加载详情
 	$scope.quanDetail = function(quanId) {
 		$ionicLoading.show({
-		    template: "加载中..."
+		    template: "<ion-spinner></ion-spinner>"
 		});
 		$scope.modal_quan_detail.show();
 		$http.post(ApiEndpoint.url + '/api_europeanpowder_detail?euroId='+quanId).success(function(data) {
@@ -853,7 +853,7 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.commenState=true;
 	$scope._width="200px";
 	$ionicLoading.show({
-	     template: '加载中...'
+	     template: '<ion-spinner></ion-spinner>'
 	});
 	$timeout(function() {
 	   //console.log(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:""));
@@ -996,7 +996,7 @@ angular.module('starter.controllers', ['ionic'])
 			return;
 		}
 		$ionicLoading.show({
-		     template: '加载中...'
+		     template: '<ion-spinner></ion-spinner>'
 		});
 		var cart = {};
 		cart.userId = (Userinfo.l.id?Userinfo.l.id:"");
@@ -1062,7 +1062,7 @@ angular.module('starter.controllers', ['ionic'])
 	//未读的点击
 	$scope.getMessageWd = function() {
 		  $ionicLoading.show({
-			    template: "加载中..."
+			    template: "<ion-spinner></ion-spinner>"
 		 });
 		  $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=0'+'&pageNo=1'+'&pageSize=10').success(function(data) {
 			  $scope.nomsg = false;//未读消息提示默认隐藏

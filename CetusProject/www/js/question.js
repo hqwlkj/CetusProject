@@ -3,7 +3,7 @@ angular.module('starter.question', [])
 .controller('Question',function($scope,$ionicPopover, $http, $state,$ionicHistory,$ionicLoading,$stateParams, $timeout,$ionicModal,$ionicPopup,ApiEndpoint, Userinfo){
 	//提示消息
 	$ionicLoading.show({
-	     template: '加载中...'
+	     template: '<ion-spinner></ion-spinner>'
 	});
 	$scope.questionBackGo = function(){
 		$state.go('app.index');
@@ -26,7 +26,7 @@ angular.module('starter.question', [])
 	//加载数据
 	$scope.loadQuestionData = function(){
 		$ionicLoading.show({
-		     template: '加载中...'
+		     template: '<ion-spinner></ion-spinner>'
 		});
 		$http.post(ApiEndpoint.url + '/api_question_list?userId='+Userinfo.l.id).success(function(data) {
 			if (data.state == 'success') {
@@ -89,7 +89,7 @@ angular.module('starter.question', [])
 	$scope.show_question_show = function(id){
 		$scope.modal_question_show.show();
 		$ionicLoading.show({
-		     template: '加载中...'
+		     template: '<ion-spinner></ion-spinner>'
 		});
 		$http.post(ApiEndpoint.url + '/api_question_get?id='+id).success(function(data) {
 			if (data.state == 'success') {

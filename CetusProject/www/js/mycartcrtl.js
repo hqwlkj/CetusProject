@@ -8,7 +8,7 @@ angular.module('starter.mycartcrtl', [])
 	$scope.allMoney = 0;  //订单合计
 	
 	$ionicLoading.show({
-	    template: "加载中..."
+	    template: "<ion-spinner></ion-spinner>"
 	});
 	$scope.loadCartData = function() {
 		
@@ -97,7 +97,7 @@ angular.module('starter.mycartcrtl', [])
 			     }).then(function(res) {
 				    if(res) {
 				    	$ionicLoading.show({
-				    	    template: "加载中..."
+				    	    template: "<ion-spinner></ion-spinner>"
 				    	});
 				    	var cart = {};
 						cart.userId = (Userinfo.l.id?Userinfo.l.id:"");
@@ -227,7 +227,7 @@ angular.module('starter.mycartcrtl', [])
 	$scope.logisticsState = 0; //该订单的物流状态
 	
 	$ionicLoading.show({
-	    template: "加载中..."
+	    template: "<ion-spinner></ion-spinner>"
 	});
 	/*$scope.com  = 'tiantian';
 	$scope.postId  = '550169065187';
@@ -275,7 +275,7 @@ angular.module('starter.mycartcrtl', [])
 	$scope.commentListData = []; //该订单中的商品集合
 	
 	$ionicLoading.show({
-	    template: "加载中..."
+	    template: "<ion-spinner></ion-spinner>"
 	});
 	
 	//加载订单下的商品列表
@@ -334,7 +334,7 @@ angular.module('starter.mycartcrtl', [])
 	$scope.maxLengthContent = 500;  //评论内容的最大长度
 	
 	$ionicLoading.show({
-	    template: "加载中..."
+	    template: "<ion-spinner></ion-spinner>"
 	});
 	
 	//关闭商品评价详情页面
