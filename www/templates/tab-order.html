@@ -11,7 +11,7 @@
       <div class="list padding">
         <ul class="orderlst db" id="obligation">
 		    <li  ng-repeat="order in orderWf">
-		      <div class="order-info"><span class="col-6 left text-left">订单号:{{order.ordNum}}</span><span class="col-6 right text-right">{{order.showRiseTime}}下单</span></div>
+		      <div class="order-info"><span class="col-12 left text-left fz65">订单号：{{order.ordNum}}</span><!-- <span class="col-6 right text-right fz65">{{order.showRiseTime}}下单</span> --></div>
 		      <div class="orderlst-top" ng-click="goOrderDetail({{order.ordNum}})">
 		        <div ng-repeat="i in order.items" class="img left" >
 		        	<img src="http://121.40.255.179/Cetus/pic/{{i.imgurl}}" style="width: 62px;height: 62px;margin: 2px;"/>
@@ -38,7 +38,7 @@
 	 <div class="list padding">
 	 	<ul class="orderlst db" id="obligation">
 		    <li  ng-repeat="order in orderYf">
-		      <div class="order-info"><span class="col-6 left text-left" >订单号：{{order.ordNum}}</span><span class="col-6 right text-right">{{order.showRiseTime}} 下单</span></div>
+		      <div class="order-info"><span class="col-12 left text-left" >订单号：{{order.ordNum}}</span><!-- <span class="col-6 right text-right">{{order.showRiseTime}}下单</span> --></div>
 		      <div class="orderlst-top" ng-repeat="i in order.items" ng-click="goOrderDetail(order.ordNum)">
 		        <div  class="img left" >
 		        	<img src="http://121.40.255.179/Cetus/pic/{{::i.imgurl}}" style="width: 62px;height: 62px;margin: 2px;"/>
@@ -65,7 +65,7 @@
 	 <div class="list padding">
         <ul class="orderlst db" id="obligation">
 		    <li  ng-repeat="order in orderYwc">
-		      <div class="order-info"><span class="col-6 left text-left">订单号：{{order.ordNum}}</span><span class="col-6 right text-right">{{order.showRiseTime}} 下单</span></div>
+		      <div class="order-info"><span class="col-12 left text-left">订单号：{{order.ordNum}}</span><!-- <span class="col-6 right text-right">{{order.showRiseTime}}下单</span> --></div>
 		      <div ng-repeat="i in order.items" class="orderlst-top" ng-click="goOrderDetail({{order.ordNum}})">
 		        <div  class="img left" style="background-image:url(http://121.40.255.179/Cetus/pic/{{i.imgurl}})" >
 		        	

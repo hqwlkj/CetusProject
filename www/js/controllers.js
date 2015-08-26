@@ -837,6 +837,8 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.picfiles = [];
 	$scope.comments = [];
 	$scope.product = {};
+	$scope.product.price=0;
+	$scope.product.discount=1;
 	$scope.cartData ={};
 	$scope.commenHtml="";
 	$scope.commenState=true;
@@ -905,14 +907,22 @@ angular.module('starter.controllers', ['ionic'])
 	        }, 3000);
 	      }
 	    });
-	    var scope = "snsapi_userinfo";
+	    /*var scope = "snsapi_userinfo";
 	    Wechat.auth(scope, function (response) {
 	        // you may use response.code to get the access token.
 	        alert(JSON.stringify(response));
 	    }, function (reason) {
 	        alert("Failed: " + reason);
-	    });
+	    });*/
 	    Wechat.share({
+	        text: "This is just a plain string",
+	        scene: Wechat.Scene.TIMELINE   // share to Timeline
+	    }, function () {
+	        alert("Success");
+	    }, function (reason) {
+	        alert("Failed: " + reason);
+	    });
+	    /*Wechat.share({
 	      message: {
 	        title: title,
 	        description: '美O圈',
@@ -929,7 +939,7 @@ angular.module('starter.controllers', ['ionic'])
 	      if (reason == 'ERR_USER_CANCEL') {} else {
 	    	  $scope.showMsg("分享失败: " + reason);
 	      }
-	    });
+	    });*/
 	};
 	
 	//提示信息
