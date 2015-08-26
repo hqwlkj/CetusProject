@@ -1,7 +1,7 @@
 var json=new Array();
 angular.module('starter.ordercrtl', [])
 
-.controller('OrderCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading,$location, $http, Userinfo, ApiEndpoint, $state ,$ionicHistory){
+.controller('OrderCtrl',function($scope, $ionicPopover, $timeout, $ionicModal,$ionicPopup,$ionicLoading,$location, $http, Userinfo, ApiEndpoint, $state ,$ionicHistory){
 	$scope.orderWf = [];
 	$scope.orderYf = [];
 	$scope.orderYwc = [];
@@ -157,21 +157,29 @@ angular.module('starter.ordercrtl', [])
 	   * 取消订单
 	   */
 	  $scope.removeOrder=function(orderId){
-		  //var orderId=order.id;
-		  $ionicLoading.show({
-			  template: "加载中..."
-		  });
-		  $http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(orderId)).success(function(data) {
-			  if (data.state == 'success') {
-					  //alert(data.msg);
-				        $scope.showMsg(data.msg);
-				  $scope.getOrderWf();
-				  $ionicLoading.hide();
-			  }else{
-			    	$ionicLoading.hide();
-					$scope.showMsg(data.msg);
-				}
-		  });
+		  $scope.myPopup = $ionicPopup.show({
+				title: '提示',
+				scope: $scope,
+				buttons: [
+				{ text: '取消', },   
+				{ text: '确定',type: 'button-positive',onTap:function(e){
+					$ionicLoading.show({
+						  template: "加载中..."
+					  });
+					  $http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(orderId)).success(function(data) {
+						  if (data.state == 'success') {
+								  //alert(data.msg);
+							        $scope.showMsg(data.msg);
+							  $scope.getOrderWf();
+							  $ionicLoading.hide();
+						  }else{
+						    	$ionicLoading.hide();
+								$scope.showMsg(data.msg);
+							}
+					  });
+				}}]
+		   });
+		  
 	  }
 	  
 	  /*
