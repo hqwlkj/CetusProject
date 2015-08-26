@@ -15,8 +15,8 @@
     <section style=" background-color: #ffffff; padding-top: 10px; padding-bottom: 6px; ">
 	  <div class="product-title">
 	    <div class="product-name">
-	     <div>{{"【"+product.pcode+"】"}}{{product.name}}</div> 
-	     <div class="share"><a href="javascript:void()" ng-click="productShare('{{product.pcode}}','{{product.name}}','{{product.price}}','{{product.id}}')" class="fenxiang"><i class="icon-share-01"></i><p>分享</p></a></div>
+	     <div>{{product.name+"  "+product.pcode}}</div> 
+	     <a href="javascript:void()" ng-click="productShare('{{product.pcode}}','{{product.name}}','{{product.price}}','{{product.id}}')" class="fenxiang"><i class="icon-share-01"></i><p>分享</p></a>
 	    </div>
 	    <div class="product-price">
 	      <div class="col-7 text-left"><span class="fba">殴歌价：</span><span class="fwb">￥{{(product.price*product.discount).toFixed(2)}}</span></div>
