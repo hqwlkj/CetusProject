@@ -11,7 +11,7 @@
       <div class="list padding">
         <ul class="orderlst db" id="obligation">
 		    <li  ng-repeat="order in orderWf">
-		      <div class="order-info"><span class="col-6 left text-left">订单号：{{order.ordNum}}</span><span class="col-6 right text-right">{{order.showRiseTime}} 下单</span></div>
+		      <div class="order-info"><span class="col-6 left text-left">订单号:{{order.ordNum}}</span><span class="col-6 right text-right">{{order.showRiseTime}}下单</span></div>
 		      <div class="orderlst-top" ng-click="goOrderDetail({{order.ordNum}})">
 		        <div ng-repeat="i in order.items" class="img left" >
 		        	<img src="http://121.40.255.179/Cetus/pic/{{i.imgurl}}" style="width: 62px;height: 62px;margin: 2px;"/>
@@ -23,7 +23,7 @@
 		        </div>
 		      </div>
 		      <div class="orderlst-resault text-right" ng-repeat="i in order.items"><span class="orderlst-resault-name">共{{i.num}}件商品   实付:</span> <span class="orderlst-resault-value price">{{order.orderMoney|currency:'￥'}}</span></div>
-		      <div class="orderlst-foot text-right"><a href="#" ng-click="removeOrder({{order}})" class="btn normal-btn">取消</a><a href="#" class="btn normal-btn" ng-click="payOrder({{order.id}})">付款</a></div>
+		      <div class="orderlst-foot text-right"><a href="#" ng-click="removeOrder(order.id)" class="btn normal-btn">取消</a><a href="#" class="btn normal-btn" ng-click="payOrder(order,order.items)">付款</a></div>
 		    </li>
 		    
 		    <li class="margin-15 padding-10 clear" ng-show="ordermsg">

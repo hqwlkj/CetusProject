@@ -120,8 +120,12 @@ angular.module('starter.ordercrtl', [])
 	  /*
 	   * 支付订单
 	   */
-	  $scope.payOrder=function(order){
+	  $scope.payOrder=function(order,items){
 		 //console.log(orderId);
+		  var name=[];
+		  for (var i = 0; i < items.length; i++) {
+			name.push(items[i].name);
+		    }
 		  navigator.alipay.pay(
 			{
 				seller : "ougemaoyi@163.com",
@@ -140,8 +144,8 @@ angular.module('starter.ordercrtl', [])
 	  /*
 	   * 取消订单
 	   */
-	  $scope.removeOrder=function(order){
-		  var orderId=order.id;
+	  $scope.removeOrder=function(orderId){
+		  //var orderId=order.id;
 		  $ionicLoading.show({
 			  template: "加载中..."
 		  });
