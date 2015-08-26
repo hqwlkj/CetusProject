@@ -118,6 +118,15 @@ angular.module('starter.controllers', ['ionic'])
 	  $state.go('public.question');
   };
   
+//到订单列表zxy
+  $scope.show_orders = function(){
+	  if(!Userinfo.l.id){
+		  $scope.login();
+		  return;
+	  }
+	  $state.go('app.order');
+  };
+  
  
   // 登陆
   $ionicModal.fromTemplateUrl('templates/user/login.html', {
