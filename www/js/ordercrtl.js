@@ -297,7 +297,7 @@ angular.module('starter.ordercrtl', [])
 						$scope.testcom=data.order.com;//处理 快递代码问题
 						$http.post(ApiEndpoint.url + '/api_express_findbycode?code='+$scope.testcom).success(function(data) {
 							if (data.state =="success") {
-								$scope.com = data.data.name;
+								$scope.com = data.name;
 							}else{
 								$scope.showMsg(data.msg);
 							}
