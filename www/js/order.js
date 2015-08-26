@@ -140,7 +140,6 @@ angular.module('starter.order', [])
 		if (data.state == 'success') {
 			if(data.orderState==1){
 				var order = data.obj;
-				alert(ApiEndpoint.url +"/api_alipay_asynchronous_notify");
 				var name= $scope.orderName.substring(1, $scope.orderName.length);
 				navigator.alipay.pay(
 					{
