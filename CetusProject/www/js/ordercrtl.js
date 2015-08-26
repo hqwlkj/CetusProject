@@ -137,8 +137,19 @@ angular.module('starter.ordercrtl', [])
 				timeout : "30m",
 				notifyUrl : ApiEndpoint.url +"/api_alipay_asynchronous_notify"
 			},
-			function(msgCode){alert(msgCode)},
-			function(msg){alert(msg)}
+			function(msgCode){
+				if(msgCode=="9000"){
+					$scope.showMsg("付款成功");
+					 $scope.getOrderWf();//回到未付款订单列表界面
+				}
+			},
+			function(msg){
+				if(msgCode!="9000"){
+					$scope.showMsg("付款失败,请检查网络");
+					 $scope.getOrderWf();//回到未付款订单列表界面
+				}
+			}
+
 		)
 	  }
 	  
