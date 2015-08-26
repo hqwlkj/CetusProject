@@ -54,7 +54,7 @@ angular.module('starter.ordercrtl', [])
       //未付款
 	  $scope.getOrderWf = function() {
 		  $ionicLoading.show({
-			    template: "加载中..."
+			    template: "<ion-spinner></ion-spinner>"
 		 });
 		 $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=1').success(function(data) {
 			 $scope.ordermsg = false;//未读消息提示默认隐藏
@@ -77,7 +77,7 @@ angular.module('starter.ordercrtl', [])
 	  //已付款
 	  $scope.getOrderYf = function() {
 		  $ionicLoading.show({
-			    template: "加载中..."
+			    template: "<ion-spinner></ion-spinner>"
 		 });
 		 $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=2').success(function(data) {
 			 $scope.ordermsg2 = false;//已付款默认隐藏
@@ -98,7 +98,7 @@ angular.module('starter.ordercrtl', [])
 	  //已完成
 	  $scope.getOrderYwc = function() {
 		  $ionicLoading.show({
-			  template: "加载中..."
+			  template: "<ion-spinner></ion-spinner>"
 		  });
 		  $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=3').success(function(data) {
 			  $scope.ordermsg3 = false;//已完成默认隐藏
@@ -169,7 +169,7 @@ angular.module('starter.ordercrtl', [])
 				{ text: '取消', },   
 				{ text: '确定',type: 'button-positive',onTap:function(e){
 					$ionicLoading.show({
-						  template: "加载中..."
+						  template: "<ion-spinner></ion-spinner>"
 					  });
 					  $http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(orderId)).success(function(data) {
 						  if (data.state == 'success') {
@@ -192,7 +192,7 @@ angular.module('starter.ordercrtl', [])
 	   */
 	  $scope.successOrder=function(orderId){
 		  $ionicLoading.show({
-			  template: "加载中..."
+			  template: "<ion-spinner></ion-spinner>"
 		  });
 		  $http.post(ApiEndpoint.url + '/api_order_changeState?id='+(orderId)+'&state=4').success(function(data) {
 			  if (data.state == 'success') {
@@ -212,7 +212,7 @@ angular.module('starter.ordercrtl', [])
 	  $scope.deleteOrder=function(orderOrder){
 		  var orderId=orderOrder.id;
 		  $ionicLoading.show({
-			  template: "加载中..."
+			  template: "<ion-spinner></ion-spinner>"
 		  });
 		  $http.post(ApiEndpoint.url + '/api_order_pretendDelete?id='+(orderId)).success(function(data) {
 			  if (data.state == 'success') {
@@ -257,7 +257,7 @@ angular.module('starter.ordercrtl', [])
 			}else{
 				$scope.modal_order_info.show();
 				$ionicLoading.show({
-				     template: '加载中...'
+				     template: '<ion-spinner></ion-spinner>'
 				});
 				$http.post(ApiEndpoint.url + '/api_order_get?ordNum='+ordNum+'&pageNo=1'+'&pageSize=10').success(function(data) {
 					//console.log(data);

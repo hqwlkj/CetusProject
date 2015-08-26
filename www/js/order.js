@@ -3,7 +3,7 @@ angular.module('starter.order', [])
 .controller('Order',function($scope,$ionicPopover, $http, $state,$ionicHistory,$ionicLoading,$stateParams, $timeout,$ionicModal,$ionicPopup,ApiEndpoint, Userinfo){
 	//提示消息
 	$ionicLoading.show({
-	     template: '加载中...'
+	     template: '<ion-spinner></ion-spinner>'
 	});
 	$scope.orderBackGo = function(){
 		$state.go('public.myCart');
