@@ -138,12 +138,20 @@ angular.module('starter.ordercrtl', [])
 				notifyUrl : ApiEndpoint.url +"/api_alipay_asynchronous_notify"
 			},
 			function(msgCode){
+				var temp="";
 				if(msgCode=="9000"){
-					$scope.showMsg("付款成功");
+					temp="支付成功"
 				}else{
-					$scope.showMsg("付款失败,请检查网络");
+					temp="支付失败"
 				}
-				$scope.getOrderWf();//回到未付款订单列表界面
+				$scope.myPopup = $ionicPopup.show({
+					template: temp,
+					title: '提示',
+					scope: $scope,
+					buttons: [{ text: '确定',type: 'button-assertive',onTap:function(e){
+						$scope.getOrderWf();//回到未付款订单列表界面
+					}}]
+			   });
 			},
 			function(msg){}
 
