@@ -121,50 +121,50 @@
     },
     "installed_plugins": {
         "com.ionic.keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "com.justep.cordova.plugin.alipay": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "com.synconset.imagepicker": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "io.github.pwlin.cordova.plugins.fileopener2": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "nl.x-services.plugins.actionsheet": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "nl.x-services.plugins.toast": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "org.apache.cordova.file": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "org.apache.cordova.file-transfer": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "uk.co.whiteoctober.cordova.appversion": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "xu.li.cordova.wechat": {
             "WECHATAPPID": "wxc6db12f46905614d",
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
+            "PACKAGE_NAME": "com.parsec.cetusproject"
         }
     },
     "dependent_plugins": {}

@@ -23,9 +23,12 @@ import android.widget.Toast;
 import com.alipay.sdk.app.PayTask;
 
 public class Alipay extends CordovaPlugin{
-	public static  String partner;
-	public static String rsa_private;
-	public static String rsa_public;
+//	public static  String partner;
+//	public static String rsa_private;
+//	public static String rsa_public;
+	public static String partner = "2088021216823386";
+	public static String rsa_private = "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAMVWLsSuoDMnETvNchcywWMCIb3Tx07F91WtlMmCriwJJIA8fVrlRzH0jmyBsups0I3EucrEO3We9Vth1Me8Zx1Iys5YUXQx4wtkll8a2sIVPB38RZkudSEXVgKo2/dlFq+AtyUF3sPoDeJnqs7588JOJkR3Cfjyegh4n+Jsmw5VAgMBAAECgYBWMF4c6Whu7xFH3WOHXlO4uqWiE21pqm1srnPdz4XjFdsrZ0AZAyslVnseSUeru/sa8GF1fl+578OaNhCJbHBcRaAvjpUDSyUNVcXDqf+Wyc0VstuOmbzckZ3vux3UYE4GFVhCZtlER9jd5KrL0HOB3OWKmS3ZKNU3G1UbqkgsAQJBAOTV8cLGFlBxo6esiI+KADDoP0F6kN9k82T+k+o6fEnoi7qHX09j+oJHcFhcdLloy4gpVL6OubQxBwqC+Bi0z6UCQQDcwwSE54EUvXTy+exwq53kAbysVD/IcyUf3BI5JLSBL8y9wjvrLY7cbYf5w4tgdZ8x0RTv7WrT+pbRdLbRgQTxAkEAoBrkLK9lW2E27JC1dyBJo+5Km6iChhpehNHtcZr77MYMRTSDxcsgsVgETX5amIKurJSmWzEG0wDeeUdLCBYxlQJBAJ50XAoJIN2CHy9HtC4rAGln1cTbs+xsuXjkvS/G6MjRRmPtxpRHXwNYmwDrGl9iDaH0MNMF1mfQtfAhlhdKRAECQQDNCa0f+7ZaNT9zqU4lpr9Sc2o/hbHGEpWoiuA5SumFz1JkxCeV3/8/LzLJW3q9GaMQrxLCiqj403+Kt8017QU3";
+	public static String rsa_public = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
 	
 	private static final int SDK_PAY_FLAG = 1;
 	private static final int SDK_CHECK_FLAG = 2;
@@ -45,9 +48,9 @@ public class Alipay extends CordovaPlugin{
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 		super.initialize(cordova, webView);
-		partner = webView.getProperty("partner", "");
+		/*partner = webView.getProperty("partner", "");
 		rsa_private = webView.getProperty("rsa_private", "");
-		rsa_public = webView.getProperty("rsa_public", "");
+		rsa_public = webView.getProperty("rsa_public", "");*/
 	}
 
 	private Handler mHandler = new Handler() {
@@ -207,8 +210,7 @@ public class Alipay extends CordovaPlugin{
 		orderInfo += "&total_fee=" + "\"" + price + "\"";
 
 		// 服务器异步通知页面路径
-		orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm"
-				+ "\"";
+		orderInfo += "&notify_url=" + "\"" + notifyUrl + "\"";
 
 		// 接口名称， 固定值
 		orderInfo += "&service=\"mobile.securitypay.pay\"";
