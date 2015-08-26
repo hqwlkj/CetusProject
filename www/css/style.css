@@ -374,14 +374,12 @@ overflow:hidden;/*溢出隐藏*/
 .quan-p{padding: 22px 15px 0 15px;text-align: center; color:#696969; font-family: "幼圆"; font-size: 1.25em; font-weight: 700;}
 
 /*产品详情*/
-.product-title{margin-left: 15px; margin-right:15px; margin-top:6px; border-bottom:1px solid #cccccc; height:60px;line-height:30px; position: relative;}
-.product-name{font-size: 0.75rem;color:#585859;padding-right: 70px;white-space:nowrap;/*强制文本在一行内显示*/
-text-overflow:ellipsis; /*溢出省略号，支持ie、safari（webkit）*/
--o-text-overflow:ellipsis; /*溢出省略号，支持opera*/
-overflow:hidden;/*溢出隐藏*/
--moz-binding:url('ellipsis.xml#ellipsis');/*溢出省略号，支持firefox*/}
-.fenxiang{position: absolute;right:15px;top:2px;color: #585859;font-size:1rem }
-.product-price{color:#ED417C;font-size: 0.65rem}
+.product-title{margin-left: 15px; margin-right:15px; margin-top:6px; border-bottom:1px solid #cccccc; line-height:30px; position: relative;}
+.share{ min-height:40px; margin-bottom: 10px;}
+.product-name{font-size: 0.75rem;color:#585859;padding-right: 70px;}
+.fenxiang{position: absolute;right:15px;top:5px; bottoom:3px; color: #585859;font-size:1rem; text-align: center; border-left: 1px solid #cccccc; padding-left: 10px; padding-top: 3px;}
+.fenxiang p{font-size:0.65rem;}
+.product-price{color:#ED417C;font-size: 0.65rem;height: 40px;}
 .product-content{padding:15px;color:#8b8b8b;font-size: 0.65rem}
 .product-content img{ width: 100%; }
 .num{background:#cccccc;width:90px;height:35px;margin-right:3px;margin-top: 5px; text-align:center;border-radius:3px;}
