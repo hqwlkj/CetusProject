@@ -122,11 +122,11 @@ angular.module('starter.ordercrtl', [])
 	   */
 	  $scope.payOrder=function(order,items){
 		 //console.log(orderId);
-		  $scope.orderName="";
+		  var name="";
 		  for (var i = 0; i < items.length; i++) {
-			  $scope.orderName += ","+items[i].name;
+			  name += ","+items[i].name;
 		    }
-		  var name= $scope.orderName.substring(1, $scope.orderName.length);
+		  name = name.substring(1, name.length);
 		  navigator.alipay.pay(
 			{
 				seller : "ougemaoyi@163.com",
