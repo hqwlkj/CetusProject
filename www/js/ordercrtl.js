@@ -140,15 +140,12 @@ angular.module('starter.ordercrtl', [])
 			function(msgCode){
 				if(msgCode=="9000"){
 					$scope.showMsg("付款成功");
-					 $scope.getOrderWf();//回到未付款订单列表界面
-				}
-			},
-			function(msg){
-				if(msgCode!="9000"){
+				}else{
 					$scope.showMsg("付款失败,请检查网络");
-					 $scope.getOrderWf();//回到未付款订单列表界面
 				}
-			}
+				$scope.getOrderWf();//回到未付款订单列表界面
+			},
+			function(msg){}
 
 		)
 	  }
