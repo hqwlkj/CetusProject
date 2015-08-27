@@ -88,6 +88,10 @@ angular.module('starter.ordercrtl', [])
 				if(data.lst.length<1){
 					$scope.ordermsg2 = true;
 				  }
+				$scope.totalNum2=0;
+				for (var i = 0; i < data.lst[0].items.length; i++) {
+					$scope.totalNum2+=data.lst[0].items[i].num;
+				}
 				$scope.orderYf = data.lst;
 				//console.log($scope.orderWf.Item);
 				$ionicLoading.hide();
@@ -110,6 +114,10 @@ angular.module('starter.ordercrtl', [])
 					//  alert("暂无数据");
 					  $scope.ordermsg3 = true;
 				  }
+				  $scope.totalNum3=0;
+					for (var i = 0; i < data.lst[0].items.length; i++) {
+						$scope.totalNum3+=data.lst[0].items[i].num;
+					}
 				  $scope.orderYwc = data.lst;
 				  //console.log($scope.orderWf.Item);
 				  $ionicLoading.hide();
