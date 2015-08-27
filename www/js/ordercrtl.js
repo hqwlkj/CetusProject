@@ -63,8 +63,11 @@ angular.module('starter.ordercrtl', [])
 					  $scope.ordermsg = true;
 					  $ionicLoading.hide();
 				  }
+				$scope.totalNum=0;
+				for (var i = 0; i < data.lst[0].items.length; i++) {
+					$scope.totalNum+=data.lst[0].items[i].num;
+				}
 				$scope.orderWf = data.lst;
-				//console.log($scope.orderWf.Item);
 				$ionicLoading.hide();
 		    }else{
 		    	$ionicLoading.hide();

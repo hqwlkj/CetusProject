@@ -22,7 +22,7 @@
 		          <p class="orderlst-top-content-attr" ><span class="col-6 text-left" ng-bind-html="i.parameter"></span><span class="col-6 text-right"><em class="orderlst-num">x{{i.num}}</em><em class="orderlst-price">{{i.prince|currency:'￥'}}</em></span></p>
 		        </div>
 		      </div>
-		      <div class="orderlst-resault text-right"><span class="orderlst-resault-name">共{{i.num}}件商品   实付:</span> <span class="orderlst-resault-value price">{{order.orderMoney|currency:'￥'}}</span></div>
+		      <div class="orderlst-resault text-right" ><span class="orderlst-resault-name">共<span ng-bind="totalNum"></span>件商品   实付:</span> <span class="orderlst-resault-value price">{{order.orderMoney|currency:'￥'}}</span></div>
 		      <div class="orderlst-foot text-right"><a href="#" ng-click="removeOrder(order.id)" class="btn normal-btn">取消</a><a href="#" class="btn normal-btn" ng-click="payOrder(order,order.items)">付款</a></div>
 		    </li>
 		    
