@@ -161,9 +161,9 @@ angular.module('starter.ordercrtl', [])
 	  /*
 	   * 取消订单
 	   */
-	  $scope.removeOrder=function(orderId){
+	  $scope.removeOrder=function(orderId,pNum){
 		  $scope.myPopup = $ionicPopup.show({
-				title: '提示',
+				title: '确定要取消订单吗',
 				scope: $scope,
 				buttons: [
 				{ text: '取消', },   
@@ -173,10 +173,15 @@ angular.module('starter.ordercrtl', [])
 					  });
 					  $http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(orderId)).success(function(data) {
 						  if (data.state == 'success') {
-								  //alert(data.msg);
-							        $scope.showMsg(data.msg);
-							  $scope.getOrderWf();
-							  $ionicLoading.hide();
+							  if(pNum!=""){
+								$scope.showMsg(data.msg);//提示一下用户
+								$scope.modal_order_info.hide(); //把当前视图关掉
+								$scope.getOrderWf();//重新查
+							  }else{
+								  $scope.showMsg(data.msg);
+								  $scope.getOrderWf();
+								  $ionicLoading.hide(); 
+							  }
 						  }else{
 						    	$ionicLoading.hide();
 								$scope.showMsg(data.msg);
