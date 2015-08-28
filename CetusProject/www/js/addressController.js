@@ -563,7 +563,7 @@ angular.module('starter.addressController', [])
 			$scope.showMsg(data.msg);
 			if (data.state == 'success') {
 				if($stateParams.msg!=''){
-			    	$state.go('public.order',{msg:$stateParams.msg});
+					$state.go('public.order',{msg:$stateParams.msg,ran:Math.random()*1000});
 			    }
 				$scope.modal_addressinfo.hide();
 				$scope.loadAddressData();
