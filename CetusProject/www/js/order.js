@@ -6,7 +6,7 @@ angular.module('starter.order', [])
 	     template: '<ion-spinner></ion-spinner>'
 	});
 	$scope.orderBackGo = function(){
-		$state.go('public.myCart');
+		$state.go('public.myCart',{ran:Math.random()*1000});
 		//$ionicHistory.goBack();
 	}
 	$scope.showMsg = function(txt) {
