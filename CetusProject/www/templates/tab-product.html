@@ -7,7 +7,7 @@
 	    <li ng-repeat="p in products" ng-click="clickDetail('{{p.id}}')">
 	      <div class="productlst-img-box" style="background-image:url(http://121.40.255.179/Cetus/pic/{{p.coverUrl}})"></div>
 	      <p class="productlst-p-title">{{p.name}}</p>
-	      <div class="productlst-p-price"><div class="col-6 text-left">欧歌价 <span>¥ {{(p.price*discount).toFixed(2)}}</span></div><div class="col-6 text-right">市场价<strike>¥ {{(p.price).toFixed(2)}}</strike></div></div>
+	      <div class="productlst-p-price"><div class="col-6 text-left">美〇价 <span>¥ {{(p.price*discount).toFixed(2)}}</span></div><div class="col-6 text-right">市场价<strike>¥ {{(p.price).toFixed(2)}}</strike></div></div>
 	    </li>
 	  </ul>
 	  </section>
