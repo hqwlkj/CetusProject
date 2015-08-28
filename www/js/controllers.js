@@ -88,7 +88,7 @@ angular.module('starter.controllers', ['ionic'])
 		  $scope.login();
 		  return;
 	  }
-	  $state.go("public.myCart");
+	  $state.go("public.myCart",{ran:Math.random()*1000});
 	}
 
   $scope.clickDetail = function(id) {//产品详情
@@ -748,7 +748,7 @@ angular.module('starter.controllers', ['ionic'])
 			  return;
 		  }
 		  $scope.modal_quan_detail.hide();//关闭打开的视图 
-		  $state.go("public.myCart");//跳转到需要的视图
+		  $state.go("public.myCart",{ran:Math.random()*1000});//跳转到需要的视图
 		}
 	
 	//打开某个美O圈数据详情
@@ -808,12 +808,12 @@ angular.module('starter.controllers', ['ionic'])
       case 'b':
         $scope.guideFlag = 'c';
         break;
-      case 'c':
+/*      case 'c':
         $scope.guideFlag = 'd';
         break;
       case 'd':
         $scope.guideFlag = 'e';
-        break;
+        break;*/
       default:
         break;
     }
@@ -982,7 +982,7 @@ angular.module('starter.controllers', ['ionic'])
 			  $scope.login();
 			  return;
 		  }
-		  $state.go("public.myCart");
+		  $state.go("public.myCart",{ran:Math.random()*1000});
 		}
 
 	//加入购物车
@@ -1089,7 +1089,7 @@ angular.module('starter.controllers', ['ionic'])
 			  $scope.login();
 			  return;
 		  }
-		  $state.go("public.myCart");
+		  $state.go("public.myCart",{ran:Math.random()*1000});
 		}
 
 	  

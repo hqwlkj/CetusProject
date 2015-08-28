@@ -448,7 +448,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })
   
   .state('public.myCart', {//我的购物车
-    url: '/myCart',
+    url: '/myCart/{ran}',
     views: {
       'public': {
         templateUrl: 'templates/public/myCart.html',
