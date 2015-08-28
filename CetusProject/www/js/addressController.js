@@ -501,12 +501,12 @@ angular.module('starter.addressController', [])
 	}
 	//删除地址
 	$scope.del_address = function(){
-		var confirmPopup = $ionicPopup.confirm({
-			title: '操作提示',
-			template: '是否确认删除?'
-		});
-		confirmPopup.then(function(res) {
-			if(res) {
+		$scope.myPopup = $ionicPopup.show({
+			title: '是否确认删除?',
+			scope: $scope,
+			buttons: [
+			{ text: '取消', },   
+			{ text: '确定',type: 'button-positive',onTap:function(e){
 				$http.post(ApiEndpoint.url + '/api_address_del?id='+$scope.addressObj.id).success(function(data) {
 					$scope.showMsg(data.msg);
 					if (data.state == 'success') {
@@ -514,9 +514,8 @@ angular.module('starter.addressController', [])
 						$scope.loadAddressData();
 					}
 				});
-			}
-		});
-		
+			}}]
+	   });
 	}
 	//保存地址详情
 	$scope.save_address = function(){
@@ -560,7 +559,6 @@ angular.module('starter.addressController', [])
 		}else{
 			msg+="&state=0"
 		}
-		console.log(msg);
 		$http.post(ApiEndpoint.url + '/api_address_save?'+msg).success(function(data) {
 			$scope.showMsg(data.msg);
 			if (data.state == 'success') {
