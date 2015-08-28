@@ -62,11 +62,13 @@ angular.module('starter.ordercrtl', [])
 				if(data.lst.length<1){
 					  $ionicLoading.hide();
 					  $scope.ordermsg = true;
+				  }else{
+					  $scope.totalNum=0;
+						for (var i = 0; i < data.lst[0].items.length; i++) {
+							$scope.totalNum+=data.lst[0].items[i].num;
+						}
 				  }
-				$scope.totalNum=0;
-				for (var i = 0; i < data.lst[0].items.length; i++) {
-					$scope.totalNum+=data.lst[0].items[i].num;
-				}
+				
 				$scope.orderWf = data.lst;
 				$ionicLoading.hide();
 		    }else{
@@ -88,11 +90,13 @@ angular.module('starter.ordercrtl', [])
 				if(data.lst.length<1){
 					$ionicLoading.hide();
 					$scope.ordermsg2 = true;
+				  }else{
+					  $scope.totalNum2=0;
+						for (var i = 0; i < data.lst[0].items.length; i++) {
+							$scope.totalNum2+=data.lst[0].items[i].num;
+						}
 				  }
-				$scope.totalNum2=0;
-				for (var i = 0; i < data.lst[0].items.length; i++) {
-					$scope.totalNum2+=data.lst[0].items[i].num;
-				}
+				
 				$scope.orderYf = data.lst;
 				//console.log($scope.orderWf.Item);
 				$ionicLoading.hide();
@@ -115,11 +119,12 @@ angular.module('starter.ordercrtl', [])
 					  $ionicLoading.hide();
 					//  alert("暂无数据");
 					  $scope.ordermsg3 = true;
+				  }else{
+					  $scope.totalNum3=0;
+						for (var i = 0; i < data.lst[0].items.length; i++) {
+							$scope.totalNum3+=data.lst[0].items[i].num;
+						}  
 				  }
-				  $scope.totalNum3=0;
-					for (var i = 0; i < data.lst[0].items.length; i++) {
-						$scope.totalNum3+=data.lst[0].items[i].num;
-					}
 				  $scope.orderYwc = data.lst;
 				  //console.log($scope.orderWf.Item);
 				  $ionicLoading.hide();
@@ -208,41 +213,65 @@ angular.module('starter.ordercrtl', [])
 	  /*
 	   * 确认收货
 	   */
-	  $scope.successOrder=function(orderId){
-		  $ionicLoading.show({
-			  template: "<ion-spinner></ion-spinner>"
-		  });
-		  $http.post(ApiEndpoint.url + '/api_order_changeState?id='+(orderId)+'&state=4').success(function(data) {
-			  if (data.state == 'success') {
-					  //alert("确认收货成功");
-					  $scope.showMsg("确认收货成功");
-				  $scope.getOrderYf();//重新加载出未做操作的数据  
-				  $ionicLoading.hide();
-			  }else{
-			    	$ionicLoading.hide();
-					$scope.showMsg(data.msg);
-				}
-		  });
+	  $scope.successOrder=function(orderId,pNum){
+		  $scope.myPopup = $ionicPopup.show({
+				title: '请收到货后，再确认收货！否则您可能钱货两空哦！',
+				scope: $scope,
+				buttons: [
+				{ text: '取消', },   
+				{ text: '确定',type: 'button-positive',onTap:function(e){
+					$ionicLoading.show({
+						  template: "<ion-spinner></ion-spinner>"
+					  });
+					$http.post(ApiEndpoint.url + '/api_order_changeState?id='+(orderId)+'&state=4').success(function(data) {
+						  if (data.state == 'success') {
+							  $ionicLoading.hide();
+							  if(pNum!=""){
+								  $scope.showMsg("确认收货成功");//提示一下用户
+								$scope.modal_order_info.hide(); //把当前视图关掉
+								 $scope.getOrderYf();//重新加载出未做操作的数据  
+							  }else{
+								  $scope.showMsg("确认收货成功");
+								  $scope.getOrderYf();//重新加载出未做操作的数据  
+							  }
+						  }else{
+						    	$ionicLoading.hide();
+								$scope.showMsg(data.msg);
+							}
+					  });
+				}}]
+		   });
+		 
 	  }
 	  /*
 	   * 已完成订单中 ，删除订单
 	   */
 	  $scope.deleteOrder=function(orderOrder){
 		  var orderId=orderOrder.id;
-		  $ionicLoading.show({
-			  template: "<ion-spinner></ion-spinner>"
-		  });
-		  $http.post(ApiEndpoint.url + '/api_order_pretendDelete?id='+(orderId)).success(function(data) {
-			  if (data.state == 'success') {
-					 // alert("删除成功");
-				  $scope.showMsg("删除成功");
-				  $scope.getOrderYwc();
-				  $ionicLoading.hide();
-			  }else{
-			    	$ionicLoading.hide();
-					$scope.showMsg(data.msg);
-				}
-		  });
+		  
+		  $scope.myPopup = $ionicPopup.show({
+				title: '确定删除订单吗',
+				scope: $scope,
+				buttons: [
+				{ text: '取消', },   
+				{ text: '确定',type: 'button-positive',onTap:function(e){
+					$ionicLoading.show({
+						  template: "<ion-spinner></ion-spinner>"
+					  });
+					$http.post(ApiEndpoint.url + '/api_order_pretendDelete?id='+(orderId)).success(function(data) {
+						if (data.state == 'success') {
+							 // alert("删除成功");
+						  $scope.showMsg("删除成功");
+						  $scope.getOrderYwc();
+						  $ionicLoading.hide();
+					  }else{
+					    	$ionicLoading.hide();
+							$scope.showMsg(data.msg);
+						}
+					  });
+				}}]
+		   }); 
+		  
 	  }
 	  /*
 	   * 查看物流详情
