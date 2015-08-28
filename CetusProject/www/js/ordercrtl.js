@@ -60,8 +60,8 @@ angular.module('starter.ordercrtl', [])
 			 $scope.ordermsg = false;//未读消息提示默认隐藏
 			 if (data.state == 'success') {
 				if(data.lst.length<1){
-					  $scope.ordermsg = true;
 					  $ionicLoading.hide();
+					  $scope.ordermsg = true;
 				  }
 				$scope.totalNum=0;
 				for (var i = 0; i < data.lst[0].items.length; i++) {
@@ -86,6 +86,7 @@ angular.module('starter.ordercrtl', [])
 			 $scope.ordermsg2 = false;//已付款默认隐藏
 			if (data.state == 'success') {
 				if(data.lst.length<1){
+					$ionicLoading.hide();
 					$scope.ordermsg2 = true;
 				  }
 				$scope.totalNum2=0;
@@ -111,6 +112,7 @@ angular.module('starter.ordercrtl', [])
 			  $scope.ordermsg3 = false;//已完成默认隐藏
 			  if (data.state == 'success') {
 				  if(data.lst.length<1){
+					  $ionicLoading.hide();
 					//  alert("暂无数据");
 					  $scope.ordermsg3 = true;
 				  }
