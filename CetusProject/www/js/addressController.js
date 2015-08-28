@@ -406,7 +406,7 @@ angular.module('starter.addressController', [])
 	    	$state.go('app.index');
 	    }else{
 	    	console.log(2);
-	    	$state.go('public.order',{msg:$stateParams.msg});
+	    	$state.go('public.order',{msg:$stateParams.msg,ran:Math.random()*1000});
 	    }
 	}
 	
