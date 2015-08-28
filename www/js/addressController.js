@@ -482,9 +482,9 @@ angular.module('starter.addressController', [])
 			$scope.addressObj.id='';
 			$scope.canDelete = false;
 			$scope.showDefault = true;
-			$scope.address.province='重庆';
-			$scope.address.city='市辖区';
-			$scope.address.county='渝北区';
+			$scope.address.province='四川';
+			$scope.address.city='成都市';
+			$scope.address.county='市辖区';
 		}
 	}
 	//跳转到我的购物车
