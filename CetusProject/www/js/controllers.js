@@ -1044,10 +1044,10 @@ angular.module('starter.controllers', ['ionic'])
 			$scope.getMessageWd();
 			break;
 		case 'b':
-			//$scope.getMessageYd();
+			$scope.getMessageYd();
 			break;
 		case 'c':
-			//$scope.getMessageAll();
+			$scope.getMessageAll();
 			break;
 		default:
 			$scope.getMessageWd();
@@ -1083,6 +1083,55 @@ angular.module('starter.controllers', ['ionic'])
 					}
 			});
 	  };
+	  
+	//已读的点击
+	$scope.getMessageYd = function() {
+		  $ionicLoading.show({
+			    template: "<ion-spinner></ion-spinner>"
+		 });
+		  $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=1'+'&pageNo=1'+'&pageSize=10').success(function(data) {
+			  $scope.nomsg2 = false;//未读消息提示默认隐藏
+			  if (data.state == 'success') {
+				  if(data.lst.length<1){
+					  $scope.nomsg2 = true;
+					  $ionicLoading.hide();
+				  }
+				  for (var i = 0; i < data.lst.length; i++) {
+				        (data.lst)[i].index = i + 1;
+				        HelpData.arr.push((data.lst)[i]);
+				        $ionicLoading.hide();
+				      }
+				        $scope.messageYd = data.lst;
+				    }else{
+				    	$ionicLoading.hide();
+						$scope.showMsg(data.msg);
+					}
+			});
+	  };
+	//所有消息的点击
+	$scope.getMessageAll = function() {
+		  $ionicLoading.show({
+			    template: "<ion-spinner></ion-spinner>"
+		 });
+		  $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10').success(function(data) {
+			  $scope.nomsg3 = false;//未读消息提示默认隐藏
+			  if (data.state == 'success') {
+				  if(data.lst.length<1){
+					  $scope.nomsg3 = true;
+					  $ionicLoading.hide();
+				  }
+				  for (var i = 0; i < data.lst.length; i++) {
+				        (data.lst)[i].index = i + 1;
+				        HelpData.arr.push((data.lst)[i]);
+				        $ionicLoading.hide();
+				      }
+				        $scope.messageAll = data.lst;
+				    }else{
+				    	$ionicLoading.hide();
+						$scope.showMsg(data.msg);
+					}
+			});
+	  };
 	//跳转到我的购物车
 	$scope.cartClick = function() {
 		  if(!Userinfo.l.id){
@@ -1092,58 +1141,24 @@ angular.module('starter.controllers', ['ionic'])
 		  $state.go("public.myCart",{ran:Math.random()*1000});
 		}
 
-	  
-	//未读的默认加载
-	$http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=0'+'&pageNo=1'+'&pageSize=10').success(function(data) {
-	  if (data.state == 'success') {
-		  for (var i = 0; i < data.lst.length; i++) {
-		        (data.lst)[i].index = i + 1;
-		        HelpData.arr.push((data.lst)[i]);
-		      }
-		      $scope.messageWd = data.lst;
-		    }
-	});
-	
-	//已读
-	 $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=1'+'&pageNo=1'+'&pageSize=10').success(function(data) {
-		    if (data.state == 'success') {
-		      for (var i = 0; i < data.lst.length; i++) {
-		        (data.lst)[i].index = i + 1;
-		        HelpData.arr.push((data.lst)[i]);
-		      }
-		      $scope.messageYd = data.lst;
-		    }
-		  });
-	//全部
-	 $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10').success(function(data) {
-		    if (data.state == 'success') {
-		      for (var i = 0; i < data.lst.length; i++) {
-		        (data.lst)[i].index = i + 1;
-		        HelpData.arr.push((data.lst)[i]);
-		      }
-		      $scope.messageAll = data.lst;
-		    }
-		  });
-
-         //处理未读消息变成已读消息
-		  $scope.helpDetail = function(k,test) {
-			  var title=k.title;
-			  var msgId=k.mid;
-			   //alert(title);
-			  // alert(msgId);
-			  if(test==1||test=="1"){
-				  $http.post(ApiEndpoint.url + '/api_message_detail?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&msgId='+msgId).success(function(data) {
-					    if (data.state == 'success') {
-					    	 $location.path('message/msgxq/' + title);
-					    }
-					  });
-			  }else{
-				  $location.path('message/msgxq/' + title);
-			  }
-			  
-		   
+     //处理未读消息变成已读消息
+	  $scope.helpDetail = function(k,test) {
+		  var title=k.title;
+		  var msgId=k.mid;
+		   //alert(title);
+		  // alert(msgId);
+		  if(test==1||test=="1"){
+			  $http.post(ApiEndpoint.url + '/api_message_detail?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&msgId='+msgId).success(function(data) {
+				    if (data.state == 'success') {
+				    	 $location.path('message/msgxq/' + title);
+				    }
+				  });
+		  }else{
+			  $location.path('message/msgxq/' + title);
 		  }
-		  $scope.getMessageWd();//默认执行去加载未读的消息
+	   
+	  }
+	  $scope.getMessageWd();//默认执行去加载未读的消息
 })
 
 .controller('msgArticle', function($scope, $ionicHistory, $stateParams, HelpData,$ionicHistory, $state) {
