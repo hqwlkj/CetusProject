@@ -63,10 +63,17 @@ angular.module('starter.ordercrtl', [])
 				if(data.lst.length<1){
 					  $scope.ordermsg = true;
 				  }else{
-					  $scope.totalNum=0;
-						for (var i = 0; i < data.lst[0].items.length; i++) {
+						/*for (var i = 0; i < data.lst[0].items.length; i++) {
 							$scope.totalNum+=data.lst[0].items[i].num;
-						}
+						}*/
+					  for (var i = 0; i < data.lst.length; i++) {
+						  var myItems=data.lst[i];
+						  $scope.totalNum=0;
+						  for (var k = 0; k < myItems.items.length; k++) {
+							  $scope.totalNum+=myItems.items[k].num;
+						  }
+						  data.lst[i].totalNum = $scope.totalNum;
+					  }
 				  }
 				
 				$scope.orderWf = data.lst;
