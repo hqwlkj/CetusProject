@@ -77,7 +77,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<preference name=\"WECHATAPPID\" value=\"wxc6db12f46905614d\" />",
+                            "xml": "<preference name=\"WECHATAPPID\" value=\"wx3b5cd38874296f89\" />",
                             "count": 1
                         }
                     ]
@@ -95,7 +95,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<activity android:exported=\"true\" android:label=\"@string/launcher_name\" android:name=\".wxapi.WXEntryActivity\"><intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><data android:scheme=\"wxc6db12f46905614d\" /></intent-filter></activity>",
+                            "xml": "<activity android:exported=\"true\" android:label=\"@string/launcher_name\" android:name=\".wxapi.WXEntryActivity\"><intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><data android:scheme=\"wx3b5cd38874296f89\" /></intent-filter></activity>",
                             "count": 1
                         }
                     ],
@@ -163,7 +163,7 @@
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "xu.li.cordova.wechat": {
-            "WECHATAPPID": "wxc6db12f46905614d",
+            "WECHATAPPID": "wx3b5cd38874296f89",
             "PACKAGE_NAME": "com.parsec.cetusproject"
         }
     },
