@@ -96,10 +96,14 @@ angular.module('starter.ordercrtl', [])
 				if(data.lst.length<1){
 					$scope.ordermsg2 = true;
 				  }else{
-					  $scope.totalNum2=0;
-						for (var i = 0; i < data.lst[0].items.length; i++) {
-							$scope.totalNum2+=data.lst[0].items[i].num;
-						}
+					  for (var i = 0; i < data.lst.length; i++) {
+						  var myItems=data.lst[i];
+						  $scope.totalNum=0;
+						  for (var k = 0; k < myItems.items.length; k++) {
+							  $scope.totalNum+=myItems.items[k].num;
+						  }
+						  data.lst[i].totalNum = $scope.totalNum;
+					  }
 				  }
 				
 				$scope.orderYf = data.lst;
@@ -122,10 +126,14 @@ angular.module('starter.ordercrtl', [])
 				  if(data.lst.length<1){
 					  $scope.ordermsg3 = true;
 				  }else{
-					  $scope.totalNum3=0;
-						for (var i = 0; i < data.lst[0].items.length; i++) {
-							$scope.totalNum3+=data.lst[0].items[i].num;
-						}  
+					  for (var i = 0; i < data.lst.length; i++) {
+						  var myItems=data.lst[i];
+						  $scope.totalNum=0;
+						  for (var k = 0; k < myItems.items.length; k++) {
+							  $scope.totalNum+=myItems.items[k].num;
+						  }
+						  data.lst[i].totalNum = $scope.totalNum;
+					  } 
 				  }
 				  $scope.orderYwc = data.lst;
 			  }else{
