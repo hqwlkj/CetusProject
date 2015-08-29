@@ -310,6 +310,7 @@ angular.module('starter.controllers', ['ionic'])
 			     template: '<ion-spinner></ion-spinner>'
 			});
 			$http.post(ApiEndpoint.url + '/api_userinfo?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+				console.log(data);
 				if (data.state == 'success') {
 					$scope.userinfo_name = data.obj.name;
 					$scope.userinfo_userNo = data.obj.userNo;
@@ -1174,7 +1175,7 @@ angular.module('starter.controllers', ['ionic'])
 })
 
 
-.controller('Acount', function($scope, $ionicHistory, $state, $http, ApiEndpoint, Userinfo) {
+.controller('Acount', function($scope, $ionicHistory, $ionicPopover,$state, $timeout,$http, ApiEndpoint, Userinfo) {
 	$scope.showMsg = function(txt) {
 	    var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
 	    $scope.popover = $ionicPopover.fromTemplate(template, {
@@ -1458,7 +1459,6 @@ angular.module('starter.controllers', ['ionic'])
 	    Userinfo.remove('flag');
 	    window.localStorage.clear();//清除缓存
 	    window.localStorage['first'] = '1';//不在显示欢迎页
-	    $scope.modal.hide();
 	  };
 	  
 	  
