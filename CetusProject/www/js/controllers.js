@@ -844,6 +844,8 @@ angular.module('starter.controllers', ['ionic'])
 	 }
 })
 .controller('ProductCtrl',function($scope, $http, $ionicModal, $state,$timeout,$stateParams,$ionicLoading,$ionicActionSheet,Userinfo,ApiEndpoint,$ionicPopover){
+	$scope.ago = "";
+	$scope.after = "";
 	$scope.picfiles = [];
 	$scope.comments = [];
 	$scope.product = {};
@@ -859,8 +861,10 @@ angular.module('starter.controllers', ['ionic'])
 	$timeout(function() {
 	   //console.log(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:""));
 	   $http.post(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
-		   $ionicLoading.hide();  
-			if (data.state == 'success') {
+		   $ionicLoading.hide(); 
+		   $scope.ago = "【";
+		   $scope.after = "】";
+		   if (data.state == 'success') {
 				$scope.product = data;
 				$scope.picfiles = data.picfiles;
 				$scope.cartData.stockNum = $scope.product.stockNum;
