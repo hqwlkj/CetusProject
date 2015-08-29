@@ -330,7 +330,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })
   
   .state('app.order', { //我的的订单
-    url: '/order',
+    url: '/order/{ran}',
     views: {
       'tab-order': {
         templateUrl: 'templates/tab-order.html',
