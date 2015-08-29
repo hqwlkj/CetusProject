@@ -52,6 +52,11 @@ angular.module('starter.controllers', ['ionic'])
   $scope.InvitationName = '';
   $scope.discount = 1;
   $scope.app_version = Userinfo.l.version;
+  //定时刷新头像
+	setInterval(function(){
+		$scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+		$scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+	},2000);
   $scope.doRefresh = function() {//下拉刷新
       $http.post(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
     	if (data.state == 'success') {
