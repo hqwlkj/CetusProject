@@ -116,7 +116,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       });
     };
     //头像选择结束
-    //产品分享 开始
+    /*//产品分享 开始
     $rootScope.productShare = function(e, desc, p, index) {
 	    var url = 'http://121.40.255.179/Cetus/' + e;
 	    var short_title = desc.substr(0, 3) + '...';
@@ -166,7 +166,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	    });
 	};
 	//产品分享结束
-	
+*/	
     //检查更新
     checkUpdate();
     
