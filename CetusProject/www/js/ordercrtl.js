@@ -58,9 +58,9 @@ angular.module('starter.ordercrtl', [])
 		 });
 		 $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=1').success(function(data) {
 			 $scope.ordermsg = false;//未读消息提示默认隐藏
+			 $ionicLoading.hide();
 			 if (data.state == 'success') {
 				if(data.lst.length<1){
-					  $ionicLoading.hide();
 					  $scope.ordermsg = true;
 				  }else{
 					  $scope.totalNum=0;
@@ -70,9 +70,7 @@ angular.module('starter.ordercrtl', [])
 				  }
 				
 				$scope.orderWf = data.lst;
-				$ionicLoading.hide();
 		    }else{
-		    	$ionicLoading.hide();
 				$scope.showMsg(data.msg);
 			}
 		});
@@ -86,9 +84,9 @@ angular.module('starter.ordercrtl', [])
 		 });
 		 $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=2').success(function(data) {
 			 $scope.ordermsg2 = false;//已付款默认隐藏
+			 $ionicLoading.hide();
 			if (data.state == 'success') {
 				if(data.lst.length<1){
-					$ionicLoading.hide();
 					$scope.ordermsg2 = true;
 				  }else{
 					  $scope.totalNum2=0;
@@ -99,9 +97,7 @@ angular.module('starter.ordercrtl', [])
 				
 				$scope.orderYf = data.lst;
 				//console.log($scope.orderWf.Item);
-				$ionicLoading.hide();
 		    }else{
-		    	$ionicLoading.hide();
 				$scope.showMsg(data.msg);
 			}
 		});
@@ -114,10 +110,9 @@ angular.module('starter.ordercrtl', [])
 		  });
 		  $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=3').success(function(data) {
 			  $scope.ordermsg3 = false;//已完成默认隐藏
+			  $ionicLoading.hide();
 			  if (data.state == 'success') {
 				  if(data.lst.length<1){
-					  $ionicLoading.hide();
-					//  alert("暂无数据");
 					  $scope.ordermsg3 = true;
 				  }else{
 					  $scope.totalNum3=0;
@@ -126,11 +121,8 @@ angular.module('starter.ordercrtl', [])
 						}  
 				  }
 				  $scope.orderYwc = data.lst;
-				  //console.log($scope.orderWf.Item);
-				  $ionicLoading.hide();
 			  }else{
-			    	$ionicLoading.hide();
-					$scope.showMsg(data.msg);
+				  $scope.showMsg(data.msg);
 				}
 		  });
 	  };
@@ -138,8 +130,12 @@ angular.module('starter.ordercrtl', [])
 	  /*
 	   * 支付订单
 	   */
+	  $scope.payState = false;
 	  $scope.payOrder=function(order,items){
-		 //console.log(orderId);
+		 if($scope.payState==true){
+			 return;
+		 }
+		 $scope.payState = true;
 		  var name="";
 		  for (var i = 0; i < items.length; i++) {
 			  name += ","+items[i].name;
@@ -170,8 +166,11 @@ angular.module('starter.ordercrtl', [])
 						$scope.getOrderWf();//回到未付款订单列表界面
 					}}]
 			   });
+				$scope.payState = false;
 			},
-			function(msg){}
+			function(msg){
+				$scope.payState = false;
+			}
 
 		)
 	  }
@@ -190,24 +189,22 @@ angular.module('starter.ordercrtl', [])
 						  template: "<ion-spinner></ion-spinner>"
 					  });
 					  $http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(orderId)).success(function(data) {
+						  $ionicLoading.hide(); 
 						  if (data.state == 'success') {
 							  if(pNum!=""){
-								$scope.showMsg(data.msg);//提示一下用户
-								$scope.modal_order_info.hide(); //把当前视图关掉
-								$scope.getOrderWf();//重新查
+								  $scope.showMsg(data.msg);//提示一下用户
+								  $scope.modal_order_info.hide(); //把当前视图关掉
+								  $scope.getOrderWf();//重新查
 							  }else{
 								  $scope.showMsg(data.msg);
 								  $scope.getOrderWf();
-								  $ionicLoading.hide(); 
 							  }
 						  }else{
-						    	$ionicLoading.hide();
-								$scope.showMsg(data.msg);
-							}
+							  $scope.showMsg(data.msg);
+						  }
 					  });
 				}}]
 		   });
-		  
 	  }
 	  
 	  /*
@@ -224,24 +221,22 @@ angular.module('starter.ordercrtl', [])
 						  template: "<ion-spinner></ion-spinner>"
 					  });
 					$http.post(ApiEndpoint.url + '/api_order_changeState?id='+(orderId)+'&state=4').success(function(data) {
+						$ionicLoading.hide();
 						  if (data.state == 'success') {
-							  $ionicLoading.hide();
 							  if(pNum!=""){
 								  $scope.showMsg("确认收货成功");//提示一下用户
-								$scope.modal_order_info.hide(); //把当前视图关掉
-								 $scope.getOrderYf();//重新加载出未做操作的数据  
+								  $scope.modal_order_info.hide(); //把当前视图关掉
+								  $scope.getOrderYf();//重新加载出未做操作的数据  
 							  }else{
 								  $scope.showMsg("确认收货成功");
 								  $scope.getOrderYf();//重新加载出未做操作的数据  
 							  }
 						  }else{
-						    	$ionicLoading.hide();
-								$scope.showMsg(data.msg);
-							}
+							  $scope.showMsg(data.msg);
+						  }
 					  });
 				}}]
 		   });
-		 
 	  }
 	  /*
 	   * 已完成订单中 ，删除订单
@@ -259,19 +254,16 @@ angular.module('starter.ordercrtl', [])
 						  template: "<ion-spinner></ion-spinner>"
 					  });
 					$http.post(ApiEndpoint.url + '/api_order_pretendDelete?id='+(orderId)).success(function(data) {
+						$ionicLoading.hide();
 						if (data.state == 'success') {
-							 // alert("删除成功");
-						  $scope.showMsg("删除成功");
-						  $scope.getOrderYwc();
-						  $ionicLoading.hide();
-					  }else{
-					    	$ionicLoading.hide();
+							$scope.showMsg("删除成功");
+							$scope.getOrderYwc();
+						}else{
 							$scope.showMsg(data.msg);
 						}
-					  });
+					});
 				}}]
 		   }); 
-		  
 	  }
 	  /*
 	   * 查看物流详情
