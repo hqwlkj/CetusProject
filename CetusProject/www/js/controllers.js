@@ -915,6 +915,8 @@ angular.module('starter.controllers', ['ionic'])
 .controller('ProductCtrl',function($scope, $http, $ionicModal, $state,$timeout,$stateParams,$ionicPopup,$ionicLoading,$ionicActionSheet,Userinfo,ApiEndpoint,$ionicPopover){
 	$scope.picfiles = [];
 	$scope.comments = [];
+	$scope.ago = "";
+	$scope.after = "";
 	$scope.product = {};
 	$scope.product.price=0;
 	$scope.product.discount=1;
@@ -930,6 +932,8 @@ angular.module('starter.controllers', ['ionic'])
 	   $http.post(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
 		   $ionicLoading.hide();  
 			if (data.state == 'success') {
+				$scope.ago = "【";
+				$scope.after = "】";
 				$scope.product = data;
 				$scope.picfiles = data.picfiles;
 				for(var i =0 ; i< data.picfiles.length; i++){
@@ -973,7 +977,7 @@ angular.module('starter.controllers', ['ionic'])
 	};
 	//分享
 	$scope.productShare = function() {
-		$ionicActionSheet.show({
+		var hideSheet = $ionicActionSheet.show({
             buttons: [
                 { text: '微信朋友圈' },
                 { text: '微信好友' }
@@ -984,6 +988,10 @@ angular.module('starter.controllers', ['ionic'])
                 // 取消时执行
             },
             buttonClicked: function(index) {
+        		// For example's sake, hide the sheet after two seconds
+         	   $timeout(function() {
+         	     hideSheet();
+         	   }, 2000);
                 if(index == 0) {
                     $scope.shareViaWechat(Wechat.Scene.TIMELINE);
                 }
@@ -1034,14 +1042,12 @@ angular.module('starter.controllers', ['ionic'])
                 template: '感谢您的支持！',
                 okText: '关闭'
             });
-    		$ionicActionSheet.hide();
     	}, function (reason) {
             $ionicPopup.alert({
                 title: '分享失败',
                 template: '错误原因：' + reason + '。',
                 okText: '我知道了'
             });
-    		$ionicActionSheet.hide();
     	});
     }
 	
