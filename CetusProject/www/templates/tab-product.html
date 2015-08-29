@@ -1,7 +1,7 @@
 <ion-view title='产品列表'>
 <ion-content>
   <ion-refresher pulling-text="下拉刷新"	on-refresh="doRefresh()"></ion-refresher>
-  <div id="content">
+<!--   <div id="content"> -->
 	  <section style=" background-color: #F6F3EE; padding-top: 5px; padding-bottom: 6px; ">
 	  <ul class="productlst">
 	    <li ng-repeat="p in products" ng-click="clickDetail('{{p.id}}')">
@@ -11,7 +11,7 @@
 	    </li>
 	  </ul>
 	  </section>
-  </div>
+<!--   </div> -->
   <ion-infinite-scroll on-infinite="loadGoods()" ng-if="goods_load_over"></ion-infinite-scroll>
 </ion-content>
 </ion-view>
