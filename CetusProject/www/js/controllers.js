@@ -912,7 +912,7 @@ angular.module('starter.controllers', ['ionic'])
 	    }, 1400);
 	 }
 })
-.controller('ProductCtrl',function($scope, $http, $ionicModal, $state,$timeout,$stateParams,$ionicLoading,$ionicActionSheet,Userinfo,ApiEndpoint,$ionicPopover){
+.controller('ProductCtrl',function($scope, $http, $ionicModal, $state,$timeout,$stateParams,$ionicPopup,$ionicLoading,$ionicActionSheet,Userinfo,ApiEndpoint,$ionicPopover){
 	$scope.picfiles = [];
 	$scope.comments = [];
 	$scope.product = {};
@@ -973,49 +973,78 @@ angular.module('starter.controllers', ['ionic'])
 	};
 	//分享
 	$scope.productShare = function() {
-		if (typeof Wechat === "undefined") {
-            alert("Wechat plugin is not installed.");
-            return false;
-        }
-
-	    Wechat.isInstalled(function(installed) {
-	      if (!installed) {
-	        alert("手机尚未安装微信应用");
-	      } else {
-	        $ionicLoading.show({
-	          template: '正在打开微信,请稍等...'
-	        });
-	        $timeout(function() {
-	          $ionicLoading.hide();
-	        }, 3000);
-	      }
-	    });
-
-	    var params = {
-            scene: Wechat.Scene.TIMELINE   // share to Timeline
-        };
-	    params.message = {
-            title: $scope.product.name,//标题
-            description: $scope.product.parameter.replace(/<[^>]+>/g, ""),//描述
-            thumb: _img, //IMG 
-            mediaTagName: "美O-APP下载",
-            messageExt: "神奇的美O",
-            messageAction: "<action>dotalist</action>",
-            media: {
-  	          type: Wechat.Type.LINK,
-  	          webpageUrl: ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id
-  	        }
-        }
-	    console.log(params);
-	   // alert(params.message.media.webpageUrl);
-	    
-	   Wechat.share(params, function () {
-	    	$scope.showMsg("分享成功");
-	    }, function (reason) {
-	    	$scope.showMsg("分享失败: " + reason);
-	    });
-
+		$ionicActionSheet.show({
+            buttons: [
+                { text: '微信朋友圈' },
+                { text: '微信好友' }
+            ],
+            titleText: '分享',
+            cancelText: '取消',
+            cancel: function() {
+                // 取消时执行
+            },
+            buttonClicked: function(index) {
+                if(index == 0) {
+                    $scope.shareViaWechat(Wechat.Scene.TIMELINE);
+                }
+                if(index ==1 ) {
+                    $scope.shareViaWechat(Wechat.Scene.SESSION);
+                }
+            }
+        });
 	};
+	//分享
+	$scope.shareViaWechat = function(scene){
+    	if (typeof Wechat === "undefined") {
+    		alert("Wechat plugin is not installed.");
+    		return false;
+    	}
+    	
+    	Wechat.isInstalled(function(installed) {
+    		if (!installed) {
+    			alert("手机尚未安装微信应用");
+    		} else {
+    			$ionicLoading.show({
+    				template: '正在打开微信,请稍等...'
+    			});
+    			$timeout(function() {
+    				$ionicLoading.hide();
+    			}, 3000);
+    		}
+    	});
+    	var params = {
+    		scene: scene
+    	};
+    	params.message = {
+    			title: $scope.product.name,//标题
+    			description: $scope.product.parameter.replace(/<[^>]+>/g, ""),//描述
+    			thumb: _img, //IMG 
+    			mediaTagName: "美O-APP下载",
+    			messageExt: "神奇的美O",
+    			messageAction: "<action>dotalist</action>",
+    			media: {
+    				type: Wechat.Type.LINK,
+    				webpageUrl: ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share=share"
+    			}
+    	}
+    	console.log(params);
+    	Wechat.share(params, function () {
+            $ionicPopup.alert({
+                title: '分享成功',
+                template: '感谢您的支持！',
+                okText: '关闭'
+            });
+    		$ionicActionSheet.hide();
+    	}, function (reason) {
+            $ionicPopup.alert({
+                title: '分享失败',
+                template: '错误原因：' + reason + '。',
+                okText: '我知道了'
+            });
+    		$ionicActionSheet.hide();
+    	});
+    }
+	
 	
 	//提示信息
 	$scope.showMsg = function(txt) {
