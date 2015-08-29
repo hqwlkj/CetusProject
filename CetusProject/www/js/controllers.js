@@ -124,7 +124,7 @@ angular.module('starter.controllers', ['ionic'])
 		  $scope.login();
 		  return;
 	  }
-	  $state.go('app.order');
+	  $state.go('app.order',{ran:Math.random()*1000});
   };
   
  
