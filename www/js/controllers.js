@@ -2,8 +2,8 @@
 angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
-  url: 'http://121.40.255.179/Cetus',
-  pic_url:'http://121.40.255.179/Cetus/pic'
+	  url: 'http://121.40.255.179/Cetus',
+	  pic_url:'http://121.40.255.179/Cetus/pic'
 })
 
 .constant('HelpData', {
@@ -310,7 +310,6 @@ angular.module('starter.controllers', ['ionic'])
 			     template: '<ion-spinner></ion-spinner>'
 			});
 			$http.post(ApiEndpoint.url + '/api_userinfo?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
-				console.log(data);
 				if (data.state == 'success') {
 					$scope.userinfo_name = data.obj.name;
 					$scope.userinfo_userNo = data.obj.userNo;
@@ -450,11 +449,11 @@ angular.module('starter.controllers', ['ionic'])
 	    $scope.modal_activity_list.hide();
 	    $scope.activityListData = {};
 	}
-	//跳转到订单页面（免费领取活动的立即领取、满送活动的立即购买或领取赠品）。sta为1表示领取，2表示购买
+	//跳转到订单页面（免费领取活动的立即领取、满送活动的立即购买或领取赠品）。sta为2表示领取，1表示购买
 	$scope.goOrder = function(obj, sta) {
 		var productId = obj.product.id;
 		var productNum = 1;
-		if (sta == 2) 
+		if (sta == 1) 
 			productNum = obj.detail.buysNum;
 		var userId = (Userinfo.l.id?Userinfo.l.id:"");
 		var activityId = obj.activity.id;
@@ -674,12 +673,20 @@ angular.module('starter.controllers', ['ionic'])
 		$http.post(ApiEndpoint.url + '/api_activity_add?activityId='+$scope.activityId+'&userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
 			if (data.state == 'success') {
 				var obj = data.activity;
-				if (obj.activityType == 2){  //活动类型为满送活动
-					var detailObj = data.detail;
-					//前往订单页面，参与满送活动
-				}else {
-					$scope.activityList();
-				}
+				$ionicPopup.alert({
+			        title: '提示',
+			        template: '参与成功',
+			        buttons: [{
+			          text: '确定',
+			          type: 'button-assertive'
+			        }]
+			    });
+//				if (obj.activityType == 2){  //活动类型为满送活动
+//					var detailObj = data.detail;
+//					//前往订单页面，参与满送活动
+//				}else {
+//					$scope.activityList();
+//				}
 			}else {
 				$ionicPopup.alert({
 			        title: '提示',
@@ -844,8 +851,6 @@ angular.module('starter.controllers', ['ionic'])
 	 }
 })
 .controller('ProductCtrl',function($scope, $http, $ionicModal, $state,$timeout,$stateParams,$ionicLoading,$ionicActionSheet,Userinfo,ApiEndpoint,$ionicPopover){
-	$scope.ago = "";
-	$scope.after = "";
 	$scope.picfiles = [];
 	$scope.comments = [];
 	$scope.product = {};
@@ -861,10 +866,8 @@ angular.module('starter.controllers', ['ionic'])
 	$timeout(function() {
 	   //console.log(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:""));
 	   $http.post(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
-		   $ionicLoading.hide(); 
-		   $scope.ago = "【";
-		   $scope.after = "】";
-		   if (data.state == 'success') {
+		   $ionicLoading.hide();  
+			if (data.state == 'success') {
 				$scope.product = data;
 				$scope.picfiles = data.picfiles;
 				$scope.cartData.stockNum = $scope.product.stockNum;
@@ -1179,7 +1182,7 @@ angular.module('starter.controllers', ['ionic'])
 })
 
 
-.controller('Acount', function($scope, $ionicHistory, $ionicPopover,$state, $timeout,$http, ApiEndpoint, Userinfo) {
+.controller('Acount', function($scope, $ionicHistory, $state, $http, ApiEndpoint, Userinfo) {
 	$scope.showMsg = function(txt) {
 	    var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
 	    $scope.popover = $ionicPopover.fromTemplate(template, {
@@ -1463,6 +1466,7 @@ angular.module('starter.controllers', ['ionic'])
 	    Userinfo.remove('flag');
 	    window.localStorage.clear();//清除缓存
 	    window.localStorage['first'] = '1';//不在显示欢迎页
+	    $scope.modal.hide();
 	  };
 	  
 	  
