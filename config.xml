@@ -14,11 +14,9 @@
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
-  <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="3000"/>
-  <preference name="WECHATAPPID" value="wxc6db12f46905614d" /><!--注意“YOUR_APPID”要换成你自己申请的微信的appid 美O-->
-  <preference name="SplashScreen" value="splash" /> <!-- 不带后缀png的文件名，默认是screen-->
-  <preference name="SplashScreenDelay" value="10000" /> <!-- Splash显示时间，默认是3000ms-->
+  <preference name="SplashScreen" value="splash"/><!-- 不带后缀png的文件名，默认是screen-->
+  <preference name="SplashScreenDelay" value="10000"/> <!-- Splash显示时间，默认是3000ms-->
+  <preference name="WECHATAPPID" value="wx3b5cd38874296f89" /><!--注意“YOUR_APPID”要换成你自己申请的微信的appid 美O-->
  
 	<feature name="SplashScreen">
 	  <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
@@ -57,9 +55,9 @@
     <param name="onload" value="true"/>
     <param name="id" value="cordova-plugin-whitelist"/>
   </feature>
-  <feature name="Wechat" >
+  <!-- <feature name="Wechat" >
     <param  name="android-package" value="com.communitymanagement.last.Wechat" />
-  </feature>
+  </feature> -->
   <platform name="android">
     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
     <icon src="resources/android/icon/drawable-mdpi-icon.png" density="mdpi"/>
