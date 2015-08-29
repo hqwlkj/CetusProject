@@ -860,7 +860,7 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.commenHtml="";
 	$scope.commenState=true;
 	$scope._width="200px";
-	$scope.img = "www/img/logo_28.png";
+	var _img = "www/img/logo_28.png";
 	$ionicLoading.show({
 	     template: '<ion-spinner></ion-spinner>'
 	});
@@ -873,7 +873,11 @@ angular.module('starter.controllers', ['ionic'])
 				for(var i =0 ; i< data.picfiles.length; i++){
 					var pic = data.picfiles[i];
 					if(pic.isCover == 1){
-						$scope.img = ApiEndpoint.url + "/qn_pic/"+ pic.imgurl;
+						$http.post(ApiEndpoint.url + '/qn_url/'+pic.imgurl).success(function(imgdata) {
+							if (imgdata.state == 'success') {
+								//_img =imgdata.url;
+					        }
+					    });
 					}
 				}
 				$scope.cartData.stockNum = $scope.product.stockNum;
@@ -930,8 +934,8 @@ angular.module('starter.controllers', ['ionic'])
         };
 	    params.message = {
             title: $scope.product.name,//标题
-            description: $scope.product.parameter.replace(/<[^>]+>/g, ""),//
-            thumb: 'http://parseccrux.qiniudn.com/1440769240036.jpg', //IMG ApiEndpoint.pic_url + "/pic/"+$scope.product.picfiles[0].imgurl
+            description: $scope.product.parameter.replace(/<[^>]+>/g, ""),//描述
+            thumb: _img, //IMG 
             mediaTagName: "美O-APP下载",
             messageExt: "神奇的美O",
             messageAction: "<action>dotalist</action>",
