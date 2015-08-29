@@ -66,6 +66,7 @@ angular.module('starter.ordercrtl', [])
 						/*for (var i = 0; i < data.lst[0].items.length; i++) {
 							$scope.totalNum+=data.lst[0].items[i].num;
 						}*/
+					  //计算每一笔订单中 商品总数是多少的逻辑
 					  for (var i = 0; i < data.lst.length; i++) {
 						  var myItems=data.lst[i];
 						  $scope.totalNum=0;
@@ -96,6 +97,7 @@ angular.module('starter.ordercrtl', [])
 				if(data.lst.length<1){
 					$scope.ordermsg2 = true;
 				  }else{
+					  //计算每一笔订单中 商品总数是多少的逻辑
 					  for (var i = 0; i < data.lst.length; i++) {
 						  var myItems=data.lst[i];
 						  $scope.totalNum=0;
@@ -126,6 +128,7 @@ angular.module('starter.ordercrtl', [])
 				  if(data.lst.length<1){
 					  $scope.ordermsg3 = true;
 				  }else{
+					  //计算每一笔订单中 商品总数是多少的逻辑
 					  for (var i = 0; i < data.lst.length; i++) {
 						  var myItems=data.lst[i];
 						  $scope.totalNum=0;
