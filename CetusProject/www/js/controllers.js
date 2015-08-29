@@ -2,8 +2,8 @@
 angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
-	  url: 'http://121.40.255.179/Cetus',
-	  pic_url:'http://121.40.255.179/Cetus/pic'
+  url: 'http://121.40.255.179/Cetus',
+  pic_url:'http://121.40.255.179/Cetus/pic'
 })
 
 .constant('HelpData', {
@@ -860,16 +860,22 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.commenHtml="";
 	$scope.commenState=true;
 	$scope._width="200px";
+	$scope.img = "www/img/logo_28.png";
 	$ionicLoading.show({
 	     template: '<ion-spinner></ion-spinner>'
 	});
 	$timeout(function() {
-	   //console.log(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:""));
 	   $http.post(ApiEndpoint.url + '/api_product_detail?productId='+$stateParams.productId+'&userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
 		   $ionicLoading.hide();  
 			if (data.state == 'success') {
 				$scope.product = data;
 				$scope.picfiles = data.picfiles;
+				for(var i =0 ; i< data.picfiles.length; i++){
+					var pic = data.picfiles[i];
+					if(pic.isCover == 1){
+						$scope.img = ApiEndpoint.url + "/qn_pic/"+ pic.imgurl;
+					}
+				}
 				$scope.cartData.stockNum = $scope.product.stockNum;
 				$scope.cartData.amount = 1;
 	        }else{
@@ -898,20 +904,14 @@ angular.module('starter.controllers', ['ionic'])
 			  return;
 		  }
 		  $state.go('public.question');
-		//$scope.showMsg("开发中");
 	};
 	//分享
-	$scope.productShare = function(code, desc, p, index) {
-	    var url = 'httpp://121.40.255.179';
-	    //var short_title = desc.substr(0, 3) + '...';
-	    var price = null;
-	    if (parseFloat(p) < 1) {
-	      price = 1;
-	    } else {
-	      price = p;
-	    }
-	    var title = '神奇的美O圈“' + desc + '”才' + price + '元';
-	    
+	$scope.productShare = function() {
+		if (typeof Wechat === "undefined") {
+            alert("Wechat plugin is not installed.");
+            return false;
+        }
+
 	    Wechat.isInstalled(function(installed) {
 	      if (!installed) {
 	        alert("手机尚未安装微信应用");
@@ -924,39 +924,31 @@ angular.module('starter.controllers', ['ionic'])
 	        }, 3000);
 	      }
 	    });
-	    /*var scope = "snsapi_userinfo";
-	    Wechat.auth(scope, function (response) {
-	        // you may use response.code to get the access token.
-	        alert(JSON.stringify(response));
-	    }, function (reason) {
-	        alert("Failed: " + reason);
-	    });*/
-	    Wechat.share({
-	        text: "This is just a plain string",
-	        scene: Wechat.Scene.TIMELINE   // share to Timeline
-	    }, function () {
-	        alert("Success");
-	    }, function (reason) {
-	        alert("Failed: " + reason);
-	    });
-	    /*Wechat.share({
-	      message: {
-	        title: title,
-	        description: '美O圈',
-	        thumb: ApiEndpoint.url + "/images/logo_28.png",//LOGO
-	        media: {
-	          type: Wechat.Type.LINK,
-	          webpageUrl: url
-	        }
-	      },
-	      scene: Wechat.Scene.TIMELINE // share to Timeline
-	    }, function() {
+
+	    var params = {
+            scene: Wechat.Scene.TIMELINE   // share to Timeline
+        };
+	    params.message = {
+            title: $scope.product.name,//标题
+            description: $scope.product.parameter.replace(/<[^>]+>/g, ""),//
+            thumb: 'http://parseccrux.qiniudn.com/1440769240036.jpg', //IMG ApiEndpoint.pic_url + "/pic/"+$scope.product.picfiles[0].imgurl
+            mediaTagName: "美O-APP下载",
+            messageExt: "神奇的美O",
+            messageAction: "<action>dotalist</action>",
+            media: {
+  	          type: Wechat.Type.LINK,
+  	          webpageUrl: ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id
+  	        }
+        }
+	    console.log(params);
+	   // alert(params.message.media.webpageUrl);
+	    
+	   Wechat.share(params, function () {
 	    	$scope.showMsg("分享成功");
-	    }, function(reason) {
-	      if (reason == 'ERR_USER_CANCEL') {} else {
-	    	  $scope.showMsg("分享失败: " + reason);
-	      }
-	    });*/
+	    }, function (reason) {
+	    	$scope.showMsg("分享失败: " + reason);
+	    });
+
 	};
 	
 	//提示信息
@@ -1182,7 +1174,7 @@ angular.module('starter.controllers', ['ionic'])
 })
 
 
-.controller('Acount', function($scope, $ionicHistory, $state, $http, ApiEndpoint, Userinfo) {
+.controller('Acount', function($scope, $ionicHistory, $ionicPopover,$state, $timeout,$http, ApiEndpoint, Userinfo) {
 	$scope.showMsg = function(txt) {
 	    var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
 	    $scope.popover = $ionicPopover.fromTemplate(template, {
@@ -1466,7 +1458,6 @@ angular.module('starter.controllers', ['ionic'])
 	    Userinfo.remove('flag');
 	    window.localStorage.clear();//清除缓存
 	    window.localStorage['first'] = '1';//不在显示欢迎页
-	    $scope.modal.hide();
 	  };
 	  
 	  
