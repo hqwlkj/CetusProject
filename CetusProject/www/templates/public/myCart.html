@@ -29,7 +29,7 @@
 	    		<i ng-if="c.checkClass == null" class="icon-unselect-01" ng-click="choseCheck(c)"></i>
 	    		<i ng-if="c.checkClass != null" class="{{c.checkClass}}" ng-click="choseCheck(c)"></i>
 	    	</div>
-	    	<div class="carlst-oper right text-right margin-top-11">
+	    	<div class="carlst-oper right text-right margin-top-11" style="width: 40%;">
 	    		<a ng-click="updProductNum(c, 1)" class="btn-lf-sm left cart-reduction"><i class="icon-sub-01"></i></a>
 	  			<a ng-click="updProductNum(c, 2)" class="btn-rt-sm left cart-plus"><i class="icon-add-01"></i></a>
 	    		<span class="cart-num ">x<b id="td-amount">{{c.productNum}}</b></span>
