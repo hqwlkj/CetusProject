@@ -81,7 +81,8 @@
 	<li>
 		<div class="lst-sub">
 			<div class=" margin-top-11">
-				<a href="javaScript:void(0);" class="btn submit-order-btn" ng-click="submit_order()">提交订单</a>
+				<a href="javaScript:void(0);" class="btn submit-order-btn" ng-click="submit_order()" ng-if="!save_state">提交订单</a>
+				<a href="javaScript:void(0);" class="btn submit-order-btn" ng-if="save_state">提交订单</a>
 			</div>
 		</div>
 		<div class=" margin-top-15 margin-left-15 margin-right-15 fz65 fcec3473 padding-bottom-15" ng-bind-html ='ruleInfo'></div>
