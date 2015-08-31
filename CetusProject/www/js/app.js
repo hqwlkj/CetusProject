@@ -116,57 +116,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       });
     };
     //头像选择结束
-    /*//产品分享 开始
-    $rootScope.productShare = function(e, desc, p, index) {
-	    var url = 'http://121.40.255.179/Cetus/' + e;
-	    var short_title = desc.substr(0, 3) + '...';
-	    var price = null;
-	    if (parseFloat(p) < 1) {
-	      price = 1;
-	    } else {
-	      price = p;
-	    }
-	    var title = '神奇的美O圈“' + short_title + '”才' + price + '元';
-	    Wechat.isInstalled(function(installed) {
-	      if (!installed) {
-	        alert("手机尚未安装微信应用");
-	      } else {
-	        $ionicLoading.show({
-	          template: '正在打开微信,请稍等...'
-	        });
-	        $timeout(function() {
-	          $ionicLoading.hide();
-	        }, 3000);
-	      }
-	    });
-	    var scope = "snsapi_userinfo";
-	    Wechat.auth(scope, function (response) {
-	        // you may use response.code to get the access token.
-	        alert(JSON.stringify(response));
-	    }, function (reason) {
-	        alert("Failed: " + reason);
-	    });
-	    Wechat.share({
-	      message: {
-	        title: title,
-	        description: '美O圈',
-	        thumb: "http://121.40.255.179/Cetus/images/logo_28.png",//LOGO
-	        media: {
-	          type: Wechat.Type.LINK,
-	          webpageUrl: url
-	        }
-	      },
-	      scene: Wechat.Scene.TIMELINE // share to Timeline
-	    }, function() {
-	    	$rootScope.showMsg("分享成功");
-	    }, function(reason) {
-	      if (reason == 'ERR_USER_CANCEL') {} else {
-	    	  $rootScope.showMsg("分享失败: " + reason);
-	      }
-	    });
-	};
-	//产品分享结束
-*/	
+    
     //检查更新
     checkUpdate();
     
