@@ -627,3 +627,7 @@ overflow:hidden;/*溢出隐藏*/
 .discusslist .lst-score{margin-left: 15px; margin-right:15px; padding: 10px 0 10px 0; font-size: 0.875rem; }
 /*会员中心  */
 .sm-btn-rt{background:#ec3473;color:#ffffff;font-size:0.725rem;height:28px;line-height:28px;display: inline-block;text-align: center;margin-top: 14px;padding: 0 5px;}
+/*在线客服*/
+.question-text{width: 100%;height: auto !important;padding: 10px 4px; margin-bottom: 20px; border:1px solid #e8e8e8; -webkit-border-radius: 3x; -moz-border-radius: 3px; border-radius: 3px; }
+
+

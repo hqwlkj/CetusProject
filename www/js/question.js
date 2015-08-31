@@ -1,6 +1,19 @@
 angular.module('starter.question', [])
 
 .controller('Question',function($scope,$ionicPopover, $http, $state,$ionicHistory,$ionicLoading,$stateParams, $timeout,$ionicModal,$ionicPopup,ApiEndpoint, Userinfo){
+	$scope.QuestionDataList = [];
+	$scope.questionData = {};
+	$scope.count = 0;
+	
+	/**
+	 * 判断用户的输入长度
+	 */
+	$scope.checkLen = function(){
+		var len = $scope.questionData.content.length;
+		$scope.count=len;
+	};
+	
+	
 	//提示消息
 	$ionicLoading.show({
 	     template: '<ion-spinner></ion-spinner>'
@@ -20,8 +33,6 @@ angular.module('starter.question', [])
 	    }, 1400);
 	};
 	
-	$scope.QuestionDataList = [];
-	$scope.questionData = {};
 	
 	//加载数据
 	$scope.loadQuestionData = function(){
