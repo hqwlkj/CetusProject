@@ -1059,7 +1059,120 @@ angular.module('starter.controllers', ['ionic'])
 		  }
 		  $state.go("public.myCart",{ran:Math.random()*1000});
 		}
+	// 登陆
+	  $ionicModal.fromTemplateUrl('templates/user/login.html', {
+	    scope: $scope
+	  }).then(function(modal) {
+	    $scope.modalLogin = modal;
+	    $scope.loginData = {};
+	  });
 
+	  // 关闭登录页面
+	  $scope.closeLogin = function() {
+		$scope.modalLogin.hide();
+	    $scope.loginData = {};
+	  };
+
+	  // 打开登陆页面
+	  $scope.login = function() {
+	    $scope.modalLogin.show();
+	  };
+	  
+	  $scope.doLogin = function() {
+	    if (!$scope.loginData.username) {
+	      $scope.showMsg('用户名不能为空');
+	      return false;
+	    };
+	    if (!$scope.loginData.password) {
+	      $scope.showMsg('密码不能为空');
+	      return false;
+	    };
+	    $ionicLoading.show({
+	      template: "正在登录..."
+	    });
+	    $http.post(ApiEndpoint.url + '/api_user_login?json='+JSON.stringify({
+	    	loginName: $scope.loginData.username,
+	    	pwd: $scope.loginData.password
+	    })).success(function(data) {
+	      $ionicLoading.hide();
+	      if (data.state!= 'success') {
+	        $scope.showMsg(data.msg);
+	      } else {
+	        Userinfo.save(data.obj);
+	        Userinfo.add('flag', 1);
+	        $scope.sign = Userinfo.l.today_signed;
+	        $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+	        $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+	        $scope.cellPhone = Userinfo.l.cellPhone ? Userinfo.l.cellPhone : '';
+	        $scope.flag = 1;
+	        $scope.closeLogin();
+	      }
+	    });
+	    $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+	    $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+	  };
+	  
+	  
+	  $ionicModal.fromTemplateUrl('templates/user/register.html', {
+	    scope: $scope
+	  }).then(function(modal) {
+	    $scope.modal_register = modal;
+	    $scope.registerData = {};
+	  });
+
+	  $scope.register = function() {
+	    $scope.modal_register.show();
+	  };
+	  $scope.closeRegister = function() {
+	    $scope.modal_register.hide();
+	    $scope.registerData = {};
+	  };
+	  
+	  $scope.doRegister = function() {
+	    var reg = /^1\d{10}$/;
+	    if (!$scope.registerData.phone) {
+	      $scope.showMsg('手机号不能为空');
+	      return false;
+	    } else if (!reg.test($scope.registerData.phone)) {
+	      $scope.showMsg('手机号格式错误');
+	      return false;
+	    };
+	    if (!$scope.registerData.username) {
+	    	$scope.showMsg('用户名不能为空');
+	    	return false;
+	    };
+	    if (!$scope.registerData.password || !$scope.registerData.repassword) {
+	      $scope.showMsg('密码不能为空');
+	      return false;
+	    } else if ($scope.registerData.password != $scope.registerData.repassword) {
+	      $scope.showMsg('两次密码不一致');
+	      return false;
+	    }
+	    $ionicLoading.show({
+	      template: '注册中...'
+	    });
+	    var u ={
+			userName:$scope.registerData.username,
+			cellPhone:$scope.registerData.phone,
+			pwd:$scope.registerData.password,
+			code:$scope.registerData.invitation,
+			alipay:$scope.registerData.alipayCode
+	    }
+	    $http.post(ApiEndpoint.url + '/api_user_register?json='+ JSON.stringify(u)).success(function(data) {
+	      $ionicLoading.hide();
+	      $scope.showMsg(data.msg);
+	      if (data.state== 'success') {
+	    	  Userinfo.save(data.obj);
+	          Userinfo.add('flag', 1);
+	          $scope.flag = 1;
+	          $scope.sign = Userinfo.l.today_signed;
+	          $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+	          $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+	          $scope.cellPhone = Userinfo.l.cellPhone ? Userinfo.l.cellPhone : '';
+	          $scope.closeRegister();
+	      }
+		});
+	  }
 	//加入购物车
 	$scope.addCart = function() {
 		if ($scope.cartData.amount > $scope.product.stockNum) {
@@ -1536,7 +1649,7 @@ angular.module('starter.controllers', ['ionic'])
 	  };
 	  
 	  
-	// 登陆
+	  // 登陆
 	  $ionicModal.fromTemplateUrl('templates/user/login.html', {
 	    scope: $scope
 	  }).then(function(modal) {

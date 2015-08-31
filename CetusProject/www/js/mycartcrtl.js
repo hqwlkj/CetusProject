@@ -65,6 +65,13 @@ angular.module('starter.mycartcrtl', [])
 	        }
 	    }*/
 	}
+	/**
+	 * 到订单列表页面
+	 * <li>如果没有前一页历史，则直接关闭当前页面</li>
+	 */
+	$scope.goMyOrder = function() {
+		$state.go('app.order',{ran:Math.random()*1000});
+	}
 	
 	//全选
 	$scope.allchecked = function() {
