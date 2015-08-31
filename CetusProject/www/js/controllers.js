@@ -577,17 +577,17 @@ angular.module('starter.controllers', ['ionic'])
          	     hideSheet();
          	   }, 2000);
                 if(index == 0) {
-                    $scope.activityShare(Wechat.Scene.TIMELINE);
+                    $scope.activityShare(Wechat.Scene.TIMELINE,shareContent);
                 }
                 if(index ==1 ) {
-                    $scope.activityShare(Wechat.Scene.SESSION);
+                    $scope.activityShare(Wechat.Scene.SESSION,shareContent);
                 }
             }
         });
     };
     
     //活动分享
-    $scope.activityShare = function(scene){
+    $scope.activityShare = function(scene,shareContent){
     	if (typeof Wechat === "undefined") {
             alert("Wechat plugin is not installed.");
             return false;
