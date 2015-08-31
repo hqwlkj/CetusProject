@@ -390,6 +390,9 @@ angular.module('starter.ordercrtl', [])
 						$scope.orderMoney=(countFee.toFixed(2));//订单总额
 						$scope.freight=data.order.freight.toFixed(2);//运费
 						$scope.discountPrice=(parseFloat(countFee - price).toFixed(2));//优惠价格
+						if($scope.discountPrice<0){//活动过来的产品会造成优惠为负值
+							$scope.discountPrice=0;
+						}
 						$scope.countPrice=(parseFloat(data.order.orderMoney).toFixed(2));//实付金额
 						$scope.showRiseTime=data.order.showRiseTime;//下单时间
 					}
