@@ -428,8 +428,8 @@ overflow:hidden;/*溢出隐藏*/
 .clear{clear:both;}
 .msg-list li{background:#ffffff;margin-bottom: 10px}
 .messagebox{padding-right: 30px;height:50px;font-size: 0.75rem;text-align: left;}
-.messagebox h4{font-size: 0.8rem;color:#000;margin-top: 4px}
-.messagebox p{margin-top:6px;color:#999999;white-space:nowrap;/*强制文本在一行内显示*/
+.messagebox h4{font-size: 0.7rem;color:#000;margin-top: 4px}
+.messagebox p{margin-top:6px;font-size: 0.65rem;color:#999999;white-space:nowrap;/*强制文本在一行内显示*/
 text-overflow:ellipsis; /*溢出省略号，支持ie、safari（webkit）*/
 -o-text-overflow:ellipsis; /*溢出省略号，支持opera*/
 overflow:hidden;/*溢出隐藏*/
