@@ -135,7 +135,7 @@ angular.module('starter.order', [])
 			return;
 		}
 		//提交订单
-		var url = ApiEndpoint.url + "/api_order_insert?userId="+Userinfo.l.id+"&activityId="+$scope.order_data.activityId+"&atype="+($scope.send_type_state==0?1:0)+"&aid="+$scope.order_data.address.id+"&productIds="+$scope.order_data.ids+"&counts="+$scope.order_data.count+"&activityType="+$scope.order_data.activityType;
+		var url = ApiEndpoint.url + "/api_order_insert?userId="+Userinfo.l.id+"&activityId="+$scope.order_data.activityId+"&atype="+($scope.send_type_state==0?1:0)+"&aid="+($scope.send_type_state==0?$scope.order_data.address.id:$scope.autoaddress_id)+"&productIds="+$scope.order_data.ids+"&counts="+$scope.order_data.count+"&activityType="+$scope.order_data.activityType;
 		$http.post(url).success(function(data) {
 			if (data.state == 'success') {
 				if(data.orderState==1){
@@ -171,6 +171,23 @@ angular.module('starter.order', [])
 							console.log(msg);
 						}
 					)
+				}
+				if($scope.order_data.activityId!=null&&$scope.order_data.activityId!=''){
+					var split=$scope.order_data.count.split(",");
+					var num = 0;
+					for (var i = 0; i < split.length; i++) {
+						num+=Number(split[i]);
+					}
+					$http.post(ApiEndpoint.url + "/api_activity_upd?activityId="+$scope.order_data.activityId+"&userId="+Userinfo.l.id+"&buyNum="+num+"&orderId="+data.orderId+"&type="+$scope.order_data.activityType).success(function(data) {
+						$scope.myPopup = $ionicPopup.show({
+							template: "提交成功",
+							title: '提示',
+							scope: $scope,
+							buttons: [{ text: '确定',type: 'button-assertive',onTap:function(e){
+								$state.go('app.index');
+							}}]
+					   });
+					});
 				}
 			}
 		});
