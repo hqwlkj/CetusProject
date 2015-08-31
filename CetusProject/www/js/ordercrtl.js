@@ -241,14 +241,17 @@ angular.module('starter.ordercrtl', [])
 					$http.post(ApiEndpoint.url + '/api_order_changeState?id='+(orderId)+'&state=4').success(function(data) {
 						$ionicLoading.hide();
 						  if (data.state == 'success') {
-							  if(pNum!=""){
+							  
+							  $scope.showMsg("确认收货成功");
+							  $scope.getOrderYf();//重新加载出未做操作的数据  
+							  /*if(pNum!=""){
 								  $scope.showMsg("确认收货成功");//提示一下用户
 								  $scope.modal_order_info.hide(); //把当前视图关掉
 								  $scope.getOrderYf();//重新加载出未做操作的数据  
 							  }else{
 								  $scope.showMsg("确认收货成功");
 								  $scope.getOrderYf();//重新加载出未做操作的数据  
-							  }
+							  }*/
 						  }else{
 							  $scope.showMsg(data.msg);
 						  }
@@ -462,7 +465,8 @@ angular.module('starter.ordercrtl', [])
 					if (data.state == 'success') {
 						$scope.showMsg(data.msg);
 						$timeout(function() {
-							closeOrderDetail()
+							$scope.modal_order_info.hide(); //把当前视图关掉
+							$scope.getOrderYf();//重新加载出未做操作的数据  
 					    }, 2000);
 					}else{
 						$scope.showMsg(data.msg);
