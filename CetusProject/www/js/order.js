@@ -172,7 +172,6 @@ angular.module('starter.order', [])
 						}
 					)
 				}
-				$scope.save_state = false;
 			}
 		});
 	}
