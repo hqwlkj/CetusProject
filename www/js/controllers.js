@@ -561,68 +561,34 @@ angular.module('starter.controllers', ['ionic'])
 
 	}
 	$scope.shareViaWechat = function(shareContent) {
-//		Wechat.isInstalled(function(installed) {
-//		      if (!installed) {
-//		        alert("手机尚未安装微信应用");
-//		      } else {
-//		        $ionicLoading.show({
-//		          template: '正在打开微信,请稍等...'
-//		        });
-//		        $timeout(function() {
-//		          $ionicLoading.hide();
-//		        }, 3000);
-//		      }
-//		    });
-//		
-//
-//	        var scope = "snsapi_userinfo";
-//		    Wechat.auth(scope, function (response) {
-//		        // you may use response.code to get the access token.
-//		        alert(JSON.stringify(response));
-//		    }, function (reason) {
-//		        alert("Failed: " + reason);
-//		    });
-//		    
-//		    Wechat.share({
-//		      message: {
-//		        title: shareContent.title,
-//		        description: shareContent.desc,
-////		        thumb: shareContent.imgUrl,//LOGO
-//		        thumb: "http://m2.cosjii.com/img/logo_28.png",
-//		        media: {
-//		           type: Wechat.Type.LINK,
-//		           webpageUrl: shareContent.link
-//		        }
-//		      },
-//	         scene: Wechat.Scene.TIMELINE
-//		    }, function() {
-//		    	$http.post(ApiEndpoint.url + '/api_app_signandshare_save?type=2&userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&activityId='+shareContent.acId+'&shareSns="微信朋友圈"').success(function(data) {
-//					$ionicLoading.hide();
-//					var title = data.title;
-//					var msg = data.msg;
-//					if (data.state == 'success') {
-//						title = "提示";
-//						msg = "分享成功";
-//					}
-//					$ionicPopup.alert({
-//				        title: title,
-//				        template: msg,
-//				        buttons: [{
-//				          text: '确定',
-//				          type: 'button-assertive'
-//				        }]
-//				    }).then(function(res) {
-//				    	if (data.state == 'success')
-//				    		$scope.activityList();
-//					});
-//				});
-//		    }, function(reason) {
-//		      if (reason == 'ERR_USER_CANCEL') {} else {
-//		    	  $scope.showMsg("分享失败: " + reason);
-//		      }
-//		    });
-		
-		if (typeof Wechat === "undefined") {
+		var hideSheet = $ionicActionSheet.show({
+            buttons: [
+                { text: '微信朋友圈' },
+                { text: '微信好友' }
+            ],
+            titleText: '分享',
+            cancelText: '取消',
+            cancel: function() {
+                // 取消时执行
+            },
+            buttonClicked: function(index) {
+        		// For example's sake, hide the sheet after two seconds
+         	   $timeout(function() {
+         	     hideSheet();
+         	   }, 2000);
+                if(index == 0) {
+                    $scope.activityShare(Wechat.Scene.TIMELINE);
+                }
+                if(index ==1 ) {
+                    $scope.activityShare(Wechat.Scene.SESSION);
+                }
+            }
+        });
+    };
+    
+    //活动分享
+    $scope.activityShare = function(scene){
+    	if (typeof Wechat === "undefined") {
             alert("Wechat plugin is not installed.");
             return false;
         }
@@ -641,7 +607,7 @@ angular.module('starter.controllers', ['ionic'])
 	    });
 
 	    var params = {
-            scene: Wechat.Scene.TIMELINE   // share to Timeline
+            scene: scene
         };
 	    params.message = {
             title: shareContent.title,//标题
@@ -656,8 +622,6 @@ angular.module('starter.controllers', ['ionic'])
   	        }
         }
 	    console.log(params);
-	   // alert(params.message.media.webpageUrl);
-	    
 	   Wechat.share(params, function () {
 		   $http.post(ApiEndpoint.url + '/api_app_signandshare_save?type=2&userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&activityId='+shareContent.acId+'&shareSns="微信朋友圈"').success(function(data) {
 				$ionicLoading.hide();
@@ -680,11 +644,14 @@ angular.module('starter.controllers', ['ionic'])
 				});
 			});
 	    }, function (reason) {
-	    	$scope.showMsg("分享失败: " + reason);
+	    	$ionicPopup.alert({
+                title: '分享失败',
+                template: '错误原因：' + reason + '。',
+                okText: '我知道了'
+            });
 	    });
-		
-		
-    };
+    }
+    
 	//加载活动列表内容
 	$scope.activityList = function() {
 		$ionicLoading.show({
@@ -1250,8 +1217,6 @@ angular.module('starter.controllers', ['ionic'])
 	  $scope.helpDetail = function(k,test) {
 		  var title=k.title;
 		  var msgId=k.mid;
-		   //alert(title);
-		  // alert(msgId);
 		  if(test==1||test=="1"){
 			  $http.post(ApiEndpoint.url + '/api_message_detail?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&msgId='+msgId).success(function(data) {
 				    if (data.state == 'success') {
