@@ -1173,11 +1173,11 @@ angular.module('starter.controllers', ['ionic'])
 			    template: "<ion-spinner></ion-spinner>"
 		 });
 		  $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=0'+'&pageNo=1'+'&pageSize=10').success(function(data) {
+			  $ionicLoading.hide();
 			  $scope.nomsg = false;//未读消息提示默认隐藏
 			  if (data.state == 'success') {
 				  if(data.lst.length<1){
 					  $scope.nomsg = true;
-					  $ionicLoading.hide();
 				  }
 				  for (var i = 0; i < data.lst.length; i++) {
 				        (data.lst)[i].index = i + 1;
@@ -1186,7 +1186,6 @@ angular.module('starter.controllers', ['ionic'])
 				      }
 				      $scope.messageWd = data.lst;
 				    }else{
-				    	$ionicLoading.hide();
 						$scope.showMsg(data.msg);
 					}
 			});
@@ -1198,20 +1197,19 @@ angular.module('starter.controllers', ['ionic'])
 			    template: "<ion-spinner></ion-spinner>"
 		 });
 		  $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&state=1'+'&pageNo=1'+'&pageSize=10').success(function(data) {
+			  $ionicLoading.hide();
 			  $scope.nomsg2 = false;//未读消息提示默认隐藏
 			  if (data.state == 'success') {
 				  if(data.lst.length<1){
 					  $scope.nomsg2 = true;
-					  $ionicLoading.hide();
+					 
 				  }
 				  for (var i = 0; i < data.lst.length; i++) {
 				        (data.lst)[i].index = i + 1;
 				        HelpData.arr.push((data.lst)[i]);
-				        $ionicLoading.hide();
 				      }
 				        $scope.messageYd = data.lst;
 				    }else{
-				    	$ionicLoading.hide();
 						$scope.showMsg(data.msg);
 					}
 			});
@@ -1222,11 +1220,11 @@ angular.module('starter.controllers', ['ionic'])
 			    template: "<ion-spinner></ion-spinner>"
 		 });
 		  $http.post(ApiEndpoint.url + '/api_message_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10').success(function(data) {
+			  $ionicLoading.hide();
 			  $scope.nomsg3 = false;//未读消息提示默认隐藏
 			  if (data.state == 'success') {
 				  if(data.lst.length<1){
 					  $scope.nomsg3 = true;
-					  $ionicLoading.hide();
 				  }
 				  for (var i = 0; i < data.lst.length; i++) {
 				        (data.lst)[i].index = i + 1;
@@ -1235,7 +1233,6 @@ angular.module('starter.controllers', ['ionic'])
 				      }
 				        $scope.messageAll = data.lst;
 				    }else{
-				    	$ionicLoading.hide();
 						$scope.showMsg(data.msg);
 					}
 			});
