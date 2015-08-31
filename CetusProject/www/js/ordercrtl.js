@@ -181,10 +181,10 @@ angular.module('starter.ordercrtl', [])
 					title: '提示',
 					scope: $scope,
 					buttons: [{ text: '确定',type: 'button-assertive',onTap:function(e){
+						$scope.payState = false;
 						$scope.getOrderWf();//回到未付款订单列表界面
 					}}]
 			   });
-				$scope.payState = false;
 			},
 			function(msg){}
 		)
