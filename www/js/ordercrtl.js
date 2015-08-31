@@ -186,10 +186,7 @@ angular.module('starter.ordercrtl', [])
 			   });
 				$scope.payState = false;
 			},
-			function(msg){
-				$scope.payState = false;
-			}
-
+			function(msg){}
 		)
 	  }
 	  
@@ -273,7 +270,7 @@ angular.module('starter.ordercrtl', [])
 				{ text: '确定',type: 'button-positive',onTap:function(e){
 					$ionicLoading.show({
 						  template: "<ion-spinner></ion-spinner>"
-					  });
+					});
 					$http.post(ApiEndpoint.url + '/api_order_pretendDelete?id='+(orderId)).success(function(data) {
 						$ionicLoading.hide();
 						if (data.state == 'success') {
