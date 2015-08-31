@@ -39,7 +39,7 @@ angular.module('starter.controllers', ['ionic'])
   }
 })
 
-.controller('UserCtrl', function($scope, $state, $ionicModal, $timeout, $ionicPopup, $ionicPopover, $http, ApiEndpoint, Userinfo, $ionicLoading, $cordovaActionSheet, $cordovaImagePicker, $cordovaFileTransfer, $cordovaCamera, $cordovaAppVersion,$cordovaFileOpener2, $stateParams) {
+.controller('UserCtrl', function($scope, $state, $ionicModal, $timeout, $ionicPopup, $ionicPopover, $http, ApiEndpoint, Userinfo, $ionicLoading,$ionicActionSheet, $cordovaActionSheet, $cordovaImagePicker, $cordovaFileTransfer, $cordovaCamera, $cordovaAppVersion,$cordovaFileOpener2, $stateParams) {
   //window.localStorage.clear();
   $scope.flag = Userinfo.l.flag;
   $scope.params = Userinfo.l;
