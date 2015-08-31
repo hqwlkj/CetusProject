@@ -416,7 +416,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	  }
   })
   .state('public.question', {//我的订单
-	  url: '/question',
+	  url: '/question/{ran}',
 	  views: {
 		  'public': {
 			  templateUrl: 'templates/public/question.html',

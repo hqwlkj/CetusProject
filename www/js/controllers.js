@@ -122,7 +122,7 @@ angular.module('starter.controllers', ['ionic'])
 		  $scope.login();
 		  return;
 	  }
-	  $state.go('public.question');
+	  $state.go('public.question',{ran:Math.random()*1000});
   };
   
 //到订单列表zxy
