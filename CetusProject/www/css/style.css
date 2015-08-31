@@ -373,6 +373,7 @@ overflow:hidden;/*溢出隐藏*/
 .quanimg{ padding: 0 10px;}
 .quanfont{height:auto;margin:15px;background-size: cover;background-position: center center;font-size: 0.75rem;;color: #acacac;}
 .quan-p{padding: 22px 15px 0 15px;text-align: center; color:#696969; font-family: "幼圆"; font-size: 1.25em; font-weight: 700;}
+.quanfont img{ width: 100%;}
 
 /*产品详情*/
 .product-title{margin-left: 15px; margin-right:15px; margin-top:6px; border-bottom:1px solid #cccccc; line-height:30px; position: relative;}
