@@ -401,7 +401,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })*/
   
  .state('message.msgall', {//全部信息
-	  url: '/msgall',
+	  url: '/msgall/{ran}',
 	  views: {
 		  'message': {
 			  templateUrl: 'templates/message/messageShow.html',

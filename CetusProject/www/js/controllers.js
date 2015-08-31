@@ -1276,6 +1276,11 @@ angular.module('starter.controllers', ['ionic'])
       $scope.param.content = HelpData.arr[i].content;
     }
   }
+  
+//跳转到我的未读消息列表
+	$scope.GoMsglist = function() {
+		  $state.go("message.msgall",{ran:Math.random()*1000});
+		}
 })
 
 
