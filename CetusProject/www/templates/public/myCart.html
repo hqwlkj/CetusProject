@@ -3,8 +3,8 @@
     <h1 class="title">我的购物车</h1>
 </ion-header-bar>
 <ion-content style="background:#E5E5E5;">
-	<div class="prompt" ng-click="policy()" style="height: {{prompt_height}}">
-	  	<div class="info"style="display: {{prompt_info}}">{{info}}</div>
+	<div class="prompt" ng-click="policy($event)" style="">
+	  	<div class="info"style="display: {{prompt_info}} height: {{prompt_height}}">{{info}}</div>
 	    <p class="up" ng-if="policy_state"></p>
 	    <p class="down" ng-if="!policy_state"></p><p>包邮政策、商品政策</p>
 	 </div>

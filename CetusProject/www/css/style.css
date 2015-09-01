@@ -493,7 +493,7 @@ cursor: pointer;
 .carlst-not-content-attr a{font-size: 0.65rem;}
 .addcart-not-btn{margin-top:10px;height:30px;line-height:30px;display:inline-block;background: #ec3473;color: #ffffff;font-size: 0.65rem;padding-left: 10px;padding-right: 10px;}
 
-.prompt { font-size: 0.75rem; max-width: 500px; height: 50px; background: #ffffff; line-height: 25px; border: 1px #ccc double;  overflow: hidden;  border-bottom:1px solid #EDEDED; text-align:center; }
+.prompt { font-size: 0.75rem; max-width: 500px; /*height: 50px;*/ background: #ffffff; line-height: 25px; border: 1px #ccc double;  overflow: hidden;  border-bottom:1px solid #EDEDED; text-align:center; }
 .prompt p{ margin:0 auto; }
 .info{ display:none; margin:15px; text-align:left;}
 .up{ width:24px; height:19px;background:url(../img/prompt.png);background-repeat:no-repeat;display:block; text-decoration:none;background-position: -24px 0;}
