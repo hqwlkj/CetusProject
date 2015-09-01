@@ -126,7 +126,6 @@ angular.module('starter.order', [])
 	$scope.save_state = false;
 	//提交订单
 	$scope.submit_order = function(){
-		$scope.save_state = true;
 		if($scope.send_type_state==0&&($scope.order_data.address==null||$scope.order_data.address.id=='')){
 			$scope.showMsg("收货地址为空");
 			return;
@@ -134,6 +133,7 @@ angular.module('starter.order', [])
 		if($scope.save_state==true){
 			return;
 		}
+		$scope.save_state = true;
 		//提交订单
 		var url = ApiEndpoint.url + "/api_order_insert?userId="+Userinfo.l.id+"&activityId="+$scope.order_data.activityId+"&atype="+($scope.send_type_state==0?1:0)+"&aid="+($scope.send_type_state==0?$scope.order_data.address.id:$scope.autoaddress_id)+"&productIds="+$scope.order_data.ids+"&counts="+$scope.order_data.count+"&activityType="+$scope.order_data.activityType;
 		$http.post(url).success(function(data) {
