@@ -79,6 +79,34 @@
                         {
                             "xml": "<preference name=\"WECHATAPPID\" value=\"wx3b5cd38874296f89\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"YCWeibo\"><param name=\"android-package\" value=\"org.zy.yuancheng.weibo.YCWeibo\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://open.weibo.cn/*\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://login.sina.com.cn/*\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://passport.weibo.cn/*\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"http://*.sinaimg.cn/*\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://api.weibo.com/*\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"WEIBO_APP_ID\" value=\"274270662\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -97,11 +125,47 @@
                         {
                             "xml": "<activity android:exported=\"true\" android:label=\"@string/launcher_name\" android:name=\".wxapi.WXEntryActivity\"><intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><data android:scheme=\"wx3b5cd38874296f89\" /></intent-filter></activity>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:exported=\"false\" android:name=\"com.sina.weibo.sdk.component.WeiboSdkBrowser\" android:theme=\"@android:style/Theme.NoTitleBar.Fullscreen\" android:windowSoftInputMode=\"adjustResize\"></activity>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:exported=\"false\" android:name=\"com.sina.weibo.sdk.register.mobile.MobileRegisterActivity\" android:screenOrientation=\"portrait\" android:windowSoftInputMode=\"adjustResize\"></activity>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:exported=\"false\" android:name=\"com.sina.weibo.sdk.register.mobile.SelectCountryActivity\" android:windowSoftInputMode=\"adjustResize\"></activity>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:name=\"org.zy.yuancheng.weibo.YCWeiboShareCallback\" android:screenOrientation=\"portrait\"><intent-filter><action android:name=\"com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY\" /><category android:name=\"android.intent.category.DEFAULT\" /></intent-filter></activity>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<service android:exported=\"false\" android:name=\"com.sina.weibo.sdk.net.DownloadService\" />",
+                            "count": 1
                         }
                     ],
                     "/manifest": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 2
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
                             "count": 1
                         }
                     ],
@@ -164,6 +228,10 @@
         },
         "xu.li.cordova.wechat": {
             "WECHATAPPID": "wx3b5cd38874296f89",
+            "PACKAGE_NAME": "com.parsec.cetusproject"
+        },
+        "org.zy.yuancheng.weibo": {
+            "WEIBO_APP_ID": "274270662",
             "PACKAGE_NAME": "com.parsec.cetusproject"
         }
     },
