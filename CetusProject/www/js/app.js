@@ -13,7 +13,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     // for form inputs)
 
     // 设备准备完后 隐藏启动动画
-    //navigator.splashscreen.hide();
+    navigator.splashscreen.hide();
 
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
