@@ -4,6 +4,8 @@
     <h1 class="title">物流详情</h1>
   </ion-header-bar>
   <ion-content style="background:#E5E5E5;">
+  <ion-refresher pulling-text="下拉刷新"	on-refresh="doRefresh()"></ion-refresher>
+  <section>
      <div class="log-tabbar fixed-top"> 
 	  <!-- 快递信息 -->
 	  <div class="log-top">
@@ -70,5 +72,6 @@
 	    </div>
 	  </div>
 	</div>
+	</section>
   </ion-content>
 </ion-modal-view>

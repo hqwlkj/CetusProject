@@ -272,6 +272,36 @@ angular.module('starter.mycartcrtl', [])
 	}
 	
 	$scope.loadLogisticsData();
+
+	//下拉刷新
+	$scope.doRefresh = function(){
+		$http.post(ApiEndpoint.url + '/api_express_findbycode?code='+$scope.com).success(function(data) {
+			if (data.state =="success") {
+				$scope.companyName = data.data.name;
+				$scope.orderListImg = data.data.img;
+			}else{
+				$scope.showMsg(data.msg);
+			}
+		});
+		$http.post(ApiEndpoint.url + '/api_express_send?com='+$scope.com+'&nu='+$scope.postId+'&ordnum='+$scope.ordNum).success(function(data) {
+			if (data.state =="success") {
+				$scope.orderItemMsg = data.msg;
+				$scope.orderItemList = data.oitem;
+				$scope.logisticsState = data.json.status;
+				$scope.logisticsList = data.json.data;
+				for (var i = 0; i < $scope.orderItemList.length; i++) {
+					$scope.orderItemList[i].imgUrl = ApiEndpoint.pic_url+'/'+$scope.orderItemList[i].imgurl;
+				}
+				if ($scope.logisticsList != null && $scope.logisticsList.length > 0) {
+					$scope.logisticsList[0].numberOne = 1;
+				}
+				$scope.$broadcast("scroll.refreshComplete");
+			}else{
+				$scope.showMsg(data.msg);
+			}
+		});
+	};
+	
 	
 	//关闭物流页面
 	$scope.closeLogistics = function() {
