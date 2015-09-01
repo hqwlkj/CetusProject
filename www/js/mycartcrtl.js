@@ -188,13 +188,14 @@ angular.module('starter.mycartcrtl', [])
 	$scope.policy_state=false;
 	$scope.prompt_height="50px;";
 	$scope.prompt_info="none;";
-	$scope.policy = function(){
+	$scope.policy = function(target){
+		//console.log(target);
 		if($scope.policy_state){
 			$scope.prompt_height="50px;";
 			$scope.prompt_info ="none;";
 			$scope.policy_state=false;
 		}else{
-			$scope.prompt_height="230px;";
+			$scope.prompt_height=target.Y+ 100 +"px;";
 			$scope.prompt_info = "block;";
 			$scope.policy_state=true;
 		}
