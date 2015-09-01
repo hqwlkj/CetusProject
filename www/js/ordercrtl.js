@@ -362,8 +362,8 @@ angular.module('starter.ordercrtl', [])
 							$scope.falgaddress1 = false;
 							$scope.falgaddress2 =true;
 							$scope.shopcom="上门自提";
-							$scope.shopName=data.add.shopName;//店名
-							$scope.address=data.add.address;//地址
+							$scope.shopName="<i class=\"icon-type-01\"></i> "+data.add.shopName;//店名
+							$scope.address="<i class=\"icon-address-01\"></i> "+data.add.address;//地址
 						}else{
 							$scope.locations=data.add.province+data.add.city+data.add.county+data.add.locations;//地址
 						}
