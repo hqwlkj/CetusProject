@@ -969,7 +969,8 @@ angular.module('starter.controllers', ['ionic'])
 		var hideSheet = $ionicActionSheet.show({
             buttons: [
                 { text: '微信朋友圈' },
-                { text: '微信好友' }
+                { text: '微信好友' },
+                { text: '新浪微博' }
             ],
             titleText: '分享',
             cancelText: '取消',
@@ -987,10 +988,52 @@ angular.module('starter.controllers', ['ionic'])
                 if(index ==1 ) {
                     $scope.shareViaWechat(Wechat.Scene.SESSION);
                 }
+                if(index ==2 ) {
+                	$scope.shareViaWeiBo();
+                }
             }
         });
 	};
-	//分享
+	
+	//分享新浪微博
+	$scope.shareViaWeiBo = function(){
+		YCWeibo.checkClientInstalled(function(){
+			$ionicLoading.show({
+				template: '正在打开新浪微博,请稍等...'
+			});
+			$timeout(function() {
+				$ionicLoading.hide();
+			}, 3000);
+	    },function(){
+	    	console.log('client is not installed');
+	    	$ionicPopup.alert({
+                title: '操作失败',
+                template: '未安装新浪微博客户端',
+                okText: '我知道了'
+            });
+    		return false;
+	    });
+		var args = {};
+		args.url = ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share=share";//链接
+		args.title = $scope.product.name;//标题
+		args.description = $scope.product.parameter.replace(/<[^>]+>/g, "");//描述
+		args.imageUrl = ApiEndpoint.url + "/images/LOGO_64x64.png";  //ApiEndpoint.url + "/images/logo_28 .png";//if you don't have imageUrl,for android http://www.sinaimg.cn/blog/developer/wiki/LOGO_64x64.png will be the defualt one
+		args.defaultText = "";
+		YCWeibo.shareToWeibo(function () {
+			$ionicPopup.alert({
+                title: '分享成功',
+                template: '感谢您的支持！',
+                okText: '关闭'
+            });
+		 }, function (failReason) {
+			 $ionicPopup.alert({
+                title: '分享失败',
+                template: '错误原因：' + failReason + '。',
+                okText: '我知道了'
+            });
+		}, args);
+	}
+	//分享微信
 	$scope.shareViaWechat = function(scene){
     	if (typeof Wechat === "undefined") {
     		alert("Wechat plugin is not installed.");
