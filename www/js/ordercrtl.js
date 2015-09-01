@@ -377,13 +377,17 @@ angular.module('starter.ordercrtl', [])
 							$scope.flag5 = false;
 						}
 						$scope.testcom=data.order.com;//处理 快递代码问题
-						$http.post(ApiEndpoint.url + '/api_express_findbycode?code='+$scope.testcom).success(function(data) {
-							if (data.state =="success") {
-								$scope.com = data.name;
-							}else{
-								$scope.showMsg(data.msg);
-							}
-						});
+						if(data.order.atype==0){
+							$scope.mycom="上门自提";
+						}else{
+							$http.post(ApiEndpoint.url + '/api_express_findbycode?code='+$scope.testcom).success(function(data) {
+								if (data.state =="success") {
+									$scope.mycom = data.data.name;
+								}else{
+									$scope.showMsg(data.msg);
+								}
+							});
+						}
 						//$scope.myorderId=data.order.id;
 						$scope.deliveryTime=data.order.deliveryTime;//送货时间
 						//$scope.orderMoney=data.order.orderMoney;//订单单价
