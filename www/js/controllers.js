@@ -772,6 +772,23 @@ angular.module('starter.controllers', ['ionic'])
 .controller('QuanCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state){
 	$scope.titleState=1;//标题的显示状态
 	$scope.quans = [];  //美O圈数据
+	$ionicLoading.show({
+	    template: "<ion-spinner></ion-spinner>"
+	});
+	
+	$scope.loadQuan = function() {
+		$http.post(ApiEndpoint.url + '/api_europeanpowder_list').success(function(data) {
+			$ionicLoading.hide();
+	        if (data.state == 'success') {
+	        	$scope.quans = data.list;
+	        }else {
+	        	$scope.showMsg(data.msg);
+	        }
+	      })
+	}
+	
+	$scope.loadQuan();
+	
 	$scope.doRefresh = function() {//下拉刷新
       $http.post(ApiEndpoint.url + '/api_europeanpowder_list').success(function(data) {
         if (data.state == 'success') {
@@ -782,8 +799,6 @@ angular.module('starter.controllers', ['ionic'])
         $scope.$broadcast("scroll.refreshComplete");
       })
 	};
-	
-	$scope.doRefresh();
 	
 	//跳转到我的购物车
 	$scope.cartClick = function() {
