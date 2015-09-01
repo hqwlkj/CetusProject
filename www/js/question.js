@@ -45,7 +45,7 @@ angular.module('starter.question', [])
 					if(data.list[i].content.length>15){
 						data.list[i].content = data.list[i].content.substr(0, 15)+"...";
 					}
-					if(data.list[i].answer==null||data.list[i].answer==''){
+					if(data.list[i].answerTime==null||data.list[i].answerTime==''){
 						data.list[i].answer = 0;
 					}else{
 						data.list[i].answer = 1;
