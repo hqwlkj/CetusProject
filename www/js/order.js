@@ -126,12 +126,12 @@ angular.module('starter.order', [])
 	$scope.save_state = false;
 	//提交订单
 	$scope.submit_order = function(){
-		if($scope.save_state==true){
-			return;
-		}
 		$scope.save_state = true;
 		if($scope.send_type_state==0&&($scope.order_data.address==null||$scope.order_data.address.id=='')){
 			$scope.showMsg("收货地址为空");
+			return;
+		}
+		if($scope.save_state==true){
 			return;
 		}
 		//提交订单
