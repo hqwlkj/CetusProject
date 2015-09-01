@@ -24,6 +24,8 @@ angular.module('starter.mycartcrtl', [])
 				if (data.state == 'success') {
 					$scope.cartList = data.list;
 					$scope.discount = data.discount;
+					$scope.allMoney = 0;
+					$scope.allCheckClass = "icon-unselect-01";
 				}
 			});
 		}
@@ -114,8 +116,6 @@ angular.module('starter.mycartcrtl', [])
 							$scope.showMsg(data.msg);
 							if (data.state == 'success') {
 								$scope.loadCartData();
-								$scope.allMoney = 0;
-								$scope.allCheckClass = "icon-unselect-01";
 							}
 						});
 				    } 
@@ -154,6 +154,7 @@ angular.module('starter.mycartcrtl', [])
 		$scope.c = obj;
 		if ($scope.c.checkClass == "icon-select-satatus-01") {
 			$scope.c.checkClass = "icon-unselect-01";
+			$scope.allCheckClass = "icon-unselect-01";
 			$scope.allMoney -= $scope.c.product.price*$scope.discount*$scope.c.productNum;
 		}else {
 			$scope.c.checkClass = "icon-select-satatus-01";
