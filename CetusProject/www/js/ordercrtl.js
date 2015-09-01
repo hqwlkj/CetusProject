@@ -377,27 +377,33 @@ angular.module('starter.ordercrtl', [])
 							$scope.flag5 = false;
 						}
 						$scope.testcom=data.order.com;//处理 快递代码问题
-						if(data.order.atype==0){
+						$scope.mycom="";
+						if(data.order.atype==0){//判断是否是自提
 							$scope.mycom="上门自提";
 						}else{
-							$http.post(ApiEndpoint.url + '/api_express_findbycode?code='+$scope.testcom).success(function(data) {
-								if (data.state =="success") {
-									$scope.mycom = data.data.name;
-								}else{
-									$scope.showMsg(data.msg);
-								}
-							});
+							if($scope.testcom==undefined||$scope.testcom==""){//处理未配送的情况
+								$scope.mycom="暂未配送";
+							}else{
+								$http.post(ApiEndpoint.url + '/api_express_findbycode?code='+$scope.testcom).success(function(data) {
+									if (data.state =="success") {
+										$scope.mycom = data.data.name;
+									}else{
+										$scope.showMsg(data.msg);
+									}
+								});
+							}
+							
 						}
 						//$scope.myorderId=data.order.id;
 						$scope.deliveryTime=data.order.deliveryTime;//送货时间
 						//$scope.orderMoney=data.order.orderMoney;//订单单价
-						$scope.orderMoney=(countFee.toFixed(2));//订单总额
+						$scope.orderMoney="￥"+(countFee.toFixed(2));//订单总额
 						$scope.freight=data.order.freight.toFixed(2);//运费
 						$scope.discountPrice=(parseFloat(countFee - price).toFixed(2));//优惠价格
 						if($scope.discountPrice<0){//活动过来的产品会造成优惠为负值
 							$scope.discountPrice=0;
 						}
-						$scope.countPrice=(parseFloat(data.order.orderMoney).toFixed(2));//实付金额
+						$scope.countPrice="￥"+(parseFloat(data.order.orderMoney).toFixed(2));//实付金额
 						$scope.showRiseTime=data.order.showRiseTime;//下单时间
 					}
 					$ionicLoading.hide();
