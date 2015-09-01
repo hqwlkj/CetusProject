@@ -114,6 +114,8 @@ angular.module('starter.mycartcrtl', [])
 							$scope.showMsg(data.msg);
 							if (data.state == 'success') {
 								$scope.loadCartData();
+								$scope.allMoney = 0;
+								$scope.allCheckClass = "icon-unselect-01";
 							}
 						});
 				    } 
