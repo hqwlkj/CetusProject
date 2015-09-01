@@ -11,7 +11,7 @@
         </li>
         <li>
             <div class="orderxq-top bbn">
-                <span class="orderlst-title">感谢您在美欧购物,欢迎再次光临！</span>
+                <span class="orderlst-title">感谢您在美O购物,欢迎再次光临！</span>
             </div>
         </li>
 
@@ -19,13 +19,13 @@
             <div class="mo-order-orderlst"><span class="orderlst-title">收货人:</span><span class="recive-name" ng-bind="recipients"></span>
                 <div class="orderxq-top-right right text-right"><span class="orderlst-title">手机号:</span><span class="recive-name" ng-bind="telephone"></span></div>
                 <p class="orderlst-top-content-attr" id="locations">
-                <i class="icon-pote-01"></i><span ng-bind="locations"></span></p>
+                <i class="icon-address-01"></i><span ng-bind="locations"></span></p>
             </div>
         </li>
-	<li id="autoaddress" ng-show="falgaddress2">
+	<li id="auto-address" ng-show="falgaddress2">
       <div class="orderxq-top bbn"><span class="orderlst-title">自提地点:</span>
-        <p class="orderxq-top-content-attr" ng-bind="shopName" ></p>
-        <p class="orderxq-top-content-attr" ng-bind="address" ></p>
+        <p class="orderxq-top-content-attr" ng-bind-html="shopName" ></p>
+        <p class="orderxq-top-content-attr" ng-bind-html="address" ></p>
       </div>
     </li>
     <li id="orderItem" ng-repeat="msg in orderItems">

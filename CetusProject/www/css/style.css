@@ -573,11 +573,13 @@ overflow:hidden;/*溢出隐藏*/
 .orderlst li{background:#ffffff;margin-bottom: 10px}
 .orderlst-title{font-size: 0.75rem}
 #not_hava_address{ background-color: #ffbfbf; border-top: 2px dashed red; border-bottom: 2px dashed red;}
+#auto-address{ background-color: #ffbfbf; border-top: 2px dashed red; border-bottom: 2px dashed red;}
 .evaluate-btn{border:1px solid #ec3473;color:#ffffff; background-color:#ec3473; font-size: 0.65rem;padding:5px 10px;display: inline-block;margin: auto 3px }
 .pingl-btn{border:1px solid #8a6d3b;color:#8a6d3b;font-size: 0.65rem;padding:4px 10px;display: inline-block;margin: auto 3px }
 .mo-order-orderlst{margin-left: 15px; margin-right:15px; padding: 10px 0 10px 0;}
 .sm-btn{background:#ec3473;color:#ffffff; border:1px solid #ec3473; background-color:#ec3473; font-size: 0.75rem;padding:4px 10px;display: inline-block;text-align: center;}
 .mo-isdo{ position:relative;top: -25px; width: 80px; height: 80px; float: right; right: 8%; }
+.orderxq-top-content-attr{ margin: 0; padding: 0;}
 /*配送方式*/
 .price span{font-size: 0.625rem}
 .price{font-size: 0.75rem;color:#ec3473;}
