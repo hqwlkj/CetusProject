@@ -10,7 +10,7 @@
 	    <li> <i class="icon-user-01" style="color:#9669dc"></i> <span>会员姓名</span> <span class="right text-right" style=" color:#171717;" id="name">{{userinfo_name}}</span> </li>
 	    <li> <i class="icon-vip-01" style="color:#fa82a5"></i> <span>会员卡</span> <span class="right text-right" style=" color:#171717; " id="userNo">{{userinfo_userNo}}</span> </li>
 	    <li> <i class="icon-type-01" style="color:#ffa63c"></i> <span>会员类型</span> <span class="right text-right" style=" color:#171717; " id="userType">{{userinfo_userType}}</span> </li>
-	    <li> <i class="icon-score-01" style="color:#a2d152"></i> <span>当前积分</span> <span class="right text-right" style=" color:#171717; " id="myScore">{{userinfo_myScore}}</span> </li>
+	    <li ng-if="isIntegral"> <i class="icon-score-01" style="color:#a2d152"></i> <span>当前积分</span> <span class="right text-right" style=" color:#171717; " id="myScore">{{userinfo_myScore}}</span> </li>
 	    <li> <i class="icon-total-01" style="color:#2ebda4"></i> <span>会累计消费金额</span> <span class="right text-right" style=" color:#171717; " id="myMoney">{{userinfo_myMoney}}</span> </li>
 	    <li ng-if="show_myInvitationCode==1"> <i class="icon-invite-01" style="color:#ffa63c"></i> <span>会员邀请码</span> <span class="right text-right" style=" color:#171717; " id="myInvitationCode">{{userinfo_myInvitationCode}}</span> </li>
 	    <li ng-if="state ==0"> <i class="icon-invite-01" style="color:#ffa63c"></i> <span>邀请人</span> <span class="right text-right" style=" color:#171717; " id="InvitationName">{{userinfo_InvitationName}}</span> </li>

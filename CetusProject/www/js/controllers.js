@@ -45,6 +45,7 @@ angular.module('starter.controllers', ['ionic'])
   $scope.params = Userinfo.l;
   $scope.sign = Userinfo.l.today_signed;
   $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+  $scope.isIntegral = false;
   $scope.searchData = {};
   $scope.goodsPage = 1;
   $scope.goods_load_over = true;
@@ -57,6 +58,11 @@ angular.module('starter.controllers', ['ionic'])
   setInterval(function(){
 	  $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
 	  $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
+	  if(Userinfo.l.userType == 2){		  
+		  $scope.isIntegral = true;
+	  }else{
+		  $scope.isIntegral = false;
+	  }
   },2000);
   $scope.doRefresh = function() {//下拉刷新
       $http.post(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
@@ -508,21 +514,6 @@ angular.module('starter.controllers', ['ionic'])
 	}
 	//分享。
 	$scope.toShare = function(acId) {
-//	    Wechat.isInstalled(function(installed) {
-//	      if (!installed) {
-//	        alert("手机尚未安装微信应用");
-//	      } else {
-//	        $ionicLoading.show({
-//	          template: '正在打开微信,请稍等...'
-//	        });
-//	        $timeout(function() {
-//	          $ionicLoading.hide();
-//	        }, 3000);
-//
-////			alert(WeChat.Scene.TIMELINE+"----");
-////		    $scope.shareViaWechat(1, "分享到微信朋友圈", 'aaa', 'http://baidu.com', 'cccc');
-//	      }
-//	    });
 		var shareContent = {
 				title: '', // 分享标题
 				desc: '', // 分享描述
