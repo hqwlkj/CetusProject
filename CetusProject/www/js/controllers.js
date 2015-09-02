@@ -18,7 +18,14 @@ angular.module('starter.controllers', ['ionic'])
 	     $scope.banner = data.activityList;
 	   }
 	});
-	
+	//更新用户信息
+	if(Userinfo.l.id){
+		$http.post(ApiEndpoint.url + '/api_user_detail?id='+Userinfo.l.id).success(function(data) {
+			if (data.state == "success") {
+				Userinfo.save(data.obj);
+			}
+		});
+	}
 	//打开广告链接
 	$scope.openAdUrl = function(adUrl, title) {
 		window.open(adUrl, '_blank', 'location=yes', title);
