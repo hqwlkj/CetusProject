@@ -1596,7 +1596,6 @@ angular.module('starter.controllers', ['ionic'])
 			          type: 'button-assertive'
 			        }]
 			    });
-	            $scope.avaImg =  results[0];
 	            $scope.doRefreshUser();
 	          }, function(err) {
 	            $ionicPopup.alert({
