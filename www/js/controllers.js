@@ -576,7 +576,7 @@ angular.module('starter.controllers', ['ionic'])
         		// For example's sake, hide the sheet after two seconds
          	   $timeout(function() {
          	     hideSheet();
-         	   }, 2000);
+         	   }, 1000);
                 if(index == 0) {
                     $scope.activityShare(Wechat.Scene.TIMELINE,shareContent);
                 }
@@ -591,26 +591,13 @@ angular.module('starter.controllers', ['ionic'])
     };
    //分享新浪微博
 	$scope.shareViaWeiBo = function(shareContent){
-		var boo = false;
 		YCWeibo.checkClientInstalled(function(){
-			boo =true;
 			$ionicLoading.show({
 				template: '正在打开新浪微博,请稍等...'
 			});
 			$timeout(function() {
 				$ionicLoading.hide();
 			}, 3000);
-	    },function(){
-	    	boo = false;
-	    	console.log('client is not installed');
-	    	$ionicPopup.alert({
-                title: '操作失败',
-                template: '未安装新浪微博客户端',
-                okText: '我知道了'
-            });
-    		return false;
-	    });
-		if(boo){
 			var args = {};
 			args.url = shareContent.link;//链接
 			args.title = shareContent.title;//标题
@@ -645,12 +632,20 @@ angular.module('starter.controllers', ['ionic'])
 	                okText: '我知道了'
 	            });
 			}, args);
-		}
+	    },function(){
+	    	console.log('client is not installed');
+	    	$ionicPopup.alert({
+                title: '分享失败',
+                template: '错误原因：未安装新浪微博客户端',
+                okText: '我知道了'
+            });
+    		return;
+	    });
+		
 	}
     
     //活动分享
     $scope.activityShare = function(scene,shareContent){
-    	var boo = false;
     	if (typeof Wechat === "undefined") {
             //alert("Wechat plugin is not installed.");
             return false;
@@ -658,7 +653,6 @@ angular.module('starter.controllers', ['ionic'])
 
 	    Wechat.isInstalled(function(installed) {
 	      if (!installed) {
-	    	boo = false;
 	        $ionicPopup.alert({
                 title: '分享失败',
                 template: '错误原因：手机尚未安装微信应用。',
@@ -666,7 +660,6 @@ angular.module('starter.controllers', ['ionic'])
             });
 	        return false;
 	      } else {
-	    	boo = true;
 	        $ionicLoading.show({
 	          template: '正在打开微信,请稍等...'
 	        });
@@ -675,52 +668,50 @@ angular.module('starter.controllers', ['ionic'])
 	        }, 3000);
 	      }
 	    });
-	    if(boo){
-	    	var params = {
-	                scene: scene
-	            };
-	    	    params.message = {
-	                title: shareContent.title,//标题
-	                description: shareContent.desc.replace(/<[^>]+>/g, ""),//描述
-	                thumb: ApiEndpoint.url + "/images/LOGO_64x64.png",//shareContent.imgUrl, //IMG 
-	                mediaTagName: "美O-APP下载",
-	                messageExt: "神奇的美O",
-	                messageAction: "<action>dotalist</action>",
-	                media: {
-	      	          type: Wechat.Type.LINK,
-	      	          webpageUrl: shareContent.link
-	      	        }
-	            }
-	    	    console.log(params);
-	    	   Wechat.share(params, function () {
-	    		   $http.post(ApiEndpoint.url + '/api_app_signandshare_save?type=2&userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&activityId='+shareContent.acId+'&shareSns="微信分享"').success(function(data) {
-	    				$ionicLoading.hide();
-	    				var title = data.title;
-	    				var msg = data.msg;
-	    				if (data.state == 'success') {
-	    					title = "提示";
-	    					msg = "分享成功";
-	    				}
-	    				$ionicPopup.alert({
-	    			        title: title,
-	    			        template: msg,
-	    			        buttons: [{
-	    			          text: '确定',
-	    			          type: 'button-assertive'
-	    			        }]
-	    			    }).then(function(res) {
-	    			    	if (data.state == 'success')
-	    			    		$scope.activityList();
-	    				});
-	    			});
-	    	    }, function (reason) {
-	    	    	$ionicPopup.alert({
-	                    title: '分享失败',
-	                    template: '错误原因：' + reason + '。',
-	                    okText: '我知道了'
-	                });
-	    	    });
-	    }
+    	var params = {
+            scene: scene
+        };
+	    params.message = {
+            title: shareContent.title,//标题
+            description: shareContent.desc.replace(/<[^>]+>/g, ""),//描述
+            thumb: ApiEndpoint.url + "/images/LOGO_64x64.png",//shareContent.imgUrl, //IMG 
+            mediaTagName: "美O-APP下载",
+            messageExt: "神奇的美O",
+            messageAction: "<action>dotalist</action>",
+            media: {
+  	          type: Wechat.Type.LINK,
+  	          webpageUrl: shareContent.link
+  	        }
+        }
+	    console.log(params);
+	   Wechat.share(params, function () {
+		   $http.post(ApiEndpoint.url + '/api_app_signandshare_save?type=2&userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&activityId='+shareContent.acId+'&shareSns="微信分享"').success(function(data) {
+				$ionicLoading.hide();
+				var title = data.title;
+				var msg = data.msg;
+				if (data.state == 'success') {
+					title = "提示";
+					msg = "分享成功";
+				}
+				$ionicPopup.alert({
+			        title: title,
+			        template: msg,
+			        buttons: [{
+			          text: '确定',
+			          type: 'button-assertive'
+			        }]
+			    }).then(function(res) {
+			    	if (data.state == 'success')
+			    		$scope.activityList();
+				});
+			});
+	    }, function (reason) {
+	    	$ionicPopup.alert({
+                title: '分享失败',
+                template: '错误原因：' + reason + '。',
+                okText: '我知道了'
+            });
+	    });
     }
     
 	//加载活动列表内容
@@ -984,7 +975,7 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.commenHtml="";
 	$scope.commenState=true;
 	$scope._width="200px";
-	var _img = "www/img/logo_28.png";
+	//var _img = "www/img/logo_28.png";
 	$ionicLoading.show({
 	     template: '<ion-spinner></ion-spinner>'
 	});
@@ -996,16 +987,16 @@ angular.module('starter.controllers', ['ionic'])
 				$scope.after = "】";
 				$scope.product = data;
 				$scope.picfiles = data.picfiles;
-				for(var i =0 ; i< data.picfiles.length; i++){
-					var pic = data.picfiles[i];
-					if(pic.isCover == 1){
-						$http.post(ApiEndpoint.url + '/qn_url/'+pic.imgurl).success(function(imgdata) {
-							if (imgdata.state == 'success') {
-								//_img =imgdata.url;
-					        }
-					    });
-					}
-				}
+//				for(var i =0 ; i< data.picfiles.length; i++){
+//					var pic = data.picfiles[i];
+//					if(pic.isCover == 1){
+//						$http.post(ApiEndpoint.url + '/qn_url/'+pic.imgurl).success(function(imgdata) {
+//							if (imgdata.state == 'success') {
+//								//_img =imgdata.url;
+//					        }
+//					    });
+//					}
+//				}
 				$scope.cartData.stockNum = $scope.product.stockNum;
 				$scope.cartData.amount = 1;
 	        }else{
@@ -1052,7 +1043,7 @@ angular.module('starter.controllers', ['ionic'])
         		// For example's sake, hide the sheet after two seconds
          	   $timeout(function() {
          	     hideSheet();
-         	   }, 2000);
+         	   }, 1000);
                 if(index == 0) {
                     $scope.shareViaWechat(Wechat.Scene.TIMELINE);
                 }
@@ -1068,26 +1059,13 @@ angular.module('starter.controllers', ['ionic'])
 	
 	//分享新浪微博
 	$scope.shareViaWeiBo = function(){
-		var boo = false;
 		YCWeibo.checkClientInstalled(function(){
-			boo = true;
 			$ionicLoading.show({
 				template: '正在打开新浪微博,请稍等...'
 			});
 			$timeout(function() {
 				$ionicLoading.hide();
 			}, 3000);
-	    },function(){
-	    	boo = false;
-	    	console.log('client is not installed');
-	    	$ionicPopup.alert({
-                title: '操作失败',
-                template: '未安装新浪微博客户端',
-                okText: '我知道了'
-            });
-    		return false;
-	    });
-		if(boo){
 			var args = {};
 			args.url = ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share=share";//链接
 			args.title = $scope.product.name;//标题
@@ -1107,11 +1085,18 @@ angular.module('starter.controllers', ['ionic'])
 	                okText: '我知道了'
 	            });
 			}, args);
-		}
+	    },function(){
+	    	console.log('client is not installed');
+	    	$ionicPopup.alert({
+                title: '分享失败',
+                template: '未安装新浪微博客户端',
+                okText: '我知道了'
+            });
+    		return false;
+	    });
 	}
 	//分享微信
 	$scope.shareViaWechat = function(scene){
-		var boo = false;
     	if (typeof Wechat === "undefined") {
     		//alert("Wechat plugin is not installed.");
     		return false;
@@ -1124,10 +1109,8 @@ angular.module('starter.controllers', ['ionic'])
                     template: '错误原因：手机尚未安装微信应用。',
                     okText: '我知道了'
                 });
-    			boo = false;
     			return false;
     		} else {
-    			boo = true;
     			$ionicLoading.show({
     				template: '正在打开微信,请稍等...'
     			});
@@ -1136,37 +1119,35 @@ angular.module('starter.controllers', ['ionic'])
     			}, 3000);
     		}
     	});
-    	if(boo){
-    		var params = {
-	    		scene: scene
-	    	};
-	    	params.message = {
-	    			title: $scope.product.name,//标题
-	    			description: $scope.product.parameter.replace(/<[^>]+>/g, ""),//描述
-	    			thumb: _img, //IMG 
-	    			mediaTagName: "美O-APP下载",
-	    			messageExt: "神奇的美O",
-	    			messageAction: "<action>dotalist</action>",
-	    			media: {
-	    				type: Wechat.Type.LINK,
-	    				webpageUrl: ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share=share"
-	    			}
-	    	}
-	    	console.log(params);
-	    	Wechat.share(params, function () {
-	            $ionicPopup.alert({
-	                title: '分享成功',
-	                template: '感谢您的支持！',
-	                okText: '关闭'
-	            });
-	    	}, function (reason) {
-	            $ionicPopup.alert({
-	                title: '分享失败',
-	                template: '错误原因：' + reason + '。',
-	                okText: '我知道了'
-	            });
-	    	});
+		var params = {
+    		scene: scene
+    	};
+    	params.message = {
+    			title: $scope.product.name,//标题
+    			description: $scope.product.parameter.replace(/<[^>]+>/g, ""),//描述
+    			thumb: ApiEndpoint.url + "/images/LOGO_64x64.png", //IMG 
+    			mediaTagName: "美O-APP下载",
+    			messageExt: "神奇的美O",
+    			messageAction: "<action>dotalist</action>",
+    			media: {
+    				type: Wechat.Type.LINK,
+    				webpageUrl: ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share=share"
+    			}
     	}
+    	console.log(params);
+    	Wechat.share(params, function () {
+            $ionicPopup.alert({
+                title: '分享成功',
+                template: '感谢您的支持！',
+                okText: '关闭'
+            });
+    	}, function (reason) {
+            $ionicPopup.alert({
+                title: '分享失败',
+                template: '错误原因：' + reason + '。',
+                okText: '我知道了'
+            });
+    	});
     }
 	
 	
