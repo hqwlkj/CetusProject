@@ -63,10 +63,10 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
         .then(function(results) {
           $cordovaFileTransfer.upload(server, results[0], option, true)
             .then(function(result) {
-              alert('上传成功');
+              //alert('上传成功');
               $rootScope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
             }, function(err) {
-              alert('上传失败，请重试');
+              //alert('上传失败，请重试');
             }, function(progress) {
               $ionicLoading.show({
                 template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
@@ -98,11 +98,11 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       $cordovaCamera.getPicture(options).then(function(imageData) {
         $cordovaFileTransfer.upload(server, "data:image/jpeg;base64," + imageData, option, true)
           .then(function(result) {
-            alert('上传成功');
+            //alert('上传成功');
             $rootScope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
             //$scope.doRefresh();
           }, function(err) {
-            alert('上传失败，请重试');
+            //alert('上传失败，请重试');
           }, function(progress) {
             $ionicLoading.show({
               template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
@@ -161,6 +161,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
                 $ionicLoading.hide();
             }, function (err) {
                 //alert('下载失败');
+            	
             	$ionicLoading.hide();
             	$ionicPopup.alert({
 			        title: '提示',
