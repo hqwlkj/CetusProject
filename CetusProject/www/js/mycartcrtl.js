@@ -115,6 +115,9 @@ angular.module('starter.mycartcrtl', [])
 							$ionicLoading.hide();
 							$scope.showMsg(data.msg);
 							if (data.state == 'success') {
+								$ionicLoading.show({
+								    template: "<ion-spinner></ion-spinner>"
+								});
 								$scope.loadCartData();
 							}
 						});
