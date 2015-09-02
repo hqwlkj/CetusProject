@@ -26,7 +26,7 @@ angular.module('starter.order', [])
 	$scope.show_price = 0;   //商品价格
 	$scope.transportation_expenses = 0;   //邮费
 	$scope.show_transportation_expenses = 0;   //邮费
-	$scope.have_address = true;
+	$scope.have_address = -1;
 	$scope.address = {};
 	$scope.ruleInfo = "";//提示信息
 	$scope.autoaddress_list = [];
@@ -51,9 +51,8 @@ angular.module('starter.order', [])
 					$scope.show_price += data.transportation_expenses;
 				}
 				if(data.address==null||data.address.id==''){
-					$scope.have_address=false;
+					$scope.have_address=0;
 				}else{
-					$scope.have_address=true;
 					$scope.address = data.address;
 				}
 			}
@@ -83,6 +82,13 @@ angular.module('starter.order', [])
 			$scope.show_transportation_expenses = $scope.transportation_expenses;
 			if($scope.price<200){
 				$scope.show_price = $scope.show_price + Number($scope.transportation_expenses);
+			}
+		}
+		if($scope.have_address>=0){
+			if($scope.have_address==0){
+				$scope.have_address = 1;
+			}else{
+				$scope.have_address = 0;
 			}
 		}
 	}
@@ -115,6 +121,13 @@ angular.module('starter.order', [])
 				if($scope.price<200){
 					$scope.show_price = $scope.show_price - Number($scope.transportation_expenses);
 				}
+			}
+		}
+		if($scope.have_address>=0){
+			if($scope.have_address==0){
+				$scope.have_address = 1;
+			}else{
+				$scope.have_address = 0;
 			}
 		}
 	}	
