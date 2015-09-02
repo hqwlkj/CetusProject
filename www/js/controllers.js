@@ -2,7 +2,7 @@
 angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
-  url: 'http://121.40.255.179/Cetus',
+  url: 'http://192.168.65.154:8080/Cetus',
   pic_url:'http://121.40.255.179/Cetus/pic'
 })
 
@@ -1585,6 +1585,7 @@ angular.module('starter.controllers', ['ionic'])
 
 	    $cordovaImagePicker.getPictures(options)
 	      .then(function(results) {
+	    	  console.log(results);
 	        $cordovaFileTransfer.upload(server, results[0], option, true)
 	          .then(function(result) {
 	            $ionicPopup.alert({
@@ -1627,7 +1628,8 @@ angular.module('starter.controllers', ['ionic'])
 	    var option = {};
 	    var options = {
 	      quality: 50,
-	      destinationType: Camera.DestinationType.DATA_URL,
+	     // destinationType: Camera.DestinationType.DATA_URL,
+	      destinationType: Camera.DestinationType.FILE_URI,
 	      sourceType: Camera.PictureSourceType.CAMERA,
 	      allowEdit: true,
 	      encodingType: Camera.EncodingType.JPEG,
@@ -1636,8 +1638,9 @@ angular.module('starter.controllers', ['ionic'])
 	      popoverOptions: CameraPopoverOptions,
 	      saveToPhotoAlbum: false
 	    };
-	    $cordovaCamera.getPicture(options).then(function(imageData) {
-	      $cordovaFileTransfer.upload(server, "data:image/jpeg;base64," + imageData, option, true)
+	    $cordovaCamera.getPicture(options).then(function(imageURI) {//imageData imageURI
+	      //$cordovaFileTransfer.upload(server, "data:image/jpeg;base64," + imageURI, option, true)
+	    	$cordovaFileTransfer.upload(server, imageURI, option, true)
 	        .then(function(result) {
 	            $ionicPopup.alert({
 			        title: '提示',
@@ -1695,7 +1698,12 @@ angular.module('starter.controllers', ['ionic'])
 				    });
 	            }
 	          } else {
-	            alert('服务器连接错误，请稍候再试');
+	            //alert('服务器连接错误，请稍候再试');
+	            $ionicPopup.alert({
+	                title: '提示',
+	                template: '服务器连接错误，请稍候再试。',
+	                okText: '我知道了'
+	            });
 	          }
 	        })
 	      });
@@ -1967,7 +1975,7 @@ angular.module('starter.controllers', ['ionic'])
 	      $scope.userinfo.realname = Userinfo.l.name != 'null' ? Userinfo.l.name : '';
 	      $scope.userinfo.alipay = Userinfo.l.alipay != 'null' ? Userinfo.l.alipay : '';
 	    } else {
-	      alert('登录超时，请重新登录');
+	      $scope.showMsg('登录超时，请重新登录');
 	      $scope.login();
 	      $scope.flag = '';
 	      Userinfo.l.id = '';
