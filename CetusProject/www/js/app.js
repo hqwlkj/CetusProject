@@ -26,8 +26,8 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     function onDeviceReady() {
           alert( device.model +"----"+device.cordova +"------"+ device.uuid +"-----"+device.version+"----"+device.platform );
       }
-    onDeviceReady();
-   //头像选择开始
+
+    //头像选择开始
    var options = {
       title: '上传头像',
       buttonLabels: ['从相册选择', '拍照'],
@@ -126,7 +126,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     function checkUpdate() {
       $cordovaAppVersion.getVersionNumber().then(function(version) {
         Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
-        $http.get('http://121.40.255.179/Cetus/api_checkversion_get?deviceType=android&v='+version).success(function(data) {
+        $http.get('http://121.40.255.179/Cetus/api_checkversion_get?deviceType=ios&v='+version).success(function(data) {
           if (data.state == 'success') {
             if (version != data.version) {
               showUpdateConfirm(data.desc, data.apk);
