@@ -413,7 +413,8 @@ angular.module('starter.addressController', [])
 				cancelButtonLabel: "Cancel"
 		  };
 		  // Show the picker
-		  window.plugins.listpicker.showPicker(config,function(item){ 
+		  window.plugins.listpicker.showPicker(config,function(item){
+			  alert(item);
 			  	var key;
 			  	for(key in $scope.addList){ 
 				     if($scope.addList.hasOwnProperty(key)){ 
@@ -452,6 +453,7 @@ angular.module('starter.addressController', [])
 		};
 		// Show the picker
 		window.plugins.listpicker.showPicker(config,function(item){ 
+			alert(item);
 		  	var key;
 		  	for(key in $scope.cityList){ 
 			     if($scope.cityList.hasOwnProperty(key)){ 
@@ -489,6 +491,7 @@ angular.module('starter.addressController', [])
 		};
 		// Show the picker
 		window.plugins.listpicker.showPicker(config,function(item){ 
+			alert(item);
 			$scope.address.county=item;
 			$scope.county=item;
 		},
