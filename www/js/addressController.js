@@ -406,15 +406,14 @@ angular.module('starter.addressController', [])
 		     } 
 		  }  
 		  var config = {
-				title: "Select a Fruit", 
-				items: showItems,
-				selectedValue: "papaya",
-				doneButtonLabel: "Done",
-				cancelButtonLabel: "Cancel"
+				  title: "省份选择", 
+				  items: showItems,
+				  selectedValue: $scope.address.province,
+				  doneButtonLabel: "完成",
+				  cancelButtonLabel: "取消"
 		  };
 		  // Show the picker
 		  window.plugins.listpicker.showPicker(config,function(item){
-			  alert(item);
 			  $scope.address.province=item;
 			  $scope.province=item;
 			  var key;
@@ -427,7 +426,7 @@ angular.module('starter.addressController', [])
 			  }  
 		  	  },
 			  function() { 
-		  		  alert("You have cancelled");
+		  		  //alert("You have cancelled");
 			  }
 		  );
 	}
@@ -445,15 +444,14 @@ angular.module('starter.addressController', [])
 			} 
 		}  
 		var config = {
-			title: "Select a Fruit", 
+			title: "城市选择", 
 			items: showItems,
-			selectedValue: "papaya",
-			doneButtonLabel: "Done",
-			cancelButtonLabel: "Cancel"
+			selectedValue: $scope.address.city,
+			doneButtonLabel: "完成",
+			cancelButtonLabel: "取消"
 		};
 		// Show the picker
 		window.plugins.listpicker.showPicker(config,function(item){ 
-			alert(item);
 			$scope.address.city=item;
         	$scope.city=item;
 		  	var key;
@@ -466,7 +464,7 @@ angular.module('starter.addressController', [])
 			  }  
 	  	  },
 		  function() { 
-	  		  alert("You have cancelled");
+	  		  //alert("You have cancelled");
 	  	  }
 		);
 	}
@@ -483,20 +481,19 @@ angular.module('starter.addressController', [])
 	        showItems.push(item);
 		}
 		var config = {
-			title: "Select a Fruit", 
+			title: "区县选择", 
 			items: showItems,
-			selectedValue: "papaya",
-			doneButtonLabel: "Done",
-			cancelButtonLabel: "Cancel"
+			selectedValue: $scope.address.county,
+			doneButtonLabel: "完成",
+			cancelButtonLabel: "取消"
 		};
 		// Show the picker
 		window.plugins.listpicker.showPicker(config,function(item){ 
-			alert(item);
 			$scope.address.county=item;
 			$scope.county=item;
 		},
 		function() { 
-	  		  alert("You have cancelled");
+	  		  //alert("You have cancelled");
 		});
 	}
 
