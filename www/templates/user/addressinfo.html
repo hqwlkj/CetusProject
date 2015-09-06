@@ -10,7 +10,7 @@
         <li><input type="text" class="form-text" placeholder="收件人" ng-model="address.recipients"/></li>
         <li><input type="tel" class="form-text" placeholder="电话号码" ng-model="address.telephone"/></li>
         <li><input type="text" class="form-text" placeholder="邮编" ng-model="address.zipCode"/></li>
-        <li><input type="text" class="form-text" placeholder="省份" ng-model="address.province" ng-click="showProvince()" readonly="readonly"/></li>
+        <li><input type="text" class="form-text" placeholder="省份" ng-model="address.province" ng-value="address.province" ng-click="showProvince()" readonly="readonly"/></li>
         <li><input type="text" class="form-text" placeholder="城市" ng-model="address.city" ng-click="showCity()" readonly="readonly"/></li>
         <li><input type="text" class="form-text" placeholder="区县" ng-model="address.county" ng-click="showCounty()" readonly="readonly"/></li>
         <!-- 
