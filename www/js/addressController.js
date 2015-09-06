@@ -419,7 +419,7 @@ angular.module('starter.addressController', [])
 				     if($scope.addList.hasOwnProperty(key)){ 
 				        if(key==item){
 				        	$scope.cityList = $scope.addList[key];
-				        	//$scope.address.province=key;
+				        	$scope.address.province=key;
 				        	$scope.province=key;
 				        }
 				     } 
@@ -433,6 +433,9 @@ angular.module('starter.addressController', [])
 	$scope.cityList = [];
 	//显示城市
 	$scope.showCity = function(){
+		if($scope.cityList.length==0){
+			return;
+		}
 		var showItems=[],key,_length=0;  
 		for(key in $scope.cityList){ 
 			if($scope.cityList.hasOwnProperty(key)){ 
@@ -469,6 +472,9 @@ angular.module('starter.addressController', [])
 	$scope.countyList = [];
 	//显示区县
 	$scope.showCounty = function(){
+		if($scope.countyList.length==0){
+			return;
+		}
 		var showItems=[];  
 		for (var i = 0; i < $scope.countyList.length; i++) {
 			var item = { text: $scope.countyList[i], value: $scope.countyList[i]};
