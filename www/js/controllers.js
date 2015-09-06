@@ -534,11 +534,14 @@ angular.module('starter.controllers', ['ionic'])
 		$http.post(ApiEndpoint.url + '/api_activity_detail?activityId='+acId+'&userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
 			if(data.state =="success") {
 				var obj = data.obj;
-				
 				shareContent.title =obj.name;//标题
 				shareContent.desc =obj.remark+"活动时间："+obj.showBeginTime+"—"+obj.showEndTime;//描述
-				//shareContent.link = window.location.protocol+"//"+window.location.host+":"+window.location.port+"/Cetus/mobile/activity.html?userid=&activityId="+acId;//分享链接
-				shareContent.link = data.sharelink;//分享链接
+				if(Userinfo.l.id != "" && Userinfo.l.userType != 1){
+					shareContent.link = ApiEndpoint.url +"/mobile/activity.html?userid="+(Userinfo.l.id?Userinfo.l.id:"")+"&activityId="+acId+"&share="+(Userinfo.l.myInvitation?Userinfo.l.myInvitation:"");//分享链接
+				}else{
+					shareContent.link = ApiEndpoint.url +"/mobile/activity.html?userid="+(Userinfo.l.id?Userinfo.l.id:"")+"&activityId="+acId+"&share=";//分享链接
+				}
+				//shareContent.link = data.sharelink+"&share="+(Userinfo.l.myInvitation?Userinfo.l.myInvitation:"");//分享链接
 				shareContent.imgUrl= window.location.protocol+"//"+window.location.host+":"+window.location.port+"/Cetus/qn_pic/"+obj.activityIcon;//分享图标
 				shareContent.type='link';
 				shareContent.shareUser = (Userinfo.l.id?Userinfo.l.id:"");
@@ -559,6 +562,7 @@ angular.module('starter.controllers', ['ionic'])
 
 	}
 	$scope.shareViaWechat = function(shareContent) {
+		alert(shareContent.link);
 		var hideSheet = $ionicActionSheet.show({
             buttons: [
                 { text: '微信朋友圈' },
@@ -1065,7 +1069,7 @@ angular.module('starter.controllers', ['ionic'])
 				$ionicLoading.hide();
 			}, 3000);
 			var args = {};
-			args.url = ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share=share";//链接
+			args.url = ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share="+(Userinfo.l.myInvitation?Userinfo.l.myInvitation:"");//链接
 			args.title = $scope.product.name;//标题
 			args.description = $scope.product.parameter.replace(/<[^>]+>/g, "");//描述
 			args.imageUrl = ApiEndpoint.url + "/images/LOGO_64x64.png";  //ApiEndpoint.url + "/images/logo_28 .png";//if you don't have imageUrl,for android http://www.sinaimg.cn/blog/developer/wiki/LOGO_64x64.png will be the defualt one
@@ -1129,7 +1133,7 @@ angular.module('starter.controllers', ['ionic'])
     			messageAction: "<action>dotalist</action>",
     			media: {
     				type: Wechat.Type.LINK,
-    				webpageUrl: ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share=share"
+    				webpageUrl: ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share="+(Userinfo.l.myInvitation?Userinfo.l.myInvitation:"")//链接
     			}
     	}
     	console.log(params);
@@ -1680,7 +1684,10 @@ angular.module('starter.controllers', ['ionic'])
 	       //alert('出错'+err);
 	    });
 	  };
-	  
+	  $scope.onDeviceReady = function() {
+	    	//alert( device.model +"----"+device.cordova +"------"+ device.uuid +"-----"+device.version+"----"+device.platform );
+	    	return device.platform;
+	  }
 	  
 	  $scope.checkUpdata = function() {
 	      $cordovaAppVersion.getVersionNumber().then(function(version) {
@@ -1688,7 +1695,7 @@ angular.module('starter.controllers', ['ionic'])
 	          template: '检测版本中...'
 	        });
 	        Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
-	        $http.get(ApiEndpoint.url + '/api_checkversion_get?deviceType=android&v='+version).success(function(data) {
+	        $http.get(ApiEndpoint.url + '/api_checkversion_get?deviceType='+($scope.onDeviceReady() == "Android" ? "android":"ios")+'&v='+version).success(function(data) {
 	          $ionicLoading.hide();
 	          if (data.state == 'success') {
 	            if (version != data.version) {
