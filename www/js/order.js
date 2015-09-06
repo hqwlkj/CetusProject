@@ -113,7 +113,7 @@ angular.module('starter.order', [])
 		        showItems.push(item);
 			}
 			var config = {
-				title: "店铺选择", 
+				title: "自提点选择", 
 				items: showItems,
 				selectedValue: "",
 				doneButtonLabel: "完成",
