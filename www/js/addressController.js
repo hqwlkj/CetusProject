@@ -393,10 +393,17 @@ angular.module('starter.addressController', [])
 						'香港':{},
 						'澳门':{}};
 	
+	//数据集合
+	$scope.addressdatalist = [];
+	$scope.address = {};
+	$scope.addressObj = {};
+	$scope.canDelete = false;
+	$scope.showDefault = false;
+	$scope.isDefault = false;
 	//显示省份
-	$scope.province="四川";
-	$scope.city="成都市";
-	$scope.county="市辖区";
+	$scope.address.province="四川";
+	$scope.address.city="成都市";
+	$scope.address.county="市辖区";
 	$scope.showProvince = function(){
 		var showItems=[],key,_length=0;  
 		  for(key in $scope.addList){ 
@@ -497,13 +504,6 @@ angular.module('starter.addressController', [])
 		});
 	}
 
-	//数据集合
-	$scope.addressdatalist = [];
-	$scope.address = {};
-	$scope.addressObj = {};
-	$scope.canDelete = false;
-	$scope.showDefault = false;
-	$scope.isDefault = false;
 	$scope.backGoAddress = function() {
 	    if($stateParams.msg==''){
 	    	console.log(1);
