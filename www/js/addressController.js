@@ -419,8 +419,8 @@ angular.module('starter.addressController', [])
 				     if($scope.addList.hasOwnProperty(key)){ 
 				        if(key==item){
 				        	$scope.cityList = $scope.addList[key];
-				        	$scope.address.province=key;
-				        	$scope.province=key;
+				        	$scope.address.province=item;
+				        	$scope.province=item;
 				        }
 				     } 
 				  }  
@@ -457,8 +457,8 @@ angular.module('starter.addressController', [])
 			     if($scope.cityList.hasOwnProperty(key)){ 
 			        if(key==item){
 			        	$scope.countyList = $scope.cityList[key];
-			        	$scope.address.city=key;
-			        	$scope.city=key;
+			        	$scope.address.city=item;
+			        	$scope.city=item;
 			        }
 			     } 
 			  }  
@@ -489,8 +489,8 @@ angular.module('starter.addressController', [])
 		};
 		// Show the picker
 		window.plugins.listpicker.showPicker(config,function(item){ 
-			$scope.address.county=key;
-			$scope.county=key;
+			$scope.address.county=item;
+			$scope.county=item;
 		},
 		function() { 
 	  		  alert("You have cancelled");
