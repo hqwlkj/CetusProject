@@ -135,7 +135,7 @@ angular.module('starter.order', [])
 		for (var i = 0; i < $scope.autoaddress_list.length; i++) {
 			if($scope.autoaddress_list[i].id==id){
 				$scope.autoaddress = $scope.autoaddress_list[i];
-				$scope.myPopup.close();
+				//$scope.myPopup.close();
 				$scope.send_type_state = 1;
 				$scope.show_transportation_expenses = 0.00;
 				$scope.autoaddress_id = id;
