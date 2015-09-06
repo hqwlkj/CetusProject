@@ -393,34 +393,51 @@ angular.module('starter.addressController', [])
 						'香港':{},
 						'澳门':{}};
 	
-	$scope.showPicKey = function(){
-		// Prepare the picker configuration
-	    var config = {
-	        title: "Select a Fruit", 
-	        items: [
-	            { text: "Orange", value: "orange" },
-	            { text: "Apple", value: "apple" },
-	            { text: "Watermelon", value: "watermelon" },
-	            { text: "Papaya", value: "papaya" },
-	            { text: "Banana", value: "banana" },
-	            { text: "Pear", value: "pear" }         
-	        ],
-	        selectedValue: "papaya",
-	        doneButtonLabel: "Done",
-	        cancelButtonLabel: "Cancel"
-	    };
-	    
-	    // Show the picker
-	    window.plugins.listpicker.showPicker(config, 
-	        function(item) { 
-	            alert("You have selected " + item);
-	        },
-	        function() { 
-	            alert("You have cancelled");
-	        }
-	    );
+	//显示省份
+	$scope.showProvince = function(){
+		var showItems=[],key,_length=0;  
+		  for(key in $scope.addList){ 
+		     if($scope.addList.hasOwnProperty(key)){ 
+		        var item = { text: key, value: key};
+		        showItems.push(item);
+		     } 
+		  }  
+		  var config = {
+				title: "Select a Fruit", 
+				items: showItems,
+				selectedValue: "papaya",
+				doneButtonLabel: "Done",
+				cancelButtonLabel: "Cancel"
+		  };
+		  // Show the picker
+		  window.plugins.listpicker.showPicker(config,function(item){ 
+			  	var key;
+			  	for(key in $scope.addList){ 
+				     if($scope.addList.hasOwnProperty(key)){ 
+				        if(key==item){
+				        	$scope.cityList = $scope.addList[key];
+				        	$scope.address.province=key;
+				        }
+				     } 
+				  }  
+		  	  },
+			  function() { 
+		  		  alert("You have cancelled");
+			  }
+		  );
+	}
+	$scope.cityList = [];
+	//显示城市
+	$scope.showCity = function(){
+		
 	}
 	
+	$scope.countyList = [];
+	//显示区县
+	$scope.showCounty = function(){
+		
+	}
+
 	//数据集合
 	$scope.addressdatalist = [];
 	$scope.address = {};
