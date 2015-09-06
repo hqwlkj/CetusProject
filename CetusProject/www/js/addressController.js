@@ -394,6 +394,7 @@ angular.module('starter.addressController', [])
 						'澳门':{}};
 	
 	//显示省份
+	$scope.province="四川";
 	$scope.showProvince = function(){
 		var showItems=[],key,_length=0;  
 		  for(key in $scope.addList){ 
@@ -416,7 +417,8 @@ angular.module('starter.addressController', [])
 				     if($scope.addList.hasOwnProperty(key)){ 
 				        if(key==item){
 				        	$scope.cityList = $scope.addList[key];
-				        	$scope.address.province=key;
+				        	//$scope.address.province=key;
+				        	$scope.province=key;
 				        }
 				     } 
 				  }  
