@@ -470,8 +470,8 @@ angular.module('starter.addressController', [])
 	//显示区县
 	$scope.showCounty = function(){
 		var showItems=[];  
-		for (var i = 0; i < countyList.length; i++) {
-			var item = { text: countyList[i], value: countyList[i]};
+		for (var i = 0; i < $scope.countyList.length; i++) {
+			var item = { text: $scope.countyList[i], value: $scope.countyList[i]};
 	        showItems.push(item);
 		}
 		var config = {
