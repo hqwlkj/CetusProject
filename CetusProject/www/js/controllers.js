@@ -678,7 +678,7 @@ angular.module('starter.controllers', ['ionic'])
             description: shareContent.desc.replace(/<[^>]+>/g, ""),//描述
             thumb: ApiEndpoint.url + "/images/LOGO_64x64.png",//shareContent.imgUrl, //IMG 
             mediaTagName: "美O-APP下载",
-            messageExt: "神奇的美O",
+            messageExt: "美O",
             messageAction: "<action>dotalist</action>",
             media: {
   	          type: Wechat.Type.LINK,
@@ -1129,7 +1129,7 @@ angular.module('starter.controllers', ['ionic'])
     			description: $scope.product.parameter.replace(/<[^>]+>/g, ""),//描述
     			thumb: ApiEndpoint.url + "/images/LOGO_64x64.png", //IMG 
     			mediaTagName: "美O-APP下载",
-    			messageExt: "神奇的美O",
+    			messageExt: "美O",
     			messageAction: "<action>dotalist</action>",
     			media: {
     				type: Wechat.Type.LINK,
