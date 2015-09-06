@@ -14,8 +14,8 @@
         <li><input type="tel" class="form-text" placeholder="电话号码" ng-model="address.telephone"/></li>
         <li><input type="text" class="form-text" placeholder="邮编" ng-model="address.zipCode"/></li>
         <li><div class="form-text fz65" ng-click="showProvince()" ng-bind="province">省份</div></li>
-        <li><div class="form-text fz65" ng-click="showCity()" ng-bind="province">城市</div></li>
-        <li><div class="form-text fz65" ng-click="showCounty()" ng-bind="province">区县</div></li>
+        <li><div class="form-text fz65" ng-click="showCity()" ng-bind="city">城市</div></li>
+        <li><div class="form-text fz65" ng-click="showCounty()" ng-bind="county">区县</div></li>
         <!-- 
         <li><select ng-model="address.province" ng-options="key as key for (key,value) in addList" ng-change="address.city='';address.county='';" class="form-select"></select></li>
         <li><select ng-model="address.city" ng-options="key as key for (key,value) in addList[address.province]" ng-change="address.county='';" class="form-select"></select></li>

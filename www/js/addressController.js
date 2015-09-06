@@ -395,6 +395,8 @@ angular.module('starter.addressController', [])
 	
 	//显示省份
 	$scope.province="四川";
+	$scope.city="成都市";
+	$scope.county="市辖区";
 	$scope.showProvince = function(){
 		var showItems=[],key,_length=0;  
 		  for(key in $scope.addList){ 
@@ -453,6 +455,7 @@ angular.module('starter.addressController', [])
 			        if(key==item){
 			        	$scope.countyList = $scope.cityList[key];
 			        	$scope.address.city=key;
+			        	$scope.city=key;
 			        }
 			     } 
 			  }  
@@ -483,6 +486,7 @@ angular.module('starter.addressController', [])
 		// Show the picker
 		window.plugins.listpicker.showPicker(config,function(item){ 
 			$scope.address.county=key;
+			$scope.county=key;
 		},
 		function() { 
 	  		  alert("You have cancelled");
