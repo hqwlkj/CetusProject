@@ -404,6 +404,7 @@ angular.module('starter.addressController', [])
 	$scope.address.province="四川";
 	$scope.address.city="成都市";
 	$scope.address.county="市辖区";
+	$scope.address.test="市辖区";
 	$scope.showProvince = function(){
 		var showItems=[],key,_length=0;  
 		  for(key in $scope.addList){ 
@@ -421,8 +422,10 @@ angular.module('starter.addressController', [])
 		  };
 		  // Show the picker
 		  window.plugins.listpicker.showPicker(config,function(item){
-			  $scope.address.province=item;
-			  $scope.province=item;
+			// 模拟ajax请求
+	        $timeout(function() {
+	            $scope.address.province=item;
+	        }, 100);
 			  var key;
 			  for(key in $scope.addList){
 				  if($scope.addList.hasOwnProperty(key)){ 
@@ -459,8 +462,9 @@ angular.module('starter.addressController', [])
 		};
 		// Show the picker
 		window.plugins.listpicker.showPicker(config,function(item){ 
-			$scope.address.city=item;
-        	$scope.city=item;
+			 $timeout(function() {
+				 $scope.address.city=item;
+		        }, 100);
 		  	var key;
 		  	for(key in $scope.cityList){ 
 			     if($scope.cityList.hasOwnProperty(key)){ 
@@ -496,8 +500,9 @@ angular.module('starter.addressController', [])
 		};
 		// Show the picker
 		window.plugins.listpicker.showPicker(config,function(item){ 
-			$scope.address.county=item;
-			$scope.county=item;
+			$timeout(function() {
+			 $scope.address.county=item;
+	        }, 100);
 		},
 		function() { 
 	  		  //alert("You have cancelled");
