@@ -415,16 +415,16 @@ angular.module('starter.addressController', [])
 		  // Show the picker
 		  window.plugins.listpicker.showPicker(config,function(item){
 			  alert(item);
-			  	var key;
-			  	for(key in $scope.addList){ 
-				     if($scope.addList.hasOwnProperty(key)){ 
+			  $scope.address.province=item;
+			  $scope.province=item;
+			  var key;
+			  for(key in $scope.addList){
+				  if($scope.addList.hasOwnProperty(key)){ 
 				        if(key==item){
 				        	$scope.cityList = $scope.addList[key];
-				        	$scope.address.province=item;
-				        	$scope.province=item;
 				        }
-				     } 
-				  }  
+				  } 
+			  }  
 		  	  },
 			  function() { 
 		  		  alert("You have cancelled");
@@ -454,13 +454,13 @@ angular.module('starter.addressController', [])
 		// Show the picker
 		window.plugins.listpicker.showPicker(config,function(item){ 
 			alert(item);
+			$scope.address.city=item;
+        	$scope.city=item;
 		  	var key;
 		  	for(key in $scope.cityList){ 
 			     if($scope.cityList.hasOwnProperty(key)){ 
 			        if(key==item){
 			        	$scope.countyList = $scope.cityList[key];
-			        	$scope.address.city=item;
-			        	$scope.city=item;
 			        }
 			     } 
 			  }  
