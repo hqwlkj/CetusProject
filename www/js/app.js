@@ -13,7 +13,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     // for form inputs)
 
     // 设备准备完后 隐藏启动动画
-    navigator.splashscreen.hide();
+    //navigator.splashscreen.hide();
 
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -22,8 +22,11 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
-    
-    
+    document.addEventListener("deviceready", onDeviceReady, false); 
+    function onDeviceReady() {
+          alert( device.model +"----"+device.cordova +"------"+ device.uuid +"-----"+device.version+"----"+device.platform );
+      }
+    onDeviceReady();
    //头像选择开始
    var options = {
       title: '上传头像',
