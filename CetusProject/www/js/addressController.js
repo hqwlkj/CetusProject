@@ -425,6 +425,8 @@ angular.module('starter.addressController', [])
 			// 模拟ajax请求
 	        $timeout(function() {
 	            $scope.address.province=item;
+	            $scope.address.city="";
+				 $scope.address.county="";
 	        }, 100);
 			  var key;
 			  for(key in $scope.addList){
@@ -464,6 +466,7 @@ angular.module('starter.addressController', [])
 		window.plugins.listpicker.showPicker(config,function(item){ 
 			 $timeout(function() {
 				 $scope.address.city=item;
+				 $scope.address.county="";
 		        }, 100);
 		  	var key;
 		  	for(key in $scope.cityList){ 
@@ -678,5 +681,14 @@ angular.module('starter.addressController', [])
 				$scope.loadAddressData();
 			}
 		});
+	}
+	//跳转到我的购物车
+	$scope.cartClick = function() {
+	  if(!Userinfo.l.id){
+		  $scope.login();
+		  return;
+	  }
+	  $scope.modal_quan_detail.hide();//关闭打开的视图 
+	  $state.go("public.myCart",{ran:Math.random()*1000});//跳转到需要的视图
 	}
 })
