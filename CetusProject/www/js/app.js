@@ -22,10 +22,13 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
-    document.addEventListener("deviceready", onDeviceReady, false); 
+    document.addEventListener("deviceready", onDeviceReady, false);
+    ///var platform = "";
+    //获取当前设备的类型
     function onDeviceReady() {
-          alert( device.model +"----"+device.cordova +"------"+ device.uuid +"-----"+device.version+"----"+device.platform );
-      }
+    	//alert( device.model +"----"+device.cordova +"------"+ device.uuid +"-----"+device.version+"----"+device.platform );
+    	return device.platform;
+    }
 
     //头像选择开始
    var options = {
@@ -124,16 +127,20 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     checkUpdate();
     
     function checkUpdate() {
-      $cordovaAppVersion.getVersionNumber().then(function(version) {
-        Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
-        $http.get('http://121.40.255.179/Cetus/api_checkversion_get?deviceType=ios&v='+version).success(function(data) {
-          if (data.state == 'success') {
-            if (version != data.version) {
-              showUpdateConfirm(data.desc, data.apk);
-            }
-          }
-        })
-      });
+    	var platform = onDeviceReady();
+    	//alert(platform);
+        $cordovaAppVersion.getVersionNumber().then(function(version) {
+    	  //alert('检查更新');
+    	  //alert('http://121.40.255.179/Cetus/api_checkversion_get?deviceType='+ (platform == "Android" ? "android":"ios")+'&v='+version);
+	        Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
+	        $http.get('http://121.40.255.179/Cetus/api_checkversion_get?deviceType='+(platform == "Android" ? "android":"ios")+'&v='+version).success(function(data) {
+	          if (data.state == 'success') {
+	            if (version != data.version) {
+	              showUpdateConfirm(data.desc, data.apk);
+	            }
+	          }
+	        })
+	   });
     };
 
     function showUpdateConfirm(desc, url) {
