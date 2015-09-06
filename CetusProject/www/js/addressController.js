@@ -429,13 +429,62 @@ angular.module('starter.addressController', [])
 	$scope.cityList = [];
 	//显示城市
 	$scope.showCity = function(){
-		
+		var showItems=[],key,_length=0;  
+		for(key in $scope.cityList){ 
+			if($scope.cityList.hasOwnProperty(key)){ 
+	        var item = { text: key, value: key};
+	        showItems.push(item);
+			} 
+		}  
+		var config = {
+			title: "Select a Fruit", 
+			items: showItems,
+			selectedValue: "papaya",
+			doneButtonLabel: "Done",
+			cancelButtonLabel: "Cancel"
+		};
+		// Show the picker
+		window.plugins.listpicker.showPicker(config,function(item){ 
+		  	var key;
+		  	for(key in $scope.cityList){ 
+			     if($scope.cityList.hasOwnProperty(key)){ 
+			        if(key==item){
+			        	$scope.countyList = $scope.cityList[key];
+			        	$scope.address.city=key;
+			        }
+			     } 
+			  }  
+	  	  },
+		  function() { 
+	  		  alert("You have cancelled");
+	  	  }
+		);
 	}
 	
 	$scope.countyList = [];
 	//显示区县
 	$scope.showCounty = function(){
-		
+		var showItems=[],key,_length=0;  
+		for(key in $scope.countyList){ 
+			if($scope.countyList.hasOwnProperty(key)){ 
+	        var item = { text: key, value: key};
+	        showItems.push(item);
+			} 
+		}  
+		var config = {
+			title: "Select a Fruit", 
+			items: showItems,
+			selectedValue: "papaya",
+			doneButtonLabel: "Done",
+			cancelButtonLabel: "Cancel"
+		};
+		// Show the picker
+		window.plugins.listpicker.showPicker(config,function(item){ 
+			$scope.address.county=key;
+		},
+		function() { 
+	  		  alert("You have cancelled");
+		});
 	}
 
 	//数据集合
