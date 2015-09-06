@@ -107,6 +107,10 @@
                         {
                             "xml": "<preference name=\"WEIBO_APP_ID\" value=\"274270662\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ListPicker\"><param name=\"android-package\" value=\"am.armsoft.plugins.ListPicker\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -232,6 +236,9 @@
         },
         "org.zy.yuancheng.weibo": {
             "WEIBO_APP_ID": "274270662",
+            "PACKAGE_NAME": "com.parsec.cetusproject"
+        },
+        "am.armsoft.plugins.listpicker": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         }
     },
