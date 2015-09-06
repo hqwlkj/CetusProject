@@ -6,13 +6,16 @@
   </ion-header-bar>
   <ion-content >
   	<form ng-submit="save_address()">
+  	    <input type="hidden" class="form-text" placeholder="省份" ng-model="address.province" ng-value="address.province"/>
+        <input type="hidden" class="form-text" placeholder="城市" ng-model="address.city"/>
+        <input type="hidden" class="form-text" placeholder="区县" ng-model="address.county"/>
     <ul class="form" >
         <li><input type="text" class="form-text" placeholder="收件人" ng-model="address.recipients"/></li>
         <li><input type="tel" class="form-text" placeholder="电话号码" ng-model="address.telephone"/></li>
         <li><input type="text" class="form-text" placeholder="邮编" ng-model="address.zipCode"/></li>
-        <li><input type="text" class="form-text" placeholder="省份" ng-model="address.province" ng-value="address.province" ng-click="showProvince()" readonly="readonly"/></li>
-        <li><input type="text" class="form-text" placeholder="城市" ng-model="address.city" ng-click="showCity()" readonly="readonly"/></li>
-        <li><input type="text" class="form-text" placeholder="区县" ng-model="address.county" ng-click="showCounty()" readonly="readonly"/></li>
+        <li><div class="form-text fz65" ng-click="showProvince()" ng-bind="province">省份</div></li>
+        <li><div class="form-text fz65" ng-click="showCity()" ng-bind="province">城市</div></li>
+        <li><div class="form-text fz65" ng-click="showCounty()" ng-bind="province">区县</div></li>
         <!-- 
         <li><select ng-model="address.province" ng-options="key as key for (key,value) in addList" ng-change="address.city='';address.county='';" class="form-select"></select></li>
         <li><select ng-model="address.city" ng-options="key as key for (key,value) in addList[address.province]" ng-change="address.county='';" class="form-select"></select></li>
