@@ -688,7 +688,6 @@ angular.module('starter.addressController', [])
 		  $scope.login();
 		  return;
 	  }
-	  $scope.modal_quan_detail.hide();//关闭打开的视图 
 	  $state.go("public.myCart",{ran:Math.random()*1000});//跳转到需要的视图
 	}
 })
