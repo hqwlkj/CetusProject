@@ -746,6 +746,11 @@ angular.module('starter.controllers', ['ionic'])
 	    $scope.activityId = 0;
 	}
 	//加载活动详情内容
+	$scope.imgUrl = "";
+	$scope.title = "";
+	$scope.times = "";
+	$scope.content = "";
+    $scope.activityId = "";
 	$scope.activityDetail = function(acId) {
 		$ionicLoading.show({
 		    template: "<ion-spinner></ion-spinner>"
