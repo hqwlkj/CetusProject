@@ -94,18 +94,38 @@ angular.module('starter.order', [])
 	}
 	$scope.send_type1 = function(){
 		if($scope.send_type_state==0){
-			var temp = "<ul style=\"max-height:80%; overflow:hidden; overflow-y: scroll;\">";
+//			var temp = "<ul style=\"max-height:80%; overflow:hidden; overflow-y: scroll;\">";
+//			for (var i = 0; i < $scope.autoaddress_list.length; i++) {
+//				temp+="<li style=\"height:35px;line-height:35px; cursor:pointer; white-space:nowrap; overflow:hidden;\" ng-click=\"select_autoaddress('"+$scope.autoaddress_list[i].id+"')\">"+$scope.autoaddress_list[i].shopName+"</li>";
+//			}
+//			temp +="</ul>";
+//			// 一个精心制作的自定义弹窗
+//			$scope.myPopup = $ionicPopup.show({
+//				template: temp,
+//				title: '选择自提点',
+//				scope: $scope,
+//				buttons: [{ text: '取消' }]
+//		   });
+			
+			var showItems=[];  
 			for (var i = 0; i < $scope.autoaddress_list.length; i++) {
-				temp+="<li style=\"height:35px;line-height:35px; cursor:pointer; white-space:nowrap; overflow:hidden;\" ng-click=\"select_autoaddress('"+$scope.autoaddress_list[i].id+"')\">"+$scope.autoaddress_list[i].shopName+"</li>";
+				var item = { text: $scope.autoaddress_list[i].shopName, value: $scope.autoaddress_list[i].id};
+		        showItems.push(item);
 			}
-			temp +="</ul>";
-			// 一个精心制作的自定义弹窗
-			$scope.myPopup = $ionicPopup.show({
-				template: temp,
-				title: '选择自提点',
-				scope: $scope,
-				buttons: [{ text: '取消' }]
-		   });
+			var config = {
+				title: "店铺选择", 
+				items: showItems,
+				selectedValue: "",
+				doneButtonLabel: "完成",
+				cancelButtonLabel: "取消"
+			};
+			// Show the picker
+			window.plugins.listpicker.showPicker(config,function(item){ 
+				$scope.select_autoaddress(item);
+			},
+			function() { 
+		  		  //alert("You have cancelled");
+			});
 		}
 	}
 	$scope.autoaddress_id = 0;
