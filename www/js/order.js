@@ -121,8 +121,9 @@ angular.module('starter.order', [])
 			};
 			// Show the picker
 			window.plugins.listpicker.showPicker(config,function(item){ 
-				alert(item);
-				$scope.select_autoaddress(item);
+				$timeout(function() {
+					$scope.select_autoaddress(item);
+			    }, 100);
 			},
 			function() { 
 		  		  //alert("You have cancelled");
