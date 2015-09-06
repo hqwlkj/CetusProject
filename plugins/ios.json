@@ -9,6 +9,10 @@
                 "parents": {
                     "/*": [
                         {
+                            "xml": "<feature name=\"ListPicker\"><param name=\"ios-package\" value=\"ListPicker\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
                         },
@@ -238,6 +242,9 @@
         }
     },
     "installed_plugins": {
+        "am.armsoft.plugins.listpicker": {
+            "PACKAGE_NAME": "com.parsec.cetusproject"
+        },
         "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
