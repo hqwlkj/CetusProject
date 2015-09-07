@@ -571,7 +571,6 @@ angular.module('starter.controllers', ['ionic'])
 
 	}
 	$scope.shareViaWechat = function(shareContent) {
-		alert(shareContent.link);
 		var hideSheet = $ionicActionSheet.show({
             buttons: [
                 { text: '微信朋友圈' },
@@ -1023,7 +1022,6 @@ angular.module('starter.controllers', ['ionic'])
 	            $scope.showMsg(data.msg);
 	        }
 	    });
-	   console.log(ApiEndpoint.url + '/api_comment_list?pid='+$stateParams.productId+'&pageNo=1');
 	   $http.post(ApiEndpoint.url + '/api_comment_list?pid='+$stateParams.productId+'&pageNo=1').success(function(data) {
 			if (data.state == 'success') {
 				$scope._width =(document.body.scrollWidth - 30)+"px;";
@@ -1087,7 +1085,11 @@ angular.module('starter.controllers', ['ionic'])
 				$ionicLoading.hide();
 			}, 3000);
 			var args = {};
-			args.url = ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share="+(Userinfo.l.myInvitation?Userinfo.l.myInvitation:"");//链接
+			if(Userinfo.l.id != "" && Userinfo.l.userType != 1){
+				args.url = ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share="+(Userinfo.l.myInvitation?Userinfo.l.myInvitation:"");//链接
+			}else{
+				args.url = ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share=";//链接
+			}
 			args.title = $scope.product.name;//标题
 			args.description = $scope.product.parameter.replace(/<[^>]+>/g, "");//描述
 			args.imageUrl = ApiEndpoint.url + "/images/LOGO_64x64.png";  //ApiEndpoint.url + "/images/logo_28 .png";//if you don't have imageUrl,for android http://www.sinaimg.cn/blog/developer/wiki/LOGO_64x64.png will be the defualt one
@@ -1142,6 +1144,12 @@ angular.module('starter.controllers', ['ionic'])
 		var params = {
     		scene: scene
     	};
+		var share_url="";
+		if(Userinfo.l.id != "" && Userinfo.l.userType != 1){
+			share_url = ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share="+(Userinfo.l.myInvitation?Userinfo.l.myInvitation:"")//链接
+		}else{
+			share_url = ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share=";//链接
+		}
     	params.message = {
     			title: $scope.product.name,//标题
     			description: $scope.product.parameter.replace(/<[^>]+>/g, ""),//描述
@@ -1151,10 +1159,9 @@ angular.module('starter.controllers', ['ionic'])
     			messageAction: "<action>dotalist</action>",
     			media: {
     				type: Wechat.Type.LINK,
-    				webpageUrl: ApiEndpoint.url + "/mobile/product-detail.html?userId=&productId="+$scope.product.id+"&share="+(Userinfo.l.myInvitation?Userinfo.l.myInvitation:"")//链接
+    				webpageUrl: share_url
     			}
     	}
-    	console.log(params);
     	Wechat.share(params, function () {
             $ionicPopup.alert({
                 title: '分享成功',
