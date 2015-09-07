@@ -64,6 +64,7 @@ angular.module('starter.controllers', ['ionic'])
   $scope.app_version = Userinfo.l.version;
   //定时刷新头像
   setInterval(function(){
+	  $scope.flag = Userinfo.l.flag ? Userinfo.l.flag : "";
 	  $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
 	  $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
 	  if(Userinfo.l.userType == 2){		  
@@ -1812,7 +1813,6 @@ angular.module('starter.controllers', ['ionic'])
 	    $scope.avaImg="img/default-ava.png";
 	    Userinfo.remove('flag');
 	    console.log(Userinfo.l);
-	    console.log(window.localStorage);
 	    window.localStorage.clear();//清除缓存
 	    window.localStorage['first'] = '1';//不在显示欢迎页
 	  };
