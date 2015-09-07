@@ -888,6 +888,10 @@ angular.module('starter.controllers', ['ionic'])
 	    $scope.modal_quan_detail.hide();
 	}
 	//加载详情
+	$scope.title = "";
+	$scope.detailTime =  "";
+	$scope.quanImg =  "";
+	$scope.detailContent =  "";
 	$scope.quanDetail = function(quanId) {
 		$ionicLoading.show({
 		    template: "<ion-spinner></ion-spinner>"
