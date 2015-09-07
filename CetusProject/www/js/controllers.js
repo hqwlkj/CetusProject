@@ -51,6 +51,7 @@ angular.module('starter.controllers', ['ionic'])
   $scope.flag = Userinfo.l.flag;
   $scope.params = Userinfo.l;
   $scope.sign = Userinfo.l.today_signed;
+  $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
   $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
   $scope.isIntegral = false;
   $scope.searchData = {};
@@ -1524,6 +1525,9 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.flag = Userinfo.l.flag;
 	$scope.params = Userinfo.l;
 	$scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
+    $scope.username = '登录';
+    $scope.cellPhone = '';
+    
 	$scope.app_version = Userinfo.l.version;
 	$scope.userGoTo = function(listid) {
 	    switch (listid) {
