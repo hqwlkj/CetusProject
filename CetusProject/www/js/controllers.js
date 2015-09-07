@@ -1803,12 +1803,16 @@ angular.module('starter.controllers', ['ionic'])
 	  }
 	  
 	  $scope.exit = function() {//退出登录
+		console.log(Userinfo.l);
 	    $scope.flag = '';
 	    Userinfo.l.id = '';
+	    Userinfo.l.name="";
 	    $scope.username="登录";
 	    $scope.cellPhone = '';
 	    $scope.avaImg="img/default-ava.png";
 	    Userinfo.remove('flag');
+	    console.log(Userinfo.l);
+	    console.log(window.localStorage);
 	    window.localStorage.clear();//清除缓存
 	    window.localStorage['first'] = '1';//不在显示欢迎页
 	  };
@@ -1853,8 +1857,10 @@ angular.module('starter.controllers', ['ionic'])
 	      if (data.state!= 'success') {
 	        $scope.showMsg(data.msg);
 	      } else {
+	    	  
 	        Userinfo.save(data.obj);
 	        Userinfo.add('flag', 1);
+	        console.log(Userinfo.l);
 	        $scope.sign = Userinfo.l.today_signed;
 	        $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
 	        $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
