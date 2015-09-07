@@ -765,7 +765,7 @@ angular.module('starter.controllers', ['ionic'])
 				if (data.state == 'success') {
 					$scope.imgUrl = ApiEndpoint.pic_url+"/"+data.obj.activityIcon;
 					$scope.title = data.obj.name;
-					$scope.times = data.obj.showBeginTime+"—"+data.obj.showEndTime;
+					$scope.times = data.obj.showBeginTime+" 至 "+data.obj.showEndTime;
 					$scope.content = data.obj.remark;
 				    $scope.activityId = data.obj.id;
 				}
