@@ -13,11 +13,6 @@ angular.module('starter.controllers', ['ionic'])
 .controller('IndexCtrl', function($scope, $http, ApiEndpoint,Userinfo,$state) {
 	$scope.titleState=0;//标题的显示状态
 	$scope.banner = [];
-	$http.post(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
-	  if (data.state == 'success') {
-	     $scope.banner = data.activityList;
-	   }
-	});
 	//更新用户信息
 	if(Userinfo.l.id){
 		$http.post(ApiEndpoint.url + '/api_user_detail?id='+Userinfo.l.id).success(function(data) {
@@ -26,6 +21,11 @@ angular.module('starter.controllers', ['ionic'])
 			}
 		});
 	}
+	$http.post(ApiEndpoint.url + '/api_home_page?userId='+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+	  if (data.state == 'success') {
+	     $scope.banner = data.activityList;
+	   }
+	});
 	//打开广告链接
 	$scope.openAdUrl = function(adUrl, title) {
 		window.open(adUrl, '_blank', 'location=yes', title);
@@ -316,6 +316,14 @@ angular.module('starter.controllers', ['ionic'])
 				$scope.c_state = 0;
 				$scope.state = 0;
 				$scope.userinfo_InvitationName = data.InvitationName;
+				//更新用户信息
+				if(Userinfo.l.id){
+					$http.post(ApiEndpoint.url + '/api_user_detail?id='+Userinfo.l.id).success(function(data) {
+						if (data.state == "success") {
+							Userinfo.save(data.obj);
+						}
+					});
+				}
 			}
 		});
 	}
