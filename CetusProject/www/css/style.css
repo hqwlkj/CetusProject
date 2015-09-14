@@ -11,6 +11,7 @@
 }
 ul,li{list-style: none;}
 a{text-decoration: none;}
+.col-1 {width:8.33333333%;position: relative; min-height: 1px;float:left;text-align: center;}
 .col-2 {width:16.6666667%;position: relative; min-height: 1px;float:left;text-align: center;}
 .col-3 {width:25%;position: relative; min-height: 1px;float:left;text-align: center;}
 .col-4 {width:33.33333333%;position: relative; min-height: 1px;float:left;text-align: center;}
@@ -639,4 +640,4 @@ overflow:hidden;/*溢出隐藏*/
 /*在线客服*/
 .question-text{width: 100%;height: auto !important;padding: 10px 4px; margin-bottom: 5px; border:1px solid #e8e8e8; -webkit-border-radius: 3x; -moz-border-radius: 3px; border-radius: 3px; }
 
-
+.myteam-right{background: url(../img/arrow-right.png) 98% center no-repeat; background-size: 8px;}
