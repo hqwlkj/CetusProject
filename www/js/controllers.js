@@ -431,7 +431,18 @@ angular.module('starter.controllers', ['ionic'])
 		});
 	}
 	
+	//下级渠道返利列表
+	//我的团队
+	$ionicModal.fromTemplateUrl('templates/public/rebateList.html', {scope: $scope}).then(function(modal) {
+		$scope.modal_rebate = modal;
+	});
 	
+	$scope.goRebateList =function(){
+		$scope.modal_rebate.show();
+	}
+	$scope.slideRebateHasChanged = function(index){
+		alert(index);
+	}
 	//我的团队
 	$ionicModal.fromTemplateUrl('templates/user/myteam.html', {scope: $scope}).then(function(modal) {
 		$scope.modal_myteam = modal;
