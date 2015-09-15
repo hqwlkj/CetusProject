@@ -465,9 +465,6 @@ angular.module('starter.controllers', ['ionic'])
 					data.list[i].showcreateTime = data.list[i].showcreateTime.split(" ")[0].replace(/\-/g,"/");
 				}
 				$scope.rebate_list = data.list;
-				if($scope.rebate_list.length==0){
-					$scope.showMsg("数据为空");
-				}
 			}else{
 				$scope.showMsg(data.msg);
 			}
