@@ -431,18 +431,81 @@ angular.module('starter.controllers', ['ionic'])
 		});
 	}
 	
-	//下级渠道返利列表
 	//我的团队
+	//下级渠道返利列表
+	
 	$ionicModal.fromTemplateUrl('templates/public/rebateList.html', {scope: $scope}).then(function(modal) {
 		$scope.modal_rebate = modal;
 	});
 	
 	$scope.goRebateList =function(){
 		$scope.modal_rebate.show();
+		$scope.load_rebate_data();
 	}
-	$scope.slideRebateHasChanged = function(index){
-		alert(index);
+	
+	//关闭返利列表
+	$scope.close_rebateList = function(){
+		$scope.modal_rebate.hide();
 	}
+	$scope.rebate_list = [];
+	$scope.rebate_month = "";
+	$scope.rebate_money = 0;
+	$scope.rebate_lock = false;
+	//加载返利列表数据
+	$scope.load_rebate_data = function(){
+		$ionicLoading.show({
+		     template: '<ion-spinner></ion-spinner>'
+		});
+		$http.post(ApiEndpoint.url + '/api_rebate_list?isApp=0&parentId='+(Userinfo.l.id?Userinfo.l.id:"")+"&month="+$scope.rebate_month).success(function(data) {
+			if (data.state =="success") {
+				$scope.$broadcast("scroll.refreshComplete");
+				$scope.rebate_month = data.obj.month;
+				$scope.rebate_money = data.sum;
+				for (var i = 0; i < data.list.length; i++) {
+					data.list[i].showcreateTime = data.list[i].showcreateTime.split(" ")[0].replace(/\-/g,"/");
+				}
+				$scope.rebate_list = data.list;
+				if($scope.rebate_list.length==0){
+					$scope.showMsg("数据为空");
+				}
+			}else{
+				$scope.showMsg(data.msg);
+			}
+			$scope.rebate_lock = false;
+			$ionicLoading.hide();
+		});
+	}
+	
+	//跳转返利月份
+	$scope.to_rebate_month = function(type){
+		if($scope.rebate_lock==true){
+			return;
+		}
+		$scope.rebate_lock = true;
+		var datas = $scope.rebate_month.split("-");
+		var year = Number(datas[0]);
+		var month = Number(datas[1]);
+		if(type==-1){
+			month = month-1;
+		}else{
+			month = month+1;
+		}
+		if(month<=0){
+			year = year - 1;
+			month = month + 12;
+		}
+		if(month>12){
+			year = year + 1;
+			month = month - 12;
+		}
+		if(month<10){
+			$scope.rebate_month = year+"-0"+month;
+		}else{
+			$scope.rebate_month = year+"-"+month;
+		}
+		$scope.load_rebate_data();
+	}
+	
 	//我的团队
 	$ionicModal.fromTemplateUrl('templates/user/myteam.html', {scope: $scope}).then(function(modal) {
 		$scope.modal_myteam = modal;
