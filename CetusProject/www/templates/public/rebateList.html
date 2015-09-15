@@ -12,6 +12,7 @@
 </ul>
 <div style="background-color:#F6F3EE; width: 100%; height: 10px;">&nbsp;</div>
 <ion-refresher pulling-text="下拉刷新" on-refresh="load_rebate_data()"></ion-refresher>
+<h3 style='text-align: center;padding-top: 20px; font-size:0.65rem; color:#ccc;' ng-if="rebate_list.length == 0">本月无返利</h3>
 <ul class="ul-block bg-white a-gray">
 	<li ng-repeat="r in rebate_list">
 		<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
