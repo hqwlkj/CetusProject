@@ -14,7 +14,7 @@
 		      <div class="order-info"><span class="col-12 left text-left fz65">订单号：{{order.ordNum}}</span><!-- <span class="col-6 right text-right fz65">{{order.showRiseTime}}下单</span> --></div>
 		      <div class="orderlst-top" ng-repeat="i in order.items" ng-click="goOrderDetail({{order.ordNum}})">
 		        <div  class="img left" >
-		        	<img src="http://121.40.255.179/Cetus/pic/{{i.imgurl}}" style="width: 62px;height: 62px;margin: 2px;"/>
+		        	<img src="http://www.meio100.com/pic/{{i.imgurl}}" style="width: 62px;height: 62px;margin: 2px;"/>
 		        </div>
 		        <div class="orderlst-top-content ">
 		          <p class="orderlst-top-content-title" >{{::i.name}}</p>
@@ -41,7 +41,7 @@
 		      <div class="order-info"><span class="col-12 left text-left" >订单号：{{order.ordNum}}</span><!-- <span class="col-6 right text-right">{{order.showRiseTime}}下单</span> --></div>
 		      <div class="orderlst-top" ng-repeat="i in order.items" ng-click="goOrderDetail(order.ordNum)">
 		        <div  class="img left" >
-		        	<img src="http://121.40.255.179/Cetus/pic/{{::i.imgurl}}" style="width: 62px;height: 62px;margin: 2px;"/>
+		        	<img src="http://www.meio100.com/pic/{{::i.imgurl}}" style="width: 62px;height: 62px;margin: 2px;"/>
 		        </div>
 		        <div class="orderlst-top-content ">
 		          <p class="orderlst-top-content-title" >{{::i.name}}</p>
@@ -67,7 +67,7 @@
 		    <li  ng-repeat="order in orderYwc">
 		      <div class="order-info"><span class="col-12 left text-left">订单号：{{order.ordNum}}</span><!-- <span class="col-6 right text-right">{{order.showRiseTime}}下单</span> --></div>
 		      <div ng-repeat="i in order.items" class="orderlst-top" ng-click="goOrderDetail({{order.ordNum}})">
-		        <div  class="img left" style="background-image:url(http://121.40.255.179/Cetus/pic/{{i.imgurl}})" >
+		        <div  class="img left" style="background-image:url(http://www.meio100.com/pic/{{i.imgurl}})" >
 		        	
 		        </div>
 		        <div class="orderlst-top-content ">
