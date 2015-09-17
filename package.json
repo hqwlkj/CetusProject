@@ -23,7 +23,8 @@
     {
       "locator": "https://github.com/vmlinz/cordova-plugin-alipay.git",
       "id": "com.justep.cordova.plugin.alipay"
-    }
+    },
+    "C:\\Users\\LENOVO\\Myproj\\plugins\\jpush-phonegap-plugin"
   ],
   "cordovaPlatforms": [
     "android",

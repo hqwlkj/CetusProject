@@ -642,3 +642,6 @@ overflow:hidden;/*溢出隐藏*/
 .question-text{width: 100%;height: auto !important;padding: 10px 4px; margin-bottom: 5px; border:1px solid #e8e8e8; -webkit-border-radius: 3x; -moz-border-radius: 3px; border-radius: 3px; }
 
 .myteam-right{background: url(../img/arrow-right.png) 98% center no-repeat; background-size: 8px;}
+
+/**/
+.toggle-large span{font-size: 0.65rem;}

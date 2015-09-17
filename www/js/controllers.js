@@ -1598,7 +1598,7 @@ angular.module('starter.controllers', ['ionic'])
 	    }, 1400);
 	  };
 })
-.controller('UserSetCrtl',function($scope, $ionicHistory, $state, $ionicPopup, $http, $ionicLoading, $ionicPopover, ApiEndpoint, $ionicModal, $timeout, Userinfo ,$cordovaActionSheet, $cordovaImagePicker, $cordovaFileTransfer, $cordovaCamera, $cordovaAppVersion,$cordovaFileOpener2, $stateParams){
+.controller('UserSetCrtl',function($scope, $ionicHistory, $state, $ionicPopup, $http, $ionicLoading, $ionicPopover, ApiEndpoint, $ionicModal, $timeout, Userinfo ,jpushService,$cordovaActionSheet, $cordovaImagePicker, $cordovaFileTransfer, $cordovaCamera, $cordovaAppVersion,$cordovaFileOpener2, $stateParams){
 	$scope.loginData ={};
 	$scope.registerData ={};
 	$scope.flag = Userinfo.l.flag;
@@ -1606,6 +1606,78 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
     $scope.username = '登录';
     $scope.cellPhone = '';
+    /****************************************极光推送*****************************************/
+    $scope.options={
+    		tags:Userinfo.l.userType ? Userinfo.l.userType :"",
+    		alias:Userinfo.l.id ? Userinfo.l.id : ""
+    };
+    $scope.settings = {
+	    enableFriends: Userinfo.l.enableFriends ? true : false
+	};
+    
+    $scope.whetherChange = function(){
+    	Userinfo.add('enableFriends', $scope.settings.enableFriends);
+    	if($scope.settings.enableFriends){
+    		$scope.setTagAndAlias();//设置TAG 和别名
+    		$scope.resumePush()
+    	}else{
+    		$scope.cleanTagAndAlias();
+    		$scope.stopPush();
+    	}
+    }
+
+	//初始化推送
+	$scope.init=function(){
+		jpushService.init();
+		$ionicPopup.alert({
+			title:'提示',
+			template:'启动推送服务成功'
+		});
+	};
+	//停止推送
+	$scope.stopPush=function(){
+		jpushService.stopPush();
+		$ionicPopup.alert({
+			title:'提示',
+			template:'停止服务成功'
+		});
+	};
+
+	//重启推送
+	$scope.resumePush=function(){
+		jpushService.resumePush();
+		$ionicPopup.alert({
+			title:'提示',
+			template:'重启完成'
+		});
+	};
+
+	//设置tag
+	$scope.setTags=function(){
+		var tagArr=$scope.options.tags.split(',');
+		jpushService.setTags(tagArr);
+	}
+	//设置alias
+	$scope.setAlias=function(){
+		var alias=$scope.options.alias;
+		jpushService.setAlias(alias);
+	}
+
+	//清空 tag 和 alias
+	$scope.cleanTagAndAlias=function(){
+		var tags=[];
+		var alias="";
+		jpushService.setTagsWithAlias(tags,alias);
+	}
+	
+	//设置 tag 和 alias
+	$scope.setTagAndAlias=function(){
+		var tagArr=$scope.options.tags.split(',');
+		var alias=$scope.options.alias;
+		jpushService.setTagsWithAlias(tagArr,alias);
+	}
+    
+    /***********************************极光推送**********************************************/
     
 	$scope.app_version = Userinfo.l.version;
 	$scope.userGoTo = function(listid) {

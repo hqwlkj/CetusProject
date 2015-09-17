@@ -1,6 +1,6 @@
 angular.module('starter.mycartcrtl', [])
 
-.controller('MyCart',function($scope, $state, $ionicPopup, Userinfo, $ionicLoading, $http, ApiEndpoint){
+.controller('MyCart',function($scope, $state, $ionicPopup, Userinfo, $ionicLoading, $http, ApiEndpoint,$location){
 	$scope.cartList = [];  //购物车数据几盒
 	$scope.discount = 1;   //用户的折扣率
 	$scope.allCheckClass = "icon-unselect-01";  //全选按钮的样式
@@ -8,7 +8,7 @@ angular.module('starter.mycartcrtl', [])
 	$scope.allMoney = 0;  //订单合计
 	
 	$ionicLoading.show({
-	    template: "加载中..."
+	    template: "<ion-spinner></ion-spinner>"
 	});
 	$scope.loadCartData = function() {
 		
@@ -24,6 +24,8 @@ angular.module('starter.mycartcrtl', [])
 				if (data.state == 'success') {
 					$scope.cartList = data.list;
 					$scope.discount = data.discount;
+					$scope.allMoney = 0;
+					$scope.allCheckClass = "icon-unselect-01";
 				}
 			});
 		}
@@ -36,9 +38,41 @@ angular.module('starter.mycartcrtl', [])
 			$scope.info = data.val;
 		}
 	});
-	//返回
+	/**
+	 * 返回前一页（或关闭本页面）
+	 * <li>如果没有前一页历史，则直接关闭当前页面</li>
+	 */
 	$scope.backToIndex = function() {
-	    $state.go('app.index');
+		$state.go('app.index');
+	    /*if ((navigator.userAgent.indexOf('MSIE') >= 0) && (navigator.userAgent.indexOf('Opera') < 0)){ // IE
+	        if(history.length > 0){
+	            window.history.go( -1 );
+	        }else{
+	            window.opener=null;window.close();
+	        }
+	    }else{ //非IE浏览器
+	        if (navigator.userAgent.indexOf('Firefox') >= 0 ||
+	            navigator.userAgent.indexOf('Opera') >= 0 ||
+	            navigator.userAgent.indexOf('Safari') >= 0 ||
+	            navigator.userAgent.indexOf('Chrome') >= 0 ||
+	            navigator.userAgent.indexOf('WebKit') >= 0){
+
+	            if(window.history.length > 1){
+	                window.history.go( -1 );
+	            }else{
+	                window.opener=null;window.close();
+	            }
+	        }else{ //未知的浏览器
+	            window.history.go( -1 );
+	        }
+	    }*/
+	}
+	/**
+	 * 到订单列表页面
+	 * <li>如果没有前一页历史，则直接关闭当前页面</li>
+	 */
+	$scope.goMyOrder = function() {
+		$state.go('app.order',{ran:Math.random()*1000});
 	}
 	
 	//全选
@@ -72,7 +106,7 @@ angular.module('starter.mycartcrtl', [])
 			     }).then(function(res) {
 				    if(res) {
 				    	$ionicLoading.show({
-				    	    template: "加载中..."
+				    	    template: "<ion-spinner></ion-spinner>"
 				    	});
 				    	var cart = {};
 						cart.userId = (Userinfo.l.id?Userinfo.l.id:"");
@@ -81,6 +115,9 @@ angular.module('starter.mycartcrtl', [])
 							$ionicLoading.hide();
 							$scope.showMsg(data.msg);
 							if (data.state == 'success') {
+								$ionicLoading.show({
+								    template: "<ion-spinner></ion-spinner>"
+								});
 								$scope.loadCartData();
 							}
 						});
@@ -120,6 +157,7 @@ angular.module('starter.mycartcrtl', [])
 		$scope.c = obj;
 		if ($scope.c.checkClass == "icon-select-satatus-01") {
 			$scope.c.checkClass = "icon-unselect-01";
+			$scope.allCheckClass = "icon-unselect-01";
 			$scope.allMoney -= $scope.c.product.price*$scope.discount*$scope.c.productNum;
 		}else {
 			$scope.c.checkClass = "icon-select-satatus-01";
@@ -153,13 +191,14 @@ angular.module('starter.mycartcrtl', [])
 	$scope.policy_state=false;
 	$scope.prompt_height="50px;";
 	$scope.prompt_info="none;";
-	$scope.policy = function(){
+	$scope.policy = function(target){
+		//console.log(target);
 		if($scope.policy_state){
 			$scope.prompt_height="50px;";
 			$scope.prompt_info ="none;";
 			$scope.policy_state=false;
 		}else{
-			$scope.prompt_height="230px;";
+			$scope.prompt_height=target.Y+ 100 +"px;";
 			$scope.prompt_info = "block;";
 			$scope.policy_state=true;
 		}
@@ -202,7 +241,7 @@ angular.module('starter.mycartcrtl', [])
 	$scope.logisticsState = 0; //该订单的物流状态
 	
 	$ionicLoading.show({
-	    template: "加载中..."
+	    template: "<ion-spinner></ion-spinner>"
 	});
 	/*$scope.com  = 'tiantian';
 	$scope.postId  = '550169065187';
@@ -216,7 +255,7 @@ angular.module('starter.mycartcrtl', [])
 				$scope.showMsg(data.msg);
 			}
 		});
-		$http.post(ApiEndpoint.url + '/api_express_send?code='+$scope.com+'&nu='+$scope.postId+'&ordnum='+$scope.ordNum).success(function(data) {
+		$http.post(ApiEndpoint.url + '/api_express_send?com='+$scope.com+'&nu='+$scope.postId+'&ordnum='+$scope.ordNum).success(function(data) {
 			if (data.state =="success") {
 				$scope.orderItemMsg = data.msg;
 				$scope.orderItemList = data.oitem;
@@ -237,6 +276,36 @@ angular.module('starter.mycartcrtl', [])
 	}
 	
 	$scope.loadLogisticsData();
+
+	//下拉刷新
+	$scope.doRefresh = function(){
+		$http.post(ApiEndpoint.url + '/api_express_findbycode?code='+$scope.com).success(function(data) {
+			if (data.state =="success") {
+				$scope.companyName = data.data.name;
+				$scope.orderListImg = data.data.img;
+			}else{
+				$scope.showMsg(data.msg);
+			}
+		});
+		$http.post(ApiEndpoint.url + '/api_express_send?com='+$scope.com+'&nu='+$scope.postId+'&ordnum='+$scope.ordNum).success(function(data) {
+			if (data.state =="success") {
+				$scope.orderItemMsg = data.msg;
+				$scope.orderItemList = data.oitem;
+				$scope.logisticsState = data.json.status;
+				$scope.logisticsList = data.json.data;
+				for (var i = 0; i < $scope.orderItemList.length; i++) {
+					$scope.orderItemList[i].imgUrl = ApiEndpoint.pic_url+'/'+$scope.orderItemList[i].imgurl;
+				}
+				if ($scope.logisticsList != null && $scope.logisticsList.length > 0) {
+					$scope.logisticsList[0].numberOne = 1;
+				}
+				$scope.$broadcast("scroll.refreshComplete");
+			}else{
+				$scope.showMsg(data.msg);
+			}
+		});
+	};
+	
 	
 	//关闭物流页面
 	$scope.closeLogistics = function() {
@@ -250,7 +319,7 @@ angular.module('starter.mycartcrtl', [])
 	$scope.commentListData = []; //该订单中的商品集合
 	
 	$ionicLoading.show({
-	    template: "加载中..."
+	    template: "<ion-spinner></ion-spinner>"
 	});
 	
 	//加载订单下的商品列表
@@ -309,7 +378,7 @@ angular.module('starter.mycartcrtl', [])
 	$scope.maxLengthContent = 500;  //评论内容的最大长度
 	
 	$ionicLoading.show({
-	    template: "加载中..."
+	    template: "<ion-spinner></ion-spinner>"
 	});
 	
 	//关闭商品评价详情页面
@@ -353,10 +422,15 @@ angular.module('starter.mycartcrtl', [])
 		comment.ordNum = $scope.ordNum;
 		$http.post(ApiEndpoint.url + '/api_app_comment_save?commentStr='+JSON.stringify(comment)).success(function(data) {
 			if (data.state == 'success') {
-				if ($scope.itemNum == 1 || $scope.itemNum == "1"){
-					$state.go('app.order');
-				}else 
-					$state.go('public.commentList', {ordNum: $scope.ordNum});
+				$scope.showMsg("评论成功");
+				
+				$timeout(function() {
+					if ($scope.itemNum == 1 || $scope.itemNum == "1"){
+						$state.go('app.order');
+					}else 
+						$state.go('public.commentList', {ordNum: $scope.ordNum});
+			    }, 2000);
+				
 			}
 			$ionicLoading.hide();
 		});

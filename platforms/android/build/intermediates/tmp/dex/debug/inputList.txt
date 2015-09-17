@@ -1,4 +1,8 @@
 C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\classes\debug
+C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\alipayutdid-6f864bf69dcb2ec48e97c15c3bea2fa0c9218ff4.jar
+C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\alipaysecsdk-ae2cc9ee4f43ee5339c56aa7d07577050ca86f29.jar
 C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\classes-78fa8a0f128d0046d7e33298923234f4e2faf0db.jar
+C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\alipaysdk-59395f7f0613d58de9855932eff96667f5cbeb05.jar
 C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\libammsdk-028781e103561b7ad0f40364d918c89994ff0ba7.jar
-C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\alipaySDK-20150610-b70ce754bbc11bc27a328ae29497e42ffea2914a.jar
+C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\jpush-sdk-release1.7.5-3c225164f29baef2e718e4c5be6bf6969c00f55e.jar
+C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\weibosdkcore_v3.1.1-ff48c343a580e06ae47a379dc83568e8e3752f58.jar
