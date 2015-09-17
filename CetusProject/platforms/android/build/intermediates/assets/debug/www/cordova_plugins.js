@@ -8,6 +8,48 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/com.justep.cordova.plugin.alipay/www/alipay.js",
+        "id": "com.justep.cordova.plugin.alipay.alipay",
+        "clobbers": [
+            "navigator.alipay"
+        ]
+    },
+    {
+        "file": "plugins/com.synconset.imagepicker/www/imagepicker.js",
+        "id": "com.synconset.imagepicker.ImagePicker",
+        "clobbers": [
+            "plugins.imagePicker"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
+        "id": "cordova-plugin-camera.Camera",
+        "clobbers": [
+            "Camera"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
+        "id": "cordova-plugin-camera.CameraPopoverOptions",
+        "clobbers": [
+            "CameraPopoverOptions"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-camera/www/Camera.js",
+        "id": "cordova-plugin-camera.camera",
+        "clobbers": [
+            "navigator.camera"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-camera/www/CameraPopoverHandle.js",
+        "id": "cordova-plugin-camera.CameraPopoverHandle",
+        "clobbers": [
+            "CameraPopoverHandle"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-console/www/logger.js",
         "id": "cordova-plugin-console.logger",
         "clobbers": [
@@ -41,38 +83,10 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/uk.co.whiteoctober.cordova.appversion/www/AppVersionPlugin.js",
-        "id": "uk.co.whiteoctober.cordova.appversion.AppVersionPlugin",
+        "file": "plugins/io.github.pwlin.cordova.plugins.fileopener2/www/plugins.FileOpener2.js",
+        "id": "io.github.pwlin.cordova.plugins.fileopener2.FileOpener2",
         "clobbers": [
-            "cordova.getAppVersion"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
-        "id": "cordova-plugin-camera.Camera",
-        "clobbers": [
-            "Camera"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
-        "id": "cordova-plugin-camera.CameraPopoverOptions",
-        "clobbers": [
-            "CameraPopoverOptions"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-camera/www/Camera.js",
-        "id": "cordova-plugin-camera.camera",
-        "clobbers": [
-            "navigator.camera"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-camera/www/CameraPopoverHandle.js",
-        "id": "cordova-plugin-camera.CameraPopoverHandle",
-        "clobbers": [
-            "CameraPopoverHandle"
+            "cordova.plugins.fileOpener2"
         ]
     },
     {
@@ -81,6 +95,17 @@ module.exports = [
         "clobbers": [
             "window.plugins.actionsheet"
         ]
+    },
+    {
+        "file": "plugins/nl.x-services.plugins.toast/www/Toast.js",
+        "id": "nl.x-services.plugins.toast.Toast",
+        "clobbers": [
+            "window.plugins.toast"
+        ]
+    },
+    {
+        "file": "plugins/nl.x-services.plugins.toast/test/tests.js",
+        "id": "nl.x-services.plugins.toast.tests"
     },
     {
         "file": "plugins/org.apache.cordova.file/www/DirectoryEntry.js",
@@ -243,17 +268,10 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/io.github.pwlin.cordova.plugins.fileopener2/www/plugins.FileOpener2.js",
-        "id": "io.github.pwlin.cordova.plugins.fileopener2.FileOpener2",
+        "file": "plugins/uk.co.whiteoctober.cordova.appversion/www/AppVersionPlugin.js",
+        "id": "uk.co.whiteoctober.cordova.appversion.AppVersionPlugin",
         "clobbers": [
-            "cordova.plugins.fileOpener2"
-        ]
-    },
-    {
-        "file": "plugins/com.synconset.imagepicker/www/imagepicker.js",
-        "id": "com.synconset.imagepicker.ImagePicker",
-        "clobbers": [
-            "plugins.imagePicker"
+            "cordova.getAppVersion"
         ]
     },
     {
@@ -264,21 +282,32 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/nl.x-services.plugins.toast/www/Toast.js",
-        "id": "nl.x-services.plugins.toast.Toast",
+        "file": "plugins/org.zy.yuancheng.weibo/www/ycweibo.js",
+        "id": "org.zy.yuancheng.weibo.ycweibo",
         "clobbers": [
-            "window.plugins.toast"
+            "YCWeibo"
         ]
     },
     {
-        "file": "plugins/nl.x-services.plugins.toast/test/tests.js",
-        "id": "nl.x-services.plugins.toast.tests"
+        "file": "plugins/am.armsoft.plugins.listpicker/www/ListPicker.js",
+        "id": "am.armsoft.plugins.listpicker.ListPicker",
+        "clobbers": [
+            "window.plugins.listpicker"
+        ]
     },
     {
-        "file": "plugins/com.qdc.plugins.alipay/www/alipay.js",
-        "id": "com.qdc.plugins.alipay.alipay",
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
         "clobbers": [
-            "alipay"
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
+    },
+    {
+        "file": "plugins/cn.jpush.phonegap.JPushPlugin/www/JPushPlugin.js",
+        "id": "cn.jpush.phonegap.JPushPlugin.JPushPlugin",
+        "clobbers": [
+            "window.plugins.jPushPlugin"
         ]
     }
 ];
@@ -286,20 +315,24 @@ module.exports.metadata =
 // TOP OF METADATA
 {
     "com.ionic.keyboard": "1.0.4",
+    "com.justep.cordova.plugin.alipay": "5.3.0",
+    "com.synconset.imagepicker": "1.0.6",
+    "cordova-plugin-camera": "1.2.0",
     "cordova-plugin-console": "1.0.1",
     "cordova-plugin-device": "1.0.1",
     "cordova-plugin-splashscreen": "2.1.0",
     "cordova-plugin-whitelist": "1.0.0",
-    "uk.co.whiteoctober.cordova.appversion": "0.1.7",
-    "cordova-plugin-camera": "1.2.0",
+    "io.github.pwlin.cordova.plugins.fileopener2": "1.0.11",
     "nl.x-services.plugins.actionsheet": "1.1.7",
+    "nl.x-services.plugins.toast": "2.1.1",
     "org.apache.cordova.file": "1.3.3",
     "org.apache.cordova.file-transfer": "0.5.0",
-    "io.github.pwlin.cordova.plugins.fileopener2": "1.0.11",
-    "com.synconset.imagepicker": "1.0.6",
-    "xu.li.cordova.wechat": "0.7.1",
-    "nl.x-services.plugins.toast": "2.1.1",
-    "com.qdc.plugins.alipay": "1.0.0"
+    "uk.co.whiteoctober.cordova.appversion": "0.1.7",
+    "xu.li.cordova.wechat": "0.8.0",
+    "org.zy.yuancheng.weibo": "0.3.3",
+    "am.armsoft.plugins.listpicker": "2.2.0",
+    "cordova-plugin-inappbrowser": "1.0.2-dev",
+    "cn.jpush.phonegap.JPushPlugin": "2.0.2"
 }
 // BOTTOM OF METADATA
 });

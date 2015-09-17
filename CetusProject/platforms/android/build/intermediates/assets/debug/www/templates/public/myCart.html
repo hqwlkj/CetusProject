@@ -3,8 +3,8 @@
     <h1 class="title">我的购物车</h1>
 </ion-header-bar>
 <ion-content style="background:#E5E5E5;">
-	<div class="prompt" ng-click="policy()" style="height: {{prompt_height}}">
-	  	<div class="info"style="display: {{prompt_info}}">{{info}}</div>
+	<div class="prompt" ng-click="policy($event)" style="">
+	  	<div class="info"style="display: {{prompt_info}} height: {{prompt_height}}">{{info}}</div>
 	    <p class="up" ng-if="policy_state"></p>
 	    <p class="down" ng-if="!policy_state"></p><p>包邮政策、商品政策</p>
 	 </div>
@@ -13,7 +13,7 @@
 		  <div class="carlst-not-radio left margin-top-15"></div> 
 		  <div class="carlst-not-content "> 
 		    <p class="carlst-not-content-title">您的购物车还是空空的，赶紧行动吧！你还可以：</p> 
-		    <p class="carlst-content-attr"><a href="javascript:goIndex();" class="btn addcart-not-btn">立即去购物</a>&nbsp;&nbsp;<a href="javascript:goMyOrder();" class="btn addcart-not-btn">查看已购买到的商品</a></p> 
+		    <p class="carlst-content-attr"><a ng-click="backToIndex();" class="btn addcart-not-btn">立即去购物</a>&nbsp;&nbsp;<a ng-click="goMyOrder();" class="btn addcart-not-btn">查看已购买到的商品</a></p> 
 		  </div> 
 		</li>
 	 </ul>  
@@ -29,7 +29,7 @@
 	    		<i ng-if="c.checkClass == null" class="icon-unselect-01" ng-click="choseCheck(c)"></i>
 	    		<i ng-if="c.checkClass != null" class="{{c.checkClass}}" ng-click="choseCheck(c)"></i>
 	    	</div>
-	    	<div class="carlst-oper right text-right margin-top-11">
+	    	<div class="carlst-oper right text-right margin-top-11" style="width: 40%;">
 	    		<a ng-click="updProductNum(c, 1)" class="btn-lf-sm left cart-reduction"><i class="icon-sub-01"></i></a>
 	  			<a ng-click="updProductNum(c, 2)" class="btn-rt-sm left cart-plus"><i class="icon-add-01"></i></a>
 	    		<span class="cart-num ">x<b id="td-amount">{{c.productNum}}</b></span>
@@ -48,6 +48,6 @@
 <!-- tabs -->
 <ion-footer-bar align-title="left" class="bar-assertive" style="padding: 0">
   <ion-tabs class="tabs-icon-top tabs-color-active-positive">
-    <div class="fixed-cart-bottom" style="padding:0 10px;background:#d1d1d1;border:none">订单合计：<span>{{allMoney.toFixed(2)}}</span><button ng-click="toOrder()" class="btn addcart right noborder">去结算</button></div>
+    <div class="fixed-cart-bottom" style="padding:0 10px;background:#d1d1d1;border:none">订单合计：<span>{{allMoney | currency:'￥'}}</span><button ng-click="toOrder()" class="btn addcart right noborder">去结算</button></div>
   </ion-tabs>
 </ion-footer-bar>

@@ -164,5 +164,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cn.jpush.phonegap.JPushPlugin": {
+        "source": {
+            "type": "local",
+            "path": "C:\\Users\\LENOVO\\Myproj\\plugins\\jpush-phonegap-plugin"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

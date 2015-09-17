@@ -7,13 +7,13 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers','starter.addressController', 'starter.ordercrtl','starter.order','starter.question','starter.mycartcrtl','starter.services','starter.filter', 'ngCordova'])
 
-.run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer,$cordovaImagePicker, Userinfo,$location,$rootScope,$cordovaActionSheet, $timeout, $ionicHistory,$cordovaFileOpener2, $cordovaToast) {
+.run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer,$cordovaImagePicker, Userinfo,jpushService,$location,$rootScope,$cordovaActionSheet, $timeout, $ionicHistory,$cordovaFileOpener2, $cordovaToast) {
 	$ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
 
     // 设备准备完后 隐藏启动动画
-    //navigator.splashscreen.hide();
+    navigator.splashscreen.hide();
 
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -22,9 +22,54 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
+    //初始化极光推送服务
+    jpushService.init();
+    whetherChange();
+    //检查用户是否开启接收推送信息
+    function whetherChange(){
+    	//判断缓存中是否存在开启推送的标识
+    	console.log("===========================================================================");
+    	console.log(Userinfo.l.enableFriends === undefined);
+    	if(Userinfo.l.enableFriends === undefined){
+    		Userinfo.add('enableFriends', true);//默认为真
+    		var tags=[];
+			tags.push(Userinfo.l.userType ? Userinfo.l.userType :"");
+			alert(tags.length);
+    		var alias =Userinfo.l.id ? Userinfo.l.id : "";
+    		//设置tag 和 alias
+			jpushService.setTagsWithAlias(tags,alias);
+    	}else{
+    		if(Userinfo.l.enableFriends){
+    			var tags=[];
+    			tags.push(Userinfo.l.userType ? Userinfo.l.userType :"");
+    			alert(tags.length);
+    			var alias =Userinfo.l.id ? Userinfo.l.id : "";
+    			//设置tag 和 alias
+    			jpushService.setTagsWithAlias(tags,alias);
+    			//jpushService.resumePush();//重启推送
+    		}else{
+    			var tags=[];
+    			var alias="";
+    			jpushService.setTagsWithAlias(tags,alias);//清空   tag 和 别名
+    			jpushService.stopPush();//停止推送
+    		}
+    	}
+    	console.log("===========================================================================");
+    }
     
     
-   //头像选择开始
+    
+    document.addEventListener("deviceready", onDeviceReady, false);
+    ///var platform = "";
+    //获取当前设备的类型
+    function onDeviceReady() {
+    	//alert( device.model +"----"+device.cordova +"------"+ device.uuid +"-----"+device.version+"----"+device.platform );
+    	return device.platform;
+    }
+    
+    window.open = cordova.InAppBrowser.open;
+
+    //头像选择开始
    var options = {
       title: '上传头像',
       buttonLabels: ['从相册选择', '拍照'],
@@ -55,7 +100,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
         height: 800,
         quality: 80
       };
-      var server =   'http://www.parsec.com.cn/Cetus/api_update_head?id='+Userinfo.l.id;//图片上传
+      var server =   'http://www.meio100.com/api_update_head?id='+Userinfo.l.id;//图片上传
       var trustHosts = true
       var option = {};
 
@@ -63,10 +108,10 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
         .then(function(results) {
           $cordovaFileTransfer.upload(server, results[0], option, true)
             .then(function(result) {
-              alert('上传成功');
+              //alert('上传成功');
               $rootScope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
             }, function(err) {
-              alert('上传失败，请重试');
+              //alert('上传失败，请重试');
             }, function(progress) {
               $ionicLoading.show({
                 template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
@@ -81,7 +126,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     };
 
     $rootScope.cameraImg = function() {
-      var server =   'http://www.parsec.com.cn/Cetus/api_update_head?id='+Userinfo.l.id;//图片上传
+      var server =   'http://www.meio100.com/api_update_head?id='+Userinfo.l.id;//图片上传
       var trustHosts = true
       var option = {};
       var options = {
@@ -98,11 +143,11 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       $cordovaCamera.getPicture(options).then(function(imageData) {
         $cordovaFileTransfer.upload(server, "data:image/jpeg;base64," + imageData, option, true)
           .then(function(result) {
-            alert('上传成功');
+            //alert('上传成功');
             $rootScope.avaImg =  ApiEndpoint.pic_url+"/"+result.path;
             //$scope.doRefresh();
           }, function(err) {
-            alert('上传失败，请重试');
+            //alert('上传失败，请重试');
           }, function(progress) {
             $ionicLoading.show({
               template: "正在上传..." + Math.round((progress.loaded / progress.total) * 100) + '%'
@@ -116,71 +161,29 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       });
     };
     //头像选择结束
-    //产品分享 开始
-    $rootScope.productShare = function(e, desc, p, index) {
-	    var url = 'http://www.parsec.com.cn/Cetus/' + e;
-	    var short_title = desc.substr(0, 3) + '...';
-	    var price = null;
-	    if (parseFloat(p) < 1) {
-	      price = 1;
-	    } else {
-	      price = p;
-	    }
-	    var title = '神奇的美O圈“' + short_title + '”才' + price + '元';
-	    Wechat.isInstalled(function(installed) {
-	      if (!installed) {
-	        alert("手机尚未安装微信应用");
-	      } else {
-	        $ionicLoading.show({
-	          template: '正在打开微信,请稍等...'
-	        });
-	        $timeout(function() {
-	          $ionicLoading.hide();
-	        }, 3000);
-	      }
-	    });
-	    var scope = "snsapi_userinfo";
-	    Wechat.auth(scope, function (response) {
-	        // you may use response.code to get the access token.
-	        alert(JSON.stringify(response));
-	    }, function (reason) {
-	        alert("Failed: " + reason);
-	    });
-	    Wechat.share({
-	      message: {
-	        title: title,
-	        description: '美O圈',
-	        thumb: "http://m2.cosjii.com/img/logo_28.png",//LOGO
-	        media: {
-	          type: Wechat.Type.LINK,
-	          webpageUrl: url
-	        }
-	      },
-	      scene: Wechat.Scene.TIMELINE // share to Timeline
-	    }, function() {
-	    	$rootScope.showMsg("分享成功");
-	    }, function(reason) {
-	      if (reason == 'ERR_USER_CANCEL') {} else {
-	    	  $rootScope.showMsg("分享失败: " + reason);
-	      }
-	    });
-	};
-	//产品分享结束
-	
+    
     //检查更新
     checkUpdate();
     
     function checkUpdate() {
-      $cordovaAppVersion.getVersionNumber().then(function(version) {
-        Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
-        $http.get('http://www.parsec.com.cn/Cetus/api_checkversion_get?deviceType=android&v='+version).success(function(data) {
-          if (data.state == 'success') {
-            if (version != data.version) {
-              showUpdateConfirm(data.desc, data.apk);
-            }
-          }
-        })
-      });
+    	var platform = onDeviceReady();
+    	//alert(platform);
+        $cordovaAppVersion.getVersionNumber().then(function(version) {
+    	  //alert('检查更新');
+    	  //alert('http://www.meio100.com/api_checkversion_get?deviceType='+ (platform == "Android" ? "android":"ios")+'&v='+version);
+	        Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
+	        $http.get('http://www.meio100.com/api_checkversion_get?deviceType='+(platform == "Android" ? "android":"ios")+'&v='+version).success(function(data) {
+	          if (data.state == 'success') {
+	            if (version != data.version) {
+	            	if(platform == "Android"){
+	            		showUpdateConfirm(data.desc, data.apk);
+	            	}else{
+	            		showUpdateIOSConfirm(data.desc, data.apk);
+	            	}
+	            }
+	          }
+	        })
+	   });
     };
 
     function showUpdateConfirm(desc, url) {
@@ -211,6 +214,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
                 $ionicLoading.hide();
             }, function (err) {
                 //alert('下载失败');
+            	
             	$ionicLoading.hide();
             	$ionicPopup.alert({
 			        title: '提示',
@@ -235,12 +239,35 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
         };
       });
     }
+    function showUpdateIOSConfirm(desc, url) {
+        var confirmPopup = $ionicPopup.confirm({
+          title: '有新版本了！是否要升级？',
+          template: desc,
+          cancelText: '下一次',
+          okText: '确定'
+        });
+        var url = url;
+        confirmPopup.then(function(res) {
+          if (res) {
+        	  var ref = cordova.InAppBrowser.open('itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/husu/mobileHelper/master/cetus.plist', '_system', 'location=yes');
+//        	  console.log("===========================");
+//        	  console.log(ref);
+//        	  console.log("===========================");
+//        	  var myCallback = function(event) { 
+//        		  console.log(event);
+//        		  alert(event.url);
+//        	  }
+//        	  ref.addEventListener('loadstart', myCallback);
+        	  //ref.removeEventListener('loadstart', myCallback);
+          };
+        });
+      }
     
   });
 	//双击退出
     $ionicPlatform.registerBackButtonAction(function (e) {
         //判断处于哪个页面时双击退出
-        if ($location.path() == '/app/index') {
+        if ($location.path() == '/app/index' || $location.path() == '/app/product' || $location.path() == '/app/quan' || $location.path() == '/app/order') {
             if ($rootScope.backButtonPressedOnceToExit) {
                 ionic.Platform.exitApp();
             } else {
@@ -250,7 +277,10 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
                     $rootScope.backButtonPressedOnceToExit = false;
                 }, 2000);
             }
-        } else if ($ionicHistory.backView()) {
+        }else{
+        	$ionicHistory.goBack();
+        }
+        /*} else if ($ionicHistory.backView()) {
             $ionicHistory.goBack();
         } else {
             $rootScope.backButtonPressedOnceToExit = true;
@@ -258,7 +288,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
             setTimeout(function () {
                 $rootScope.backButtonPressedOnceToExit = false;
             }, 2000);
-        }
+        }*/
         e.preventDefault();
         return false;
     }, 101);
@@ -327,7 +357,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })
   
   .state('app.order', { //我的的订单
-    url: '/order',
+    url: '/order/{ran}',
     views: {
       'tab-order': {
         templateUrl: 'templates/tab-order.html',
@@ -398,7 +428,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })*/
   
  .state('message.msgall', {//全部信息
-	  url: '/msgall',
+	  url: '/msgall/{ran}',
 	  views: {
 		  'message': {
 			  templateUrl: 'templates/message/messageShow.html',
@@ -445,7 +475,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })
   
   .state('public.myCart', {//我的购物车
-    url: '/myCart',
+    url: '/myCart/{ran}',
     views: {
       'public': {
         templateUrl: 'templates/public/myCart.html',
@@ -454,7 +484,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     }
   })
   .state('public.order', {//我的订单
-	  url: '/order/{msg}',
+	  url: '/order/{msg}/{ran}',
 	  views: {
 		  'public': {
 			  templateUrl: 'templates/public/order.html',
@@ -463,7 +493,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	  }
   })
   .state('public.question', {//我的订单
-	  url: '/question',
+	  url: '/question/{ran}',
 	  views: {
 		  'public': {
 			  templateUrl: 'templates/public/question.html',

@@ -6,18 +6,24 @@
   </ion-header-bar>
   <ion-content >
   	<form ng-submit="save_address()">
+  	    <input type="hidden" class="form-text" placeholder="省份" ng-model="address.province"/>
+        <input type="hidden" class="form-text" placeholder="城市" ng-model="address.city"/>
+        <input type="hidden" class="form-text" placeholder="区县" ng-model="address.county"/>
     <ul class="form" >
         <li><input type="text" class="form-text" placeholder="收件人" ng-model="address.recipients"/></li>
         <li><input type="tel" class="form-text" placeholder="电话号码" ng-model="address.telephone"/></li>
         <li><input type="text" class="form-text" placeholder="邮编" ng-model="address.zipCode"/></li>
+        <li><div class="form-text fz65" ng-click="showProvince()">{{address.province}}</div></li>
+        <li><div class="form-text fz65" ng-click="showCity()">{{address.city}}</div></li>
+        <li><div class="form-text fz65" ng-click="showCounty()">{{address.county}}</div></li>
+        <!-- 
         <li><select ng-model="address.province" ng-options="key as key for (key,value) in addList" ng-change="address.city='';address.county='';" class="form-select"></select></li>
         <li><select ng-model="address.city" ng-options="key as key for (key,value) in addList[address.province]" ng-change="address.county='';" class="form-select"></select></li>
         <li><select ng-model="address.county" ng-options="value as value for value in addList[address.province][address.city]" class="form-select"></select></li>
+         -->
         <li><textarea class="form-textarea" cols="20" rows="2" placeholder="详细地址" ng-model="address.locations"></textarea></li>
-        <li><div class="col-6 text-left"><div class="address-option left" id="default" ng-if="showDefault"><i class="icon-unselect-01" ng-if="!isDefault" ng-click="change_default()"></i><i class="icon-select-01" ng-if="isDefault" ng-click="change_default()"></i> <span>设为默认</span> </div></div>
-        <div class="col-6 text-right"><div class="address-remove right" ng-click="del_address()" ng-if="canDelete"><i class="ion-trash-a left"></i> <span class="right">删除</span></div></div></li>
-        <li>&nbsp;</li>
-        <li>&nbsp;</li>
+        <li><div class="col-6 text-left" style="height: 3rem"><div class="address-option left" id="default" ng-if="showDefault"><i class="icon-unselect-01" ng-if="!isDefault" ng-click="change_default()"></i><i class="icon-select-01" ng-if="isDefault" ng-click="change_default()"></i> <span>设为默认</span> </div></div>
+        <div class="col-6 text-right" style="height: 3rem"><div class="address-remove right" ng-click="del_address()" ng-if="canDelete"><i class="ion-trash-a left"></i> <span class="right">删除</span></div></div></li>
         <li><button class="button button-block button-assertive" type="submit">保存</button></li>
     </ul>
   	</form>

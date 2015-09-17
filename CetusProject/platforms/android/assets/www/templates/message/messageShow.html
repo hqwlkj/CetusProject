@@ -12,7 +12,7 @@
    <a ng-class="{a: 'tab-item', b: 'tab-item', c: 'tab-item active'}[isActive]" data-active="c" ng-click="changeTab($event)" style="font-size:16px;line-height:48px;margin:0 28px">全部</a>
   </div>
  </div>
-<ion-content class="has-subheader">
+<ion-content class="has-subheader" style="background:#E5E5E5;">
 <div ng-if="isActive == 'a'" class="wrap-page swiper-container">
       <div class="list padding">
       	 <ul class="msg-list">
@@ -25,8 +25,8 @@
 		      </div>
 		    </li>
 		    <li class="margin-15 padding-10 clear" ng-show="nomsg">
-		      <div class="messagebox">
-		        <p  style="text-align: center;">暂无未读消息</p>
+		      <div style=" height: 25px; line-height: 25px;">
+		        <p  style="text-align: center;color: #999;">暂无未读消息</p>
 		      </div>
 		    </li>
 		</ul>
@@ -42,6 +42,11 @@
 		        <p>{{k.content}}</p>
 		      </div>
 		    </li>
+		    <li class="margin-15 padding-10 clear" ng-show="nomsg2">
+		      <div style=" height: 25px; line-height: 25px;">
+		        <p  style="text-align: center;color: #999;">暂无未读消息</p>
+		      </div>
+		    </li>
 		</ul>
 	 	
     </div>
@@ -54,6 +59,11 @@
 		      <div class="messagebox">
 		        <h4>{{k.title}}</h4>
 		        <p>{{k.content}}</p>
+		      </div>
+		    </li>
+		    <li class="margin-15 padding-10 clear" ng-show="nomsg3">
+		      <div style=" height: 25px; line-height: 25px;">
+		        <p  style="text-align: center;color: #999;">暂无未读消息</p>
 		      </div>
 		    </li>
 		</ul>

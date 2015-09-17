@@ -1,7 +1,7 @@
 var json=new Array();
 angular.module('starter.ordercrtl', [])
 
-.controller('OrderCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading,$location, $http, Userinfo, ApiEndpoint, $state ,$ionicHistory){
+.controller('OrderCtrl',function($scope, $ionicPopover, $timeout, $ionicModal,$ionicPopup,$ionicLoading,$location, $http, Userinfo, ApiEndpoint, $state ,$ionicHistory){
 	$scope.orderWf = [];
 	$scope.orderYf = [];
 	$scope.orderYwc = [];
@@ -54,14 +54,33 @@ angular.module('starter.ordercrtl', [])
       //未付款
 	  $scope.getOrderWf = function() {
 		  $ionicLoading.show({
-			    template: "加载中..."
+			    template: "<ion-spinner></ion-spinner>"
 		 });
 		 $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=1').success(function(data) {
-			if (data.state == 'success') {
+			 $scope.ordermsg = false;//未读消息提示默认隐藏
+			 $ionicLoading.hide();
+			 if (data.state == 'success') {
+				if(data.lst.length<1){
+					  $scope.ordermsg = true;
+				  }else{
+						/*for (var i = 0; i < data.lst[0].items.length; i++) {
+							$scope.totalNum+=data.lst[0].items[i].num;
+						}*/
+					  //计算每一笔订单中 商品总数是多少的逻辑
+					  for (var i = 0; i < data.lst.length; i++) {
+						  var myItems=data.lst[i];
+						  $scope.totalNum=0;
+						  for (var k = 0; k < myItems.items.length; k++) {
+							  $scope.totalNum+=myItems.items[k].num;
+						  }
+						  data.lst[i].totalNum = $scope.totalNum;
+					  }
+				  }
+				
 				$scope.orderWf = data.lst;
-				//console.log($scope.orderWf.Item);
-				$ionicLoading.hide();
-		    }
+		    }else{
+				$scope.showMsg(data.msg);
+			}
 		});
 	  };
 	  
@@ -69,88 +88,200 @@ angular.module('starter.ordercrtl', [])
 	  //已付款
 	  $scope.getOrderYf = function() {
 		  $ionicLoading.show({
-			    template: "加载中..."
+			    template: "<ion-spinner></ion-spinner>"
 		 });
 		 $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=2').success(function(data) {
+			 $scope.ordermsg2 = false;//已付款默认隐藏
+			 $ionicLoading.hide();
 			if (data.state == 'success') {
+				if(data.lst.length<1){
+					$scope.ordermsg2 = true;
+				  }else{
+					  //计算每一笔订单中 商品总数是多少的逻辑
+					  for (var i = 0; i < data.lst.length; i++) {
+						  var myItems=data.lst[i];
+						  $scope.totalNum=0;
+						  for (var k = 0; k < myItems.items.length; k++) {
+							  $scope.totalNum+=myItems.items[k].num;
+						  }
+						  data.lst[i].totalNum = $scope.totalNum;
+					  }
+				  }
+				
 				$scope.orderYf = data.lst;
 				//console.log($scope.orderWf.Item);
-				$ionicLoading.hide();
-		    }
+		    }else{
+				$scope.showMsg(data.msg);
+			}
 		});
 	  };
 	  
 	  //已完成
 	  $scope.getOrderYwc = function() {
 		  $ionicLoading.show({
-			  template: "加载中..."
+			  template: "<ion-spinner></ion-spinner>"
 		  });
 		  $http.post(ApiEndpoint.url + '/api_order_list?userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&pageNo=1'+'&pageSize=10'+'&flag=3').success(function(data) {
+			  $scope.ordermsg3 = false;//已完成默认隐藏
+			  $ionicLoading.hide();
 			  if (data.state == 'success') {
 				  if(data.lst.length<1){
-					  alert("暂无数据");
+					  $scope.ordermsg3 = true;
+				  }else{
+					  //计算每一笔订单中 商品总数是多少的逻辑
+					  for (var i = 0; i < data.lst.length; i++) {
+						  var myItems=data.lst[i];
+						  $scope.totalNum=0;
+						  for (var k = 0; k < myItems.items.length; k++) {
+							  $scope.totalNum+=myItems.items[k].num;
+						  }
+						  data.lst[i].totalNum = $scope.totalNum;
+					  } 
 				  }
 				  $scope.orderYwc = data.lst;
-				  //console.log($scope.orderWf.Item);
-				  $ionicLoading.hide();
-			  }
+			  }else{
+				  $scope.showMsg(data.msg);
+				}
 		  });
 	  };
 	  
 	  /*
 	   * 支付订单
 	   */
-	  $scope.payOrder=function(orderId){
-		 //console.log(orderId);
+	  $scope.payState = false;
+	  $scope.payOrder=function(order,items){
+		 if($scope.payState==true){
+			 return;
+		 }
+		 $scope.payState = true;
+		  var name="";
+		  for (var i = 0; i < items.length; i++) {
+			  name += ","+items[i].name;
+		    }
+		  name = name.substring(1, name.length);
+		  navigator.alipay.pay(
+			{
+				seller : "ougemaoyi@163.com",
+				subject : name,
+				body : name,
+				price : "0.01",
+				tradeNo : order.ordNum,
+				timeout : "30m",
+				notifyUrl : ApiEndpoint.url +"/api_alipay_asynchronous_notify"
+			},
+			function(msgCode){
+				var temp="";
+				if(msgCode=="9000"){
+					temp="支付成功"
+				}else{
+					temp="支付失败"
+				}
+				$scope.myPopup = $ionicPopup.show({
+					template: temp,
+					title: '提示',
+					scope: $scope,
+					buttons: [{ text: '确定',type: 'button-assertive',onTap:function(e){
+						$scope.payState = false;
+						$scope.getOrderWf();//回到未付款订单列表界面
+					}}]
+			   });
+			},
+			function(msg){}
+		)
 	  }
 	  
 	  /*
 	   * 取消订单
 	   */
-	  $scope.removeOrder=function(order){
-		  var orderId=order.id;
-		  $ionicLoading.show({
-			  template: "加载中..."
-		  });
-		  $http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(orderId)).success(function(data) {
-			  if (data.state == 'success') {
-					  alert(data.msg);
-				  $scope.getOrderWf();
-				  $ionicLoading.hide();
-			  }
-		  });
+	  $scope.removeOrder=function(orderId,pNum){
+		  $scope.myPopup = $ionicPopup.show({
+				title: '确定要取消订单吗',
+				scope: $scope,
+				buttons: [
+				{ text: '取消', },   
+				{ text: '确定',type: 'button-positive',onTap:function(e){
+					$ionicLoading.show({
+						  template: "<ion-spinner></ion-spinner>"
+					  });
+					  $http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(orderId)).success(function(data) {
+						  $ionicLoading.hide(); 
+						  if (data.state == 'success') {
+							  if(pNum!=""){
+								  $scope.showMsg(data.msg);//提示一下用户
+								  $scope.modal_order_info.hide(); //把当前视图关掉
+								  $scope.getOrderWf();//重新查
+							  }else{
+								  $scope.showMsg(data.msg);
+								  $scope.getOrderWf();
+							  }
+						  }else{
+							  $scope.showMsg(data.msg);
+						  }
+					  });
+				}}]
+		   });
 	  }
 	  
 	  /*
 	   * 确认收货
 	   */
-	  $scope.successOrder=function(orderId){
-		  $ionicLoading.show({
-			  template: "加载中..."
-		  });
-		  $http.post(ApiEndpoint.url + '/api_order_changeState?id='+(orderId)+'&state=4').success(function(data) {
-			  if (data.state == 'success') {
-					  alert("确认收货成功");
-				  $scope.getOrderYf();//重新加载出未做操作的数据  
-				  $ionicLoading.hide();
-			  }
-		  });
+	  $scope.successOrder=function(orderId,pNum){
+		  $scope.myPopup = $ionicPopup.show({
+				title: '请收到货后，再确认收货！否则您可能钱货两空哦！',
+				scope: $scope,
+				buttons: [
+				{ text: '取消', },   
+				{ text: '确定',type: 'button-positive',onTap:function(e){
+					$ionicLoading.show({
+						  template: "<ion-spinner></ion-spinner>"
+					  });
+					$http.post(ApiEndpoint.url + '/api_order_changeState?id='+(orderId)+'&state=4').success(function(data) {
+						$ionicLoading.hide();
+						  if (data.state == 'success') {
+							  
+							  $scope.showMsg("确认收货成功");
+							  $scope.getOrderYf();//重新加载出未做操作的数据  
+							  /*if(pNum!=""){
+								  $scope.showMsg("确认收货成功");//提示一下用户
+								  $scope.modal_order_info.hide(); //把当前视图关掉
+								  $scope.getOrderYf();//重新加载出未做操作的数据  
+							  }else{
+								  $scope.showMsg("确认收货成功");
+								  $scope.getOrderYf();//重新加载出未做操作的数据  
+							  }*/
+						  }else{
+							  $scope.showMsg(data.msg);
+						  }
+					  });
+				}}]
+		   });
 	  }
 	  /*
 	   * 已完成订单中 ，删除订单
 	   */
 	  $scope.deleteOrder=function(orderOrder){
 		  var orderId=orderOrder.id;
-		  $ionicLoading.show({
-			  template: "加载中..."
-		  });
-		  $http.post(ApiEndpoint.url + '/api_order_pretendDelete?id='+(orderId)).success(function(data) {
-			  if (data.state == 'success') {
-					  alert("删除成功");
-				  $scope.getOrderYwc();
-				  $ionicLoading.hide();
-			  }
-		  });
+		  
+		  $scope.myPopup = $ionicPopup.show({
+				title: '确定删除订单吗',
+				scope: $scope,
+				buttons: [
+				{ text: '取消', },   
+				{ text: '确定',type: 'button-positive',onTap:function(e){
+					$ionicLoading.show({
+						  template: "<ion-spinner></ion-spinner>"
+					});
+					$http.post(ApiEndpoint.url + '/api_order_pretendDelete?id='+(orderId)).success(function(data) {
+						$ionicLoading.hide();
+						if (data.state == 'success') {
+							$scope.showMsg("删除成功");
+							$scope.getOrderYwc();
+						}else{
+							$scope.showMsg(data.msg);
+						}
+					});
+				}}]
+		   }); 
 	  }
 	  /*
 	   * 查看物流详情
@@ -183,7 +314,7 @@ angular.module('starter.ordercrtl', [])
 			}else{
 				$scope.modal_order_info.show();
 				$ionicLoading.show({
-				     template: '加载中...'
+				     template: '<ion-spinner></ion-spinner>'
 				});
 				$http.post(ApiEndpoint.url + '/api_order_get?ordNum='+ordNum+'&pageNo=1'+'&pageSize=10').success(function(data) {
 					//console.log(data);
@@ -231,8 +362,8 @@ angular.module('starter.ordercrtl', [])
 							$scope.falgaddress1 = false;
 							$scope.falgaddress2 =true;
 							$scope.shopcom="上门自提";
-							$scope.shopName=data.add.shopName;//店名
-							$scope.address=data.add.address;//地址
+							$scope.shopName="<i class=\"icon-type-01\"></i> "+data.add.shopName;//店名
+							$scope.address="<i class=\"icon-address-01\"></i> "+data.add.address;//地址
 						}else{
 							$scope.locations=data.add.province+data.add.city+data.add.county+data.add.locations;//地址
 						}
@@ -245,14 +376,34 @@ angular.module('starter.ordercrtl', [])
 						if(data.allComment == 1){
 							$scope.flag5 = false;
 						}
-						$scope.com=data.order.com;
+						$scope.testcom=data.order.com;//处理 快递代码问题
+						$scope.mycom="";
+						if(data.order.atype==0){//判断是否是自提
+							$scope.mycom="上门自提";
+						}else{
+							if($scope.testcom==undefined||$scope.testcom==""){//处理未配送的情况
+								$scope.mycom="暂未配送";
+							}else{
+								$http.post(ApiEndpoint.url + '/api_express_findbycode?code='+$scope.testcom).success(function(data) {
+									if (data.state =="success") {
+										$scope.mycom = data.data.name;
+									}else{
+										$scope.showMsg(data.msg);
+									}
+								});
+							}
+							
+						}
 						//$scope.myorderId=data.order.id;
 						$scope.deliveryTime=data.order.deliveryTime;//送货时间
 						//$scope.orderMoney=data.order.orderMoney;//订单单价
-						$scope.orderMoney=(countFee.toFixed(2));//订单总额
+						$scope.orderMoney="￥"+(countFee.toFixed(2));//订单总额
 						$scope.freight=data.order.freight.toFixed(2);//运费
 						$scope.discountPrice=(parseFloat(countFee - price).toFixed(2));//优惠价格
-						$scope.countPrice=(parseFloat(data.order.orderMoney).toFixed(2));//实付金额
+						if($scope.discountPrice<0){//活动过来的产品会造成优惠为负值
+							$scope.discountPrice=0;
+						}
+						$scope.countPrice="￥"+(parseFloat(data.order.orderMoney).toFixed(2));//实付金额
 						$scope.showRiseTime=data.order.showRiseTime;//下单时间
 					}
 					$ionicLoading.hide();
@@ -268,10 +419,12 @@ angular.module('starter.ordercrtl', [])
 			if(confirm("确定要取消该订单吗？")){
 				$http.post(ApiEndpoint.url + '/api_order_reallyDelete?id='+(ordNum)).success(function(data) {
 					  if (data.state == 'success') {
-							  alert("订单已取消");
-							  setTimeout("closeOrderDetail()",2000);//刷新
+							  $scope.showMsg("订单已取消");
+							  $timeout(function() {
+								  closeOrderDetail()
+							    }, 2000);
 					  }else{
-							alert(data.msg);
+							$scope.showMsg(data.msg);
 						}
 				});
 			}
@@ -299,10 +452,14 @@ angular.module('starter.ordercrtl', [])
 			if(confirm("确定要将此订单申请退货吗？")){
 				$http.post(ApiEndpoint.url + '/api_order_return?id='+(ordNum)).success(function(data) {
 					if (data.state == 'success') {
-						alert(data.msg);
-						setTimeout("closeOrderDetail()",2000);//刷新
+						$scope.showMsg(data.msg);
+						$timeout(function() {
+							closeOrderDetail()
+					    }, 2000);
+
+						
 					}else{
-						alert(data.msg);
+						$scope.showMsg(data.msg);
 					}
 				});
 			}
@@ -316,10 +473,13 @@ angular.module('starter.ordercrtl', [])
 			if(confirm("请收到货后，再确认收货！否则您可能钱货两空哦！")){
 				$http.post(ApiEndpoint.url + '/api_order_changeState?id='+(ordNum)+'&state=4').success(function(data) {
 					if (data.state == 'success') {
-						alert(data.msg);
-						setTimeout("closeOrderDetail()",2000);//刷新
+						$scope.showMsg(data.msg);
+						$timeout(function() {
+							$scope.modal_order_info.hide(); //把当前视图关掉
+							$scope.getOrderYf();//重新加载出未做操作的数据  
+					    }, 2000);
 					}else{
-						alert(data.msg);
+						$scope.showMsg(data.msg);
 					}
 				});
 			}
@@ -373,7 +533,7 @@ angular.module('starter.ordercrtl', [])
 		  };
 		  
 	  $scope.changeAcount = function() {
-		  alert(2);
+		//  alert(2);
 	  };
 	  $scope.backGo = function() {
 	    $state.go('tab.user');

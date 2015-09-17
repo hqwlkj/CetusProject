@@ -77,7 +77,7 @@ InAppBrowser.prototype = {
     }
 };
 
-module.exports = function(strUrl, strWindowName, strWindowFeatures, titleInfo, callbacks) {
+module.exports = function(strUrl, strWindowName, strWindowFeatures, callbacks) {
     // Don't catch calls that write to existing frames (e.g. named iframes).
     if (window.frames && window.frames[strWindowName]) {
         var origOpenFunc = modulemapper.getOriginalSymbol(window, 'open');
@@ -97,9 +97,8 @@ module.exports = function(strUrl, strWindowName, strWindowFeatures, titleInfo, c
     };
 
     strWindowFeatures = strWindowFeatures || "";
-    titleInfo = titleInfo || "";
 
-    exec(cb, cb, "InAppBrowser", "open", [strUrl, strWindowName, strWindowFeatures, titleInfo]);
+    exec(cb, cb, "InAppBrowser", "open", [strUrl, strWindowName, strWindowFeatures]);
     return iab;
 };
 

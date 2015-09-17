@@ -1,9 +1,22 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.cetusproject910312" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.parsec.cetusproject" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
     <feature name="Keyboard">
         <param name="android-package" value="com.ionic.keyboard.IonicKeyboard" />
         <param name="onload" value="true" />
+    </feature>
+    <preference name="partner" value="2088021216823386" />
+    <preference name="rsa_private" value="MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAMVWLsSuoDMnETvNchcywWMCIb3Tx07F91WtlMmCriwJJIA8fVrlRzH0jmyBsups0I3EucrEO3We9Vth1Me8Zx1Iys5YUXQx4wtkll8a2sIVPB38RZkudSEXVgKo2/dlFq+AtyUF3sPoDeJnqs7588JOJkR3Cfjyegh4n+Jsmw5VAgMBAAECgYBWMF4c6Whu7xFH3WOHXlO4uqWiE21pqm1srnPdz4XjFdsrZ0AZAyslVnseSUeru/sa8GF1fl+578OaNhCJbHBcRaAvjpUDSyUNVcXDqf+Wyc0VstuOmbzckZ3vux3UYE4GFVhCZtlER9jd5KrL0HOB3OWKmS3ZKNU3G1UbqkgsAQJBAOTV8cLGFlBxo6esiI+KADDoP0F6kN9k82T+k+o6fEnoi7qHX09j+oJHcFhcdLloy4gpVL6OubQxBwqC+Bi0z6UCQQDcwwSE54EUvXTy+exwq53kAbysVD/IcyUf3BI5JLSBL8y9wjvrLY7cbYf5w4tgdZ8x0RTv7WrT+pbRdLbRgQTxAkEAoBrkLK9lW2E27JC1dyBJo+5Km6iChhpehNHtcZr77MYMRTSDxcsgsVgETX5amIKurJSmWzEG0wDeeUdLCBYxlQJBAJ50XAoJIN2CHy9HtC4rAGln1cTbs+xsuXjkvS/G6MjRRmPtxpRHXwNYmwDrGl9iDaH0MNMF1mfQtfAhlhdKRAECQQDNCa0f+7ZaNT9zqU4lpr9Sc2o/hbHGEpWoiuA5SumFz1JkxCeV3/8/LzLJW3q9GaMQrxLCiqj403+Kt8017QU3" />
+    <preference name="rsa_public" value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB" />
+    <feature name="Alipay">
+        <param name="android-package" value="com.justep.cordova.plugin.alipay.Alipay" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="ImagePicker">
+        <param name="android-package" value="com.synconset.ImagePicker" />
+    </feature>
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
     </feature>
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
@@ -16,14 +29,14 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="AppVersion">
-        <param name="android-package" value="uk.co.whiteoctober.cordova.AppVersion" />
-    </feature>
-    <feature name="Camera">
-        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    <feature name="FileOpener2">
+        <param name="android-package" value="io.github.pwlin.cordova.plugins.fileopener2.FileOpener2" />
     </feature>
     <feature name="ActionSheet">
         <param name="android-package" value="nl.xservices.plugins.actionsheet.ActionSheet" />
+    </feature>
+    <feature name="Toast">
+        <param name="android-package" value="nl.xservices.plugins.Toast" />
     </feature>
     <feature name="File">
         <param name="android-package" value="org.apache.cordova.file.FileUtils" />
@@ -32,21 +45,29 @@
     <feature name="FileTransfer">
         <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
     </feature>
-    <feature name="FileOpener2">
-        <param name="android-package" value="io.github.pwlin.cordova.plugins.fileopener2.FileOpener2" />
-    </feature>
-    <feature name="ImagePicker">
-        <param name="android-package" value="com.synconset.ImagePicker" />
+    <feature name="AppVersion">
+        <param name="android-package" value="uk.co.whiteoctober.cordova.AppVersion" />
     </feature>
     <feature name="Wechat">
         <param name="android-package" value="xu.li.cordova.wechat.Wechat" />
     </feature>
-    <feature name="Toast">
-        <param name="android-package" value="nl.xservices.plugins.Toast" />
+    <feature name="YCWeibo">
+        <param name="android-package" value="org.zy.yuancheng.weibo.YCWeibo" />
     </feature>
-    <feature name="Alipay">
-        <param name="android-package" value="com.qdc.plugins.alipay.Alipay" />
-        <param name="onload" value="true" />
+    <access origin="https://open.weibo.cn/*" />
+    <access origin="https://login.sina.com.cn/*" />
+    <access origin="https://passport.weibo.cn/*" />
+    <access origin="http://*.sinaimg.cn/*" />
+    <access origin="https://api.weibo.com/*" />
+    <preference name="WEIBO_APP_ID" value="274270662" />
+    <feature name="ListPicker">
+        <param name="android-package" value="am.armsoft.plugins.ListPicker" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <feature name="JPushPlugin">
+        <param name="android-package" value="cn.jpush.phonegap.JPushPlugin" />
     </feature>
     <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
     <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -66,7 +87,7 @@
     <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
     <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
     <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
-    <name>美O圈</name>
+    <name>美O</name>
     <description>
 		An Ionic Framework and Cordova project.
 	</description>
@@ -80,9 +101,8 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
-    <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
-    <preference name="WECHATAPPID" value="wxc6db12f46905614d" />
     <preference name="SplashScreen" value="splash" />
     <preference name="SplashScreenDelay" value="10000" />
+    <preference name="WECHATAPPID" value="wx3b5cd38874296f89" />
+    <preference name="REDIRECTURI" value="274270662" />
 </widget>

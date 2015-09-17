@@ -7,13 +7,13 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers','starter.addressController', 'starter.ordercrtl','starter.order','starter.question','starter.mycartcrtl','starter.services','starter.filter', 'ngCordova'])
 
-.run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer,$cordovaImagePicker, Userinfo,$location,$rootScope,$cordovaActionSheet, $timeout, $ionicHistory,$cordovaFileOpener2, $cordovaToast) {
+.run(function($ionicPlatform, $http, $cordovaAppVersion, $ionicPopup, $ionicLoading, $cordovaFileTransfer,$cordovaImagePicker, Userinfo,jpushService,$location,$rootScope,$cordovaActionSheet, $timeout, $ionicHistory,$cordovaFileOpener2, $cordovaToast) {
 	$ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
 
     // 设备准备完后 隐藏启动动画
-    //navigator.splashscreen.hide();
+    navigator.splashscreen.hide();
 
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -22,6 +22,38 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
+    /***********************************极光推送**********************************************/
+    //初始化极光推送服务
+    jpushService.init();
+    whetherChange();
+    //检查用户是否开启接收推送信息
+    function whetherChange(){
+    	//判断缓存中是否存在开启推送的标识
+    	if(Userinfo.l.enableFriends === undefined){
+    		Userinfo.add('enableFriends', true);//默认为真
+    		var tags=[];
+			tags.push(Userinfo.l.userType ? Userinfo.l.userType :"");
+    		var alias =Userinfo.l.id ? Userinfo.l.id : "";
+    		//设置tag 和 alias
+			jpushService.setTagsWithAlias(tags,alias);
+    	}else{
+    		if(Userinfo.l.enableFriends){
+    			var tags=[];
+    			tags.push(Userinfo.l.userType ? Userinfo.l.userType :"");
+    			var alias =Userinfo.l.id ? Userinfo.l.id : "";
+    			//设置tag 和 alias
+    			jpushService.setTagsWithAlias(tags,alias);
+    			//jpushService.resumePush();//重启推送
+    		}else{
+    			var tags=[];
+    			var alias="";
+    			jpushService.setTagsWithAlias(tags,alias);//清空   tag 和 别名
+    			jpushService.stopPush();//停止推送
+    		}
+    	}
+    }
+    /***********************************极光推送**********************************************/
+    
     document.addEventListener("deviceready", onDeviceReady, false);
     ///var platform = "";
     //获取当前设备的类型
@@ -63,7 +95,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
         height: 800,
         quality: 80
       };
-      var server =   'http://121.40.255.179/Cetus/api_update_head?id='+Userinfo.l.id;//图片上传
+      var server =   'http://www.meio100.com/api_update_head?id='+Userinfo.l.id;//图片上传
       var trustHosts = true
       var option = {};
 
@@ -89,7 +121,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     };
 
     $rootScope.cameraImg = function() {
-      var server =   'http://121.40.255.179/Cetus/api_update_head?id='+Userinfo.l.id;//图片上传
+      var server =   'http://www.meio100.com/api_update_head?id='+Userinfo.l.id;//图片上传
       var trustHosts = true
       var option = {};
       var options = {
@@ -133,9 +165,9 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     	//alert(platform);
         $cordovaAppVersion.getVersionNumber().then(function(version) {
     	  //alert('检查更新');
-    	  //alert('http://121.40.255.179/Cetus/api_checkversion_get?deviceType='+ (platform == "Android" ? "android":"ios")+'&v='+version);
+    	  //alert('http://www.meio100.com/api_checkversion_get?deviceType='+ (platform == "Android" ? "android":"ios")+'&v='+version);
 	        Userinfo.add('version', version);//如果是IOS 请将android 修改为ios
-	        $http.get('http://121.40.255.179/Cetus/api_checkversion_get?deviceType='+(platform == "Android" ? "android":"ios")+'&v='+version).success(function(data) {
+	        $http.get('http://www.meio100.com/api_checkversion_get?deviceType='+(platform == "Android" ? "android":"ios")+'&v='+version).success(function(data) {
 	          if (data.state == 'success') {
 	            if (version != data.version) {
 	            	if(platform == "Android"){
@@ -222,46 +254,6 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 //        	  }
 //        	  ref.addEventListener('loadstart', myCallback);
         	  //ref.removeEventListener('loadstart', myCallback);
-          	  //window.open('http://www.baidu.com', '_blank', 'location=yes'); // http://www.parsec.com.cn/Download/Cetus_ios.ipa
-//              $ionicLoading.show({
-//                  template: "已经下载：0%"
-//              });
-//              var targetPath = "file:///Applications/Cetus_ios.ipa"; //APP下载存放的路径，可以使用cordova file插件进行相关配置
-//              var trustHosts = true
-//              var options = {};
-//              $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
-//                  // 打开下载下来的APP
-//                  $cordovaFileOpener2.open(targetPath, 'application/octet-stream'
-//                  ).then(function () {
-//                          // 成功
-//                  }, function (err) {
-//                      // 错误
-//                  });
-//                  $ionicLoading.hide();
-//              }, function (err) {
-//                  //alert('下载失败');
-//              	console.log(err);
-//              	$ionicLoading.hide();
-//              	$ionicPopup.alert({
-//  			        title: '提示',
-//  			        template: '下载失败，请稍候重试...',
-//  			        buttons: [{
-//  			          text: '确定',
-//  			          type: 'button-assertive'
-//  			        }]
-//  			    });
-//              }, function (progress) {
-//                  //进度，这里使用文字显示下载百分比
-//                  $timeout(function () {
-//                      var downloadProgress = (progress.loaded / progress.total) * 100;
-//                      $ionicLoading.show({
-//                          template: "已经下载：" + Math.floor(downloadProgress) + "%"
-//                      });
-//                      if (downloadProgress > 99) {
-//                          $ionicLoading.hide();
-//                      }
-//                  },500)
-//              });
           };
         });
       }

@@ -1,9 +1,22 @@
 angular.module('starter.question', [])
 
 .controller('Question',function($scope,$ionicPopover, $http, $state,$ionicHistory,$ionicLoading,$stateParams, $timeout,$ionicModal,$ionicPopup,ApiEndpoint, Userinfo){
+	$scope.QuestionDataList = [];
+	$scope.questionData = {};
+	$scope.count = 0;
+	
+	/**
+	 * 判断用户的输入长度
+	 */
+	$scope.checkLen = function(){
+		var len = $scope.questionData.content.length;
+		$scope.count=len;
+	};
+	
+	
 	//提示消息
 	$ionicLoading.show({
-	     template: '加载中...'
+	     template: '<ion-spinner></ion-spinner>'
 	});
 	$scope.questionBackGo = function(){
 		$state.go('app.index');
@@ -20,13 +33,11 @@ angular.module('starter.question', [])
 	    }, 1400);
 	};
 	
-	$scope.QuestionDataList = [];
-	$scope.questionData = {};
 	
 	//加载数据
 	$scope.loadQuestionData = function(){
 		$ionicLoading.show({
-		     template: '加载中...'
+		     template: '<ion-spinner></ion-spinner>'
 		});
 		$http.post(ApiEndpoint.url + '/api_question_list?userId='+Userinfo.l.id).success(function(data) {
 			if (data.state == 'success') {
@@ -34,7 +45,7 @@ angular.module('starter.question', [])
 					if(data.list[i].content.length>15){
 						data.list[i].content = data.list[i].content.substr(0, 15)+"...";
 					}
-					if(data.list[i].answer==null||data.list[i].answer==''){
+					if(data.list[i].answerTime==null||data.list[i].answerTime==''){
 						data.list[i].answer = 0;
 					}else{
 						data.list[i].answer = 1;
@@ -89,7 +100,7 @@ angular.module('starter.question', [])
 	$scope.show_question_show = function(id){
 		$scope.modal_question_show.show();
 		$ionicLoading.show({
-		     template: '加载中...'
+		     template: '<ion-spinner></ion-spinner>'
 		});
 		$http.post(ApiEndpoint.url + '/api_question_get?id='+id).success(function(data) {
 			if (data.state == 'success') {
