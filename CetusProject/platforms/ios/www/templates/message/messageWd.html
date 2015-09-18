@@ -1,0 +1,27 @@
+  <ion-header-bar class="bar-stable" style="border-bottom-width:1px">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="backGoMsg()"></a>
+    <h1 class="title">消息中心</h1>
+    <a class="button button-clear" style="background:url(img/ionic/icon-cart.png) center center no-repeat; background-size:21px 21px; width:28px" ng-click="cartClick()"></a>
+  </ion-header-bar>
+ <div class="tabs-striped tabs-top tabs-light tabs-icon-top">
+  <div class="tabs">
+   <a class="tab-item active relative " href="#/message/msgwd"><h5 style="color:#e34649;text-align: center;">未读</h5>
+   </a>
+  <a class="tab-item relative" href="#/message/msgyd"><h5>已读</h5>
+   </a>
+   <a class="tab-item relative" href="#/message/msgall"><h5>全部</h5>
+   </a>
+  </div>
+ </div>
+ <ion-content style="margin-top:58px; background: #f6f3ee;">
+ <ul class="msg-list">
+ 	<!-- <li class="item noborder-left noborder-right nopadding-left" ng-repeat="k in messageWd" ng-click="helpDetail('{{k.title}}')">{{k.index}}.{{k.title}}</li> -->
+ 	<li class="margin-15 padding-10 clear"  ng-repeat="k in messageAll" ng-click="helpDetail('{{k.title}}')">
+      <div class="message-detail right"><i class="icon-view-01"></i></div>
+      <div class="messagebox">
+        <h4>{{k.title}}</h4>
+        <p>{{k.content}}</p>
+      </div>
+    </li>
+</ul>
+</ion-content>

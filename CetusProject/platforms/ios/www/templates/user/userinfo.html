@@ -1,0 +1,25 @@
+<ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="closeUserInfo()"></a>
+    <h1 class="title">会员信息</h1>
+    <a class="button button-clear" style="background:url(img/ionic/icon-cart.png) center center no-repeat; background-size:21px 21px; width:28px" ng-click="cartClick();closeUserInfo();"></a>
+  </ion-header-bar>
+  <ion-content>
+		<form ng-submit="bandInvitation()">
+	<ul class="ul-block1">
+	    <li> <i class="icon-user-01" style="color:#9669dc"></i> <span>会员姓名</span> <span class="right text-right" style=" color:#171717;" ng-bind="userinfo_name"></span> </li>
+	    <li> <i class="icon-vip-01" style="color:#fa82a5"></i> <span>会员卡</span> <span class="right text-right" style=" color:#171717; " ng-bind="userinfo_userNo"></span> </li>
+	    <li> <i class="icon-type-01" style="color:#ffa63c"></i> <span>会员类型</span> <span class="right text-right" style=" color:#171717; " ng-bind="userinfo_userType"></span> </li>
+	    <li ng-if="isIntegral"> <i class="icon-score-01" style="color:#a2d152"></i> <span>当前积分</span> <span class="right text-right" style=" color:#171717; " ng-bind="userinfo_myScore"></span> </li>
+	    <li> <i class="icon-total-01" style="color:#2ebda4"></i> <span>会累计消费金额</span> <span class="right text-right" style=" color:#171717; " ng-bind="userinfo_myMoney"></span> </li>
+	    <li ng-if="show_myInvitationCode==1"> <i class="icon-invite-01" style="color:#ffa63c"></i> <span>会员邀请码</span> <span class="right text-right" style=" color:#171717; " ng-bind="userinfo_myInvitationCode"></span> </li>
+	    <li ng-if="state ==0"> <i class="icon-invite-01" style="color:#ffa63c"></i> <span>邀请人</span> <span class="right text-right" style=" color:#171717; " ng-bind="userinfo_InvitationName"></span> </li>
+		<li ng-if="state ==1"> <i class="icon-invite-01" style="color:#ffa63c"></i> <span>邀请人</span> <span class="right text-right"><a href="#" class="btn sm-btn-rt"  ng-click="openInvitationEdit()">编辑</a></span> </li>
+	</ul>
+	<ul ng-if="c_state==1" class="ul-hide">
+	    <li class="bbn"><input type="text" class="form-text" placeholder="邀请码" ng-model="userInfoData.invitationCode"/></li>
+	    <li class="bbn"><button class="button button-block button-assertive" type="submit">提交</button></li>
+   </ul>
+  </form>
+  </ion-content>
+</ion-modal-view>
