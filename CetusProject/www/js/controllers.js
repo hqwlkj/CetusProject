@@ -971,6 +971,7 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.title = "";
 	$scope.detailTime =  "";
 	$scope.quanImg =  "";
+	$scope.isShowContent =  0;
 	$scope.detailContent =  "";
 	$scope.quanDetail = function(quanId) {
 		$ionicLoading.show({
@@ -979,6 +980,8 @@ angular.module('starter.controllers', ['ionic'])
 		$scope.modal_quan_detail.show();
 		$http.post(ApiEndpoint.url + '/api_europeanpowder_detail?euroId='+quanId).success(function(data) {
 			if (data.state == 'success') {
+				$scope.isShowContent =  data.european.isShowContent;
+				console.log($scope.isShowConten);
 				$scope.title = data.european.title;
 				$scope.detailTime = data.european.showCreateTime;
 				$scope.quanImg = ApiEndpoint.pic_url+"/"+data.european.imgUrl;
