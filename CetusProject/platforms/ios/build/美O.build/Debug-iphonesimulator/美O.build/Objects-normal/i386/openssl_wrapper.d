@@ -1,0 +1,32 @@
+dependencies: \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl_wrapper.m \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl_wrapper.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/rsa.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/asn1.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/e_os2.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/opensslconf.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/bio.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/crypto.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/stack.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/safestack.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/opensslv.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/ossl_typ.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/symhacks.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/bn.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/pem.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/evp.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/objects.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/obj_mac.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/x509.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/buffer.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/ec.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/ecdsa.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/ecdh.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/dsa.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/dh.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/sha.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/x509_vfy.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/lhash.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/pkcs7.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/pem2.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/com.justep.cordova.plugin.alipay/openssl/md5.h

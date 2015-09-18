@@ -1,0 +1,38 @@
+<ion-modal-view> 
+<ion-header-bar class="bar-stable">
+<a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="close_rebateList()"></a>
+   <h1 class="title">返利列表</h1>
+   <a class="button button-clear" style="background:url(img/ionic/icon-cart.png) center center no-repeat; background-size:21px 21px; width:28px" ng-click="cartClick();close_rebateList();"></a>
+</ion-header-bar> 
+<ion-content style="">
+<ul class="ul-block bg-white">
+	<li><i class="icon-user-01"></i> <span>客户姓名：</span><span>{{myteam_username}}</span>
+	</li>
+	<li style="border-bottom: none; "><i class="icon-score-01"></i> <span id="score">返利金额：</span><span>{{rebate_money}}</span></li>
+</ul>
+<div style="background-color:#F6F3EE; width: 100%; height: 10px;">&nbsp;</div>
+<ion-refresher pulling-text="下拉刷新" on-refresh="load_rebate_data()"></ion-refresher>
+<h3 style='text-align: center;padding-top: 20px; font-size:0.65rem; color:#ccc;' ng-if="rebate_list.length == 0">本月无返利</h3>
+<ul class="ul-block bg-white a-gray">
+	<li ng-repeat="r in rebate_list">
+		<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
+		<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;">
+			<p>{{r.money.toFixed(2)}}</p>
+			<p>{{r.showcreateTime}}</p>
+		</div>
+	</li>
+</ul>
+<div style="background-color:#ffffff; width: 100%; height: 10px;">&nbsp;</div>
+<ion-infinite-scroll on-infinite="usercoin_loadmore()" ng-if="usercoin_load_state"></ion-infinite-scroll>
+</ion-content>
+<!-- tabs -->
+<ion-footer-bar align-title="left" class="bar-assertive" style="padding: 0">
+  <ion-tabs class="tabs-icon-top tabs-color-active-positive">
+ <div class="footer fixed-bottom">
+  <button type="button" class="btn addcart col-3 noborder" ng-click="to_rebate_month(-1)">上一月</button><div class="col-1">&nbsp;</div>
+  <input type="text" id="years" class="years col-4" ng-value="rebate_month" style="height: 35px;" readonly="readonly"><div class="col-1">&nbsp;</div>
+  <button type="button" class="btn addcart col-3 right noborder" ng-click="to_rebate_month(1)">下一月</button>
+  </div>
+  </ion-tabs>
+</ion-footer-bar>
+</ion-modal-view>

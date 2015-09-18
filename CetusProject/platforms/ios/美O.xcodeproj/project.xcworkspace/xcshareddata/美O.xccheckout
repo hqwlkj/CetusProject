@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>ACF440B2-95E5-42DE-AECF-5EAEAB587DBF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>美O</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>72809e9f-2dc2-4482-bb4e-a8750806d080++1191</key>
+		<string>svn://115.29.193.14/CetusProject</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>platforms/ios/美O.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>72809e9f-2dc2-4482-bb4e-a8750806d080++1191</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>72809e9f-2dc2-4482-bb4e-a8750806d080++1191</key>
+		<string>svn://115.29.193.14</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>svn://115.29.193.14/CetusProject/platforms/ios/%E7%BE%8EO.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>72809e9f-2dc2-4482-bb4e-a8750806d080++1191</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>72809e9f-2dc2-4482-bb4e-a8750806d080++1191</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CetusProject</string>
+		</dict>
+	</array>
+</dict>
+</plist>
