@@ -182,7 +182,7 @@ angular.module('starter.order', [])
 							seller : "ougemaoyi@163.com",
 							subject : name,
 							body : name,
-							price : "0.01",
+							price : order.orderMoney,
 							tradeNo : order.ordNum,
 							timeout : "30m",
 							notifyUrl : ApiEndpoint.url +"/api_alipay_asynchronous_notify"
