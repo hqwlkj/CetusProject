@@ -13,6 +13,10 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"JPushPlugin\"><param name=\"ios-package\" value=\"JPushPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
                         },
@@ -54,6 +58,10 @@
                         },
                         {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
                             "count": 1
                         },
                         {
@@ -131,26 +139,80 @@
                         {
                             "xml": "<preference name=\"WECHATAPPID\" value=\"wx3b5cd38874296f89\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
             },
             "framework": {
                 "parents": {
-                    "Security.framework": [
+                    "CFNetwork.framework": [
+                        {
+                            "xml": true,
+                            "count": 1
+                        }
+                    ],
+                    "CoreFoundation.framework": [
+                        {
+                            "xml": true,
+                            "count": 1
+                        }
+                    ],
+                    "CoreTelephony.framework": [
+                        {
+                            "xml": true,
+                            "count": 1
+                        }
+                    ],
+                    "SystemConfiguration.framework": [
+                        {
+                            "xml": true,
+                            "count": 1
+                        },
                         {
                             "xml": false,
                             "count": 3
                         }
                     ],
-                    "SystemConfiguration.framework": [
+                    "CoreGraphics.framework": [
+                        {
+                            "xml": true,
+                            "count": 1
+                        },
+                        {
+                            "xml": false,
+                            "count": 4
+                        }
+                    ],
+                    "Foundation.framework": [
+                        {
+                            "xml": true,
+                            "count": 1
+                        }
+                    ],
+                    "UIKit.framework": [
+                        {
+                            "xml": true,
+                            "count": 1
+                        }
+                    ],
+                    "Security.framework": [
+                        {
+                            "xml": true,
+                            "count": 1
+                        },
                         {
                             "xml": false,
                             "count": 3
+                        }
+                    ],
+                    "libz.dylib": [
+                        {
+                            "xml": true,
+                            "count": 1
+                        },
+                        {
+                            "xml": false,
+                            "count": 1
                         }
                     ],
                     "AssetsLibrary.framework": [
@@ -175,12 +237,6 @@
                             "count": 1
                         }
                     ],
-                    "CoreGraphics.framework": [
-                        {
-                            "xml": false,
-                            "count": 4
-                        }
-                    ],
                     "MobileCoreServices.framework": [
                         {
                             "xml": false,
@@ -197,12 +253,6 @@
                         {
                             "xml": false,
                             "count": 2
-                        }
-                    ],
-                    "libz.dylib": [
-                        {
-                            "xml": false,
-                            "count": 1
                         }
                     ],
                     "libsqlite3.0.dylib": [
@@ -249,6 +299,9 @@
         "am.armsoft.plugins.listpicker": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
+        "cn.jpush.phonegap.JPushPlugin": {
+            "PACKAGE_NAME": "com.parsec.cetusproject"
+        },
         "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
@@ -265,6 +318,9 @@
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.parsec.cetusproject"
+        },
+        "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "cordova-plugin-splashscreen": {
@@ -297,9 +353,6 @@
         },
         "xu.li.cordova.wechat": {
             "WECHATAPPID": "wx3b5cd38874296f89",
-            "PACKAGE_NAME": "com.parsec.cetusproject"
-        },
-        "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         }
     },
