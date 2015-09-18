@@ -38,7 +38,7 @@ angular.module('starter.services', [])
 	//启动极光推送
 	var _init=function(){
 		$window.plugins.jPushPlugin.init();
-		$window.plugins.jPushPlugin.setDebugMode(true);
+		//$window.plugins.jPushPlugin.setDebugMode(true);
 	}
 
 	//停止极光推送
