@@ -1,0 +1,14 @@
+<ion-header-bar class="bar-stable" style="border-bottom:1px solid #b2b2b2 !important">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark"  ng-click="GoMsglist()"></a>
+    <h1 class="title">消息详情</h1>
+    <a class="button button-clear" style="background:url(img/ionic/icon-cart.png) center center no-repeat; background-size:21px 21px; width:28px" ng-click="cartClick()"></a>
+</ion-header-bar>
+<ion-content  class="padding">
+ <div class="wrap-page">
+  <div class="messageinfobox">
+    <div class="msg-title">{{param.title}}</div>
+    <div class="msg-time text-left">{{param.time}}</div>
+    <div class="msg-comment">{{param.content}}</div>
+  </div>
+</div> 
+</ion-content>

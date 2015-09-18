@@ -1,0 +1,101 @@
+<ion-header-bar class="bar-stable"
+	style="border-bottom:1px solid #b2b2b2 !important"> <a
+	class="button icon-left ion-ios-arrow-left button-clear button-dark"
+	ng-click="orderBackGo()"></a>
+<h1 class="title">订单详情</h1>
+</ion-header-bar>
+<ion-content  style="background:#E5E5E5;">
+<ul class="orderlst">
+	<li>
+		<div class="orderlst-top" ng-repeat="o in orderItemList">
+			<div class="img left" style="background-image:url('{{o.coverUrl}}')"></div>
+			<div class="orderlst-top-right right text-right">
+	          	<p class="price"><span>￥</span>{{(o.price*discount).toFixed(2)}}</p>
+	          	<p class="orderlst-num">x{{o.stockNum}}</p>
+	        </div>
+	        <div class="orderlst-top-content ">
+	          	<p class="orderlst-top-content-title">{{o.name}}</p>
+	          	<p class="orderlst-top-content-attr">{{data.list[i].parameter}}</p>
+	        </div>
+      	</div>
+		<div class="orderlst-kd-fee">
+			<span class="orderlst-title">快递费</span>
+			<div class="orderlst-top-right right text-right">
+				<p class="price express">
+					<span>￥</span>{{show_transportation_expenses}}
+				</p>
+			</div>
+		</div>
+		<div class="orderlst-count-price">
+			<div class="orderlst-top-right right text-right">
+				<p class="count-price">
+					订单总计：<span>￥</span><em>{{show_price.toFixed(2)}}</em>
+				</p>
+			</div>
+		</div>
+		<div class="orderlst-foot text-right">
+			<a href="javaScript:void();" ng-click="orderBackGo()" class="btn normal-btn">修改</a>
+		</div>
+	</li>
+	<li>
+		<div class="orderlst-top bbn">
+			<span class="distribution-title">配送方式：</span>
+				<span class="distribution-content">
+					<p>
+						<i class="icon-select-01" ng-if="send_type_state==0" ng-click="send_type()"></i><i class="icon-unselect-01" ng-if="send_type_state==1" ng-click="send_type()"></i> <span>系统配送</span>
+					</p>
+					<p>
+						<i class="icon-select-01" ng-if="send_type_state==1" ng-click="send_type1()"></i><i class="icon-unselect-01" ng-if="send_type_state==0" ng-click="send_type1()"></i> <span>上门自提</span>
+					</p>
+				</span>
+		</div>
+	</li>
+	<li ng-if="have_address&&send_type_state==0">
+		<div class="orderlst-top">
+			<span class="orderlst-title">收货人:</span><span class="recive-name">{{address.recipients}}</span>
+			<div class="orderlst-top-right right text-right">
+				<span class="recive-name recive-tel">{{address.telephone}}</span>
+			</div>
+			<p class="orderlst-top-content-attr">
+				<i class="icon-address-01"></i><span class="recive-address">{{address.locations}}</span>
+			</p>
+		</div>
+		<div class="orderlst-foot text-right">
+			<a href="javaScript:void(0)" ng-click="go_address()" class="btn normal-btn">修改</a>
+		</div>
+	</li>
+	<li ng-if="have_address==0">
+		<div class="orderlst-top">
+			<span class="orderlst-title">暂无收货地址</span>
+		</div>
+		<div class="orderlst-foot text-right">
+			<a href="#" class="btn normal-btn" ng-click="go_address()">新增</a>
+		</div>
+	</li>
+	<li ng-if="send_type_state==1" class="showbox">
+		<div class="orderlst-top bbn">
+			<span class="orderlst-title">自提地点:</span>
+			<p class="orderlst-top-content-attr">{{autoaddress.shopName}}</p>
+			<p class="orderlst-top-content-attr">{{autoaddress.address}}</p>
+		</div></li>
+	<li>
+		<div class="lst-sub">
+			<div class=" margin-top-11">
+				<a href="javaScript:void(0);" class="btn submit-order-btn" ng-click="submit_order()" ng-if="!save_state">提交订单</a>
+				<a href="javaScript:void(0);" class="btn submit-order-btn" ng-if="save_state">提交订单</a>
+			</div>
+		</div>
+		<div class=" margin-top-15 margin-left-15 margin-right-15 fz65 fcec3473 padding-bottom-15" ng-bind-html ='ruleInfo'></div>
+	</li>
+</ul>
+<div id="TB_overlayBG"></div>
+<div class="box" style="display: none">
+	<h2>
+		选择自提点
+		<!-- <a href="javascript:viod(0);" class="close">关闭</a> -->
+	</h2>
+	<div class="mainlist">
+		<ul id="auto-add"></ul>
+	</div>
+</div>
+</ion-content>

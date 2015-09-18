@@ -1,0 +1,25 @@
+dependencies: \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/nl.x-services.plugins.toast/Toast.m \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/nl.x-services.plugins.toast/Toast.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDV.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVAvailability.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVAvailabilityDeprecated.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVPlugin.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVPluginResult.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/NSMutableArray+QueueAdditions.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVCommandDelegate.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVInvokedUrlCommand.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVViewController.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVCommandQueue.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVWhitelist.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVScreenOrientationDelegate.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVURLProtocol.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVDebug.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVLocalStorage.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVTimer.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/NSArray+Comparisons.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/NSData+Base64.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/NSDictionary+Extensions.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/UIDevice+Extensions.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/build/emulator/include/Cordova/CDVJSON.h \
+  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/美O/Plugins/nl.x-services.plugins.toast/Toast+UIView.h
