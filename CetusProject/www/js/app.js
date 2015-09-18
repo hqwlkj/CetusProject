@@ -28,6 +28,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     whetherChange();
     //检查用户是否开启接收推送信息
     function whetherChange(){
+    	//console.log(Userinfo.l.enableFriends+"=========================");
     	//判断缓存中是否存在开启推送的标识
     	if(Userinfo.l.enableFriends === undefined){
     		Userinfo.add('enableFriends', true);//默认为真
@@ -37,14 +38,16 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     		//设置tag 和 alias
 			jpushService.setTagsWithAlias(tags,alias);
     	}else{
-    		if(Userinfo.l.enableFriends){
+    		if(Userinfo.l.enableFriends=="true"){
+    			//console.log(Userinfo.l.enableFriends+"=========================重启推送");
     			var tags=[];
     			tags.push(Userinfo.l.userType ? Userinfo.l.userType :"");
     			var alias =Userinfo.l.id ? Userinfo.l.id : "";
     			//设置tag 和 alias
     			jpushService.setTagsWithAlias(tags,alias);
-    			//jpushService.resumePush();//重启推送
+    			jpushService.resumePush();//重启推送
     		}else{
+    			//console.log(Userinfo.l.enableFriends+"=========================停止推送");
     			var tags=[];
     			var alias="";
     			jpushService.setTagsWithAlias(tags,alias);//清空   tag 和 别名

@@ -1612,9 +1612,10 @@ angular.module('starter.controllers', ['ionic'])
     		alias:Userinfo.l.id ? Userinfo.l.id : ""
     };
     $scope.settings = {
-	    enableFriends: Userinfo.l.enableFriends ? true : false
+	    enableFriends: Userinfo.l.enableFriends == "true" ? true : false
 	};
-    
+    //console.log(Userinfo.l.enableFriends);
+    //console.log(Userinfo.l.enableFriends == "true" ? true : false);
     $scope.whetherChange = function(){
     	Userinfo.add('enableFriends', $scope.settings.enableFriends);
     	if($scope.settings.enableFriends){
@@ -1639,7 +1640,7 @@ angular.module('starter.controllers', ['ionic'])
 		jpushService.stopPush();
 		$ionicPopup.alert({
 			title:'提示',
-			template:'停止服务成功'
+			template:'停止后您将不能接收信息通知'
 		});
 	};
 
@@ -1648,7 +1649,7 @@ angular.module('starter.controllers', ['ionic'])
 		jpushService.resumePush();
 		$ionicPopup.alert({
 			title:'提示',
-			template:'重启完成'
+			template:'开启后您将接收信息通知'
 		});
 	};
 
