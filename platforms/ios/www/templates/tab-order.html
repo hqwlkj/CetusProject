@@ -1,0 +1,94 @@
+<ion-view title='我的订单'>
+<div class="tabs-striped tabs-top tabs-light tabs-icon-top">
+  <div class="tabs">
+   <a ng-class="{a: 'tab-item active', b: 'tab-item', c: 'tab-item'}[isActive]" data-active="a" ng-click="changeTab($event)" style="font-size:16px;line-height:48px;margin:0 28px">待付款</a>
+   <a ng-class="{a: 'tab-item', b: 'tab-item active', c: 'tab-item'}[isActive]" data-active="b" ng-click="changeTab($event)" style="font-size:16px;line-height:48px;margin:0 28px">待收货</a>
+   <a ng-class="{a: 'tab-item', b: 'tab-item', c: 'tab-item active'}[isActive]" data-active="c" ng-click="changeTab($event)" style="font-size:16px;line-height:48px;margin:0 28px">已完成</a>
+  </div>
+ </div>
+<ion-content class="has-subheader" style=" background-color: #F6F3EE; padding-top: 5px; padding-bottom: 6px; ">
+<div ng-if="isActive == 'a'" class="wrap-page swiper-container">
+      <div class="list padding">
+        <ul class="orderlst db" id="obligation">
+		    <li  ng-repeat="order in orderWf">
+		      <div class="order-info"><span class="col-12 left text-left fz65">订单号：{{order.ordNum}}</span><!-- <span class="col-6 right text-right fz65">{{order.showRiseTime}}下单</span> --></div>
+		      <div class="orderlst-top" ng-repeat="i in order.items" ng-click="goOrderDetail({{order.ordNum}})">
+		        <div  class="img left" >
+		        	<img src="http://www.meio100.com/pic/{{i.imgurl}}" style="width: 62px;height: 62px;margin: 2px;"/>
+		        </div>
+		        <div class="orderlst-top-content ">
+		          <p class="orderlst-top-content-title" >{{::i.name}}</p>
+		          <!-- <p ng-bind-html ='product.details'></p> -->
+		          <p class="orderlst-top-content-attr" ><span class="col-6 text-left" ng-bind-html="i.parameter"></span><span class="col-6 text-right"><em class="orderlst-num">{{i.prince|currency:'￥'}}</em><em class="orderlst-price">x{{i.num}}</em></span></p>
+		        </div>
+		      </div>
+		      <div class="orderlst-resault text-right" ><span class="orderlst-resault-name">共{{order.totalNum}}件商品   实付:</span> <span class="orderlst-resault-value price">{{order.orderMoney|currency:'￥'}}</span></div>
+		      <div class="orderlst-foot text-right"><a href="#" ng-click="removeOrder(order.id)" class="btn normal-btn">取消</a><a href="#" class="btn normal-btn" ng-click="payOrder(order,order.items)">付款</a></div>
+		    </li>
+		    
+		    <li class="margin-15 padding-10 clear" ng-show="ordermsg">
+		      <div style=" height: 25px; line-height: 25px;">
+		        <p  style="text-align: center;color: #999;">暂无数据</p>
+		      </div>
+		    </li>
+        </ul>
+    </div>
+</div>
+<div ng-if="isActive == 'b'">
+	 <div class="list padding">
+	 	<ul class="orderlst db" id="obligation">
+		    <li  ng-repeat="order in orderYf">
+		      <div class="order-info"><span class="col-12 left text-left" >订单号：{{order.ordNum}}</span><!-- <span class="col-6 right text-right">{{order.showRiseTime}}下单</span> --></div>
+		      <div class="orderlst-top" ng-repeat="i in order.items" ng-click="goOrderDetail(order.ordNum)">
+		        <div  class="img left" >
+		        	<img src="http://www.meio100.com/pic/{{::i.imgurl}}" style="width: 62px;height: 62px;margin: 2px;"/>
+		        </div>
+		        <div class="orderlst-top-content ">
+		          <p class="orderlst-top-content-title" >{{::i.name}}</p>
+		          <p class="orderlst-top-content-attr" ><span class="col-6 text-left" ng-bind-html="i.parameter"></span><span class="col-6 text-right"><em class="orderlst-num">{{i.prince|currency:'￥'}}</em><em class="orderlst-price">x{{i.num}}</em></span></p>
+		        </div>
+		      </div>
+		      <div class="orderlst-resault text-right" ><span class="orderlst-resault-name">共{{order.totalNum}}件商品   实付:</span> <span class="orderlst-resault-value price">{{order.orderMoney|currency:'￥'}}</span></div>
+		      <div class="orderlst-foot text-right"><a href="#" class="btn normal-btn" ng-click="successOrder({{order.id}})">确认收货</a></div>
+		    </li>
+		    
+		    <li class="margin-15 padding-10 clear" ng-show="ordermsg2">
+		      <div style=" height: 25px; line-height: 25px;">
+		        <p  style="text-align: center;color: #999;">暂无数据</p>
+		      </div>
+		    </li>
+        </ul>
+	 	
+    </div>
+</div>
+<div ng-if="isActive == 'c'">
+	 <div class="list padding">
+        <ul class="orderlst db" id="obligation">
+		    <li  ng-repeat="order in orderYwc">
+		      <div class="order-info"><span class="col-12 left text-left">订单号：{{order.ordNum}}</span><!-- <span class="col-6 right text-right">{{order.showRiseTime}}下单</span> --></div>
+		      <div ng-repeat="i in order.items" class="orderlst-top" ng-click="goOrderDetail({{order.ordNum}})">
+		        <div  class="img left" style="background-image:url(http://www.meio100.com/pic/{{i.imgurl}})" >
+		        	
+		        </div>
+		        <div class="orderlst-top-content ">
+		          <p class="orderlst-top-content-title" >{{i.name}}</p>
+		          <!-- <p ng-bind-html ='product.details'></p> -->
+		          <p class="orderlst-top-content-attr" ><span class="col-6 text-left" ng-bind-html="i.parameter"></span><span class="col-6 text-right"><em class="orderlst-num">{{i.prince|currency:'￥'}}</em><em class="orderlst-price">x{{i.num}}</em></span></p>
+		        </div>
+		      </div>
+		      <div class="orderlst-resault text-right"><span class="orderlst-resault-name">共{{order.totalNum}}件商品   实付:</span> <span class="orderlst-resault-value price">{{order.orderMoney|currency:'￥'}}</span></div>
+		      <div class="orderlst-foot text-right"><a href="#" class="btn danger-btn" ng-click="deleteOrder(order)">删除订单</a><a ng-click="chaWuliu({{order}})" class="btn normal-btn">查看物流</a></div>
+		    </li>
+		    
+		    <li class="margin-15 padding-10 clear" ng-show="ordermsg3">
+		      <div style=" height: 25px; line-height: 25px;">
+		        <p  style="text-align: center;color: #999;">暂无数据</p>
+		      </div>
+		    </li>
+        </ul>
+    </div>
+	
+</div>
+</ion-content>
+</ion-view>
+
