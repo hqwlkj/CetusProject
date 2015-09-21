@@ -355,7 +355,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })
   
   .state('app.order', { //我的的订单
-    url: '/order/{ran}',
+    url: '/order',
     views: {
       'tab-order': {
         templateUrl: 'templates/tab-order.html',
