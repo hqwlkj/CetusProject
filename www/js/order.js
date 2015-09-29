@@ -130,6 +130,38 @@ angular.module('starter.order', [])
 			});
 		}
 	}
+	//不使用优惠券 默认支付模式
+	 $scope.zx_pay  = function(){
+		 
+	 }
+	
+	//新增优惠券 设置弹框函数
+	 $scope.showPopup  = function(){
+		 $scope.number = {}
+		 var myPopup = $ionicPopup.show({
+		     template: '<input type="text" ng-model="data.number">',
+		     title: '请输入优惠卷数量',
+		     scope: $scope,
+		     buttons: [
+		       { text: '取消' },
+		       {
+		         text: '<b>确认</b>',
+		         type: 'button-positive',
+		         onTap: function(e) {
+		           if (!$scope.data.number) {
+		             //不允许用户关闭，除非他键入数量
+		             e.preventDefault();
+		           } else {
+		             return $scope.data.number;
+		           }
+		         }
+		       },
+		     ]
+		   });
+	}
+	
+	
+	
 	$scope.autoaddress_id = 0;
 	//选择自动提货地址
 	$scope.select_autoaddress = function(id){
