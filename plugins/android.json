@@ -9,6 +9,14 @@
                 "parents": {
                     "/*": [
                         {
+                            "xml": "<feature name=\"ListPicker\"><param name=\"android-package\" value=\"am.armsoft.plugins.ListPicker\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"JPushPlugin\"><param name=\"android-package\" value=\"cn.jpush.phonegap.JPushPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"com.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
@@ -41,6 +49,10 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
@@ -66,18 +78,6 @@
                         },
                         {
                             "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Wechat\"><param name=\"android-package\" value=\"xu.li.cordova.wechat.Wechat\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<preference name=\"WECHATAPPID\" value=\"wx3b5cd38874296f89\" />",
                             "count": 1
                         },
                         {
@@ -109,15 +109,15 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"ListPicker\"><param name=\"android-package\" value=\"am.armsoft.plugins.ListPicker\" /></feature>",
+                            "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
+                            "xml": "<feature name=\"Wechat\"><param name=\"android-package\" value=\"xu.li.cordova.wechat.Wechat\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"JPushPlugin\"><param name=\"android-package\" value=\"cn.jpush.phonegap.JPushPlugin\" /></feature>",
+                            "xml": "<preference name=\"WECHATAPPID\" value=\"wx3b5cd38874296f89\" />",
                             "count": 1
                         }
                     ]
@@ -125,39 +125,65 @@
             },
             "AndroidManifest.xml": {
                 "parents": {
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"com.parsec.cetusproject.permission.JPUSH_MESSAGE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+                            "count": 2
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
+                            "count": 2
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 3
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 2
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<permission android:name=\"com.parsec.cetusproject.permission.JPUSH_MESSAGE\" android:protectionLevel=\"signature\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
+                            "count": 1
+                        }
+                    ],
                     "/manifest/application": [
-                        {
-                            "xml": "<activity android:configChanges=\"orientation|keyboardHidden|navigation\" android:exported=\"false\" android:name=\"com.alipay.sdk.app.H5PayActivity\" android:screenOrientation=\"behind\" android:windowSoftInputMode=\"adjustResize|stateHidden\"></activity>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<activity android:label=\"@string/multi_app_name\" android:name=\"com.synconset.MultiImageChooserActivity\" android:theme=\"@android:style/Theme.Holo.Light\"></activity>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<activity android:exported=\"true\" android:label=\"@string/launcher_name\" android:name=\".wxapi.WXEntryActivity\"><intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><data android:scheme=\"wx3b5cd38874296f89\" /></intent-filter></activity>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:exported=\"false\" android:name=\"com.sina.weibo.sdk.component.WeiboSdkBrowser\" android:theme=\"@android:style/Theme.NoTitleBar.Fullscreen\" android:windowSoftInputMode=\"adjustResize\"></activity>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:exported=\"false\" android:name=\"com.sina.weibo.sdk.register.mobile.MobileRegisterActivity\" android:screenOrientation=\"portrait\" android:windowSoftInputMode=\"adjustResize\"></activity>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:exported=\"false\" android:name=\"com.sina.weibo.sdk.register.mobile.SelectCountryActivity\" android:windowSoftInputMode=\"adjustResize\"></activity>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:name=\"org.zy.yuancheng.weibo.YCWeiboShareCallback\" android:screenOrientation=\"portrait\"><intent-filter><action android:name=\"com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY\" /><category android:name=\"android.intent.category.DEFAULT\" /></intent-filter></activity>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<service android:exported=\"false\" android:name=\"com.sina.weibo.sdk.net.DownloadService\" />",
-                            "count": 1
-                        },
                         {
                             "xml": "<activity android:configChanges=\"orientation|keyboardHidden\" android:name=\"cn.jpush.android.ui.PushActivity\" android:theme=\"@android:style/Theme.Translucent.NoTitleBar\"><intent-filter><action android:name=\"cn.jpush.android.ui.PushActivity\" /><category android:name=\"android.intent.category.DEFAULT\" /><category android:name=\"com.parsec.cetusproject\" /></intent-filter></activity>",
                             "count": 1
@@ -189,63 +215,37 @@
                         {
                             "xml": "<meta-data android:name=\"JPUSH_APPKEY\" android:value=\"cc73967dd04d382435eab5a0\" />",
                             "count": 1
-                        }
-                    ],
-                    "/manifest": [
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 3
                         },
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
-                            "count": 2
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
+                            "xml": "<activity android:configChanges=\"orientation|keyboardHidden|navigation\" android:exported=\"false\" android:name=\"com.alipay.sdk.app.H5PayActivity\" android:screenOrientation=\"behind\" android:windowSoftInputMode=\"adjustResize|stateHidden\"></activity>",
                             "count": 1
                         },
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
-                            "count": 2
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
-                            "count": 2
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"com.parsec.cetusproject.permission.JPUSH_MESSAGE\" />",
+                            "xml": "<activity android:label=\"@string/multi_app_name\" android:name=\"com.synconset.MultiImageChooserActivity\" android:theme=\"@android:style/Theme.Holo.Light\"></activity>",
                             "count": 1
                         },
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\" />",
+                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:exported=\"false\" android:name=\"com.sina.weibo.sdk.component.WeiboSdkBrowser\" android:theme=\"@android:style/Theme.NoTitleBar.Fullscreen\" android:windowSoftInputMode=\"adjustResize\"></activity>",
                             "count": 1
                         },
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
+                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:exported=\"false\" android:name=\"com.sina.weibo.sdk.register.mobile.MobileRegisterActivity\" android:screenOrientation=\"portrait\" android:windowSoftInputMode=\"adjustResize\"></activity>",
                             "count": 1
                         },
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
+                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:exported=\"false\" android:name=\"com.sina.weibo.sdk.register.mobile.SelectCountryActivity\" android:windowSoftInputMode=\"adjustResize\"></activity>",
                             "count": 1
                         },
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:name=\"org.zy.yuancheng.weibo.YCWeiboShareCallback\" android:screenOrientation=\"portrait\"><intent-filter><action android:name=\"com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY\" /><category android:name=\"android.intent.category.DEFAULT\" /></intent-filter></activity>",
                             "count": 1
                         },
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\" />",
+                            "xml": "<service android:exported=\"false\" android:name=\"com.sina.weibo.sdk.net.DownloadService\" />",
                             "count": 1
                         },
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<permission android:name=\"com.parsec.cetusproject.permission.JPUSH_MESSAGE\" android:protectionLevel=\"signature\" />",
+                            "xml": "<activity android:exported=\"true\" android:label=\"@string/launcher_name\" android:name=\".wxapi.WXEntryActivity\"><intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><data android:scheme=\"wx3b5cd38874296f89\" /></intent-filter></activity>",
                             "count": 1
                         }
                     ],
@@ -264,6 +264,12 @@
         }
     },
     "installed_plugins": {
+        "am.armsoft.plugins.listpicker": {
+            "PACKAGE_NAME": "com.parsec.cetusproject"
+        },
+        "cn.jpush.phonegap.JPushPlugin": {
+            "PACKAGE_NAME": "com.parsec.cetusproject"
+        },
         "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
@@ -280,6 +286,9 @@
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.parsec.cetusproject"
+        },
+        "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "cordova-plugin-splashscreen": {
@@ -303,24 +312,15 @@
         "org.apache.cordova.file-transfer": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
+        "org.zy.yuancheng.weibo": {
+            "WEIBO_APP_ID": "274270662",
+            "PACKAGE_NAME": "com.parsec.cetusproject"
+        },
         "uk.co.whiteoctober.cordova.appversion": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
         "xu.li.cordova.wechat": {
             "WECHATAPPID": "wx3b5cd38874296f89",
-            "PACKAGE_NAME": "com.parsec.cetusproject"
-        },
-        "org.zy.yuancheng.weibo": {
-            "WEIBO_APP_ID": "274270662",
-            "PACKAGE_NAME": "com.parsec.cetusproject"
-        },
-        "am.armsoft.plugins.listpicker": {
-            "PACKAGE_NAME": "com.parsec.cetusproject"
-        },
-        "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.ionicframework.cetusproject910312"
-        },
-        "cn.jpush.phonegap.JPushPlugin": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         }
     },
