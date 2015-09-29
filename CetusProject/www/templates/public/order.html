@@ -78,6 +78,21 @@
 			<p class="orderlst-top-content-attr">{{autoaddress.shopName}}</p>
 			<p class="orderlst-top-content-attr">{{autoaddress.address}}</p>
 		</div></li>
+		
+	<li>
+		<div class="orderlst-top bbn">
+			<span class="distribution-title">支付方式：</span>
+				<span class="distribution-content">
+					<p>
+						<i class="icon-select-01" ng-if="send_type_state==0" ng-click="zx_pay()"></i><i class="icon-unselect-01" ng-if="send_type_state==1" ng-click="zx_pay()"></i> <span>在线支付</span>
+					</p>
+					<p>
+						<i class="icon-select-01" ng-if="send_type_state==1" ng-click="showPopup()"></i><i class="icon-unselect-01" ng-if="send_type_state==0" ng-click="showPopup()""></i> <span>用优惠券</span>
+					</p>
+				</span>
+		</div>
+	</li>
+	
 	<li>
 		<div class="lst-sub">
 			<div class=" margin-top-11">
