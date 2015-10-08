@@ -1408,6 +1408,10 @@ angular.module('starter.controllers', ['ionic'])
 	  }
 	//加入购物车
 	$scope.addCart = function() {
+		if(!Userinfo.l.id){
+			$scope.login();
+			return;
+		}
 		if ($scope.cartData.amount > $scope.product.stockNum) {
 			$scope.showMsg('库存不足');
 			return;

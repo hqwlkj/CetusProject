@@ -18,9 +18,13 @@
 	     <div>{{ago+product.pcode+after+"  "+product.name}}</div> 
 	     <a href="javascript:void()" ng-click="productShare()" class="fenxiang"><i class="icon-share-01"></i><p>分享</p></a>
 	    </div>
-	    <div class="product-price">
+	    <div class="product-price" ng-if="product.ptId == 2">
+	      <div class="col-7 text-left"><span class="fba">美〇价：</span><span class="fwb">￥{{(product.price).toFixed(2)}}</span></div>
+	      <div class="col-5 text-right"><span class="fba">市场价：</span><strike class="fba">￥{{product.marketPrice.toFixed(2)}}</strike></div>
+	    </div>
+	    <div class="product-price" ng-if="product.ptId != 2">
 	      <div class="col-7 text-left"><span class="fba">美〇价：</span><span class="fwb">￥{{(product.price*product.discount).toFixed(2)}}</span></div>
-	      <div class="col-5 text-right"><span class="fba">市场价：</span><strike class="fba">￥{{product.price.toFixed(2)}}</strike></div>
+	      <div class="col-5 text-right"><span class="fba">市场价：</span><strike class="fba">￥{{product.marketPrice.toFixed(2)}}</strike></div>
 	    </div>
 	  </div>
 	  <div class="product-content">
