@@ -2,8 +2,8 @@
 angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
-  url: 'http://www.meio100.com',
-  pic_url:'http://www.meio100.com/pic'
+  url: 'http://192.168.65.129:8080/Cetus',
+  pic_url:'http://192.168.65.129:8080/Cetus/pic'
 })
 
 .constant('HelpData', {
@@ -1068,6 +1068,7 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.cartData ={};
 	$scope.commenHtml="";
 	$scope.commenState=true;
+	$scope.addCartBut = "加入购物车";
 	$scope._width="200px";
 	//var _img = "www/img/logo_28.png";
 	$ionicLoading.show({
@@ -1080,6 +1081,11 @@ angular.module('starter.controllers', ['ionic'])
 				$scope.ago = "【";
 				$scope.after = "】";
 				$scope.product = data;
+				//处理优惠券
+				if(data.ptId == 3){
+					$scope.addCartBut = "立即购买";
+					$scope.product.discount = 1;
+				}
 				$scope.picfiles = data.picfiles;
 //				for(var i =0 ; i< data.picfiles.length; i++){
 //					var pic = data.picfiles[i];
@@ -1408,6 +1414,17 @@ angular.module('starter.controllers', ['ionic'])
 		}
 		if ($scope.cartData.amount < 1) {
 			$scope.showMsg('商品数量不能小于1');
+			return;
+		}
+		//处理优惠券
+		if($scope.product.ptId == 3){
+			$http.post(ApiEndpoint.url + '/api_encode?msg='+$scope.product.id+' '+$scope.cartData.amount+' '+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+				if (data.state =="success") {
+					$state.go('public.order',{msg:data.secret});
+				}else{
+					$scope.showMsg(data.msg);
+				}
+			});
 			return;
 		}
 		$ionicLoading.show({
