@@ -54,6 +54,7 @@ angular.module('starter.controllers', ['ionic'])
   $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
   $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
   $scope.isIntegral = false;
+  $scope.isMyTeam = false;
   $scope.searchData = {};
   $scope.goodsPage = 1;
   $scope.goods_load_over = true;
@@ -71,6 +72,11 @@ angular.module('starter.controllers', ['ionic'])
 		  $scope.isIntegral = true;
 	  }else{
 		  $scope.isIntegral = false;
+	  }
+	  if(Userinfo.l.userType == 1){		  
+		  $scope.isMyTeam = false;
+	  }else{
+		  $scope.isMyTeam = true;
 	  }
   },2000);
   $scope.doRefresh = function() {//下拉刷新
