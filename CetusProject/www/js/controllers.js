@@ -1418,6 +1418,10 @@ angular.module('starter.controllers', ['ionic'])
 			$scope.login();
 			return;
 		}
+		if($scope.product.ptId == 3&&!Userinfo.l.userType==1){
+			$scope.showMsg("该用户类型无法购买此商品");
+			return;
+		}
 		if ($scope.cartData.amount > $scope.product.stockNum) {
 			$scope.showMsg('库存不足');
 			return;
