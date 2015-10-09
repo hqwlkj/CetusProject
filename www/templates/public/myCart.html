@@ -35,12 +35,14 @@
 	    		<span class="cart-num ">x<b id="td-amount">{{c.productNum}}</b></span>
 	    		<p class="price" style="margin-top:15px">
 	    		<label class="left font-12">总价: </label>
-	    		<span>￥</span> <b class="td-itemsum">{{(c.product.price*discount*c.productNum).toFixed(2)}}</b></p>
+	    		<span>￥</span> <b class="td-itemsum" ng-if="c.product.ptId != 1">{{(c.product.price*c.productNum).toFixed(2)}}</b></p>
+	    		<span>￥</span> <b class="td-itemsum" ng-if="c.product.ptId == 1">{{(c.product.price*discount*c.productNum).toFixed(2)}}</b></p>
 	    	</div>
 	    	<div class="carlst-content ">
 	    		<p class="carlst-content-title">{{c.product.name}}</p>
-	    		<p class="carlst-content-attr">单价：￥<span class="td-price">{{(c.product.price*discount).toFixed(2)}}</span></p>
-	    		<p class="carlst-content-attr">市场价：￥<strike class="td-price">{{c.product.price.toFixed(2)}}</strike></p>
+	    		<p class="carlst-content-attr" ng-if="c.product.ptId != 1">单价：￥<span class="td-price">{{(c.product.price).toFixed(2)}}</span></p>
+	    		<p class="carlst-content-attr" ng-if="c.product.ptId == 1">单价：￥<span class="td-price">{{(c.product.price*discount).toFixed(2)}}</span></p>
+	    		<p class="carlst-content-attr">市场价：￥<strike class="td-price">{{c.product.marketPrice.toFixed(2)}}</strike></p>
 	    	</div>
 	    </li>
 	</ul>

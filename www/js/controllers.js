@@ -2,7 +2,7 @@
 angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
-  url: 'http://192.168.65.164:8080/Cetus',
+  url: 'http://192.168.65.147:8080/Cetus',
   pic_url:'http://www.meio100.com/pic'
 })
 
@@ -1416,10 +1416,6 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.addCart = function() {
 		if(!Userinfo.l.id){
 			$scope.login();
-			return;
-		}
-		if($scope.product.ptId == 3&&!Userinfo.l.userType==1){
-			$scope.showMsg("该用户类型无法购买此商品");
 			return;
 		}
 		if ($scope.cartData.amount > $scope.product.stockNum) {
