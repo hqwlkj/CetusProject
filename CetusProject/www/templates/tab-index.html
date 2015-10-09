@@ -22,8 +22,8 @@
 	      </div>
 	      <p class="productlst-p-title">{{p.name}}</p>
 	      
-	      <div class="productlst-p-price" ng-if="p.ptId != 1"><div class="col-6 text-left">美〇价1 <span>¥ {{(p.price).toFixed(2)}}</span></div><div class="col-6 text-right">市场价<strike>¥ {{(p.marketPrice).toFixed(2)}}</strike></div></div>
-	      <div class="productlst-p-price" ng-if="p.ptId == 1"><div class="col-6 text-left">美〇价2 <span>¥ {{(p.price*discount).toFixed(2)}}</span></div><div class="col-6 text-right">市场价<strike>¥ {{(p.marketPrice).toFixed(2)}}</strike></div></div>
+	      <div class="productlst-p-price" ng-if="p.ptId != 1"><div class="col-6 text-left">美〇价 <span>¥ {{(p.price).toFixed(2)}}</span></div><div class="col-6 text-right">市场价<strike>¥ {{(p.marketPrice).toFixed(2)}}</strike></div></div>
+	      <div class="productlst-p-price" ng-if="p.ptId == 1"><div class="col-6 text-left">美〇价 <span>¥ {{(p.price*discount).toFixed(2)}}</span></div><div class="col-6 text-right">市场价<strike>¥ {{(p.marketPrice).toFixed(2)}}</strike></div></div>
 	    </li>
 	  </ul>
 	  </section>
