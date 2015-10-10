@@ -80,14 +80,18 @@ angular.module('starter.mycartcrtl', [])
 		$scope.allMoney = 0;
 		if ($scope.allCheckClass == "icon-unselect-01") {
 			$scope.allCheckClass = "icon-select-satatus-01";
-			for (var int = 0; int < $scope.cartList.length; int++) {
-				$scope.cartList[int].checkClass = "icon-select-satatus-01";
-				$scope.allMoney += $scope.cartList[int].product.price*$scope.discount*$scope.cartList[int].productNum;
+			for (var i = 0; i < $scope.cartList.length; i++) {
+				$scope.cartList[i].checkClass = "icon-select-satatus-01";
+				if($scope.cartList[i].product.ptId == 1){
+					$scope.allMoney += $scope.cartList[i].product.price*$scope.discount*$scope.cartList[i].productNum;
+				}else{
+					$scope.allMoney += $scope.cartList[i].product.price*$scope.cartList[i].productNum;
+				}
 			}
 		}else {
 			$scope.allCheckClass = "icon-unselect-01";
-			for (var int = 0; int < $scope.cartList.length; int++) {
-				$scope.cartList[int].checkClass = "icon-unselect-01";
+			for (var i = 0; i < $scope.cartList.length; i++) {
+				$scope.cartList[i].checkClass = "icon-unselect-01";
 			}
 		}
 	}
@@ -125,8 +129,13 @@ angular.module('starter.mycartcrtl', [])
 			     });
 			}else {
 				$scope.c.productNum -= 1;
-				if ($scope.c.checkClass == "icon-select-satatus-01") 
-					$scope.allMoney -= $scope.c.product.price*$scope.discount;
+				if ($scope.c.checkClass == "icon-select-satatus-01") {
+					if($scope.c.product.ptId == 1){				
+						$scope.allMoney -= $scope.c.product.price*$scope.discount;
+					}else{
+						$scope.allMoney -= $scope.c.product.price;
+					}
+				}
 			}
 		}else {
 			if ($scope.c.productNum >= $scope.c.product.stockNum){
@@ -134,8 +143,13 @@ angular.module('starter.mycartcrtl', [])
 				$scope.showMsg("该商品的库存量不足");
 			}else {
 				$scope.c.productNum += 1;
-				if ($scope.c.checkClass == "icon-select-satatus-01") 
-					$scope.allMoney += $scope.c.product.price*$scope.discount;
+				if ($scope.c.checkClass == "icon-select-satatus-01"){
+					if($scope.c.product.ptId == 1){				
+						$scope.allMoney += $scope.c.product.price*$scope.discount;
+					}else{
+						$scope.allMoney += $scope.c.product.price;
+					}
+				} 
 			}
 		}
 		
@@ -158,10 +172,18 @@ angular.module('starter.mycartcrtl', [])
 		if ($scope.c.checkClass == "icon-select-satatus-01") {
 			$scope.c.checkClass = "icon-unselect-01";
 			$scope.allCheckClass = "icon-unselect-01";
-			$scope.allMoney -= $scope.c.product.price*$scope.discount*$scope.c.productNum;
+			if($scope.c.product.ptId == 1){				
+				$scope.allMoney -= $scope.c.product.price*$scope.discount*$scope.c.productNum;
+			}else{
+				$scope.allMoney -= $scope.c.product.price*$scope.c.productNum;
+			}
 		}else {
 			$scope.c.checkClass = "icon-select-satatus-01";
-			$scope.allMoney += $scope.c.product.price*$scope.discount*$scope.c.productNum;
+			if($scope.c.product.ptId == 1){				
+				$scope.allMoney += $scope.c.product.price*$scope.discount*$scope.c.productNum;
+			}else{
+				$scope.allMoney += $scope.c.product.price*$scope.c.productNum;
+			}
 		}
 	}
 	
