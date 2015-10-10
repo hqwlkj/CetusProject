@@ -33,10 +33,13 @@
 	    		<a ng-click="updProductNum(c, 1)" class="btn-lf-sm left cart-reduction"><i class="icon-sub-01"></i></a>
 	  			<a ng-click="updProductNum(c, 2)" class="btn-rt-sm left cart-plus"><i class="icon-add-01"></i></a>
 	    		<span class="cart-num ">x<b id="td-amount">{{c.productNum}}</b></span>
-	    		<p class="price" style="margin-top:15px">
+	    		<p class="price" style="margin-top:15px"  ng-if="c.product.ptId != 1">
 	    		<label class="left font-12">总价: </label>
-	    		<span>￥</span> <b class="td-itemsum" ng-if="c.product.ptId != 1">{{(c.product.price*c.productNum).toFixed(2)}}</b></p>
-	    		<span>￥</span> <b class="td-itemsum" ng-if="c.product.ptId == 1">{{(c.product.price*discount*c.productNum).toFixed(2)}}</b></p>
+	    		<span>￥</span> <b class="td-itemsum">{{(c.product.price*c.productNum).toFixed(2)}}</b></p>
+	    		
+	    		<p class="price" style="margin-top:15px"  ng-if="c.product.ptId == 1">
+	    		<label class="left font-12">总价: </label>
+	    		<span>￥</span> <b class="td-itemsum">{{(c.product.price*discount*c.productNum).toFixed(2)}}</b></p>
 	    	</div>
 	    	<div class="carlst-content ">
 	    		<p class="carlst-content-title">{{c.product.name}}</p>
