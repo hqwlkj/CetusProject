@@ -150,11 +150,15 @@ angular.module('starter.order', [])
 	//新增优惠券 设置弹框函数
 	$scope.number = {}
 	$scope.showPopup  = function(){
-		 $scope.number.state = "none";
-		 var myPopup = $ionicPopup.show({
-			template : '<input type="text" ng-model="number.inputNumber" ng-focus="changeInputVal()">'+
+		if($scope.CouponsNum<$scope.price){
+			$scope.showMsg("所需优惠券数量不足");
+			return;
+		}
+		$scope.number.state = "none";
+		var myPopup = $ionicPopup.show({
+			template : '<input type="text" ng-model="number.inputNumber" ng-focus="changeInputVal()"  readonly="readonly">'+
 			'<label style="height: 25px; line-height: 25px; color: rgb(255, 0, 0); font-weight: 700; display:{{number.state}}" ng-bind-html="number.errmsg"></label>',
-			title : '请输入优惠卷数量',
+			title : '请确认优惠卷数量',
 			scope : $scope,
 			buttons : [ {
 				text : '取消'
