@@ -5,9 +5,9 @@
     <section>
       <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true" slide-interval="6000">
         <ion-slide ng-repeat="b in banner">
-          <div class="box" ng-click="activityDetail({{b.id}})" ng-if="b.state != 1" style="width: 16rem; height: 8rem; background: url(http://www.meio100.com/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
-          <div class="box" ng-click="openAdUrl('{{b.adUrl}}')" ng-if="b.state == 1 && b.adUrl != null && b.adUrl.length > 0" style="width: 16rem; height: 8rem; background: url(http://www.meio100.com/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
-          <div class="box" ng-click="adDetail({{b.id}}, '{{b.name}}')" ng-if="b.state == 1 && (b.adUrl == null || b.adUrl.length == 0)" style="width: 16rem; height: 8rem; background: url(http://www.meio100.com/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
+          <div class="box" ng-click="activityDetail({{b.id}})" ng-if="b.state != 1" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
+          <div class="box" ng-click="openAdUrl('{{b.adUrl}}')" ng-if="b.state == 1 && b.adUrl != null && b.adUrl.length > 0" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
+          <div class="box" ng-click="adDetail({{b.id}}, '{{b.name}}')" ng-if="b.state == 1 && (b.adUrl == null || b.adUrl.length == 0)" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{b.activityIcon}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
         </ion-slide>
       </ion-slide-box>
     </section>
@@ -18,7 +18,7 @@
 	  <ul class="productlst">
 	    <li ng-repeat="p in products" ng-click="clickDetail('{{p.id}}')">
 	      <div class="productlst-img-box">
-	      <img width="100%" height="100%" src="http://www.meio100.com/pic/{{p.coverUrl}}"  />
+	      <img width="100%" height="100%" src="http://www.parsec.com.cn/Cetus/pic/{{p.coverUrl}}"  />
 	      </div>
 	      <p class="productlst-p-title">{{p.name}}</p>
 	      
