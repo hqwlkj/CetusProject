@@ -8,7 +8,7 @@
 	<section>
       <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true" slide-interval="6000">
         <ion-slide ng-repeat="p in picfiles">
-          <div class="box" style="width: 16rem; height: 8rem; background: url(http://www.meio100.com/pic/{{p.imgurl}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
+          <div class="box" style="width: 16rem; height: 8rem; background: url(http://www.parsec.com.cn/Cetus/pic/{{p.imgurl}}) center 0 no-repeat; text-align: center; background-size: 16rem 8rem"> </div>
         </ion-slide>
       </ion-slide-box>
     </section>
@@ -41,7 +41,7 @@
 	    <div class="comment-content">
 	       <div class="wp">
 	          <ul id="comment-slider" class="comment-slider">
-	            <li ng-if="commenState" ng-repeat='c in comments' style="width: {{_width}}"> <a class="fl" href="#"><img ng-if="c.headImg == ''" src="../img/eleven.png" alt="" /><img ng-if="c.headImg != ''"  ng-src="http://www.meio100.com/pic/{{c.headImg}}" alt="" /></a>
+	            <li ng-if="commenState" ng-repeat='c in comments' style="width: {{_width}}"> <a class="fl" href="#"><img ng-if="c.headImg == ''" src="../img/eleven.png" alt="" /><img ng-if="c.headImg != ''"  ng-src="http://www.parsec.com.cn/Cetus/pic/{{c.headImg}}" alt="" /></a>
 	              <p class="name">{{c.username}}</p>
 	              <p>{{c.content}}</p>
 	            </li>
