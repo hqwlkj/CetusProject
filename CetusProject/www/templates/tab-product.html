@@ -6,7 +6,7 @@
 	  <ul class="productlst">
 	    <li ng-repeat="p in products" ng-click="clickDetail('{{p.id}}')">
 	      <div class="productlst-img-box">
-	      	<img width="100%" height="100%" src="http://www.parsec.com.cn/Cetus/pic/{{p.coverUrl}}"  />
+	      	<img width="100%" height="100%" src="http://www.parsec.com.cn/Cetus/qn_pic/{{p.coverUrl}}"  />
 	      </div>
 	      <p class="productlst-p-title">{{p.name}}</p>
 	      <div class="productlst-p-price" ng-if="p.ptId != 1"><div class="col-6 text-left">美〇价 <span>¥ {{(p.price).toFixed(2)}}</span></div><div class="col-6 text-right">市场价<strike>¥ {{(p.marketPrice).toFixed(2)}}</strike></div></div>
