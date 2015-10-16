@@ -3,7 +3,7 @@ angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
   url: 'http://www.parsec.com.cn/Cetus',
-  pic_url:'http://www.parsec.com.cn/Cetus/pic'
+  pic_url:'http://www.parsec.com.cn/Cetus/qn_pic'
 })
 
 .constant('HelpData', {
@@ -924,7 +924,7 @@ angular.module('starter.controllers', ['ionic'])
 
 
 //美O圈Controller
-.controller('QuanCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state){
+.controller('QuanCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state,$sce){
 	$scope.titleState=1;//标题的显示状态
 	$scope.quans = [];  //美O圈数据
 	$ionicLoading.show({
@@ -991,10 +991,14 @@ angular.module('starter.controllers', ['ionic'])
 				$scope.title = data.european.title;
 				$scope.detailTime = data.european.showCreateTime;
 				$scope.quanImg = ApiEndpoint.pic_url+"/"+data.european.imgUrl;
-				$scope.detailContent = data.european.content;
+				$scope.detailContent = $scope.ReservedStytl(data.european.content);
 			}
 			$ionicLoading.hide();
 		});
+	}
+	//保留原html中的  style样式
+	$scope.ReservedStytl = function(html) {
+		  return $sce.trustAsHtml(html);
 	}
 })
 
