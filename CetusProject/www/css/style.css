@@ -645,3 +645,6 @@ overflow:hidden;/*溢出隐藏*/
 
 /**/
 .toggle-large span{font-size: 0.6rem;}
+
+/* 菜单 查看账单 */
+.icon-account-01{display:inline-block; background: url("../img/icon-account.png")  no-repeat scroll; width: 14px; height: 14px; background-size: 14px; visibility: text-bottm;}

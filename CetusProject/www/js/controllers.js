@@ -221,8 +221,34 @@ angular.module('starter.controllers', ['ionic'])
 
   };
 
-  $scope.user = function() {
+  //查看返利
+  $scope.show_myRebate = function(){
+	  $scope.account();
+  }
+  
+  //注册
+  $ionicModal.fromTemplateUrl('templates/public/balanceoOfAccount.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal_account = modal;
+    $scope.accountData = {};
+  });
 
+  $scope.account = function() {
+    $scope.modal_account.show();
+  };
+  $scope.closeAccount = function() {
+    $scope.modal_account.hide();
+    $scope.accountData = {};
+  };
+  
+ 
+  $scope.dates=["2014年11月账单", "2014年12月账单", "2015年1月账单", "2015年2月账单", "2015年3月账单", "2015年4月账单", "2015年5月账单", "2015年6月账单", "2015年7月账单", "2015年8月账单", "2015年9月账单", "2015年10月账单"];
+  //默认显示最后一个月度的信息
+  $scope.ion_slide_index=$scope.dates.length-1;
+
+  
+  $scope.user = function() {
 	  $state.go('acount.user');
   };
 
