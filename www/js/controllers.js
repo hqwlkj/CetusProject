@@ -2,8 +2,8 @@
 angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
-  url: 'http://www.parsec.com.cn/Cetus',
-  pic_url:'http://www.parsec.com.cn/Cetus/qn_pic'
+  url: 'http://192.168.65.164:8080/Cetus',
+  pic_url:'http://192.168.65.164:8080/Cetus/pic'
 })
 
 .constant('HelpData', {
@@ -226,28 +226,109 @@ angular.module('starter.controllers', ['ionic'])
 	  $scope.account();
   }
   
-  //注册
+  //查看返利
   $ionicModal.fromTemplateUrl('templates/public/balanceoOfAccount.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal_account = modal;
     $scope.accountData = {};
   });
-
+  
+  $scope.account_date_list=[];
+  $scope.account_show_date_list=[];
+  $scope.acc_start_time = "";
+  $scope.acc_end_time = "";
+  $scope.acc_rebate = "";
+  $scope.acc_money = "";
+  $scope.dates=[];
+  $scope.ion_slide_index= 0;
   $scope.account = function() {
     $scope.modal_account.show();
+    //提示消息
+	$ionicLoading.show({
+	     template: '<ion-spinner></ion-spinner>'
+	});
+	$http.post(ApiEndpoint.url + '/api_rebate_history?id='+ (Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+	      $ionicLoading.hide();
+	      if (data.state== 'success') {
+	    	  
+	    	  $scope.dates = data.showDateList;
+	    	  //默认显示最后一个月度的信息
+	    	  $scope.ion_slide_index = $scope.dates.length-1;
+	    	  for (var i = 0; i < data.historyList.length; i++) {
+	    		  var obj = {};
+	    		  obj.acc_start_time = data.historyList[i].showfromDate;
+	    		  obj.acc_end_time =  data.historyList[i].showtoDate;
+	    		  obj.acc_rebate =  data.historyList[i].rebate.toFixed(2);
+	    		  obj.acc_money = data.historyList[i].achievement.toFixed(2);
+	    		  obj.state = "h";
+	    		  $scope.account_date_list.push(obj);
+	    	  }
+	    	  for (var i = 0; i < data.dateList.length; i++) {
+	    		  var obj = {};
+	    		  var list = data.dateList[i].date.split(",");
+	    		  obj.acc_start_time = list[0];
+	    		  obj.acc_end_time =  list[1];
+	    		  obj.acc_rebate =  data.dateList[i].rebate.toFixed(2);
+	    		  obj.acc_money = data.dateList[i].achievement.toFixed(2);
+	    		  obj.state = "d";
+	    		  $scope.account_date_list.push(obj);
+	    	  }
+	    	  if($scope.account_date_list.length>data.showDateList.length){
+	    		  for (var i = 0; i < data.showDateList.length; i++) {
+	    			  var obj = {};
+	    			  obj.title = data.showDateList[i];
+    				  var index = $scope.account_date_list.length-data.showDateList.length;
+    				  obj.acc_start_time = $scope.account_date_list[index].acc_start_time;
+		    		  obj.acc_end_time =  $scope.account_date_list[index].acc_end_time;
+		    		  obj.acc_rebate =  $scope.account_date_list[index].acc_rebate;
+		    		  obj.acc_money = $scope.account_date_list[index].acc_money;
+		    		  obj.state = $scope.account_date_list[index].state;
+	    			  $scope.account_show_date_list.push(obj);
+	    		  }
+	    	  }else{
+	    		  var num = data.showDateList.length-$scope.account_date_list.length;
+	    		  for (var i = 0; i < data.showDateList.length; i++) {
+	    			  var obj = {};
+	    			  obj.title = data.showDateList[i];
+	    			  if(i>=num){
+	    				  var index = i-num;
+	    				  obj.acc_start_time = $scope.account_date_list[index].acc_start_time;
+			    		  obj.acc_end_time =  $scope.account_date_list[index].acc_end_time;
+			    		  obj.acc_rebate =  $scope.account_date_list[index].acc_rebate;
+			    		  obj.acc_money = $scope.account_date_list[index].acc_money;
+			    		  obj.state = $scope.account_date_list[index].state;
+	    			  }else{
+	    				  obj.acc_start_time = "--";
+			    		  obj.acc_end_time =  "--";
+			    		  obj.acc_rebate =  "0.00";
+			    		  obj.acc_money = "0.00";
+			    		  obj.state = "h";
+	    			  }
+	    			  $scope.account_show_date_list.push(obj);
+	    		  }
+	    	  }
+	    	  var obj = $scope.account_show_date_list[$scope.account_show_date_list.length-1];
+	    	  $scope.acc_start_time = obj.acc_start_time;
+	    	  $scope.acc_end_time = obj.acc_end_time;
+	    	  $scope.acc_rebate = obj.acc_rebate;
+	    	  $scope.acc_money = obj.acc_money;
+	      }
+	});
   };
   $scope.closeAccount = function() {
     $scope.modal_account.hide();
     $scope.accountData = {};
   };
   
+  $scope.slideAccountChanged = function(index){
+	  var obj = $scope.account_show_date_list[index];
+	  $scope.acc_start_time = obj.acc_start_time;
+	  $scope.acc_end_time = obj.acc_end_time;
+	  $scope.acc_rebate = obj.acc_rebate;
+	  $scope.acc_money = obj.acc_money;
+  }
  
-  $scope.dates=["2014年11月账单", "2014年12月账单", "2015年1月账单", "2015年2月账单", "2015年3月账单", "2015年4月账单", "2015年5月账单", "2015年6月账单", "2015年7月账单", "2015年8月账单", "2015年9月账单", "2015年10月账单"];
-  //默认显示最后一个月度的信息
-  $scope.ion_slide_index=$scope.dates.length-1;
-
-  
   $scope.user = function() {
 	  $state.go('acount.user');
   };
