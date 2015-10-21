@@ -4,19 +4,19 @@
    <h1 class="title">账单列表</h1>
    <a class="button button-clear" style="background:url(img/ionic/icon-cart.png) center center no-repeat; background-size:21px 21px; width:28px" ng-click="cartClick();closeAccount();"></a>
 </ion-header-bar> 
-<ion-content style="">
-<section style=" background-color: #4AA7EF;">
-  <ion-slide-box on-slide-changed="slideAccountChanged($index)" does-continue="flase" auto-play="flase" show-pager="flase" active-slide="ion_slide_index">
-    <ion-slide ng-repeat="d in dates"><!-- 列出一年的账单 -->
-      <div class="box" ng-click="" style="width: 16rem; height: 8rem; text-align: center; background-size: 16rem 8rem">
-      	<p style=" color:#ffffff; margin: 5px 0; font-size:0.65rem;">{{d}}</p>
+<ion-content >
+<section style="background-color:#4AA7EF; background-size: 16rem 8rem;">
+  <ion-slide-box on-slide-changed="slideAccountChanged($index)" does-continue="false" show-pager="false" active-slide="ion_slide_index">
+    <ion-slide ng-repeat="d in account_show_date_list"><!-- 列出一年的账单 -->
+      <div class="box" ng-click="" style="width: 16rem; height: 8rem; text-align: center; background-size: 16rem 8rem;background-color: #4AA7EF;">
+      	<p style=" color:#ffffff; margin: 5px 0; font-size:0.65rem;">{{d.title}}</p>
       	<div style=" background: #ffffff; width: 80%; height: 80%; margin: 0 auto; position: relative;">
       	 <b style=" background-color:#4AA7EF; position: absolute; left: -2px; top:63px; width: 6px; height: 6px; border-radius:50%; "></b>
       	 <b style=" background-color:#4AA7EF; position: absolute; right: -2px; top:63px; width: 6px; height: 6px; border-radius:50%; "></b>
       	 <p style="font-size:0.55rem; text-align: left;padding: 10px 0 0 8px; ">账单金额</p>
-      	 <p style="font-size:0.65rem; text-align: left;padding: 0 0 5px 8px; width: 100%; border-bottom: 1px dotted #cccccc;">￥<span style="font-weight: 700; color:#000000;">{{acc_rebate}}</span></p>
-      	 <p style="font-size:0.65rem; text-align: left;padding: 0 0 0 8px; width: 100%; ">开始时间：<span>{{acc_start_time}}</span></p>
-		 <p style="font-size:0.65rem; text-align: left;padding: 0 0 0 8px; width: 100%; ">结束时间：<span>{{acc_end_time}}</span></p>
+      	 <p style="font-size:0.65rem; text-align: left;padding: 0 0 5px 8px; width: 100%; border-bottom: 1px dotted #cccccc;">￥<span style="font-weight: 700; color:#000000;">{{d.acc_rebate}}</span></p>
+      	 <p style="font-size:0.65rem; text-align: left;padding: 0 0 0 8px; width: 100%; ">开始时间：<span>{{d.acc_start_time}}</span></p>
+		 <p style="font-size:0.65rem; text-align: left;padding: 0 0 0 8px; width: 100%; ">结束时间：<span>{{d.acc_end_time}}</span></p>
       	</div>
       </div>
     </ion-slide>
@@ -41,7 +41,7 @@
 </ul>
 <div style="background-color:#ffffff; width: 100%; height: 10px;">&nbsp;</div>
 </section>
-<ion-infinite-scroll on-infinite="usercoin_loadmore()" ng-if="usercoin_load_state"></ion-infinite-scroll>
+<!-- <ion-infinite-scroll on-infinite="usercoin_loadmore()" ng-if="usercoin_load_state"></ion-infinite-scroll> -->
 </ion-content>
 <!-- tabs -->
 <ion-footer-bar align-title="left" class="bar-assertive" style="padding: 0">
