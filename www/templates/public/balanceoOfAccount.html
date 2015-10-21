@@ -7,7 +7,7 @@
 <ion-content >
 <section style="background-color:#4AA7EF; background-size: 16rem 8rem;">
   <ion-slide-box on-slide-changed="slideAccountChanged($index)" does-continue="false" show-pager="false" active-slide="ion_slide_index">
-    <ion-slide ng-repeat="d in account_show_date_list"><!-- 列出一年的账单 -->
+    <ion-slide ng-repeat="d in slides"><!-- 列出一年的账单 -->
       <div class="box" ng-click="" style="width: 16rem; height: 8rem; text-align: center; background-size: 16rem 8rem;background-color: #4AA7EF;">
       	<p style=" color:#ffffff; margin: 5px 0; font-size:0.65rem;">{{d.title}}</p>
       	<div style=" background: #ffffff; width: 80%; height: 80%; margin: 0 auto; position: relative;">
