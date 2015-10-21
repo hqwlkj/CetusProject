@@ -22,9 +22,85 @@
 		</div>
 	</li>
 </ul>
+
+
+
+<div class="">
+  <div class="tabs">
+   <a ng-class="{a: 'tab-item active', b: 'tab-item', c: 'tab-item'}[isActive]" data-active="a" ng-click="changeTabs($event)" style="font-size:16px;line-height:48px;margin:0 28px">未对账单</a>
+   <a ng-class="{a: 'tab-item', b: 'tab-item active', c: 'tab-item'}[isActive]" data-active="b" ng-click="changeTabs($event)" style="font-size:16px;line-height:48px;margin:0 28px">已对账单</a>
+  </div>
+ </div>
+<div ng-if="isActive == 'a'" class="rebate_list wrap-page swiper-container">
+      <div class="list padding">
+        <ul class="orderlst db ul-block bg-white a-gray">
+		   	 <li ng-repeat="r in orderWdz">
+					<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
+					<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;"><p ng-bind="r.orderMoney"></p><p>{{r.showcreateTime | formatStr}}</p></div>
+			</li>
+			<li class="margin-15 padding-10 clear" ng-show="rebmsg">
+		      <div style=" height: 25px; line-height: 25px;">
+		        <p  style="text-align: center;color: #999;">暂无数据</p>
+		      </div>
+		    </li>
+		  
+        </ul>
+    </div>
+</div>
+<div ng-if="isActive == 'b'" class="rebate_list wrap-page swiper-container">
+	 <div class="list padding">
+	 	<ul class="orderlst db ul-block bg-white a-gray">
+		    <li ng-repeat="r in orderYdz">
+					<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
+					<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;"><p ng-bind="r.orderMoney"></p><p>{{r.showcreateTime | formatStr}}</p></div>
+			</li>
+		    <li class="margin-15 padding-10 clear" ng-show="rebmsg2">
+		      <div style=" height: 25px; line-height: 25px;">
+		        <p  style="text-align: center;color: #999;">暂无数据</p>
+		      </div>
+		    </li>
+        </ul>
+	 	
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div style="background-color:#ffffff; width: 100%; height: 10px;">&nbsp;</div>
 <ion-infinite-scroll on-infinite="usercoin_loadmore()" ng-if="usercoin_load_state"></ion-infinite-scroll>
 </ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- tabs -->
 <ion-footer-bar align-title="left" class="bar-assertive" style="padding: 0">
   <ion-tabs class="tabs-icon-top tabs-color-active-positive">
