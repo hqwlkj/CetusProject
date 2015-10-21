@@ -77,7 +77,7 @@ angular.module('starter.order', [])
 				}
 				$scope.CouponsNum = data.CouponsNum;
 				$scope.useCouponMsg = "用优惠券(余"+$scope.CouponsNum+"张)"
-				$scope.number.inputNumber = $scope.price.toFixed(0);
+				$scope.number.inputNumber =$scope.show_price.toFixed(0);
 			}
 		});
 		//加载提示
@@ -144,7 +144,7 @@ angular.module('starter.order', [])
 	$scope.zx_pay  = function(){
 		$scope.payType = 1;
 		$scope.useCouponsNum = 0;
-		$scope.number.inputNumber = $scope.price.toFixed(0);
+		$scope.number.inputNumber =$scope.show_price.toFixed(0);
 		$scope.useCouponMsg = "用优惠券(余"+$scope.CouponsNum+"张)"
 	}
 	//新增优惠券 设置弹框函数
