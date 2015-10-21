@@ -5,4 +5,10 @@ angular.module('starter.filter', [])
         var nval = str.replace(/<[^>]+>/g, "");// 去掉所有的html标记
         return nval;
     }
+})
+.filter("formatStr",function(){
+	return function(str){
+		var ns = str.split(" ");
+		return ns[0];
+	}
 });
