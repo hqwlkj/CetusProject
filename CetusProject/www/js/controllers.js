@@ -2,7 +2,7 @@
 angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
-  url: 'http://192.168.65.148:8080/Cetus',
+  url: 'http://192.168.65.178:8080/Cetus',
   pic_url:'http://192.168.65.148:8080/Cetus/pic'
 })
 
@@ -602,7 +602,8 @@ angular.module('starter.controllers', ['ionic'])
 	
 	$scope.goRebateList =function(){
 		$scope.modal_rebate.show();
-		$scope.load_rebate_data();
+		$scope.getOrderWdz();
+		//$scope.load_rebate_data();
 	}
 	
 	//关闭返利列表
@@ -614,27 +615,102 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.rebate_money = 0;
 	$scope.rebate_lock = false;
 	//加载返利列表数据
-	$scope.load_rebate_data = function(){
-		$ionicLoading.show({
-		     template: '<ion-spinner></ion-spinner>'
-		});
-		$http.post(ApiEndpoint.url + '/api_rebate_list?isApp=0&parentId='+(Userinfo.l.id?Userinfo.l.id:"")+"&month="+$scope.rebate_month).success(function(data) {
-			if (data.state =="success") {
-				$scope.$broadcast("scroll.refreshComplete");
-				$scope.rebate_month = data.obj.month;
-				$scope.rebate_money = data.sum;
-				for (var i = 0; i < data.list.length; i++) {
-					data.list[i].showcreateTime = data.list[i].showcreateTime.split(" ")[0].replace(/\-/g,"/");
-				}
-				$scope.rebate_list = data.list;
-			}else{
-				$scope.showMsg(data.msg);
-			}
-			$scope.rebate_lock = false;
-			$ionicLoading.hide();
-		});
-	}
+//	$scope.load_rebate_data = function(){
+//		$ionicLoading.show({
+//		     template: '<ion-spinner></ion-spinner>'
+//		});
+//		$http.post(ApiEndpoint.url + '/api_rebate_list?isApp=0&parentId='+(Userinfo.l.id?Userinfo.l.id:"")+"&month="+$scope.rebate_month).success(function(data) {
+//			if (data.state =="success") {
+//				$scope.$broadcast("scroll.refreshComplete");
+//				$scope.rebate_month = data.obj.month;
+//				$scope.rebate_money = data.sum;
+//				for (var i = 0; i < data.list.length; i++) {
+//					data.list[i].showcreateTime = data.list[i].showcreateTime.split(" ")[0].replace(/\-/g,"/");
+//				}
+//				$scope.rebate_list = data.list;
+//			}else{
+//				$scope.showMsg(data.msg);
+//			}
+//			$scope.rebate_lock = false;
+//			$ionicLoading.hide();
+//		});
+//	}
 	
+	//分出 未对账单 和已对账单-@zxy2015-10-21
+	$scope.orderWdz = [];
+	$scope.orderYdz = [];
+	$scope.isActive = 'a';
+	$scope.changeTabs = function(evt) {
+	    var elem = evt.currentTarget;
+	    $scope.isActive = elem.getAttributeNode('data-active').value;
+	    $scope.orderGoTo($scope.isActive);
+    };
+    $scope.orderGoTo = function(isActive){
+    	switch (isActive) {
+		case 'a':
+			$scope.getOrderWdz();
+			break;
+		case 'b':
+			$scope.getOrderYdz();
+			break;
+		default:
+			$scope.getOrderYdz();
+			break;
+		}
+    }
+    
+    //未对账单 
+	  $scope.getOrderWdz = function() {
+		  	var obj = {};
+			obj.parentid = (Userinfo.l.id?Userinfo.l.id:"");
+			obj.pageSize = 99999999;
+			obj.checkType = 0;
+			obj.isApp = 0;
+			obj.month = $scope.rebate_month;
+			$ionicLoading.show({
+				template: '<ion-spinner></ion-spinner>'
+			});
+			$http.post(ApiEndpoint.url + '/api_rebate_list',obj).success(function(data) {
+				$scope.rebmsg = false;//未读消息提示默认隐藏
+				 $ionicLoading.hide();
+				 if (data.state == 'success') {
+					if(data.list.length<1){
+						  $scope.rebmsg = true;
+					  }
+					$scope.orderWdz = data.list;
+			    }else{
+					$scope.showMsg(data.msg);
+				}
+			});
+	  };
+	  
+	  //已对账单 
+	  $scope.getOrderYdz = function() {
+		  	var obj = {};
+			obj.parentid = (Userinfo.l.id?Userinfo.l.id:"");
+			obj.pageSize = 99999999;
+			obj.checkType = 1;
+			obj.isApp = 0;
+			obj.month = $scope.rebate_month;
+			$ionicLoading.show({
+				template: '<ion-spinner></ion-spinner>'
+			});
+			$http.post(ApiEndpoint.url + '/api_rebate_list',obj).success(function(data) {
+				$scope.rebmsg2 = false;//未读消息提示默认隐藏
+				 $ionicLoading.hide();
+				 if (data.state == 'success') {
+					if(data.list.length<1){
+						  $scope.rebmsg2 = true;
+					  }
+					$scope.rebate_money = data.sum;
+					$scope.orderYdz = data.list;
+			    }else{
+					$scope.showMsg(data.msg);
+				}
+			});
+	  };
+	  
+	  
 	//跳转返利月份
 	$scope.to_rebate_month = function(type){
 		if($scope.rebate_lock==true){
