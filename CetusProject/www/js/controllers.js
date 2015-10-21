@@ -240,6 +240,8 @@ angular.module('starter.controllers', ['ionic'])
   $scope.acc_end_time = "";
   $scope.acc_rebate = "";
   $scope.acc_money = "";
+  
+  $scope.slides = [1,2,3,4,5,6,7,8,9,10,11,12];//显示的幻灯片页数
   //默认显示最后一个月度的信息
   $scope.ion_slide_index = 11;
   
