@@ -62,6 +62,7 @@ angular.module('starter.controllers', ['ionic'])
   $scope.products = [];
   $scope.InvitationName = '';
   $scope.discount = 1;
+  $scope.isAcc= false;
   $scope.app_version = Userinfo.l.version;
   //定时刷新头像
   setInterval(function(){
@@ -77,6 +78,11 @@ angular.module('starter.controllers', ['ionic'])
 		  $scope.isMyTeam = false;
 	  }else{
 		  $scope.isMyTeam = true;
+	  }
+	  if(Userinfo.l.userType == 2||Userinfo.l.userType == 3){
+		  $scope.isAcc=true;
+	  }else{
+		  $scope.isAcc=false;
 	  }
   },2000);
   $scope.doRefresh = function() {//下拉刷新
@@ -236,25 +242,28 @@ angular.module('starter.controllers', ['ionic'])
   
   $scope.account_date_list=[];
   $scope.account_show_date_list=[];
+  $scope.acc_title = "";
   $scope.acc_start_time = "";
   $scope.acc_end_time = "";
   $scope.acc_rebate = "";
   $scope.acc_money = "";
-  
+  $scope.acc_cansubmit = false;
+  $scope.acc_select_index = 11;
+  $scope.performance = 0;
   $scope.slides = [1,2,3,4,5,6,7,8,9,10,11,12];//显示的幻灯片页数
   //默认显示最后一个月度的信息
   $scope.ion_slide_index = 11;
   
   $scope.account = function() {
-    $scope.modal_account.show();
-    //提示消息
-	$ionicLoading.show({
-	     template: '<ion-spinner></ion-spinner>'
-	});
-	$http.post(ApiEndpoint.url + '/api_rebate_history?id='+ (Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
-	      $ionicLoading.hide();
+	  $scope.modal_account.show();
+	  //提示消息
+	  $ionicLoading.show({
+		  template: '<ion-spinner></ion-spinner>'
+	  });
+	  $http.post(ApiEndpoint.url + '/api_rebate_history?id='+ (Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+		  $ionicLoading.hide();
 	      if (data.state== 'success') {
-	    	  
+	    	  $scope.performance = data.performance;
 	    	  for (var i = 0; i < data.historyList.length; i++) {
 	    		  var obj = {};
 	    		  obj.acc_start_time = data.historyList[i].showfromDate;
@@ -311,29 +320,64 @@ angular.module('starter.controllers', ['ionic'])
 	    	  
 	    	  console.log($scope.account_show_date_list);
 	    	  var obj = $scope.account_show_date_list[$scope.account_show_date_list.length-1];
+	    	  $scope.acc_title = obj.title;
 	    	  $scope.acc_start_time = obj.acc_start_time;
 	    	  $scope.acc_end_time = obj.acc_end_time;
 	    	  $scope.acc_rebate = obj.acc_rebate;
 	    	  $scope.acc_money = obj.acc_money;
 	      }
 	});
-  };
+	};
   
-  $scope.closeAccount = function() {
-    $scope.modal_account.hide();
-    $scope.accountData = {};
-    $scope.account_show_date_list=[];
-  };
+
+	$scope.closeAccount = function() {
+		$scope.modal_account.hide();
+		$scope.accountData = {};
+		$scope.account_show_date_list = [];
+	};
+
+	$scope.slideAccountChanged = function(index) {
+		$scope.acc_select_index = index;
+		var obj = $scope.account_show_date_list[index];
+		$scope.acc_title = obj.title;
+		$scope.acc_start_time = obj.acc_start_time;
+		$scope.acc_end_time = obj.acc_end_time;
+		$scope.acc_rebate = obj.acc_rebate;
+		$scope.acc_money = obj.acc_money;
+		if (index == 11) {
+			$scope.acc_cansubmit = false;
+		} else {
+			if (obj.state == 'h')
+				$scope.acc_cansubmit = false;
+			else
+				$scope.acc_cansubmit = true;
+		}
+	}
+	
+	$scope.save_rebate = function(){
+		var obj = $scope.account_show_date_list[$scope.acc_select_index];
+		if(obj.acc_rebate==0){
+			$scope.showMsg("返利为0");
+			return;
+		}
+		if(obj.acc_money<$scope.performance){
+			$scope.showMsg("业绩未达标");
+			return;
+		}
+		var url = ApiEndpoint.url + '/api_rebate_history_save?id='+ (Userinfo.l.id?Userinfo.l.id:"")+"&time="+obj.acc_start_time+","+obj.acc_end_time;
+		//提示消息
+		$ionicLoading.show({
+			template: '<ion-spinner></ion-spinner>'
+		});
+		$http.post(url).success(function(data) {
+			  $ionicLoading.hide();
+		      if (data.state== 'success') {
+		    	  $scope.account_show_date_list[$scope.acc_select_index].state = "h";
+		      }
+		});
+	}
   
-  $scope.slideAccountChanged = function(index){
-	  var obj = $scope.account_show_date_list[index];
-	  console.log(obj);
-	  $scope.acc_start_time = obj.acc_start_time;
-	  $scope.acc_end_time = obj.acc_end_time;
-	  $scope.acc_rebate = obj.acc_rebate;
-	  $scope.acc_money = obj.acc_money;
-  }
- 
+  
   $scope.user = function() {
 	  $state.go('acount.user');
   };
