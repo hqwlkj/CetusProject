@@ -2,8 +2,8 @@
 angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
-  url: 'http://192.168.65.164:8080/Cetus',
-  pic_url:'http://192.168.65.164:8080/Cetus/pic'
+  url: 'http://192.168.65.148:8080/Cetus',
+  pic_url:'http://192.168.65.148:8080/Cetus/pic'
 })
 
 .constant('HelpData', {
@@ -240,8 +240,9 @@ angular.module('starter.controllers', ['ionic'])
   $scope.acc_end_time = "";
   $scope.acc_rebate = "";
   $scope.acc_money = "";
-  $scope.dates=[];
-  $scope.ion_slide_index= 0;
+  //默认显示最后一个月度的信息
+  $scope.ion_slide_index = 11;
+  
   $scope.account = function() {
     $scope.modal_account.show();
     //提示消息
@@ -252,9 +253,6 @@ angular.module('starter.controllers', ['ionic'])
 	      $ionicLoading.hide();
 	      if (data.state== 'success') {
 	    	  
-	    	  $scope.dates = data.showDateList;
-	    	  //默认显示最后一个月度的信息
-	    	  $scope.ion_slide_index = $scope.dates.length-1;
 	    	  for (var i = 0; i < data.historyList.length; i++) {
 	    		  var obj = {};
 	    		  obj.acc_start_time = data.historyList[i].showfromDate;
@@ -274,7 +272,7 @@ angular.module('starter.controllers', ['ionic'])
 	    		  obj.state = "d";
 	    		  $scope.account_date_list.push(obj);
 	    	  }
-	    	  if($scope.account_date_list.length>data.showDateList.length){
+	    	  if($scope.account_date_list.length > data.showDateList.length){
 	    		  for (var i = 0; i < data.showDateList.length; i++) {
 	    			  var obj = {};
 	    			  obj.title = data.showDateList[i];
@@ -308,6 +306,8 @@ angular.module('starter.controllers', ['ionic'])
 	    			  $scope.account_show_date_list.push(obj);
 	    		  }
 	    	  }
+	    	  
+	    	  console.log($scope.account_show_date_list);
 	    	  var obj = $scope.account_show_date_list[$scope.account_show_date_list.length-1];
 	    	  $scope.acc_start_time = obj.acc_start_time;
 	    	  $scope.acc_end_time = obj.acc_end_time;
@@ -316,13 +316,16 @@ angular.module('starter.controllers', ['ionic'])
 	      }
 	});
   };
+  
   $scope.closeAccount = function() {
     $scope.modal_account.hide();
     $scope.accountData = {};
+    $scope.account_show_date_list=[];
   };
   
   $scope.slideAccountChanged = function(index){
 	  var obj = $scope.account_show_date_list[index];
+	  console.log(obj);
 	  $scope.acc_start_time = obj.acc_start_time;
 	  $scope.acc_end_time = obj.acc_end_time;
 	  $scope.acc_rebate = obj.acc_rebate;
