@@ -603,6 +603,7 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.goRebateList =function(){
 		$scope.modal_rebate.show();
 		$scope.getOrderWdz();
+		$scope.getOrderYdz();
 		//$scope.load_rebate_data();
 	}
 	
@@ -678,6 +679,7 @@ angular.module('starter.controllers', ['ionic'])
 						  $scope.rebmsg = true;
 					  }
 					$scope.orderWdz = data.list;
+					$scope.rebate_month = data.obj.month;
 			    }else{
 					$scope.showMsg(data.msg);
 				}
@@ -702,7 +704,7 @@ angular.module('starter.controllers', ['ionic'])
 					if(data.list.length<1){
 						  $scope.rebmsg2 = true;
 					  }
-					$scope.rebate_money = data.sum;
+					$scope.rebate_money = data.sum.toFixed(2);
 					$scope.orderYdz = data.list;
 			    }else{
 					$scope.showMsg(data.msg);
@@ -738,7 +740,7 @@ angular.module('starter.controllers', ['ionic'])
 		}else{
 			$scope.rebate_month = year+"-"+month;
 		}
-		$scope.load_rebate_data();
+		$scope.getOrderWdz();
 	}
 	
 	//我的团队
