@@ -40,6 +40,14 @@ a{text-decoration: none;}
 .lg-btn{background:#ec3473;color:#ffffff; font-size: 0.75rem;width: 100%;height:45px;line-height:45px;display: inline-block;text-align: center;}
 .submit-order-btn{background:#ec3473;color:#ffffff; font-size: 0.75rem;width: 100%;height:45px;line-height:45px;display: inline-block;text-align: center;}
 .check-btn{background:#CCC;color:#ffffff;font-size: 1rem;width: 100%;height:45px;line-height:45px;display: inline-block;text-align: center;}
+.btn-normal{margin-top: 5px;
+    height: 35px;
+    line-height: 35px;
+    display: inline-block;
+    color: #ffffff;
+    font-size: 0.65rem;
+    padding-left: 10px;
+    padding-right: 10px;}
 .text-left{text-align: left}
 .text-right{text-align: right}
 .text-center{text-align: center}
