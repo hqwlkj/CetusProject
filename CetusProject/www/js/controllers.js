@@ -2,8 +2,8 @@
 angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
-  url: 'http://www.parsec.com.cn/Cetus',
-  pic_url:'http://www.parsec.com.cn/Cetus/qn_pic'
+  url: 'http://192.168.65.178:8080/Cetus',
+  pic_url:'http://192.168.65.178:8080/Cetus/qn_pic'
 })
 
 .constant('HelpData', {
@@ -640,7 +640,7 @@ angular.module('starter.controllers', ['ionic'])
 	//分出 未对账单 和已对账单-@zxy2015-10-21
 	$scope.orderWdz = [];
 	$scope.orderYdz = [];
-	$scope.isActive = 'a';
+	$scope.isActive = 'b';
 	$scope.changeTabs = function(evt) {
 	    var elem = evt.currentTarget;
 	    $scope.isActive = elem.getAttributeNode('data-active').value;
@@ -662,16 +662,10 @@ angular.module('starter.controllers', ['ionic'])
     
     //未对账单 
 	  $scope.getOrderWdz = function() {
-		  	var obj = {};
-			obj.parentid = (Userinfo.l.id?Userinfo.l.id:"");
-			obj.pageSize = 99999999;
-			obj.checkType = 0;
-			obj.isApp = 0;
-			obj.month = $scope.rebate_month;
 			$ionicLoading.show({
 				template: '<ion-spinner></ion-spinner>'
 			});
-			$http.post(ApiEndpoint.url + '/api_rebate_list',obj).success(function(data) {
+			$http.post(ApiEndpoint.url + '/api_rebate_list?isApp=0&parentId='+(Userinfo.l.id?Userinfo.l.id:"")+"&month="+$scope.rebate_month+"&pageSize=999999&checkType=0").success(function(data) {
 				$scope.rebmsg = false;//未读消息提示默认隐藏
 				 $ionicLoading.hide();
 				 if (data.state == 'success') {
@@ -683,21 +677,16 @@ angular.module('starter.controllers', ['ionic'])
 			    }else{
 					$scope.showMsg(data.msg);
 				}
+				 $scope.rebate_lock = false;
 			});
 	  };
 	  
 	  //已对账单 
 	  $scope.getOrderYdz = function() {
-		  	var obj = {};
-			obj.parentid = (Userinfo.l.id?Userinfo.l.id:"");
-			obj.pageSize = 99999999;
-			obj.checkType = 1;
-			obj.isApp = 0;
-			obj.month = $scope.rebate_month;
 			$ionicLoading.show({
 				template: '<ion-spinner></ion-spinner>'
 			});
-			$http.post(ApiEndpoint.url + '/api_rebate_list',obj).success(function(data) {
+			$http.post(ApiEndpoint.url + '/api_rebate_list?isApp=0&parentId='+(Userinfo.l.id?Userinfo.l.id:"")+"&month="+$scope.rebate_month+"&pageSize=999999&checkType=1").success(function(data) {
 				$scope.rebmsg2 = false;//未读消息提示默认隐藏
 				 $ionicLoading.hide();
 				 if (data.state == 'success') {
@@ -705,10 +694,12 @@ angular.module('starter.controllers', ['ionic'])
 						  $scope.rebmsg2 = true;
 					  }
 					$scope.rebate_money = data.sum.toFixed(2);
+					$scope.rebate_month = data.obj.month;
 					$scope.orderYdz = data.list;
 			    }else{
 					$scope.showMsg(data.msg);
 				}
+				 $scope.rebate_lock = false;
 			});
 	  };
 	  
@@ -741,6 +732,7 @@ angular.module('starter.controllers', ['ionic'])
 			$scope.rebate_month = year+"-"+month;
 		}
 		$scope.getOrderWdz();
+		$scope.getOrderYdz();
 	}
 	
 	//我的团队
