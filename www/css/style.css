@@ -45,6 +45,7 @@ a{text-decoration: none;}
     line-height: 35px;
     display: inline-block;
     color: #ffffff;
+    background-color:#9A9999;
     font-size: 0.65rem;
     padding-left: 10px;
     padding-right: 10px;}
@@ -314,7 +315,7 @@ overflow:hidden;/*溢出隐藏*/
 .productlst-p-price strike{color:#939394;font-size: 0.65rem;margin-left:10px;}
 .shop-name{height:45px; line-height:45px; background-color:#FFF; color:#676768; text-align:center; font-family:'幼圆'; font-size:0.875rem; font-weight:normal;}
 
-
+.tabs-striped .tab-item.tab-item-active, .tabs-striped .tab-item.active, .tabs-striped .tab-item.activated{ color:#e34649; font-weight: 700;}
 @keyframes blink{
 0%   {opacity: 0;}
 100% {opacity: 1;}
