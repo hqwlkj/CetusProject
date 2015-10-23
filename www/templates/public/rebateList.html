@@ -36,7 +36,7 @@
         <ul class="orderlst db ul-block bg-white a-gray">
 		   	 <li ng-repeat="r in orderWdz">
 					<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
-					<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;"><p ng-bind="r.orderMoney"></p><p>{{r.showcreateTime | formatStr}}</p></div>
+					<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;"><p ng-bind="r.money"></p><p>{{r.showcreateTime | formatStr}}</p></div>
 			</li>
 			<li class="margin-15 padding-10 clear" ng-show="rebmsg">
 		      <div style=" height: 25px; line-height: 25px;">
@@ -52,7 +52,7 @@
 	 	<ul class="orderlst db ul-block bg-white a-gray">
 		    <li ng-repeat="r in orderYdz">
 					<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
-					<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;"><p ng-bind="r.orderMoney"></p><p>{{r.showcreateTime | formatStr}}</p></div>
+					<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;"><p ng-bind="r.money"></p><p>{{r.showcreateTime | formatStr}}</p></div>
 			</li>
 		    <li class="margin-15 padding-10 clear" ng-show="rebmsg2">
 		      <div style=" height: 25px; line-height: 25px;">
