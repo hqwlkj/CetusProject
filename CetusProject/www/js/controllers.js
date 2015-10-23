@@ -768,6 +768,14 @@ angular.module('starter.controllers', ['ionic'])
 	}
 	//关闭我的团队页面
 	$scope.close_myteam = function(){
+		$scope.myteam_username = "";
+		$scope.myteam_moneyInThreeMonth = "";
+		$scope.myteam_rebate = "";
+		$scope.myteam_allscore = "";
+		$scope.myteam_mymoney = "";
+		$scope.myteam_myscore = "";
+		$scope.myteam_teammoney = "";
+		$scope.myteam_teamscore = "";
 		$scope.modal_myteam.hide();
 	}
 	
