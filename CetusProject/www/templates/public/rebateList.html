@@ -13,13 +13,13 @@
 
 <div class="tabs-striped" style="position: relative;margin-top: 38px;padding-top: 10px;clear: both;">
   <div class="tabs">
-   <a ng-class="{a: 'tab-item active', b: 'tab-item', c: 'tab-item'}[isActive]" data-active="a" ng-click="changeTabs($event)" style="font-size:16px;line-height:48px;margin:0 28px">未对账单</a>
-   <a ng-class="{a: 'tab-item', b: 'tab-item active', c: 'tab-item'}[isActive]" data-active="b" ng-click="changeTabs($event)" style="font-size:16px;line-height:48px;margin:0 28px">已对账单</a>
+   <a ng-class="{a: 'tab-item active', b: 'tab-item', c: 'tab-item'}[isActive]" data-active="a" ng-click="changeTabs($event)" style="font-size:16px;line-height:48px;">未对账单</a>
+   <a ng-class="{a: 'tab-item', b: 'tab-item active', c: 'tab-item'}[isActive]" data-active="b" ng-click="changeTabs($event)" style="font-size:16px;line-height:48px;">已对账单</a>
   </div>
  </div>
 <div ng-if="isActive == 'a'" class="rebate_list wrap-page swiper-container">
       <div class="list padding">
-        <ul class="orderlst db ul-block bg-white a-gray">
+        <ul class="orderlst db">
 		   	 <li ng-repeat="r in orderWdz">
 					<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
 					<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;"><p ng-bind="r.money"></p><p>{{r.showcreateTime | formatStr}}</p></div>
@@ -35,7 +35,7 @@
 </div>
 <div ng-if="isActive == 'b'" class="rebate_list wrap-page swiper-container">
 	 <div class="list padding">
-	 	<ul class="orderlst db ul-block bg-white a-gray">
+	 	<ul class="orderlst db">
 		    <li ng-repeat="r in orderYdz">
 					<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
 					<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;"><p ng-bind="r.money"></p><p>{{r.showcreateTime | formatStr}}</p></div>
