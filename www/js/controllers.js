@@ -2,8 +2,8 @@
 angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
-  url: 'http://192.168.65.178:8080/Cetus',
-  pic_url:'http://192.168.65.178:8080/Cetus/qn_pic'
+  url: 'http://www.parsec.com.cn/Cetus',
+  pic_url:'http://www.parsec.com.cn/Cetus/qn_pic'
 })
 
 .constant('HelpData', {
@@ -1200,12 +1200,12 @@ angular.module('starter.controllers', ['ionic'])
 	    $scope.modal_quan_detail.hide();
 	}
 	//加载详情
-	$scope.title = "";
-	$scope.detailTime =  "";
-	$scope.quanImg =  "";
-	$scope.isShowContent =  0;
-	$scope.detailContent =  "";
 	$scope.quanDetail = function(quanId) {
+		$scope.title = "";
+		$scope.detailTime =  "";
+		$scope.quanImg =  "";
+		$scope.isShowContent =  0;
+		$scope.detailContent =  "";
 		$ionicLoading.show({
 		    template: "<ion-spinner></ion-spinner>"
 		});
@@ -1224,7 +1224,8 @@ angular.module('starter.controllers', ['ionic'])
 	}
 	//保留原html中的  style样式
 	$scope.ReservedStytl = function(html) {
-		  return $sce.trustAsHtml(html);
+		var replaceStr = "width";
+		return $sce.trustAsHtml(html.replace(new RegExp(replaceStr,'gm'),''));
 	}
 })
 
