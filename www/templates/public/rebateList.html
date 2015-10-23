@@ -10,20 +10,7 @@
 	</li>
 	<li style="border-bottom: none; "><i class="icon-score-01"></i> <span id="score">返利金额：</span><span>{{rebate_money}}</span></li>
 </ul>
-<!-- <ion-refresher pulling-text="下拉刷新" on-refresh="load_rebate_data()"></ion-refresher> -->
-<!-- <ul class="ul-block bg-white a-gray">
-	<li ng-repeat="r in rebate_list">
-		<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
-		<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;">
-			<p>{{r.money.toFixed(2)}}</p>
-			<p>{{r.showcreateTime}}</p>
-		</div>
-	</li>
-</ul> -->
-
-
-<ul class="ul-block bg-white a-gray">
-<div class="tabs-striped" style="margin-top: 30px;padding-top: 10px;">
+<div  style="margin-top: 30px;padding-top: 10px;">
   <div class="tabs">
    <a ng-class="{a: 'tab-item active', b: 'tab-item', c: 'tab-item'}[isActive]" data-active="a" ng-click="changeTabs($event)" style="font-size:16px;line-height:48px;margin:0 28px">未对账单</a>
    <a ng-class="{a: 'tab-item', b: 'tab-item active', c: 'tab-item'}[isActive]" data-active="b" ng-click="changeTabs($event)" style="font-size:16px;line-height:48px;margin:0 28px">已对账单</a>
@@ -61,7 +48,6 @@
 	 	
     </div>
 </div>
-</ul> 
 
 
 
