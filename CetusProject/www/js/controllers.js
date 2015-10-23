@@ -602,8 +602,8 @@ angular.module('starter.controllers', ['ionic'])
 	
 	$scope.goRebateList =function(){
 		$scope.modal_rebate.show();
-		$scope.getOrderWdz();
 		$scope.getOrderYdz();
+		$scope.getOrderWdz();
 		//$scope.load_rebate_data();
 	}
 	
