@@ -19,16 +19,16 @@
  </div>
 <div ng-if="isActive == 'a'" class="rebate_list wrap-page swiper-container">
       <div class="list padding">
-        <ul class="orderlst db">
+        <ul class="ul-block orderlst db">
         	  <li ng-show="!rebmsg">
 				<div class="col-6 text-left" style="width:65%;">合计:</div>
-				<div class="col-6 text-right line-height-1" style="width:35%;"><p ng-bind="rebate_totalw" style="color: red;"></p></div>
+				<div class="col-6 text-right" style="width:35%;"><p ng-bind="rebate_totalw" style="color: red;"></p></div>
 			 </li>
 		   	 <li ng-repeat="r in orderWdz">
 					<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
 					<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;"><p ng-bind="r.money" style="color: red;"></p><p>{{r.showcreateTime | formatStr}}</p></div>
 			</li>
-			<li class="margin-15 padding-10 clear" ng-show="rebmsg">
+			<li class="margin-15 padding-10 clear" ng-show="rebmsg" style="border-bottom:0">
 		      <div style=" height: 25px; line-height: 25px;">
 		        <p  style="text-align: center;color: #999;">暂无数据</p>
 		      </div>
@@ -39,16 +39,16 @@
 </div>
 <div ng-if="isActive == 'b'" class="rebate_list wrap-page swiper-container">
 	 <div class="list padding">
-	 	<ul class="orderlst db">
+	 	<ul class="ul-block orderlst db">
 	 		 <li ng-show="!rebmsg2">
 				<div class="col-6 text-left" style="width:65%;">合计:</div>
-				<div class="col-6 text-right line-height-1" style="width:35%;"><p ng-bind="rebate_totaly" style="color: red;"></p></div>
+				<div class="col-6 text-right" style="width:35%;"><p ng-bind="rebate_totaly" style="color: red;"></p></div>
 			 </li>
 		    <li ng-repeat="r in orderYdz">
 					<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
 					<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;"><p ng-bind="r.money" style="color: red;"></p><p>{{r.showcreateTime | formatStr}}</p></div>
 			</li>
-		    <li class="margin-15 padding-10 clear" ng-show="rebmsg2">
+		    <li class="margin-15 padding-10 clear" ng-show="rebmsg2" style="border-bottom:0">
 		      <div style=" height: 25px; line-height: 25px;">
 		        <p  style="text-align: center;color: #999;">暂无数据</p>
 		      </div>
