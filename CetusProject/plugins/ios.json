@@ -13,10 +13,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"JPushPlugin\"><param name=\"ios-package\" value=\"JPushPlugin\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
                         },
@@ -139,6 +135,10 @@
                         {
                             "xml": "<preference name=\"WECHATAPPID\" value=\"wx3b5cd38874296f89\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"JPushPlugin\"><param name=\"ios-package\" value=\"JPushPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -165,22 +165,22 @@
                     ],
                     "SystemConfiguration.framework": [
                         {
-                            "xml": true,
-                            "count": 1
-                        },
-                        {
                             "xml": false,
                             "count": 3
+                        },
+                        {
+                            "xml": true,
+                            "count": 1
                         }
                     ],
                     "CoreGraphics.framework": [
                         {
-                            "xml": true,
-                            "count": 1
-                        },
-                        {
                             "xml": false,
                             "count": 4
+                        },
+                        {
+                            "xml": true,
+                            "count": 1
                         }
                     ],
                     "Foundation.framework": [
@@ -197,21 +197,21 @@
                     ],
                     "Security.framework": [
                         {
-                            "xml": true,
-                            "count": 1
-                        },
-                        {
                             "xml": false,
                             "count": 3
+                        },
+                        {
+                            "xml": true,
+                            "count": 1
                         }
                     ],
                     "libz.dylib": [
                         {
-                            "xml": true,
+                            "xml": false,
                             "count": 1
                         },
                         {
-                            "xml": false,
+                            "xml": true,
                             "count": 1
                         }
                     ],
@@ -299,9 +299,6 @@
         "am.armsoft.plugins.listpicker": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
-        "cn.jpush.phonegap.JPushPlugin": {
-            "PACKAGE_NAME": "com.parsec.cetusproject"
-        },
         "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         },
@@ -353,6 +350,9 @@
         },
         "xu.li.cordova.wechat": {
             "WECHATAPPID": "wx3b5cd38874296f89",
+            "PACKAGE_NAME": "com.parsec.cetusproject"
+        },
+        "cn.jpush.phonegap.JPushPlugin": {
             "PACKAGE_NAME": "com.parsec.cetusproject"
         }
     },
