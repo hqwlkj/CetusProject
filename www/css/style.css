@@ -668,3 +668,5 @@ overflow:hidden;/*溢出隐藏*/
 .recruitment_body ul li.current{ border-top:2px solid #EC3473; color:#EC3473;}
 .recruitment_body ul li.current a{color:#EC3473;}
 .rebate_content{display:none;}
+.ul-block{padding-left:15px; background:#ffffff;margin-bottom: 10px;}
+.ul-block li{height:50px;line-height:50px;border-bottom:1px solid #999999;  margin-right:15px;}
