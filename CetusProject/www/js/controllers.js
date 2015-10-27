@@ -2,7 +2,8 @@
 angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
-  url: 'http://www.parsec.com.cn/Cetus',
+ // url: 'http://www.parsec.com.cn/Cetus',
+  url: 'http://192.168.65.178:8080/Cetus',
   pic_url:'http://www.parsec.com.cn/Cetus/qn_pic'
 })
 
@@ -614,6 +615,8 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.rebate_list = [];
 	$scope.rebate_month = "";
 	$scope.rebate_money = 0;
+	$scope.rebate_totalw = 0;
+	$scope.rebate_totaly = 0;
 	$scope.rebate_lock = false;
 	//加载返利列表数据
 //	$scope.load_rebate_data = function(){
@@ -670,8 +673,12 @@ angular.module('starter.controllers', ['ionic'])
 				 $ionicLoading.hide();
 				 if (data.state == 'success') {
 					if(data.list.length<1){
-						  $scope.rebmsg = true;
-					  }
+						$scope.rebmsg = true;
+					}
+					$scope.rebate_totalw=0;
+					for (var i = 0; i < data.list.length; i++) {
+						$scope.rebate_totalw += data.list[i].money;
+					}
 					$scope.orderWdz = data.list;
 					$scope.rebate_month = data.obj.month;
 			    }else{
@@ -691,9 +698,14 @@ angular.module('starter.controllers', ['ionic'])
 				 $ionicLoading.hide();
 				 if (data.state == 'success') {
 					if(data.list.length<1){
-						  $scope.rebmsg2 = true;
-					  }
-					$scope.rebate_money = data.sum.toFixed(2);
+						$scope.rebmsg2 = true;
+					}
+					$scope.rebate_totaly=0;
+					for (var i = 0; i < data.list.length; i++) {
+						$scope.rebate_totaly += data.list[i].money;
+					}
+					//$scope.rebate_money = data.sum.toFixed(2);
+					$scope.rebate_money = data.sumRebate.toFixed(2);
 					$scope.rebate_month = data.obj.month;
 					$scope.orderYdz = data.list;
 			    }else{
