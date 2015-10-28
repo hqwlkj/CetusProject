@@ -451,6 +451,7 @@ angular.module('starter.controllers', ['ionic'])
 	$ionicModal.fromTemplateUrl('templates/user/userinfo.html', {scope: $scope}).then(function(modal) {
 		$scope.modal_user_info = modal;
 	    $scope.userInfoData = {};
+	    $scope.show_myInvitationCode = 0;
 	});
   	//关闭会员信息页面
 	$scope.closeUserInfo = function() {
