@@ -336,7 +336,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })
   
   .state('app.product', {//美O圈
-	  url: '/product',
+	  url: '/product/{ptId:[0-9]{1,4}}',
 	  views: {
 		  'tab-product': {
 			  templateUrl: 'templates/tab-product.html',
