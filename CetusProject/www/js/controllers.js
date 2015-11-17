@@ -60,10 +60,16 @@ angular.module('starter.controllers', ['ionic'])
   $scope.goods_load_over = true;
   $scope.banner = [];
   $scope.products = [];
+  $scope.productTypes = [];
   $scope.InvitationName = '';
   $scope.discount = 1;
   $scope.isAcc= false;
   $scope.app_version = Userinfo.l.version;
+  $scope.addMenuItemClass="";//分类菜单的隐藏和显示样式控制
+  $scope.serchText="全部";//分类菜单的隐藏和显示样式控制
+  $scope.item_1=false;//分类菜单的隐藏和显示样式控制
+  $scope.item_2=false;//分类菜单的隐藏和显示样式控制
+  $scope.item_3=false;//分类菜单的隐藏和显示样式控制
   //定时刷新头像
   setInterval(function(){
 	  $scope.flag = Userinfo.l.flag ? Userinfo.l.flag : "";
@@ -114,6 +120,11 @@ angular.module('starter.controllers', ['ionic'])
           //$scope.$broadcast("scroll.infiniteScrollComplete");
         }
       });
+      $http.post(ApiEndpoint.url + '/api_producttype_list').success(function(data) {
+          if (data.state == 'success') {
+          	$scope.productTypes = data.list;
+          }
+        });
     }, 200);
   };
 
@@ -143,6 +154,67 @@ angular.module('starter.controllers', ['ionic'])
 	  }
 	  $state.go('message.msgall');
   };
+  
+  $scope.goProduct = function(val){
+	  $state.go('app.product',{ptId:val});
+  }
+  
+  //控制商品分类的分类菜单
+  $scope.showMenus = function(){
+	  if($scope.addMenuItemClass == "grade-w-roll"){
+		  $scope.addMenuItemClass = "";
+	  }else{
+		  $scope.addMenuItemClass = "grade-w-roll";
+	  }
+  }
+
+  $scope.submenuShow = function(evt){
+	  var elem = evt.currentTarget;
+	  $scope.isActive = elem.getAttributeNode('data-active').value;
+	  $scope.serchText = elem.getAttributeNode('data-text').value;
+	  if($scope.isActive == "all"){
+		  $scope.item_1=false; 
+		  $scope.item_2=false; 
+		  $scope.item_3=false; 
+		  $scope.addMenuItemClass = "";
+		  $ionicLoading.show({
+			     template: '<ion-spinner></ion-spinner>'
+			});
+		  $http.post(ApiEndpoint.url + '/api_product_list?pcid=0').success(function(data) {
+			  if (data.state == 'success') {
+				  $scope.products = data.lst;
+				  $ionicLoading.hide();
+			  }
+		  })
+	  }else if($scope.isActive == "1" || $scope.isActive == 1){
+		  $scope.item_1=true; 
+		  $scope.item_2=false; 
+		  $scope.item_3=false; 
+	  }else if($scope.isActive == "2" || $scope.isActive == 2){
+		  $scope.item_2=true;
+		  $scope.item_1=false; 
+		  $scope.item_3=false; 
+	  }else if($scope.isActive == "3" || $scope.isActive == 3){
+		  $scope.item_3=true;
+		  $scope.item_2=false; 
+		  $scope.item_1=false; 
+	  }else{
+		  $scope.addMenuItemClass = "";
+		  $ionicLoading.show({
+			     template: '<ion-spinner></ion-spinner>'
+			});
+		  $http.post(ApiEndpoint.url + '/api_product_list?pcid='+$scope.isActive).success(function(data) {
+			  if (data.state == 'success') {
+				  $scope.products = data.lst;
+				  $ionicLoading.hide();
+			  }
+		  })
+	  }
+  }
+  
+  
+  
+  
   //到客服列表
   $scope.goQuestion = function(){
 	  if(!Userinfo.l.id){
@@ -826,11 +898,7 @@ angular.module('starter.controllers', ['ionic'])
 		$ionicLoading.show({
 		    template: "<ion-spinner></ion-spinner>"
 		});
-//		var share = {};
-//		share.userId = (Userinfo.l.id?Userinfo.l.id:"");
-//		share.activityId = acId;
-//		share.type = 1;
-//		share.shareSns = "";
+
 		$http.post(ApiEndpoint.url + '/api_app_signandshare_save?type=1&userId='+(Userinfo.l.id?Userinfo.l.id:"")+'&activityId='+acId+'&shareSns=').success(function(data) {
 			$ionicLoading.hide();
 			var title = data.title;
