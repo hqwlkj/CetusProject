@@ -1238,7 +1238,7 @@ angular.module('starter.controllers', ['ionic'])
 
 
 //美O圈Controller
-.controller('QuanCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state,$sce){
+.controller('QuanCtrl',function($scope, $ionicPopover, $sce,$timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state,$sce){
 	$scope.titleState=1;//标题的显示状态
 	$scope.quans = [];  //美O圈数据
 	$ionicLoading.show({
@@ -1293,6 +1293,7 @@ angular.module('starter.controllers', ['ionic'])
 		$scope.detailTime =  "";
 		$scope.quanImg =  "";
 		$scope.isShowContent =  0;
+		$scope.myVideoUrl =  "";
 		$scope.detailContent =  "";
 		$ionicLoading.show({
 		    template: "<ion-spinner></ion-spinner>"
@@ -1305,7 +1306,23 @@ angular.module('starter.controllers', ['ionic'])
 				$scope.title = data.european.title;
 				$scope.detailTime = data.european.showCreateTime;
 				$scope.quanImg = ApiEndpoint.pic_url+"/"+data.european.imgUrl;
-				$scope.detailContent = $scope.ReservedStytl(data.european.content);
+				//处理美o圈视频播放
+				var myString= data.european.content;
+				console.log(myString);
+				if(myString.indexOf("iframe") > 0){
+					var strstart=myString.indexOf("<iframe")-1;
+					var strend=myString.indexOf("</iframe>")-2;
+					var ss = myString.substr(strstart, strend);
+					var str = ss.split(" ");
+					var url = str[1].replace('src="//',"");
+					console.log(url);
+					$scope.myVideoUrl = $sce.trustAsResourceUrl("http://"+url.substr(0,url.length-1));
+					console.log($scope.myVideoUrl);
+					$scope.detailContent = $scope.ReservedStytl(myString.replace(myString.substr(strstart,strend),""));
+					console.log($scope.detailContent);
+				}else{
+					$scope.detailContent = $scope.ReservedStytl(data.european.content);
+				}
 			}
 			$ionicLoading.hide();
 		});
@@ -1382,7 +1399,7 @@ angular.module('starter.controllers', ['ionic'])
 	    }, 1400);
 	 }
 })
-.controller('ProductCtrl',function($scope, $http, $ionicModal, $state,$timeout,$stateParams,$ionicPopup,$ionicLoading,$ionicActionSheet,Userinfo,ApiEndpoint,$ionicPopover){
+.controller('ProductCtrl',function($scope, $http, $sce, $ionicModal, $state,$timeout,$stateParams,$ionicPopup,$ionicLoading,$ionicActionSheet,Userinfo,ApiEndpoint,$ionicPopover){
 	$scope.picfiles = [];
 	$scope.comments = [];
 	$scope.ago = "";
@@ -1396,6 +1413,9 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.addCartBut = "加入购物车";
 	$scope._width="200px";
 	//var _img = "www/img/logo_28.png";
+	$scope.myVideoUrl ="";
+	$scope.productDetails ="";
+	
 	$ionicLoading.show({
 	     template: '<ion-spinner></ion-spinner>'
 	});
@@ -1406,6 +1426,22 @@ angular.module('starter.controllers', ['ionic'])
 				$scope.ago = "【";
 				$scope.after = "】";
 				$scope.product = data;
+				
+				
+				var myString=data.details;
+				if(myString.indexOf("iframe") > 0){
+					var strstart=myString.indexOf("iframe")-1;
+					var strend=myString.indexOf("</iframe>")-2;
+					var ss = data.details.substr(strstart, strend);
+					
+					var str = ss.split(" ");
+					var url = str[1].replace('src="//',"");
+					$scope.myVideoUrl = $sce.trustAsResourceUrl("http://"+url.substr(0,url.length-1)); //URL 为全链接（$sce.trustAsResourceUrl("http://" + url)）
+					$scope.productDetails = myString.replace(myString.substr(0, strend+22),"");
+				}else{
+					$scope.productDetails = data.details;
+				}
+				
 				//处理优惠券
 				if(data.ptId == 3){
 					$scope.addCartBut = "立即购买";
@@ -1442,6 +1478,9 @@ angular.module('starter.controllers', ['ionic'])
 	        }
 	    });
 	}, 200)
+	
+	
+	
 	//客服
 	$scope.kf = function() {
 		if(!Userinfo.l.id){
