@@ -31,7 +31,8 @@
 	    <p class='product-centent-title'>产品参数：</p>
 	    <p ng-bind-html ='product.parameter'></p>
 	    <p class='product-centent-title'>产品详情：</p>
-	    <iframe ng-if='myVideoUrl != ""' ng-src="{{myVideoUrl}}" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" width="100%" frameborder="0" height="100%"></iframe>
+		<!-- <video src="http://pl.youku.com/playlist/m3u8?vid=XOTY0MzgwODgw" style=" margin: 0 auto; width: 100%; height: 150px;" controls="controls" autoplay webkit-playsinline></video> -->
+	    <iframe ng-if='myVideoUrl != ""' ng-src="{{myVideoUrl}}" webkit-playsinline＝""  webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" width="100%" frameborder="0" height="150"></iframe>
 	    <p ng-bind-html ='productDetails'></p>
 	    <p class='product-centent-title'>导购观点：</p>
 	    <p ng-bind-html ='product.remark'></p>

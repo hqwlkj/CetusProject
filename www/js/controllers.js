@@ -1302,27 +1302,40 @@ angular.module('starter.controllers', ['ionic'])
 		$http.post(ApiEndpoint.url + '/api_europeanpowder_detail?euroId='+quanId).success(function(data) {
 			if (data.state == 'success') {
 				$scope.isShowContent =  data.european.isShowContent;
-				console.log($scope.isShowConten);
 				$scope.title = data.european.title;
 				$scope.detailTime = data.european.showCreateTime;
 				$scope.quanImg = ApiEndpoint.pic_url+"/"+data.european.imgUrl;
 				//处理美o圈视频播放
 				var myString= data.european.content;
-				console.log(myString);
-				if(myString.indexOf("iframe") > 0){
-					var strstart=myString.indexOf("<iframe")-1;
-					var strend=myString.indexOf("</iframe>")-2;
-					var ss = myString.substr(strstart, strend);
+				console.log("myString==>>"+myString);
+				if(myString.indexOf("iframe") >= 0){
+					var strstart=myString.indexOf("<iframe");
+					var suffix = "</iframe>";
+					var strend=myString.indexOf(suffix) + suffix.length;
+					var ss = myString.substring(strstart <= 0 ? 0 :strstart, strend);
 					var str = ss.split(" ");
-					var url = str[1].replace('src="//',"");
-					console.log(url);
-					$scope.myVideoUrl = $sce.trustAsResourceUrl("http://"+url.substr(0,url.length-1));
-					console.log($scope.myVideoUrl);
-					$scope.detailContent = $scope.ReservedStytl(myString.replace(myString.substr(strstart,strend),""));
-					console.log($scope.detailContent);
+					var url = "";
+					for (var i = 0; i < str.length; i++) {
+						var strs = str[i];
+						if(strs.indexOf("src=") >= 0){
+							url = str[i].replace('src="//',"");
+							break;
+						}
+					}
+					
+					if(url.indexOf("http") < 0){
+						$scope.myVideoUrl = $sce.trustAsResourceUrl("http://"+url.substr(0,url.length-1));
+					}else{
+						$scope.myVideoUrl = $sce.trustAsResourceUrl(url.substr(5,url.length-1));
+					}
+					
+					var detailcontent = myString.replace(ss," ");
+					$scope.detailContent = $scope.ReservedStytl(detailcontent.replace(/<p><br><\/p>/ig,""));//使用正则表达式去掉不需要的标签信息
 				}else{
 					$scope.detailContent = $scope.ReservedStytl(data.european.content);
 				}
+				
+				
 			}
 			$ionicLoading.hide();
 		});
@@ -1429,15 +1442,31 @@ angular.module('starter.controllers', ['ionic'])
 				
 				
 				var myString=data.details;
-				if(myString.indexOf("iframe") > 0){
-					var strstart=myString.indexOf("iframe")-1;
-					var strend=myString.indexOf("</iframe>")-2;
-					var ss = data.details.substr(strstart, strend);
-					
+				//$scope.productDetails = $sce.trustAsHtml(myString);
+				//console.log(myString.indexOf("iframe") );
+				if(myString.indexOf("iframe") >= 0){
+					var strstart=myString.indexOf("<iframe");
+					var suffix = "</iframe>";
+					var strend=myString.indexOf(suffix) + suffix.length;
+					var ss = myString.substr(strstart <= 0 ? 0 :strstart, strend);
 					var str = ss.split(" ");
-					var url = str[1].replace('src="//',"");
-					$scope.myVideoUrl = $sce.trustAsResourceUrl("http://"+url.substr(0,url.length-1)); //URL 为全链接（$sce.trustAsResourceUrl("http://" + url)）
-					$scope.productDetails = myString.replace(myString.substr(0, strend+22),"");
+					var url = "";
+					for (var i = 0; i < str.length; i++) {
+						var strs = str[i];
+						if(strs.indexOf("src=") >= 0){
+							url = str[i].replace('src="//',"");
+							break;
+						}
+					}
+					if(url.indexOf("http") < 0){
+						$scope.myVideoUrl = $sce.trustAsResourceUrl("http://"+url.substr(0,url.length-1));
+					}else{
+						$scope.myVideoUrl = $sce.trustAsResourceUrl(url.substr(5,url.length-1));
+					}
+						
+					console.log("myVideoUrl==>>"+$scope.myVideoUrl);
+					var productdetails = myString.replace(ss,"");
+					$scope.productDetails = productdetails.replace(/<p><br><\/p>/ig,"");//使用正则表达式去掉不需要的标签信息
 				}else{
 					$scope.productDetails = data.details;
 				}
