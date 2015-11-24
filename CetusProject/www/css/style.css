@@ -675,14 +675,28 @@ overflow:hidden;/*溢出隐藏*/
 
 /*产品列表的筛选菜单*/
 /* screening */
-div.screening{
-    width: 100%;
-    overflow: hidden;
-    background: #fff;
-    position: fixed;
-    top:2rem;
-    z-index: 4;
+@media screen and (max-device-width: 600px) {
+	div.screening{
+	    width: 100%;
+	    overflow: hidden;
+	    background: #fff;
+	    position: fixed;
+	    top:2.6rem;
+	    z-index: 4;
+	}
 }
+
+@media screen and (max-device-width: 350px) {
+	div.screening{
+	    width: 100%;
+	    overflow: hidden;
+	    background: #fff;
+	    position: fixed;
+	    top:3.2rem;
+	    z-index: 4;
+	}
+}
+
 div.screening>ul{
     margin: 0;
     padding: 0;
@@ -693,7 +707,7 @@ div.screening>ul{
 div.screening>ul>li{
     float: left;
     width: 33%;
-    text-align: center;
+    text-align: left;
     padding-left:15px;
     line-height: 2rem;
     border-right: solid 1px #d3d3d3;
@@ -751,9 +765,18 @@ div.screening>ul>li{
     margin-left: 1rem;
     padding: 0;
 }
-.grade-w-roll{
-top: 4rem;
+
+@media screen and (max-device-width: 600px) {
+	.grade-w-roll{
+		top: 4.6rem;
+	}	
 }
+@media screen and (max-device-width: 350px) {
+	.grade-w-roll{
+		top: 5.2rem;
+	}	
+}
+
 .grade-w-roll::after{
     position: fixed;
     content: "";
