@@ -137,7 +137,7 @@ angular.module('starter.controllers', ['ionic'])
 	}
 
   $scope.clickDetail = function(id) {//产品详情
-	  $state.go('product.detail',{productId: id});
+	  $state.go('product.detail',{productId: id},{reload:true});
   };
   $scope.goAddress = function() {//收货地址
 	  if(!Userinfo.l.id){
@@ -1275,78 +1275,105 @@ angular.module('starter.controllers', ['ionic'])
 			  $scope.login();
 			  return;
 		  }
-		  $scope.modal_quan_detail.hide();//关闭打开的视图 
+		  //$scope.modal_quan_detail.hide();//关闭打开的视图 
 		  $state.go("public.myCart",{ran:Math.random()*1000});//跳转到需要的视图
-		}
-	
-	//打开某个美O圈数据详情
-	$ionicModal.fromTemplateUrl('templates/quan-detail.html', {scope: $scope}).then(function(modal) {
-		$scope.modal_quan_detail = modal;
-	});
-  	//关闭活动列表页面
-	$scope.closeQuanDetail = function() {
-	    $scope.modal_quan_detail.hide();
 	}
 	//加载详情
-	$scope.quanDetail = function(quanId) {
-		$scope.title = "";
-		$scope.detailTime =  "";
-		$scope.quanImg =  "";
-		$scope.isShowContent =  0;
-		$scope.myVideoUrl =  "";
-		$scope.detailContent =  "";
-		$ionicLoading.show({
-		    template: "<ion-spinner></ion-spinner>"
+	$scope.quanDetail = function(id) {
+		$state.go("quan.detail",{quanId:id},{reload:true});//跳转到需要的视图
+	}
+})
+
+.controller('QuandCtrl',function($scope, $ionicModal, $state, $ionicHistory, $ionicPopover, $timeout,$stateParams){
+	$scope.param = {};
+	//提示信息
+	$scope.showMsg = function(txt) {
+		var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
+		$scope.popover = $ionicPopover.fromTemplate(template, {
+			scope: $scope
 		});
-		$scope.modal_quan_detail.show();
-		$http.post(ApiEndpoint.url + '/api_europeanpowder_detail?euroId='+quanId).success(function(data) {
-			if (data.state == 'success') {
-				$scope.isShowContent =  data.european.isShowContent;
-				$scope.title = data.european.title;
-				$scope.detailTime = data.european.showCreateTime;
-				$scope.quanImg = ApiEndpoint.pic_url+"/"+data.european.imgUrl;
-				//处理美o圈视频播放
-				var myString= data.european.content;
-				console.log("myString==>>"+myString);
-				if(myString.indexOf("iframe") >= 0){
-					var strstart=myString.indexOf("<iframe");
-					var suffix = "</iframe>";
-					var strend=myString.indexOf(suffix) + suffix.length;
-					var ss = myString.substring(strstart <= 0 ? 0 :strstart, strend);
-					var str = ss.split(" ");
-					var url = "";
-					for (var i = 0; i < str.length; i++) {
-						var strs = str[i];
-						if(strs.indexOf("src=") >= 0){
-							url = str[i].replace('src="//',"");
-							break;
-						}
+		$scope.popover.show();
+		$timeout(function() {
+			$scope.popover.hide();
+		}, 1400);
+	}
+})
+
+
+
+.controller('QuanDetailCtrl',function($scope, $http, $sce, $ionicModal, $state,$timeout,$stateParams,$ionicPopup,$ionicLoading,$ionicActionSheet,Userinfo,ApiEndpoint,$ionicPopover){
+	$scope.title = "";
+	$scope.detailTime =  "";
+	$scope.quanImg =  "";
+	$scope.isShowContent =  0;
+	$scope.myVideoUrl =  "";
+	$scope.detailContent =  "";
+	$ionicLoading.show({
+	    template: "<ion-spinner></ion-spinner>"
+	});
+	$http.post(ApiEndpoint.url + '/api_europeanpowder_detail?euroId='+$stateParams.quanId).success(function(data) {
+		if (data.state == 'success') {
+			$scope.isShowContent =  data.european.isShowContent;
+			$scope.title = data.european.title;
+			$scope.detailTime = data.european.showCreateTime;
+			$scope.quanImg = ApiEndpoint.pic_url+"/"+data.european.imgUrl;
+			//处理美o圈视频播放
+			var myString= data.european.content;
+			console.log("myString==>>"+myString);
+			if(myString.indexOf("iframe") >= 0){
+				var strstart=myString.indexOf("<iframe");
+				var suffix = "</iframe>";
+				var strend=myString.indexOf(suffix) + suffix.length;
+				var ss = myString.substring(strstart <= 0 ? 0 :strstart, strend);
+				var str = ss.split(" ");
+				var url = "";
+				for (var i = 0; i < str.length; i++) {
+					var strs = str[i];
+					if(strs.indexOf("src=") >= 0){
+						url = str[i].replace('src="//',"");
+						break;
 					}
-					
-					if(url.indexOf("http") < 0){
-						$scope.myVideoUrl = $sce.trustAsResourceUrl("http://"+url.substr(0,url.length-1));
-					}else{
-						$scope.myVideoUrl = $sce.trustAsResourceUrl(url.substr(5,url.length-1));
-					}
-					
-					var detailcontent = myString.replace(ss," ");
-					$scope.detailContent = $scope.ReservedStytl(detailcontent.replace(/<p><br><\/p>/ig,""));//使用正则表达式去掉不需要的标签信息
-				}else{
-					$scope.detailContent = $scope.ReservedStytl(data.european.content);
 				}
 				
+				if(url.indexOf("http") < 0){
+					$scope.myVideoUrl = $sce.trustAsResourceUrl("http://"+url.substr(0,url.length-1));
+				}else{
+					$scope.myVideoUrl = $sce.trustAsResourceUrl(url.substr(5,url.length-1));
+				}
 				
+				var detailcontent = myString.replace(ss," ");
+				$scope.detailContent = $scope.ReservedStytl(detailcontent.replace(/<p><br><\/p>/ig,""));//使用正则表达式去掉不需要的标签信息
+			}else{
+				$scope.detailContent = $scope.ReservedStytl(data.european.content);
 			}
-			$ionicLoading.hide();
-		});
-	}
+		}
+		$ionicLoading.hide();
+	});
+	
 	//保留原html中的  style样式
 	$scope.ReservedStytl = function(html) {
 		var replaceStr = "width";
 		return $sce.trustAsHtml(html.replace(new RegExp(replaceStr,'gm'),''));
 	}
+	
+	$scope.closeQuanDetail = function() {
+	    $state.go('app.quan');
+	    return false;
+	}
+	
+	//提示信息
+	$scope.showMsg = function(txt) {
+    var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
+    $scope.popover = $ionicPopover.fromTemplate(template, {
+      scope: $scope
+    });
+    $scope.popover.show();
+    $timeout(function() {
+      $scope.popover.hide();
+    }, 1400);
+  };
+  
 })
-
 .controller('Public', function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state) {
   $scope.showMsg = function(txt) {
     var template = '<ion-popover-view style = "background-color:#ec3473 !important" class = "light padding" > ' + txt + ' </ion-popover-view>';
@@ -1395,10 +1422,11 @@ angular.module('starter.controllers', ['ionic'])
 .controller('Product',function($scope, $ionicModal, $state, $ionicHistory, $ionicPopover, $timeout,$stateParams){
 	$scope.param = {};
 	//后退
-	$scope.backGoPro = function() {
+	/*$scope.backGoPro = function() {
 	    //$ionicHistory.goBack();
 	    $state.go('app.index');
-	}
+	    return false;
+	}*/
 	
 	//提示信息
 	$scope.showMsg = function(txt) {
@@ -1443,7 +1471,6 @@ angular.module('starter.controllers', ['ionic'])
 				
 				var myString=data.details;
 				//$scope.productDetails = $sce.trustAsHtml(myString);
-				//console.log(myString.indexOf("iframe") );
 				if(myString.indexOf("iframe") >= 0){
 					var strstart=myString.indexOf("<iframe");
 					var suffix = "</iframe>";
@@ -1508,7 +1535,11 @@ angular.module('starter.controllers', ['ionic'])
 	    });
 	}, 200)
 	
-	
+	$scope.backGoPro = function() {
+	    //$ionicHistory.goBack();
+	    $state.go('app.index',{reload:true});
+	    return false;
+	}
 	
 	//客服
 	$scope.kf = function() {
