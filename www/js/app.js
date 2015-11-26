@@ -28,7 +28,6 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     whetherChange();
     //检查用户是否开启接收推送信息
     function whetherChange(){
-    	//console.log(Userinfo.l.enableFriends+"=========================");
     	//判断缓存中是否存在开启推送的标识
     	if(Userinfo.l.enableFriends === undefined){
     		Userinfo.add('enableFriends', true);//默认为真
@@ -39,7 +38,6 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 			jpushService.setTagsWithAlias(tags,alias);
     	}else{
     		if(Userinfo.l.enableFriends=="true"){
-    			//console.log(Userinfo.l.enableFriends+"=========================重启推送");
     			var tags=[];
     			tags.push(Userinfo.l.userType ? Userinfo.l.userType :"");
     			var alias =Userinfo.l.id ? Userinfo.l.id : "";
@@ -47,7 +45,6 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     			jpushService.setTagsWithAlias(tags,alias);
     			jpushService.resumePush();//重启推送
     		}else{
-    			//console.log(Userinfo.l.enableFriends+"=========================停止推送");
     			var tags=[];
     			var alias="";
     			jpushService.setTagsWithAlias(tags,alias);//清空   tag 和 别名
@@ -327,6 +324,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 
   .state('app.index', {
     url: '/index',
+    cache:'false', 
     views: {
       'tab-index': {
         templateUrl: 'templates/tab-index.html',
@@ -335,7 +333,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
     }
   })
   
-  .state('app.product', {//美O圈
+  .state('app.product', {//产品列表
 	  url: '/product/{ptId:[0-9]{1,4}}',
 	  views: {
 		  'tab-product': {
@@ -346,12 +344,30 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })
   .state('app.quan', {//美O圈
     url: '/quan',
+   // cache: 'false',
     views: {
       'tab-quan': {
         templateUrl: 'templates/tab-quan.html',
         controller: 'QuanCtrl'
       }
     }
+  })
+  
+  .state('quan', {
+    url: '/quan',
+    abstract: true,
+    cache:'false', 
+    templateUrl: 'templates/public/product.html',
+    controller: 'QuandCtrl'
+  })
+  .state('quan.detail', {
+	  url: '/detail/{quanId:[0-9]{1,4}}',//页面之间的参数传递
+	  views: {
+		  'product': {
+			  templateUrl: 'templates/quan-detail.html',
+			  controller: 'QuanDetailCtrl'
+		  }
+	  }
   })
   
   .state('app.order', { //我的的订单
@@ -396,6 +412,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   .state('product', {
     url: '/product',
     abstract: true,
+    cache:'false', 
     templateUrl: 'templates/public/product.html',
     controller: 'Product'
   })
@@ -418,12 +435,6 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 	  templateUrl: 'templates/message/message.html',
 	  controller: 'Message'
   })
-   /*.state('message', {
-	  url: '/message',
-	  abstract: true,
-	  templateUrl: 'templates/message/message.html',
-	  controller: 'Message'
-  })*/
   
  .state('message.msgall', {//全部信息
 	  url: '/msgall/{ran}',
@@ -434,27 +445,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
 		  }
 	  }
   })
-   /*
-  .state('message.msgwd', {//未读信息
-	  url: '/msgwd',
-	  views: {
-		  'message': {
-			  templateUrl: 'templates/message/messageWd.html',
-			  controller: 'MessageCtrl'
-		  }
-	  }
-  })
-  
-  .state('message.msgyd', {//已读信息
-	  url: '/msgyd',
-	  views: {
-		  'message': {
-			  templateUrl: 'templates/message/messageYd.html',
-			  controller: 'MessageCtrl'
-		  }
-	  }
-  })*/
-  
+
   .state('message.msgxq', {//消息详情
     url: '/msgxq/:title',
     views: {
