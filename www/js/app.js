@@ -356,10 +356,12 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   .state('quan', {
     url: '/quan',
     abstract: true,
-    cache:'false', 
+    //cache:'false', 
     templateUrl: 'templates/public/product.html',
     controller: 'QuandCtrl'
   })
+  
+  
   .state('quan.detail', {
 	  url: '/detail/{quanId:[0-9]{1,4}}',//页面之间的参数传递
 	  views: {

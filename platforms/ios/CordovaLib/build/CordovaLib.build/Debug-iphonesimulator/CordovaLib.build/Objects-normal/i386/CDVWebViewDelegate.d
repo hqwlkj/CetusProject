@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/CordovaLib/Classes/CDVWebViewDelegate.m \
-  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/CordovaLib/Classes/CDVWebViewDelegate.h \
-  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/CordovaLib/Classes/CDVAvailability.h \
-  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/CordovaLib/Classes/CDVAvailabilityDeprecated.h
+  /Users/yanghc/Work/ParsecProject/CetusProject/platforms/ios/CordovaLib/Classes/CDVWebViewDelegate.m \
+  /Users/yanghc/Work/ParsecProject/CetusProject/platforms/ios/CordovaLib/Classes/CDVWebViewDelegate.h \
+  /Users/yanghc/Work/ParsecProject/CetusProject/platforms/ios/CordovaLib/Classes/CDVAvailability.h \
+  /Users/yanghc/Work/ParsecProject/CetusProject/platforms/ios/CordovaLib/Classes/CDVAvailabilityDeprecated.h

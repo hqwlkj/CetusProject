@@ -2,53 +2,60 @@
 <items version="2" >
 
     <item
-        jar="C:\Work\ParsecProject\CetusProject\platforms\android\libs\alipayutdid.jar"
+        jar="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/release/classes.jar"
         jumboMode="false"
-        revision="22.0.1"
+        revision="23.0.2"
+        sha1="7ba2908d1a29a3f4830d86e88f68f54cbc917df6">
+        <dex dex="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/release/classes-28fffc3b3dce3e4f923a9136c05a24ff84692c19.jar" />
+    </item>
+    <item
+        jar="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/libs/alipayutdid.jar"
+        jumboMode="false"
+        revision="23.0.2"
         sha1="4345fa0a5a7768f2f9c86aaab7db9e2906765193">
-        <dex dex="C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\alipayutdid-6f864bf69dcb2ec48e97c15c3bea2fa0c9218ff4.jar" />
+        <dex dex="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/alipayutdid-ded6a86f350c30e34a7c8e94e135d0dcc25abb91.jar" />
     </item>
     <item
-        jar="C:\Work\ParsecProject\CetusProject\platforms\android\libs\alipaysecsdk.jar"
+        jar="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/libs/alipaysecsdk.jar"
         jumboMode="false"
-        revision="22.0.1"
+        revision="23.0.2"
         sha1="7413c074c9edf523050267b93d0875151dc4b644">
-        <dex dex="C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\alipaysecsdk-ae2cc9ee4f43ee5339c56aa7d07577050ca86f29.jar" />
+        <dex dex="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/alipaysecsdk-04819a35d21575f7512e1eac9140e8e2e46dc522.jar" />
     </item>
     <item
-        jar="C:\Work\ParsecProject\CetusProject\platforms\android\libs\jpush-sdk-release1.7.5.jar"
+        jar="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/libs/alipaysdk.jar"
         jumboMode="false"
-        revision="22.0.1"
-        sha1="c10bf1a834e7a2caa3832c29b530e1ae7cfad0a2">
-        <dex dex="C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\jpush-sdk-release1.7.5-3c225164f29baef2e718e4c5be6bf6969c00f55e.jar" />
-    </item>
-    <item
-        jar="C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\exploded-aar\android\CordovaLib\unspecified\debug\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="25de4daa6de3a4e7ac9bb325d28da8bb383aef32">
-        <dex dex="C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\classes-78fa8a0f128d0046d7e33298923234f4e2faf0db.jar" />
-    </item>
-    <item
-        jar="C:\Work\ParsecProject\CetusProject\platforms\android\libs\alipaysdk.jar"
-        jumboMode="false"
-        revision="22.0.1"
+        revision="23.0.2"
         sha1="33d3102886e819ec70b32dd243a2b4d181ac7089">
-        <dex dex="C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\alipaysdk-59395f7f0613d58de9855932eff96667f5cbeb05.jar" />
+        <dex dex="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/alipaysdk-5c09d8e3bbc7257fce63454a033da131bdff2a8f.jar" />
     </item>
     <item
-        jar="C:\Work\ParsecProject\CetusProject\platforms\android\libs\weibosdkcore_v3.1.1.jar"
+        jar="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/libs/libammsdk.jar"
         jumboMode="false"
-        revision="22.0.1"
-        sha1="c21c9cb689ae776a77b8d650c9c314e7d860b293">
-        <dex dex="C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\weibosdkcore_v3.1.1-ff48c343a580e06ae47a379dc83568e8e3752f58.jar" />
-    </item>
-    <item
-        jar="C:\Work\ParsecProject\CetusProject\platforms\android\libs\libammsdk.jar"
-        jumboMode="false"
-        revision="22.0.1"
+        revision="23.0.2"
         sha1="47f4993168154fa73377d7470b9f6887d48a8023">
-        <dex dex="C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\libammsdk-028781e103561b7ad0f40364d918c89994ff0ba7.jar" />
+        <dex dex="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/libammsdk-f5888ec059e7dc9366546aa875e5d391a0be2469.jar" />
+    </item>
+    <item
+        jar="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/libs/weibosdkcore_v3.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="c21c9cb689ae776a77b8d650c9c314e7d860b293">
+        <dex dex="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/weibosdkcore_v3.1.1-be9c08c21f58f9fe701ebd1389f232ebc358482f.jar" />
+    </item>
+    <item
+        jar="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/libs/jpush-sdk-release1.7.5.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="c10bf1a834e7a2caa3832c29b530e1ae7cfad0a2">
+        <dex dex="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/jpush-sdk-release1.7.5-83a59a7bf6f812239ce2d79307f7f14031542701.jar" />
+    </item>
+    <item
+        jar="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/debug/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="2baea1d26b42e74c73702fb071def02baf6a7875">
+        <dex dex="/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/classes-d68b461e335e41a8034e0551cb63eefdae573104.jar" />
     </item>
 
 </items>

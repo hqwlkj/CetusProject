@@ -1,0 +1,17 @@
+<ion-header-bar class="bar-stable" style="border-bottom:1px solid #b2b2b2 !important">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="backGo()"></a>
+    <h1 class="title">站内消息</h1>
+    <a class="button button-clear icon ion-ios-trash-outline" ng-click="flag.showDelete=!flag.showDelete"></a>
+</ion-header-bar>
+<ion-content>
+<ion-list show-delete="flag.showDelete">
+	<ion-item ng-repeat="item in items">
+	<p>{{item.addtime}}</p>
+	<p style="color:#000;font-weight:bold">{{item.title}}</p>
+	<p style="color:#000;white-space: pre">{{item.content}}</p>
+	<ion-option-button class="button-assertive icon ion-close-round" ng-click="deleteItem(item,item.id)"></ion-option-button>
+	<ion-delete-button class="ion-minus-circled" ng-click="deleteItem(item,item.id)"></ion-delete-button>
+	</ion-item>
+</ion-list>
+<ion-infinite-scroll on-infinite="loadMore()" ng-if="load_over"></ion-infinite-scroll>
+</ion-content>

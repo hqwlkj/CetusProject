@@ -40,6 +40,15 @@ a{text-decoration: none;}
 .lg-btn{background:#ec3473;color:#ffffff; font-size: 0.75rem;width: 100%;height:45px;line-height:45px;display: inline-block;text-align: center;}
 .submit-order-btn{background:#ec3473;color:#ffffff; font-size: 0.75rem;width: 100%;height:45px;line-height:45px;display: inline-block;text-align: center;}
 .check-btn{background:#CCC;color:#ffffff;font-size: 1rem;width: 100%;height:45px;line-height:45px;display: inline-block;text-align: center;}
+.btn-normal{margin-top: 5px;
+    height: 35px;
+    line-height: 35px;
+    display: inline-block;
+    color: #ffffff;
+    background-color:#9A9999;
+    font-size: 0.65rem;
+    padding-left: 10px;
+    padding-right: 10px;}
 .text-left{text-align: left}
 .text-right{text-align: right}
 .text-center{text-align: center}
@@ -295,7 +304,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 /*index*/
 .productlst{padding:0 15px;}
 .productlst li{margin:15px auto;background: #ffffff;border:1px solid #e5e5e5;}
-.productlst-img-box{height:140px;background-size: 100% auto;background-position: center center;background-repeat: no-repeat; }
+.productlst-img-box{ max-height:160px; height:160px; overflow:hidden; background-size: 100% auto;background-position: center center;background-repeat: no-repeat; }
 .productlst-p-title{font-size:0.65rem;color:#585859;margin:5px 10px 0 10px;white-space:nowrap;/*强制文本在一行内显示*/
 text-overflow:ellipsis; /*溢出省略号，支持ie、safari（webkit）*/
 -o-text-overflow:ellipsis; /*溢出省略号，支持opera*/
@@ -306,7 +315,9 @@ overflow:hidden;/*溢出隐藏*/
 .productlst-p-price strike{color:#939394;font-size: 0.65rem;margin-left:10px;}
 .shop-name{height:45px; line-height:45px; background-color:#FFF; color:#676768; text-align:center; font-family:'幼圆'; font-size:0.875rem; font-weight:normal;}
 
-
+.tab-item{ max-width: none; margin-left: 15px; margin-right: 15px;}
+.tabs-striped .tab-item.tab-item-active, .tabs-striped .tab-item.active, .tabs-striped .tab-item.activated{ color:#e34649; font-weight: 700;}
+.tabs-striped.tabs-light .tab-item.tab-item-active, .tabs-striped.tabs-light .tab-item.active, .tabs-striped.tabs-light .tab-item.activated{color:#e34649;}
 @keyframes blink{
 0%   {opacity: 0;}
 100% {opacity: 1;}
@@ -644,4 +655,18 @@ overflow:hidden;/*溢出隐藏*/
 .myteam-right{background: url(../img/arrow-right.png) 98% center no-repeat; background-size: 8px;}
 
 /**/
-.toggle-large span{font-size: 0.65rem;}
+.toggle-large span{font-size: 0.6rem;}
+
+/* 菜单 查看账单 */
+.icon-account-01{display:inline-block; background: url("../img/icon-account.png")  no-repeat scroll; width: 14px; height: 14px; background-size: 14px; visibility: text-bottm;}
+/* 分出 未对账单 和已对账单-@zxy2015-10-21 */
+.rebate_list{width:100%;border-top:1px #e6e6e6 solid;line-height:24px;float:left; background: #ffffff;}
+.recruitment_body{float:left; width:100%;}
+.recruitment_body ul{height:50px;float:left; width:100%; padding: 0 15px;}
+.recruitment_body ul li{width:50%; float:left; height:40px;line-height:40px; display:inline; font-size:14px;float:left;  font-weight:bold;}
+.recruitment_body ul li a{width:100%;height:40px; text-align:center; display:block; color:#4c4c4c; text-decoration:none; float:left;}
+.recruitment_body ul li.current{ border-top:2px solid #EC3473; color:#EC3473;}
+.recruitment_body ul li.current a{color:#EC3473;}
+.rebate_content{display:none;}
+.ul-block{padding-left:15px; background:#ffffff;margin-bottom: 10px;}
+.ul-block li{height:50px;line-height:50px;border-bottom:1px solid #999999;  margin-right:15px;}

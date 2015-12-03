@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/CordovaLib/Classes/CDVWhitelist.m \
-  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/CordovaLib/Classes/CDVWhitelist.h
+  /Users/yanghc/Work/ParsecProject/CetusProject/platforms/ios/CordovaLib/Classes/CDVWhitelist.m \
+  /Users/yanghc/Work/ParsecProject/CetusProject/platforms/ios/CordovaLib/Classes/CDVWhitelist.h

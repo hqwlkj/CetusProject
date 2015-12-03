@@ -22,42 +22,40 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
       // org.apache.cordova.statusbar required
       StatusBar.styleLightContent();
     }
+    /***********************************极光推送**********************************************/
     //初始化极光推送服务
     jpushService.init();
     whetherChange();
     //检查用户是否开启接收推送信息
     function whetherChange(){
+    	//console.log(Userinfo.l.enableFriends+"=========================");
     	//判断缓存中是否存在开启推送的标识
-    	console.log("===========================================================================");
-    	console.log(Userinfo.l.enableFriends === undefined);
     	if(Userinfo.l.enableFriends === undefined){
     		Userinfo.add('enableFriends', true);//默认为真
     		var tags=[];
 			tags.push(Userinfo.l.userType ? Userinfo.l.userType :"");
-			alert(tags.length);
     		var alias =Userinfo.l.id ? Userinfo.l.id : "";
     		//设置tag 和 alias
 			jpushService.setTagsWithAlias(tags,alias);
     	}else{
-    		if(Userinfo.l.enableFriends){
+    		if(Userinfo.l.enableFriends=="true"){
+    			//console.log(Userinfo.l.enableFriends+"=========================重启推送");
     			var tags=[];
     			tags.push(Userinfo.l.userType ? Userinfo.l.userType :"");
-    			alert(tags.length);
     			var alias =Userinfo.l.id ? Userinfo.l.id : "";
     			//设置tag 和 alias
     			jpushService.setTagsWithAlias(tags,alias);
-    			//jpushService.resumePush();//重启推送
+    			jpushService.resumePush();//重启推送
     		}else{
+    			//console.log(Userinfo.l.enableFriends+"=========================停止推送");
     			var tags=[];
     			var alias="";
     			jpushService.setTagsWithAlias(tags,alias);//清空   tag 和 别名
     			jpushService.stopPush();//停止推送
     		}
     	}
-    	console.log("===========================================================================");
     }
-    
-    
+    /***********************************极光推送**********************************************/
     
     document.addEventListener("deviceready", onDeviceReady, false);
     ///var platform = "";
@@ -357,7 +355,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.addressContro
   })
   
   .state('app.order', { //我的的订单
-    url: '/order/{ran}',
+    url: '/order',
     views: {
       'tab-order': {
         templateUrl: 'templates/tab-order.html',

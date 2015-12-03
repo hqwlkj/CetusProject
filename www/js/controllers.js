@@ -1537,7 +1537,8 @@ angular.module('starter.controllers', ['ionic'])
 	
 	$scope.backGoPro = function() {
 	    //$ionicHistory.goBack();
-	    $state.go('app.index',{reload:true});
+	    //$state.go('app.index',{reload:true});
+	    $state.go('app.index');
 	    return false;
 	}
 	
