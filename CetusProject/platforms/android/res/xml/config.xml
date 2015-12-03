@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.parsec.cetusproject" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="151125" id="com.parsec.cetusproject" ios-CFBundleVersion="1.12" version="1.0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
+    <feature name="ListPicker">
+        <param name="android-package" value="am.armsoft.plugins.ListPicker" />
+    </feature>
     <feature name="Keyboard">
         <param name="android-package" value="com.ionic.keyboard.IonicKeyboard" />
         <param name="onload" value="true" />
@@ -20,6 +23,9 @@
     </feature>
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
     <feature name="SplashScreen">
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
@@ -45,12 +51,6 @@
     <feature name="FileTransfer">
         <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
     </feature>
-    <feature name="AppVersion">
-        <param name="android-package" value="uk.co.whiteoctober.cordova.AppVersion" />
-    </feature>
-    <feature name="Wechat">
-        <param name="android-package" value="xu.li.cordova.wechat.Wechat" />
-    </feature>
     <feature name="YCWeibo">
         <param name="android-package" value="org.zy.yuancheng.weibo.YCWeibo" />
     </feature>
@@ -60,11 +60,11 @@
     <access origin="http://*.sinaimg.cn/*" />
     <access origin="https://api.weibo.com/*" />
     <preference name="WEIBO_APP_ID" value="274270662" />
-    <feature name="ListPicker">
-        <param name="android-package" value="am.armsoft.plugins.ListPicker" />
+    <feature name="AppVersion">
+        <param name="android-package" value="uk.co.whiteoctober.cordova.AppVersion" />
     </feature>
-    <feature name="InAppBrowser">
-        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    <feature name="Wechat">
+        <param name="android-package" value="xu.li.cordova.wechat.Wechat" />
     </feature>
     <feature name="JPushPlugin">
         <param name="android-package" value="cn.jpush.phonegap.JPushPlugin" />
@@ -101,8 +101,9 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
-    <preference name="SplashScreen" value="splash" />
-    <preference name="SplashScreenDelay" value="10000" />
     <preference name="WECHATAPPID" value="wx3b5cd38874296f89" />
     <preference name="REDIRECTURI" value="274270662" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="10000" />
 </widget>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.parsec.cetusproject" version="0.0.4.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="151125" id="com.parsec.cetusproject" ios-CFBundleVersion="1.13" version="1.0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="false" />
@@ -16,9 +16,6 @@
     </feature>
     <feature name="ListPicker">
         <param name="ios-package" value="ListPicker" />
-    </feature>
-    <feature name="JPushPlugin">
-        <param name="ios-package" value="JPushPlugin" />
     </feature>
     <feature name="Keyboard">
         <param name="ios-package" onload="true" value="IonicKeyboard" />
@@ -86,6 +83,9 @@
         <param name="ios-package" value="CDVWechat" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="JPushPlugin">
+        <param name="ios-package" value="JPushPlugin" />
+    </feature>
     <icon height="57" src="resources/ios/icon/icon.png" width="57" />
     <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
     <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
@@ -126,8 +126,9 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
-    <preference name="SplashScreen" value="splash" />
-    <preference name="SplashScreenDelay" value="10000" />
     <preference name="WECHATAPPID" value="wx3b5cd38874296f89" />
     <preference name="REDIRECTURI" value="274270662" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="10000" />
 </widget>

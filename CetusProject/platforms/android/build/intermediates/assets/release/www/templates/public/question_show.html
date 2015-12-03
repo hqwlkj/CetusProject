@@ -1,0 +1,18 @@
+<ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="close_question_show()"></a>
+    <h1 class="title">问题查看</h1>
+  </ion-header-bar>
+  <ion-content style="background:#F6F3EE;">
+    <ul class="address">
+        <li class="margin-15 padding-10 clear">
+           	<p>问题内容:</p> 
+           	<div class="">{{questionData.content}}</div>
+        </li>
+        <li class="margin-15 padding-10 clear" >
+           	 <p style="color: #EC3473;">问题回复:</p>
+           	  <div class="">{{questionData.answerTime==null?'[未回复]':questionData.answer}}</div>
+        </li>
+    </ul>
+  </ion-content>
+</ion-modal-view>

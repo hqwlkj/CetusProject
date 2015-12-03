@@ -38,7 +38,7 @@ angular.module('starter.services', [])
 	//启动极光推送
 	var _init=function(){
 		$window.plugins.jPushPlugin.init();
-		$window.plugins.jPushPlugin.setDebugMode(true);
+		$window.plugins.jPushPlugin.setDebugMode(false);
 	}
 
 	//停止极光推送
@@ -53,14 +53,14 @@ angular.module('starter.services', [])
 
 	//设置标签和别名
 	var _setTagsWithAlias=function(tags,alias){
-		console.log("_setTagsWithAlias -  设置标签 >>==============================="+tags+"=============================");
-		console.log("_setTagsWithAlias -  设置别名 >>==============================="+alias+"=============================");
+		//console.log("_setTagsWithAlias -  设置标签 >>==============================="+tags+"=============================");
+		//console.log("_setTagsWithAlias -  设置别名 >>==============================="+alias+"=============================");
 		$window.plugins.jPushPlugin.setTagsWithAlias(tags,alias);
 	}
 
 	//设置标签
 	var _setTags=function(tags){
-		console.log("设置标签>>==============================="+tags+"=============================");
+		//console.log("设置标签>>==============================="+tags+"=============================");
 		$window.plugins.jPushPlugin.setTags(tags);
 	}
 

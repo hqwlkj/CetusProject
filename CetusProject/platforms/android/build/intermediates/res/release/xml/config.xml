@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget android-versionCode="151125" id="com.parsec.cetusproject" ios-CFBundleVersion="1.12" version="1.0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <preference name="loglevel" value="DEBUG" />
+    <feature name="ListPicker">
+        <param name="android-package" value="am.armsoft.plugins.ListPicker" />
+    </feature>
+    <feature name="Keyboard">
+        <param name="android-package" value="com.ionic.keyboard.IonicKeyboard" />
+        <param name="onload" value="true" />
+    </feature>
+    <preference name="partner" value="2088021216823386" />
+    <preference name="rsa_private" value="MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAMVWLsSuoDMnETvNchcywWMCIb3Tx07F91WtlMmCriwJJIA8fVrlRzH0jmyBsups0I3EucrEO3We9Vth1Me8Zx1Iys5YUXQx4wtkll8a2sIVPB38RZkudSEXVgKo2/dlFq+AtyUF3sPoDeJnqs7588JOJkR3Cfjyegh4n+Jsmw5VAgMBAAECgYBWMF4c6Whu7xFH3WOHXlO4uqWiE21pqm1srnPdz4XjFdsrZ0AZAyslVnseSUeru/sa8GF1fl+578OaNhCJbHBcRaAvjpUDSyUNVcXDqf+Wyc0VstuOmbzckZ3vux3UYE4GFVhCZtlER9jd5KrL0HOB3OWKmS3ZKNU3G1UbqkgsAQJBAOTV8cLGFlBxo6esiI+KADDoP0F6kN9k82T+k+o6fEnoi7qHX09j+oJHcFhcdLloy4gpVL6OubQxBwqC+Bi0z6UCQQDcwwSE54EUvXTy+exwq53kAbysVD/IcyUf3BI5JLSBL8y9wjvrLY7cbYf5w4tgdZ8x0RTv7WrT+pbRdLbRgQTxAkEAoBrkLK9lW2E27JC1dyBJo+5Km6iChhpehNHtcZr77MYMRTSDxcsgsVgETX5amIKurJSmWzEG0wDeeUdLCBYxlQJBAJ50XAoJIN2CHy9HtC4rAGln1cTbs+xsuXjkvS/G6MjRRmPtxpRHXwNYmwDrGl9iDaH0MNMF1mfQtfAhlhdKRAECQQDNCa0f+7ZaNT9zqU4lpr9Sc2o/hbHGEpWoiuA5SumFz1JkxCeV3/8/LzLJW3q9GaMQrxLCiqj403+Kt8017QU3" />
+    <preference name="rsa_public" value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB" />
+    <feature name="Alipay">
+        <param name="android-package" value="com.justep.cordova.plugin.alipay.Alipay" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="ImagePicker">
+        <param name="android-package" value="com.synconset.ImagePicker" />
+    </feature>
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="FileOpener2">
+        <param name="android-package" value="io.github.pwlin.cordova.plugins.fileopener2.FileOpener2" />
+    </feature>
+    <feature name="ActionSheet">
+        <param name="android-package" value="nl.xservices.plugins.actionsheet.ActionSheet" />
+    </feature>
+    <feature name="Toast">
+        <param name="android-package" value="nl.xservices.plugins.Toast" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
+    <feature name="YCWeibo">
+        <param name="android-package" value="org.zy.yuancheng.weibo.YCWeibo" />
+    </feature>
+    <access origin="https://open.weibo.cn/*" />
+    <access origin="https://login.sina.com.cn/*" />
+    <access origin="https://passport.weibo.cn/*" />
+    <access origin="http://*.sinaimg.cn/*" />
+    <access origin="https://api.weibo.com/*" />
+    <preference name="WEIBO_APP_ID" value="274270662" />
+    <feature name="AppVersion">
+        <param name="android-package" value="uk.co.whiteoctober.cordova.AppVersion" />
+    </feature>
+    <feature name="Wechat">
+        <param name="android-package" value="xu.li.cordova.wechat.Wechat" />
+    </feature>
+    <feature name="JPushPlugin">
+        <param name="android-package" value="cn.jpush.phonegap.JPushPlugin" />
+    </feature>
+    <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
+    <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
+    <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
+    <icon density="xhdpi" src="resources/android/icon/drawable-xhdpi-icon.png" />
+    <icon density="xxhdpi" src="resources/android/icon/drawable-xxhdpi-icon.png" />
+    <icon density="xxxhdpi" src="resources/android/icon/drawable-xxxhdpi-icon.png" />
+    <splash density="land-ldpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+    <splash density="land-mdpi" src="resources/android/splash/drawable-land-mdpi-screen.png" />
+    <splash density="land-hdpi" src="resources/android/splash/drawable-land-hdpi-screen.png" />
+    <splash density="land-xhdpi" src="resources/android/splash/drawable-land-xhdpi-screen.png" />
+    <splash density="land-xxhdpi" src="resources/android/splash/drawable-land-xxhdpi-screen.png" />
+    <splash density="land-xxxhdpi" src="resources/android/splash/drawable-land-xxxhdpi-screen.png" />
+    <splash density="port-ldpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+    <splash density="port-mdpi" src="resources/android/splash/drawable-port-mdpi-screen.png" />
+    <splash density="port-hdpi" src="resources/android/splash/drawable-port-hdpi-screen.png" />
+    <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
+    <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
+    <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+    <name>美O</name>
+    <description>
+		An Ionic Framework and Cordova project.
+	</description>
+    <author email="hi@ionicframework" href="http://ionicframework.com/">
+		Ionic Framework Team
+	</author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="16" />
+    <preference name="BackupWebStorage" value="none" />
+    <preference name="WECHATAPPID" value="wx3b5cd38874296f89" />
+    <preference name="REDIRECTURI" value="274270662" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="10000" />
+</widget>
+<!-- From: file:/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/res/xml/config.xml -->

@@ -1,6 +1,13 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "file": "plugins/am.armsoft.plugins.listpicker/www/ListPicker.js",
+        "id": "am.armsoft.plugins.listpicker.ListPicker",
+        "clobbers": [
+            "window.plugins.listpicker"
+        ]
+    },
+    {
         "file": "plugins/com.ionic.keyboard/www/keyboard.js",
         "id": "com.ionic.keyboard.keyboard",
         "clobbers": [
@@ -68,6 +75,14 @@ module.exports = [
         "id": "cordova-plugin-device.device",
         "clobbers": [
             "device"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
         ]
     },
     {
@@ -268,6 +283,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/org.zy.yuancheng.weibo/www/ycweibo.js",
+        "id": "org.zy.yuancheng.weibo.ycweibo",
+        "clobbers": [
+            "YCWeibo"
+        ]
+    },
+    {
         "file": "plugins/uk.co.whiteoctober.cordova.appversion/www/AppVersionPlugin.js",
         "id": "uk.co.whiteoctober.cordova.appversion.AppVersionPlugin",
         "clobbers": [
@@ -282,28 +304,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.zy.yuancheng.weibo/www/ycweibo.js",
-        "id": "org.zy.yuancheng.weibo.ycweibo",
-        "clobbers": [
-            "YCWeibo"
-        ]
-    },
-    {
-        "file": "plugins/am.armsoft.plugins.listpicker/www/ListPicker.js",
-        "id": "am.armsoft.plugins.listpicker.ListPicker",
-        "clobbers": [
-            "window.plugins.listpicker"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-        "id": "cordova-plugin-inappbrowser.inappbrowser",
-        "clobbers": [
-            "cordova.InAppBrowser.open",
-            "window.open"
-        ]
-    },
-    {
         "file": "plugins/cn.jpush.phonegap.JPushPlugin/www/JPushPlugin.js",
         "id": "cn.jpush.phonegap.JPushPlugin.JPushPlugin",
         "clobbers": [
@@ -314,12 +314,14 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
+    "am.armsoft.plugins.listpicker": "2.2.0",
     "com.ionic.keyboard": "1.0.4",
     "com.justep.cordova.plugin.alipay": "5.3.0",
     "com.synconset.imagepicker": "1.0.6",
     "cordova-plugin-camera": "1.2.0",
     "cordova-plugin-console": "1.0.1",
     "cordova-plugin-device": "1.0.1",
+    "cordova-plugin-inappbrowser": "1.0.2-dev",
     "cordova-plugin-splashscreen": "2.1.0",
     "cordova-plugin-whitelist": "1.0.0",
     "io.github.pwlin.cordova.plugins.fileopener2": "1.0.11",
@@ -327,11 +329,9 @@ module.exports.metadata =
     "nl.x-services.plugins.toast": "2.1.1",
     "org.apache.cordova.file": "1.3.3",
     "org.apache.cordova.file-transfer": "0.5.0",
+    "org.zy.yuancheng.weibo": "0.3.3",
     "uk.co.whiteoctober.cordova.appversion": "0.1.7",
     "xu.li.cordova.wechat": "0.8.0",
-    "org.zy.yuancheng.weibo": "0.3.3",
-    "am.armsoft.plugins.listpicker": "2.2.0",
-    "cordova-plugin-inappbrowser": "1.0.2-dev",
     "cn.jpush.phonegap.JPushPlugin": "2.0.2"
 }
 // BOTTOM OF METADATA

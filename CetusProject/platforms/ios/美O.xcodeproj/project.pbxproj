@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		041CD2696D4D4FC9943D42E4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 105FCA68A412452C94557FD7 /* QuartzCore.framework */; };
 		0D8E4F0E620840689AB0A13E /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C4580C18B541D4A0A5113C /* libWeiboSDK.a */; };
@@ -846,6 +847,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 510;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = T9M8FP97X4;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "美O" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1014,7 +1025,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chengdu Suik technology co., LTD (T9M8FP97X4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Suik technology co., LTD (T9M8FP97X4)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"美O/Plugins/com.justep.cordova.plugin.alipay\"",
@@ -1033,8 +1047,8 @@
 					"\"$(SRCROOT)/美O/Plugins/com.justep.cordova.plugin.alipay\"",
 					"\"$(SRCROOT)/美O/Plugins/com.justep.cordova.plugin.alipay\"",
 					"\"$(SRCROOT)/美O/Plugins/org.zy.yuancheng.weibo\"",
+					/Users/yanghc/WorkData/cordovaLibStatic,
 					"\"$(SRCROOT)/美O/Plugins/xu.li.cordova.wechat\"",
-					/Users/ymr/Desktop/cordovaLibStatic,
 				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",
@@ -1049,7 +1063,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "美O";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "a52eb5c2-c5a4-4b4c-a2a9-5e9995dad898";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1058,7 +1073,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chengdu Suik technology co., LTD (T9M8FP97X4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Suik technology co., LTD (T9M8FP97X4)";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"美O/Plugins/com.justep.cordova.plugin.alipay\"",
@@ -1067,6 +1085,26 @@
 				GCC_PREFIX_HEADER = "美O/美O-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = (
+					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+					"\"$(BUILT_PRODUCTS_DIR)\"",
+					/Users/yanghc/WorkData/cordovaLibStatic,
+					"$(SRCROOT)/美O/Plugins/com.justep.cordova.plugin.alipay",
+					"$(SRCROOT)/美O/Plugins/xu.li.cordova.wechat",
+					"$(SRCROOT)/cordovaLibStatic/include",
+					"$(OBJROOT)/UninstalledProducts/$(PLATFORM_NAME)/include",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"\"$(TARGET_BUILD_DIR)/usr/local/lib/include\"",
+					"\"$(OBJROOT)/UninstalledProducts/include\"",
+					"\"$(BUILT_PRODUCTS_DIR)\"",
+					/Users/yanghc/WorkData/cordovaLibStatic,
+					"$(SRCROOT)/美O/Plugins/com.justep.cordova.plugin.alipay",
+					"$(SRCROOT)/美O/Plugins/xu.li.cordova.wechat",
+					"$(SRCROOT)/cordovaLibStatic/include",
+					"$(OBJROOT)/UninstalledProducts/$(PLATFORM_NAME)/include",
+				);
 				INFOPLIST_FILE = "美O/美O-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1075,8 +1113,8 @@
 					"\"$(SRCROOT)/美O/Plugins/com.justep.cordova.plugin.alipay\"",
 					"\"$(SRCROOT)/美O/Plugins/com.justep.cordova.plugin.alipay\"",
 					"\"$(SRCROOT)/美O/Plugins/org.zy.yuancheng.weibo\"",
+					/Users/yanghc/WorkData/cordovaLibStatic,
 					"\"$(SRCROOT)/美O/Plugins/xu.li.cordova.wechat\"",
-					/Users/ymr/Desktop/cordovaLibStatic,
 				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",
@@ -1091,7 +1129,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "美O";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "a52eb5c2-c5a4-4b4c-a2a9-5e9995dad898";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1105,8 +1144,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing Parsec Tech. CO. LTD.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chongqing Parsec Tech. CO. LTD.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chengdu Suik technology co., LTD (T9M8FP97X4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Suik technology co., LTD (T9M8FP97X4)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
@@ -1137,7 +1176,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "04d1a189-07f0-4055-80c2-e8fb05fe8579";
+				PROVISIONING_PROFILE = "a52eb5c2-c5a4-4b4c-a2a9-5e9995dad898";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -1154,8 +1193,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Chongqing Parsec Tech. CO. LTD.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chongqing Parsec Tech. CO. LTD.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chengdu Suik technology co., LTD (T9M8FP97X4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Chengdu Suik technology co., LTD (T9M8FP97X4)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
@@ -1186,7 +1225,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "04d1a189-07f0-4055-80c2-e8fb05fe8579";
+				PROVISIONING_PROFILE = "a52eb5c2-c5a4-4b4c-a2a9-5e9995dad898";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";

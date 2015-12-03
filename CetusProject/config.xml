@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.parsec.cetusproject"  android-versionCode="150930" ios-CFBundleVersion="1.0" version="1.0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.parsec.cetusproject"  android-versionCode="151125" ios-CFBundleVersion="1.13" version="1.0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>美O</name>
   <description>
 		An Ionic Framework and Cordova project.
@@ -16,6 +16,7 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="WECHATAPPID" value="wx3b5cd38874296f89"/>
   <preference name="REDIRECTURI" value="274270662"/>
+  <preference name="AllowInlineMediaPlayback" value="true" /><!-- 处理 ios 视频播放问题 -->
   <feature name="SplashScreen">
     <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen"/>
   </feature>

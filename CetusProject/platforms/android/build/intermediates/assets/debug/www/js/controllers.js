@@ -3,7 +3,7 @@ angular.module('starter.controllers', ['ionic'])
 
 .constant('ApiEndpoint', {
   url: 'http://www.meio100.com',
-  pic_url:'http://www.meio100.com/pic'
+  pic_url:'http://www.meio100.com/qn_pic'
 })
 
 .constant('HelpData', {
@@ -54,6 +54,7 @@ angular.module('starter.controllers', ['ionic'])
   $scope.username = Userinfo.l.name ? Userinfo.l.name : '登录';
   $scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
   $scope.isIntegral = false;
+  $scope.isMyTeam = false;
   $scope.searchData = {};
   $scope.goodsPage = 1;
   $scope.goods_load_over = true;
@@ -61,6 +62,7 @@ angular.module('starter.controllers', ['ionic'])
   $scope.products = [];
   $scope.InvitationName = '';
   $scope.discount = 1;
+  $scope.isAcc= false;
   $scope.app_version = Userinfo.l.version;
   //定时刷新头像
   setInterval(function(){
@@ -71,6 +73,16 @@ angular.module('starter.controllers', ['ionic'])
 		  $scope.isIntegral = true;
 	  }else{
 		  $scope.isIntegral = false;
+	  }
+	  if(Userinfo.l.userType == 1){		  
+		  $scope.isMyTeam = false;
+	  }else{
+		  $scope.isMyTeam = true;
+	  }
+	  if(Userinfo.l.userType == 2||Userinfo.l.userType == 3){
+		  $scope.isAcc=true;
+	  }else{
+		  $scope.isAcc=false;
 	  }
   },2000);
   $scope.doRefresh = function() {//下拉刷新
@@ -215,8 +227,158 @@ angular.module('starter.controllers', ['ionic'])
 
   };
 
-  $scope.user = function() {
+  //查看返利
+  $scope.show_myRebate = function(){
+	  $scope.account();
+  }
+  
+  //查看返利
+  $ionicModal.fromTemplateUrl('templates/public/balanceoOfAccount.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal_account = modal;
+    $scope.accountData = {};
+  });
+  
+  $scope.account_date_list=[];
+  $scope.account_show_date_list=[];
+  $scope.acc_title = "";
+  $scope.acc_start_time = "";
+  $scope.acc_end_time = "";
+  $scope.acc_rebate = "";
+  $scope.acc_money = "";
+  $scope.acc_cansubmit = false;
+  $scope.acc_select_index = 11;
+  $scope.performance = 0;
+  $scope.slides = [1,2,3,4,5,6,7,8,9,10,11,12];//显示的幻灯片页数
+  //默认显示最后一个月度的信息
+  $scope.ion_slide_index = 11;
+  
+  $scope.account = function() {
+	  $scope.modal_account.show();
+	  //提示消息
+	  $ionicLoading.show({
+		  template: '<ion-spinner></ion-spinner>'
+	  });
+	  $http.post(ApiEndpoint.url + '/api_rebate_history?id='+ (Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+		  $ionicLoading.hide();
+	      if (data.state== 'success') {
+	    	  $scope.performance = data.performance;
+	    	  for (var i = 0; i < data.historyList.length; i++) {
+	    		  var obj = {};
+	    		  obj.acc_start_time = data.historyList[i].showfromDate;
+	    		  obj.acc_end_time =  data.historyList[i].showtoDate;
+	    		  obj.acc_rebate =  data.historyList[i].rebate.toFixed(2);
+	    		  obj.acc_money = data.historyList[i].achievement.toFixed(2);
+	    		  obj.state = "h";
+	    		  $scope.account_date_list.push(obj);
+	    	  }
+	    	  for (var i = 0; i < data.dateList.length; i++) {
+	    		  var obj = {};
+	    		  var list = data.dateList[i].date.split(",");
+	    		  obj.acc_start_time = list[0];
+	    		  obj.acc_end_time =  list[1];
+	    		  obj.acc_rebate =  data.dateList[i].rebate.toFixed(2);
+	    		  obj.acc_money = data.dateList[i].achievement.toFixed(2);
+	    		  obj.state = "d";
+	    		  $scope.account_date_list.push(obj);
+	    	  }
+	    	  if($scope.account_date_list.length > data.showDateList.length){
+	    		  for (var i = 0; i < data.showDateList.length; i++) {
+	    			  var obj = {};
+	    			  obj.title = data.showDateList[i];
+    				  var index = $scope.account_date_list.length-data.showDateList.length;
+    				  obj.acc_start_time = $scope.account_date_list[index].acc_start_time;
+		    		  obj.acc_end_time =  $scope.account_date_list[index].acc_end_time;
+		    		  obj.acc_rebate =  $scope.account_date_list[index].acc_rebate;
+		    		  obj.acc_money = $scope.account_date_list[index].acc_money;
+		    		  obj.state = $scope.account_date_list[index].state;
+	    			  $scope.account_show_date_list.push(obj);
+	    		  }
+	    	  }else{
+	    		  var num = data.showDateList.length-$scope.account_date_list.length;
+	    		  for (var i = 0; i < data.showDateList.length; i++) {
+	    			  var obj = {};
+	    			  obj.title = data.showDateList[i];
+	    			  if(i>=num){
+	    				  var index = i-num;
+	    				  obj.acc_start_time = $scope.account_date_list[index].acc_start_time;
+			    		  obj.acc_end_time =  $scope.account_date_list[index].acc_end_time;
+			    		  obj.acc_rebate =  $scope.account_date_list[index].acc_rebate;
+			    		  obj.acc_money = $scope.account_date_list[index].acc_money;
+			    		  obj.state = $scope.account_date_list[index].state;
+	    			  }else{
+	    				  obj.acc_start_time = "--";
+			    		  obj.acc_end_time =  "--";
+			    		  obj.acc_rebate =  "0.00";
+			    		  obj.acc_money = "0.00";
+			    		  obj.state = "h";
+	    			  }
+	    			  $scope.account_show_date_list.push(obj);
+	    		  }
+	    	  }
+	    	  
+	    	  console.log($scope.account_show_date_list);
+	    	  var obj = $scope.account_show_date_list[$scope.account_show_date_list.length-1];
+	    	  $scope.acc_title = obj.title;
+	    	  $scope.acc_start_time = obj.acc_start_time;
+	    	  $scope.acc_end_time = obj.acc_end_time;
+	    	  $scope.acc_rebate = obj.acc_rebate;
+	    	  $scope.acc_money = obj.acc_money;
+	      }
+	});
+	};
+  
 
+	$scope.closeAccount = function() {
+		$scope.modal_account.hide();
+		$scope.accountData = {};
+		$scope.account_show_date_list = [];
+	};
+
+	$scope.slideAccountChanged = function(index) {
+		$scope.acc_select_index = index;
+		var obj = $scope.account_show_date_list[index];
+		$scope.acc_title = obj.title;
+		$scope.acc_start_time = obj.acc_start_time;
+		$scope.acc_end_time = obj.acc_end_time;
+		$scope.acc_rebate = obj.acc_rebate;
+		$scope.acc_money = obj.acc_money;
+		if (index == 11) {
+			$scope.acc_cansubmit = false;
+		} else {
+			if (obj.state == 'h')
+				$scope.acc_cansubmit = false;
+			else
+				$scope.acc_cansubmit = true;
+		}
+	}
+	
+	$scope.save_rebate = function(){
+		var obj = $scope.account_show_date_list[$scope.acc_select_index];
+		if(obj.acc_rebate==0){
+			$scope.showMsg("返利为0");
+			return;
+		}
+		if(obj.acc_money<$scope.performance){
+			$scope.showMsg("业绩未达标");
+			return;
+		}
+		var url = ApiEndpoint.url + '/api_rebate_history_save?id='+ (Userinfo.l.id?Userinfo.l.id:"")+"&time="+obj.acc_start_time+","+obj.acc_end_time;
+		//提示消息
+		$ionicLoading.show({
+			template: '<ion-spinner></ion-spinner>'
+		});
+		$http.post(url).success(function(data) {
+			  $ionicLoading.hide();
+		      if (data.state== 'success') {
+		    	  $scope.account_show_date_list[$scope.acc_select_index].state = "h";
+		      }
+		});
+	}
+  
+  
+  $scope.user = function() {
 	  $state.go('acount.user');
   };
 
@@ -289,6 +451,7 @@ angular.module('starter.controllers', ['ionic'])
 	$ionicModal.fromTemplateUrl('templates/user/userinfo.html', {scope: $scope}).then(function(modal) {
 		$scope.modal_user_info = modal;
 	    $scope.userInfoData = {};
+	    $scope.show_myInvitationCode = 0;
 	});
   	//关闭会员信息页面
 	$scope.closeUserInfo = function() {
@@ -440,7 +603,9 @@ angular.module('starter.controllers', ['ionic'])
 	
 	$scope.goRebateList =function(){
 		$scope.modal_rebate.show();
-		$scope.load_rebate_data();
+		$scope.getOrderYdz();
+		$scope.getOrderWdz();
+		//$scope.load_rebate_data();
 	}
 	
 	//关闭返利列表
@@ -450,29 +615,107 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.rebate_list = [];
 	$scope.rebate_month = "";
 	$scope.rebate_money = 0;
+	$scope.rebate_totalw = 0;
+	$scope.rebate_totaly = 0;
 	$scope.rebate_lock = false;
 	//加载返利列表数据
-	$scope.load_rebate_data = function(){
-		$ionicLoading.show({
-		     template: '<ion-spinner></ion-spinner>'
-		});
-		$http.post(ApiEndpoint.url + '/api_rebate_list?isApp=0&parentId='+(Userinfo.l.id?Userinfo.l.id:"")+"&month="+$scope.rebate_month).success(function(data) {
-			if (data.state =="success") {
-				$scope.$broadcast("scroll.refreshComplete");
-				$scope.rebate_month = data.obj.month;
-				$scope.rebate_money = data.sum;
-				for (var i = 0; i < data.list.length; i++) {
-					data.list[i].showcreateTime = data.list[i].showcreateTime.split(" ")[0].replace(/\-/g,"/");
-				}
-				$scope.rebate_list = data.list;
-			}else{
-				$scope.showMsg(data.msg);
-			}
-			$scope.rebate_lock = false;
-			$ionicLoading.hide();
-		});
-	}
+//	$scope.load_rebate_data = function(){
+//		$ionicLoading.show({
+//		     template: '<ion-spinner></ion-spinner>'
+//		});
+//		$http.post(ApiEndpoint.url + '/api_rebate_list?isApp=0&parentId='+(Userinfo.l.id?Userinfo.l.id:"")+"&month="+$scope.rebate_month).success(function(data) {
+//			if (data.state =="success") {
+//				$scope.$broadcast("scroll.refreshComplete");
+//				$scope.rebate_month = data.obj.month;
+//				$scope.rebate_money = data.sum;
+//				for (var i = 0; i < data.list.length; i++) {
+//					data.list[i].showcreateTime = data.list[i].showcreateTime.split(" ")[0].replace(/\-/g,"/");
+//				}
+//				$scope.rebate_list = data.list;
+//			}else{
+//				$scope.showMsg(data.msg);
+//			}
+//			$scope.rebate_lock = false;
+//			$ionicLoading.hide();
+//		});
+//	}
 	
+	//分出 未对账单 和已对账单-@zxy2015-10-21
+	$scope.orderWdz = [];
+	$scope.orderYdz = [];
+	$scope.isActive = 'b';
+	$scope.changeTabs = function(evt) {
+	    var elem = evt.currentTarget;
+	    $scope.isActive = elem.getAttributeNode('data-active').value;
+	    $scope.orderGoTo($scope.isActive);
+    };
+    $scope.orderGoTo = function(isActive){
+    	switch (isActive) {
+		case 'a':
+			$scope.getOrderWdz();
+			break;
+		case 'b':
+			$scope.getOrderYdz();
+			break;
+		default:
+			$scope.getOrderYdz();
+			break;
+		}
+    }
+    
+    //未对账单 
+	  $scope.getOrderWdz = function() {
+			$ionicLoading.show({
+				template: '<ion-spinner></ion-spinner>'
+			});
+			$http.post(ApiEndpoint.url + '/api_rebate_list?isApp=0&parentId='+(Userinfo.l.id?Userinfo.l.id:"")+"&month="+$scope.rebate_month+"&pageSize=999999&checkType=0").success(function(data) {
+				$scope.rebmsg = false;//未读消息提示默认隐藏
+				 $ionicLoading.hide();
+				 if (data.state == 'success') {
+					if(data.list.length<1){
+						$scope.rebmsg = true;
+					}
+					$scope.rebate_totalw=0;
+					for (var i = 0; i < data.list.length; i++) {
+						$scope.rebate_totalw += data.list[i].money;
+					}
+					$scope.orderWdz = data.list;
+					$scope.rebate_month = data.obj.month;
+			    }else{
+					$scope.showMsg(data.msg);
+				}
+				 $scope.rebate_lock = false;
+			});
+	  };
+	  
+	  //已对账单 
+	  $scope.getOrderYdz = function() {
+			$ionicLoading.show({
+				template: '<ion-spinner></ion-spinner>'
+			});
+			$http.post(ApiEndpoint.url + '/api_rebate_list?isApp=0&parentId='+(Userinfo.l.id?Userinfo.l.id:"")+"&month="+$scope.rebate_month+"&pageSize=999999&checkType=1").success(function(data) {
+				$scope.rebmsg2 = false;//未读消息提示默认隐藏
+				 $ionicLoading.hide();
+				 if (data.state == 'success') {
+					if(data.list.length<1){
+						$scope.rebmsg2 = true;
+					}
+					$scope.rebate_totaly=0;
+					for (var i = 0; i < data.list.length; i++) {
+						$scope.rebate_totaly += data.list[i].money;
+					}
+					//$scope.rebate_money = data.sum.toFixed(2);
+					$scope.rebate_money = data.sumRebate.toFixed(2);
+					$scope.rebate_month = data.obj.month;
+					$scope.orderYdz = data.list;
+			    }else{
+					$scope.showMsg(data.msg);
+				}
+				 $scope.rebate_lock = false;
+			});
+	  };
+	  
+	  
 	//跳转返利月份
 	$scope.to_rebate_month = function(type){
 		if($scope.rebate_lock==true){
@@ -500,7 +743,8 @@ angular.module('starter.controllers', ['ionic'])
 		}else{
 			$scope.rebate_month = year+"-"+month;
 		}
-		$scope.load_rebate_data();
+		$scope.getOrderWdz();
+		$scope.getOrderYdz();
 	}
 	
 	//我的团队
@@ -536,6 +780,14 @@ angular.module('starter.controllers', ['ionic'])
 	}
 	//关闭我的团队页面
 	$scope.close_myteam = function(){
+		$scope.myteam_username = "";
+		$scope.myteam_moneyInThreeMonth = "";
+		$scope.myteam_rebate = "";
+		$scope.myteam_allscore = "";
+		$scope.myteam_mymoney = "";
+		$scope.myteam_myscore = "";
+		$scope.myteam_teammoney = "";
+		$scope.myteam_teamscore = "";
 		$scope.modal_myteam.hide();
 	}
 	
@@ -918,7 +1170,7 @@ angular.module('starter.controllers', ['ionic'])
 
 
 //美O圈Controller
-.controller('QuanCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state){
+.controller('QuanCtrl',function($scope, $ionicPopover, $timeout, $ionicModal, $ionicLoading, $http, Userinfo, ApiEndpoint, $state,$sce){
 	$scope.titleState=1;//标题的显示状态
 	$scope.quans = [];  //美O圈数据
 	$ionicLoading.show({
@@ -968,24 +1220,32 @@ angular.module('starter.controllers', ['ionic'])
 	    $scope.modal_quan_detail.hide();
 	}
 	//加载详情
-	$scope.title = "";
-	$scope.detailTime =  "";
-	$scope.quanImg =  "";
-	$scope.detailContent =  "";
 	$scope.quanDetail = function(quanId) {
+		$scope.title = "";
+		$scope.detailTime =  "";
+		$scope.quanImg =  "";
+		$scope.isShowContent =  0;
+		$scope.detailContent =  "";
 		$ionicLoading.show({
 		    template: "<ion-spinner></ion-spinner>"
 		});
 		$scope.modal_quan_detail.show();
 		$http.post(ApiEndpoint.url + '/api_europeanpowder_detail?euroId='+quanId).success(function(data) {
 			if (data.state == 'success') {
+				$scope.isShowContent =  data.european.isShowContent;
+				console.log($scope.isShowConten);
 				$scope.title = data.european.title;
 				$scope.detailTime = data.european.showCreateTime;
 				$scope.quanImg = ApiEndpoint.pic_url+"/"+data.european.imgUrl;
-				$scope.detailContent = data.european.content;
+				$scope.detailContent = $scope.ReservedStytl(data.european.content);
 			}
 			$ionicLoading.hide();
 		});
+	}
+	//保留原html中的  style样式
+	$scope.ReservedStytl = function(html) {
+		var replaceStr = "width";
+		return $sce.trustAsHtml(html.replace(new RegExp(replaceStr,'gm'),''));
 	}
 })
 
@@ -1065,6 +1325,7 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.cartData ={};
 	$scope.commenHtml="";
 	$scope.commenState=true;
+	$scope.addCartBut = "加入购物车";
 	$scope._width="200px";
 	//var _img = "www/img/logo_28.png";
 	$ionicLoading.show({
@@ -1077,6 +1338,11 @@ angular.module('starter.controllers', ['ionic'])
 				$scope.ago = "【";
 				$scope.after = "】";
 				$scope.product = data;
+				//处理优惠券
+				if(data.ptId == 3){
+					$scope.addCartBut = "立即购买";
+					$scope.product.discount = 1;
+				}
 				$scope.picfiles = data.picfiles;
 //				for(var i =0 ; i< data.picfiles.length; i++){
 //					var pic = data.picfiles[i];
@@ -1399,12 +1665,27 @@ angular.module('starter.controllers', ['ionic'])
 	  }
 	//加入购物车
 	$scope.addCart = function() {
+		if(!Userinfo.l.id){
+			$scope.login();
+			return;
+		}
 		if ($scope.cartData.amount > $scope.product.stockNum) {
 			$scope.showMsg('库存不足');
 			return;
 		}
 		if ($scope.cartData.amount < 1) {
 			$scope.showMsg('商品数量不能小于1');
+			return;
+		}
+		//处理优惠券
+		if($scope.product.ptId == 3){
+			$http.post(ApiEndpoint.url + '/api_encode?msg='+$scope.product.id+' '+$scope.cartData.amount+' '+(Userinfo.l.id?Userinfo.l.id:"")).success(function(data) {
+				if (data.state =="success") {
+					$state.go('public.order',{msg:data.secret});
+				}else{
+					$scope.showMsg(data.msg);
+				}
+			});
 			return;
 		}
 		$ionicLoading.show({
@@ -1606,15 +1887,16 @@ angular.module('starter.controllers', ['ionic'])
 	$scope.avaImg = Userinfo.l.headImg ? ApiEndpoint.pic_url+"/"+Userinfo.l.headImg : 'img/default-ava.png';
     $scope.username = '登录';
     $scope.cellPhone = '';
-    /*********************************************************************************/
+    /****************************************极光推送*****************************************/
     $scope.options={
     		tags:Userinfo.l.userType ? Userinfo.l.userType :"",
     		alias:Userinfo.l.id ? Userinfo.l.id : ""
     };
     $scope.settings = {
-	    enableFriends: Userinfo.l.enableFriends ? true : false
+	    enableFriends: Userinfo.l.enableFriends == "true" ? true : false
 	};
-    
+    //console.log(Userinfo.l.enableFriends);
+    //console.log(Userinfo.l.enableFriends == "true" ? true : false);
     $scope.whetherChange = function(){
     	Userinfo.add('enableFriends', $scope.settings.enableFriends);
     	if($scope.settings.enableFriends){
@@ -1639,7 +1921,7 @@ angular.module('starter.controllers', ['ionic'])
 		jpushService.stopPush();
 		$ionicPopup.alert({
 			title:'提示',
-			template:'停止服务成功'
+			template:'停止后您将不能接收信息通知'
 		});
 	};
 
@@ -1648,7 +1930,7 @@ angular.module('starter.controllers', ['ionic'])
 		jpushService.resumePush();
 		$ionicPopup.alert({
 			title:'提示',
-			template:'重启完成'
+			template:'开启后您将接收信息通知'
 		});
 	};
 
@@ -1677,9 +1959,7 @@ angular.module('starter.controllers', ['ionic'])
 		jpushService.setTagsWithAlias(tagArr,alias);
 	}
     
-    
-    
-    /*********************************************************************************/
+    /***********************************极光推送**********************************************/
     
 	$scope.app_version = Userinfo.l.version;
 	$scope.userGoTo = function(listid) {
@@ -1901,73 +2181,79 @@ angular.module('starter.controllers', ['ionic'])
 	    }
 
 	  $scope.showUpdateConfirm = function(desc, url) {
-	    var confirmPopup = $ionicPopup.confirm({
-	      title: '有新版本了！是否要升级？',
-	      template: desc,
-	      cancelText: '下一次',
-	      okText: '确定'
-	    });
-	    var url = url;
-	    confirmPopup.then(function(res) {
-	      if (res) {
-	    	  var ref = cordova.InAppBrowser.open('itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/husu/mobileHelper/master/cetus.plist', '_system', 'location=yes');
-	      };
-	    });
+		  var confirmPopup = $ionicPopup.confirm({
+		        title: '有新版本了！是否要升级？',
+		        template: desc,
+		        cancelText: '下一次',
+		        okText: '确定'
+		      });
+		      var url = url;
+		      confirmPopup.then(function(res) {
+		        if (res) {
+		            $ionicLoading.show({
+		                template: "已经下载：0%"
+		            });
+		            var targetPath = "file:///storage/sdcard0/Download/Cetus_android.apk"; //APP下载存放的路径，可以使用cordova file插件进行相关配置
+		            var trustHosts = true
+		            var options = {};
+		            $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+		                // 打开下载下来的APP
+		                $cordovaFileOpener2.open(targetPath, 'application/vnd.android.package-archive'
+		                ).then(function () {
+		                        // 成功
+		                }, function (err) {
+		                    // 错误
+		                });
+		                $ionicLoading.hide();
+		            }, function (err) {
+		            	$ionicLoading.hide();
+		            	$ionicPopup.alert({
+					        title: '提示',
+					        template: '下载失败，请稍候重试...',
+					        buttons: [{
+					          text: '确定',
+					          type: 'button-assertive'
+					        }]
+					    });
+		            }, function (progress) {
+		                //进度，这里使用文字显示下载百分比
+		                $timeout(function () {
+		                    var downloadProgress = (progress.loaded / progress.total) * 100;
+		                    $ionicLoading.show({
+		                        template: "已经下载：" + Math.floor(downloadProgress) + "%"
+		                    });
+		                    if (downloadProgress > 99) {
+		                        $ionicLoading.hide();
+		                    }
+		                },500)
+		            });
+		        };
+		    });
 	  }
 	  
 	  $scope.showUpdateIOSConfirm = function(desc, url) {
-	        var confirmPopup = $ionicPopup.confirm({
+		  var confirmPopup = $ionicPopup.confirm({
 	          title: '有新版本了！是否要升级？',
 	          template: desc,
 	          cancelText: '下一次',
 	          okText: '确定'
-	        });
-	        var url = url;
-	        confirmPopup.then(function(res) {
-	          if (res) {
-	          	//window.open(url, '_blank', 'location=yes'); http://www.parsec.com.cn/Download/Cetus_ios.ipa
-	              $ionicLoading.show({
-	                  template: "已经下载：0%"
-	              });
-	              var targetPath = "file:///storage/sdcard0/Download/Cetus_ios.ipa"; //APP下载存放的路径，可以使用cordova file插件进行相关配置
-	              var trustHosts = true
-	              var options = {};
-	              $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
-	                  // 打开下载下来的APP
-	                  $cordovaFileOpener2.open(targetPath, 'application/octet-stream'
-	                  ).then(function () {
-	                          // 成功
-	                  }, function (err) {
-	                      // 错误
-	                  });
-	                  $ionicLoading.hide();
-	              }, function (err) {
-	                  //alert('下载失败');
-	              	
-	              	$ionicLoading.hide();
-	              	$ionicPopup.alert({
-	  			        title: '提示',
-	  			        template: '下载失败，请稍候重试...',
-	  			        buttons: [{
-	  			          text: '确定',
-	  			          type: 'button-assertive'
-	  			        }]
-	  			    });
-	              }, function (progress) {
-	                  //进度，这里使用文字显示下载百分比
-	                  $timeout(function () {
-	                      var downloadProgress = (progress.loaded / progress.total) * 100;
-	                      $ionicLoading.show({
-	                          template: "已经下载：" + Math.floor(downloadProgress) + "%"
-	                      });
-	                      if (downloadProgress > 99) {
-	                          $ionicLoading.hide();
-	                      }
-	                  },500)
-	              });
-	          };
-	        });
-	      }
+        });
+        var url = url;
+        confirmPopup.then(function(res) {
+          if (res) {
+        	  var ref = cordova.InAppBrowser.open('itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/husu/mobileHelper/master/cetus.plist', '_system', 'location=yes');
+//	        	  console.log("===========================");
+//	        	  console.log(ref);
+//	        	  console.log("===========================");
+//	        	  var myCallback = function(event) { 
+//	        		  console.log(event);
+//	        		  alert(event.url);
+//	        	  }
+//	        	  ref.addEventListener('loadstart', myCallback);
+        	  //ref.removeEventListener('loadstart', myCallback);
+          };
+        });
+	 }
 	  
 	  
 	  

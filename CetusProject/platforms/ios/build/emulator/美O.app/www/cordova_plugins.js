@@ -8,13 +8,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cn.jpush.phonegap.JPushPlugin/www/JPushPlugin.js",
-        "id": "cn.jpush.phonegap.JPushPlugin.JPushPlugin",
-        "clobbers": [
-            "window.plugins.jPushPlugin"
-        ]
-    },
-    {
         "file": "plugins/com.ionic.keyboard/www/keyboard.js",
         "id": "com.ionic.keyboard.keyboard",
         "clobbers": [
@@ -304,13 +297,19 @@ module.exports = [
         "clobbers": [
             "Wechat"
         ]
+    },
+    {
+        "file": "plugins/cn.jpush.phonegap.JPushPlugin/www/JPushPlugin.js",
+        "id": "cn.jpush.phonegap.JPushPlugin.JPushPlugin",
+        "clobbers": [
+            "window.plugins.jPushPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "am.armsoft.plugins.listpicker": "2.2.0",
-    "cn.jpush.phonegap.JPushPlugin": "2.0.2",
     "com.ionic.keyboard": "1.0.4",
     "com.justep.cordova.plugin.alipay": "5.3.0",
     "com.synconset.imagepicker": "1.0.6",
@@ -327,7 +326,8 @@ module.exports.metadata =
     "org.apache.cordova.file-transfer": "0.5.0",
     "org.zy.yuancheng.weibo": "0.3.3",
     "uk.co.whiteoctober.cordova.appversion": "0.1.7",
-    "xu.li.cordova.wechat": "0.8.0"
+    "xu.li.cordova.wechat": "0.8.0",
+    "cn.jpush.phonegap.JPushPlugin": "2.0.2"
 }
 // BOTTOM OF METADATA
 });

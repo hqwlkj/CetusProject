@@ -1,4 +1,4 @@
 dependencies: \
-  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/CordovaLib/Classes/NSArray+Comparisons.m \
-  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/CordovaLib/Classes/NSArray+Comparisons.h \
-  /Users/ymr/Desktop/eclipseJavaCode/CetusProject/platforms/ios/CordovaLib/Classes/CDVAvailabilityDeprecated.h
+  /Users/yanghc/Work/ParsecProject/CetusProject/platforms/ios/CordovaLib/Classes/NSArray+Comparisons.m \
+  /Users/yanghc/Work/ParsecProject/CetusProject/platforms/ios/CordovaLib/Classes/NSArray+Comparisons.h \
+  /Users/yanghc/Work/ParsecProject/CetusProject/platforms/ios/CordovaLib/Classes/CDVAvailabilityDeprecated.h

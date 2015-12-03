@@ -15,6 +15,7 @@
 	    	<img ng-src="{{quanImg}}" style="max-width: 100%;height: auto;">
 	    </div>
 	    <div class="quanfont">
+	    	<iframe ng-if='myVideoUrl != ""' ng-src="{{myVideoUrl}}" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" width="100%" frameborder="0" height="150"></iframe>
 	        <p ng-bind-html ='detailContent'></p>
 	    </div>
   </ion-content>

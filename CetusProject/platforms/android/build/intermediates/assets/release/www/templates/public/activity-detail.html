@@ -1,0 +1,19 @@
+<ion-modal-view>
+ <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-ios-arrow-left button-clear button-dark" ng-click="closeActivityDetail()"></a>
+    <h1 class="title">活动详情</h1>
+  </ion-header-bar>
+  <ion-content>
+     <div class="wrap-page" >
+	    <div><img ng-src="{{imgUrl}}" style="width: 100%;"></div>
+	    <ul class="ul-block1 acitity-ul">
+	        <li> <span  style="font-weight: 700">标题：</span> <span  style=" color:#171717;font-weight: 700" ng-bind="title"></span> </li>
+	        <li> <span>活动时间：</span> <span style=" color:#171717;font-size: 0.75em; " ng-bind="times"></span> </li>
+	    </ul>
+	    <div class="quanfont">
+	        <p style="padding-top: 6px;" ng-bind="content"></p>
+	        <a href="#" ng-click="addActivity()" id="toAdd" class="btn lg-btn fudong margin-top-15">马上参与</a>
+	    </div>
+	</div>
+  </ion-content>
+</ion-modal-view>

@@ -10,21 +10,90 @@
 	</li>
 	<li style="border-bottom: none; "><i class="icon-score-01"></i> <span id="score">返利金额：</span><span>{{rebate_money}}</span></li>
 </ul>
-<div style="background-color:#F6F3EE; width: 100%; height: 10px;">&nbsp;</div>
-<ion-refresher pulling-text="下拉刷新" on-refresh="load_rebate_data()"></ion-refresher>
-<h3 style='text-align: center;padding-top: 20px; font-size:0.65rem; color:#ccc;' ng-if="rebate_list.length == 0">本月无返利</h3>
-<ul class="ul-block bg-white a-gray">
-	<li ng-repeat="r in rebate_list">
-		<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
-		<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;">
-			<p>{{r.money.toFixed(2)}}</p>
-			<p>{{r.showcreateTime}}</p>
-		</div>
-	</li>
-</ul>
+
+<div class="tabs-striped" style="position: relative;margin-top: 38px;padding-top: 10px;clear: both;">
+  <div class="tabs">
+   <a ng-class="{a: 'tab-item active', b: 'tab-item', c: 'tab-item'}[isActive]" data-active="a" ng-click="changeTabs($event)" style="font-size:16px;line-height:48px;">未对账单</a>
+   <a ng-class="{a: 'tab-item', b: 'tab-item active', c: 'tab-item'}[isActive]" data-active="b" ng-click="changeTabs($event)" style="font-size:16px;line-height:48px;">已对账单</a>
+  </div>
+ </div>
+<div ng-if="isActive == 'a'" class="rebate_list wrap-page swiper-container">
+      <div class="list padding">
+        <ul class="ul-block orderlst db">
+        	  <li ng-show="!rebmsg">
+				<div class="col-6 text-left" style="width:65%;">合计:</div>
+				<div class="col-6 text-right" style="width:35%;"><p ng-bind="rebate_totalw" style="color: red;"></p></div>
+			 </li>
+		   	 <li ng-repeat="r in orderWdz">
+					<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
+					<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;"><p ng-bind="r.money" style="color: red;"></p><p>{{r.showcreateTime | formatStr}}</p></div>
+			</li>
+			<li class="margin-15 padding-10 clear" ng-show="rebmsg" style="border-bottom:0">
+		      <div style=" height: 25px; line-height: 25px;">
+		        <p  style="text-align: center;color: #999;">暂无数据</p>
+		      </div>
+		    </li>
+		  
+        </ul>
+    </div>
+</div>
+<div ng-if="isActive == 'b'" class="rebate_list wrap-page swiper-container">
+	 <div class="list padding">
+	 	<ul class="ul-block orderlst db">
+	 		 <li ng-show="!rebmsg2">
+				<div class="col-6 text-left" style="width:65%;">合计:</div>
+				<div class="col-6 text-right" style="width:35%;"><p ng-bind="rebate_totaly" style="color: red;"></p></div>
+			 </li>
+		    <li ng-repeat="r in orderYdz">
+					<div class="col-6 text-left" style="width:65%;">{{r.userName+(r.type==0?"首单":"后期")+"返利"}}</div>
+					<div class="col-6 text-right line-height-1 padding-top-5" style="width:35%;"><p ng-bind="r.money" style="color: red;"></p><p>{{r.showcreateTime | formatStr}}</p></div>
+			</li>
+		    <li class="margin-15 padding-10 clear" ng-show="rebmsg2" style="border-bottom:0">
+		      <div style=" height: 25px; line-height: 25px;">
+		        <p  style="text-align: center;color: #999;">暂无数据</p>
+		      </div>
+		    </li>
+        </ul>
+	 	
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div style="background-color:#ffffff; width: 100%; height: 10px;">&nbsp;</div>
 <ion-infinite-scroll on-infinite="usercoin_loadmore()" ng-if="usercoin_load_state"></ion-infinite-scroll>
 </ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- tabs -->
 <ion-footer-bar align-title="left" class="bar-assertive" style="padding: 0">
   <ion-tabs class="tabs-icon-top tabs-color-active-positive">

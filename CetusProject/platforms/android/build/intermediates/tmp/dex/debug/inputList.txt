@@ -1,8 +1,8 @@
-C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\classes\debug
-C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\alipayutdid-6f864bf69dcb2ec48e97c15c3bea2fa0c9218ff4.jar
-C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\alipaysecsdk-ae2cc9ee4f43ee5339c56aa7d07577050ca86f29.jar
-C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\classes-78fa8a0f128d0046d7e33298923234f4e2faf0db.jar
-C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\alipaysdk-59395f7f0613d58de9855932eff96667f5cbeb05.jar
-C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\libammsdk-028781e103561b7ad0f40364d918c89994ff0ba7.jar
-C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\jpush-sdk-release1.7.5-3c225164f29baef2e718e4c5be6bf6969c00f55e.jar
-C:\Work\ParsecProject\CetusProject\platforms\android\build\intermediates\pre-dexed\debug\weibosdkcore_v3.1.1-ff48c343a580e06ae47a379dc83568e8e3752f58.jar
+/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/classes/debug
+/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/alipayutdid-ded6a86f350c30e34a7c8e94e135d0dcc25abb91.jar
+/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/alipaysecsdk-04819a35d21575f7512e1eac9140e8e2e46dc522.jar
+/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/classes-d68b461e335e41a8034e0551cb63eefdae573104.jar
+/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/alipaysdk-5c09d8e3bbc7257fce63454a033da131bdff2a8f.jar
+/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/libammsdk-f5888ec059e7dc9366546aa875e5d391a0be2469.jar
+/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/jpush-sdk-release1.7.5-83a59a7bf6f812239ce2d79307f7f14031542701.jar
+/Users/yanghc/Work/ParsecProject/CetusProject/platforms/android/build/intermediates/pre-dexed/debug/weibosdkcore_v3.1.1-be9c08c21f58f9fe701ebd1389f232ebc358482f.jar

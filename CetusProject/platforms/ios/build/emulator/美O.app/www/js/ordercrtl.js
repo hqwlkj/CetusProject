@@ -165,6 +165,7 @@ angular.module('starter.ordercrtl', [])
 				subject : name,
 				body : name,
 				price : order.orderMoney,
+				//price : "0.01",
 				tradeNo : order.ordNum,
 				timeout : "30m",
 				notifyUrl : ApiEndpoint.url +"/api_alipay_asynchronous_notify"

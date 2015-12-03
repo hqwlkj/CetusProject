@@ -1,17 +1,34 @@
 <ion-view title='产品列表'>
-<ion-content>
+<!-- screening -->
+<div class="screening">
+    <ul><li class="meishi assertive" ng-click="showMenus()">{{serchText}}</li></ul>
+</div>
+<!-- End screening -->
+<!-- grade -->
+<div class="meishi22 {{addMenuItemClass}}">
+    <ul class="meishia-w" id="meishia">
+        <li ng-click="submenuShow($event)" data-active ="all" data-text="全部"><span class="meishi">全部 </span></li>
+        <li ng-repeat="pt in productTypes" ng-click="submenuShow($event)" data-active ="{{pt.id}}" data-text="{{pt.text}}"><span class="meishi">{{pt.text}}</span></li>
+    </ul>
+    <ul ng-repeat="pt1 in productTypes" class="meishia-t item_{{pt1.id}}"  ng-show ="item_{{pt1.id}}"  style="left:50%">
+        <li ng-repeat="ptc in pt1.children" ng-click="submenuShow($event)" data-active ="{{ptc.id}}" data-text="{{ptc.text}}"><span>{{ptc.text}} </span><span class="item-right"></span></li>
+    </ul>
+</div>
+<!-- grade -->
+<ion-content style="padding-top:2rem;">
   <ion-refresher pulling-text="下拉刷新"	on-refresh="doRefresh()"></ion-refresher>
-<!--   <div id="content"> -->
-	  <section style=" background-color: #F6F3EE; padding-top: 5px; padding-bottom: 6px; ">
+	  <section style=" background-color: #F6F3EE; padding-top: 5px; padding-bottom: 6px;">
 	  <ul class="productlst">
 	    <li ng-repeat="p in products" ng-click="clickDetail('{{p.id}}')">
-	      <div class="productlst-img-box" style="background-image:url(http://www.meio100.com/pic/{{p.coverUrl}})"></div>
+	      <div class="productlst-img-box">
+	      	<img width="100%" height="100%" src="http://www.meio100.com/qn_pic/{{p.coverUrl}}"  />
+	      </div>
 	      <p class="productlst-p-title">{{p.name}}</p>
-	      <div class="productlst-p-price"><div class="col-6 text-left">美〇价 <span>¥ {{(p.price*discount).toFixed(2)}}</span></div><div class="col-6 text-right">市场价<strike>¥ {{(p.price).toFixed(2)}}</strike></div></div>
+	      <div class="productlst-p-price" ng-if="p.ptId != 1"><div class="col-6 text-left">美〇价 <span>¥ {{(p.price).toFixed(2)}}</span></div><div class="col-6 text-right">市场价<strike>¥ {{(p.marketPrice).toFixed(2)}}</strike></div></div>
+	      <div class="productlst-p-price" ng-if="p.ptId == 1"><div class="col-6 text-left">美〇价 <span>¥ {{(p.price*discount).toFixed(2)}}</span></div><div class="col-6 text-right">市场价<strike>¥ {{(p.marketPrice).toFixed(2)}}</strike></div></div>
 	    </li>
 	  </ul>
 	  </section>
-<!--   </div> -->
   <ion-infinite-scroll on-infinite="loadGoods()" ng-if="goods_load_over"></ion-infinite-scroll>
 </ion-content>
 </ion-view>
